@@ -74,6 +74,8 @@ Every block root is `ab-<block>` (for example `ab-empty` for the `empty-state` b
 
 Class tokens in block HTML are checked against `actual-css/reserved-classes.json`, except for the block's own `ab-` classes. This catches invented framework classes before they reach a preview.
 
+Custom properties get the same treatment. Every `var(--name)` in `block.css` must be declared in that file (block-local, such as `--ab-font-display`), be a public global token from `actual-css/tokens.json`, or be a `publicHooks` entry in `components.json`. Internal hooks and invented tokens (`--shadow-sm` once slipped through) fail the check.
+
 The checks do not prove visual correctness; that is what the browser smoke, accessibility and visual tests are for.
 
 ## 8. Base paths and deployment
@@ -99,7 +101,7 @@ Three blocks need behavior the platform does not provide: Article with Contents 
 - `metadata.json` sets `requiresJs: true` and lists `scripts`, the `actual-css/js/<name>` modules the block needs. `scripts/check.js` verifies that each module is a published export, that every `data-enhance` hook in the HTML is covered, and that blocks without `requiresJs` carry no hook.
 - Only those previews load the runtime, as `dist/assets/actual-css.js`: a copy of the published `dist/actual.full.js` bundle. Every other preview stays script-free, so the no-JS blocks are still tested without JavaScript.
 - The detail page offers both supported loading paths, each copyable: the CDN bundle `<script>` or the per-enhancer `import` lines. Upstream warns against loading both, and the page says so.
-- Components documented outside `components/` (tabs, flyout, menu, scrollspy…) are mapped in `scripts/docs-map.js`, shared by build and check.
+- Components documented outside `components/` (tabs, flyout, menu, scrollspy…) get their page from the `docs` URL in `components.json`, like every other component.
 
 A smoke test pastes the Project Overview fragment into a blank page with only Actual CSS, the block CSS and the published runtime, and switches tabs, to prove the copied source works outside the gallery.
 
@@ -124,7 +126,7 @@ The brand assets are fixed-color vectors, so the display font is not required to
 
 ## 12. Documentation links
 
-Detail pages link each listed component to `https://lekoala.github.io/actual-css/site/<section>/<page>.html`. The package homepage (`/actual-css/`) only redirects to `/site/`, so deep links must include that segment. `scripts/check.js` verifies that every component and doc page named in `metadata.json` exists in the pinned package's `docs/pages/`; it does not make network requests.
+Detail pages link each listed component to the `docs` URL its `components.json` entry gives. Other pages in `metadata.docs` (layout, forms, patterns) are resolved against the package `homepage`, which is the docs site root (`…/actual-css/site/`). `scripts/check.js` verifies that every component docs URL sits under that root and, like every doc page named in `metadata.json`, exists in the pinned package's `docs/pages/`; it does not make network requests.
 
 ## Limitations
 
@@ -139,7 +141,7 @@ These are the real limits of the v0.1 implementation, not hidden TODOs.
 7. **The chart is inline SVG.** It is static and accessible via a text summary, but it is not a charting component and does not respond to the date-range control.
 8. **No global search.** Category filters are implemented; search across blocks is not.
 9. **No package to install.** Consumers copy files. There is no `actual-blocks` npm package, CLI, registry or versioned block API.
-10. **Actual CSS is pre-1.0.** The project pins `0.15.1`. A future Actual CSS minor release may rename classes or hooks; the contract checks and visual tests would need to run against the new version before upgrading.
+10. **Actual CSS is pre-1.0.** The project pins `0.16.0`. A future Actual CSS minor release may rename classes or hooks; the contract checks and visual tests would need to run against the new version before upgrading.
 11. **Fonts are system fonts.** The editorial serif is a system stack, not a bundled webfont. This avoids licensing and network dependencies, but rendering differs across operating systems.
 12. **No dark gallery chrome.** The previews switch theme; the gallery itself stays in the light Ink & Terra scheme. The dark "How it works" band is a deliberate theme island, not a gallery-wide dark mode.
 13. **No visual diff in CI by default.** The tests are runnable locally, but no CI workflow is committed in this starter. A hosted runner would need its own snapshot baseline.

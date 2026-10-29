@@ -1,5 +1,5 @@
 /* Actual Blocks — Hero
-   Scoped to .ab-hero. Requires Actual CSS 0.15.x. */
+   Scoped to .ab-hero. Requires Actual CSS 0.16.x. */
 
 .ab-hero {
   --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
@@ -100,7 +100,6 @@
 }
 
 .ab-hero__proof .avatar-stack {
-  --avatar-stack-overlap: -0.1875rem;
   --avatar-stack-font-size: 0.65rem;
 }
 

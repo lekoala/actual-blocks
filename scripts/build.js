@@ -1,7 +1,6 @@
 import { readFileSync, writeFileSync, mkdirSync, rmSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { componentDocPath } from "./docs-map.js";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const src = join(root, "src");
@@ -15,8 +14,12 @@ const CATEGORIES = [
   { id: "navigation", label: "Navigation", description: "The quiet structure that holds an application together." }
 ];
 
-// The docs site lives under /site/; the package homepage only redirects there.
-const DOCS_BASE = "https://lekoala.github.io/actual-css/site/";
+// The package homepage is the docs site root; components.json gives each
+// component its own page, wherever it lives in the site.
+const DOCS_BASE = pkg.homepage.replace(/\/?$/, "/");
+const COMPONENT_DOCS = Object.fromEntries(
+  JSON.parse(readFileSync(join(root, "node_modules/actual-css/components.json"), "utf8")).map((entry) => [entry.name, entry.docs])
+);
 
 // Catalog order lives next to the blocks so build and check read the same list.
 const ORDER = JSON.parse(readFileSync(join(src, "blocks", "order.json"), "utf8"));
@@ -97,7 +100,7 @@ const componentLinks = (block) =>
   block.components
     .map((name) => {
       const label = COMPONENT_LABELS[name] ?? titleCase(name);
-      const href = `${DOCS_BASE}${componentDocPath(name)}.html`;
+      const href = COMPONENT_DOCS[name];
       return `<li><a href="${href}" rel="noopener">${escapeHtml(label)}</a></li>`;
     })
     .join("\n");
@@ -109,7 +112,7 @@ const primitiveChips = (block) =>
 // only carries the remaining guides (layout, forms, patterns).
 const docsSection = (block) => {
   const links = block.docs
-    .filter((path) => !block.components.some((name) => path === `${componentDocPath(name)}.html`))
+    .filter((path) => !block.components.some((name) => COMPONENT_DOCS[name] === `${DOCS_BASE}${path}`))
     .map((path) => {
       const [section, page] = path.replace(/\.html$/, "").split("/");
       return `<li><a href="${DOCS_BASE}${path}" rel="noopener">${escapeHtml(titleCase(page))} <span>${escapeHtml(titleCase(section))}</span></a></li>`;
@@ -196,6 +199,7 @@ const snippet = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/actua
 
 const indexHtml = render(indexTemplate, {
   VERSION: version,
+  DOCS_HOME: DOCS_BASE,
   BLOCK_COUNT: String(blocks.length),
   BLOCK_COUNT_PADDED: String(blocks.length).padStart(2, "0"),
   CATEGORY_FILTERS: filters(),
@@ -208,6 +212,7 @@ const detailHtml = (block) => {
   const category = categoryById[block.category];
   return render(detailTemplate, {
     VERSION: version,
+    DOCS_HOME: DOCS_BASE,
     TITLE: escapeHtml(block.title),
     ID: escapeHtml(block.id),
     CATEGORY: block.category,

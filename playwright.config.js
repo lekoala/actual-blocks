@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+import { PORT, SUBPATH_PORT } from "./scripts/ports.js";
 
 export default defineConfig({
   testDir: "./tests",
@@ -7,7 +8,7 @@ export default defineConfig({
   fullyParallel: true,
   reporter: [["list"]],
   use: {
-    baseURL: "http://127.0.0.1:4173",
+    baseURL: `http://127.0.0.1:${PORT}`,
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     ...devices["Desktop Chrome"]
@@ -15,13 +16,15 @@ export default defineConfig({
   webServer: [
     {
       command: "bun scripts/serve.js",
-      port: 4173,
+      port: PORT,
+      env: { PORT: String(PORT) },
       reuseExistingServer: true,
       timeout: 30_000
     },
     {
       command: "bun scripts/serve-subpath.js",
-      port: 4174,
+      port: SUBPATH_PORT,
+      env: { SUBPATH_PORT: String(SUBPATH_PORT) },
       reuseExistingServer: true,
       timeout: 30_000
     }

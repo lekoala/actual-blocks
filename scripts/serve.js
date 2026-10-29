@@ -1,9 +1,10 @@
 import { join, normalize, extname } from "node:path";
 import { existsSync, statSync } from "node:fs";
+import { PORT } from "./ports.js";
 
 const root = join(import.meta.dir, "..");
 const dist = join(root, "dist");
-const port = Number(process.env.PORT ?? 4173);
+const port = Number(process.env.PORT ?? PORT);
 
 const types = {
   ".html": "text/html; charset=utf-8",

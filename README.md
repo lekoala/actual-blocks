@@ -61,7 +61,7 @@ The header follows the Actual CSS docs pattern: the mark plus a plain text name,
 bun install
 bun run build      # generate dist/ from src/
 bun run check      # metadata, class, scoping, source/preview and output checks
-bun run dev        # build, then serve dist/ at http://127.0.0.1:4173
+bun run dev        # build, then serve dist/ at http://127.0.0.1:4782
 bun run test       # build + check + smoke + accessibility + visual tests
 ```
 
@@ -84,7 +84,7 @@ bunx playwright test tests/visual.spec.js --update-snapshots
 A block is a semantic HTML fragment plus an optional, scoped stylesheet. For example, the Hero:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/actual-css@0.15.1/dist/actual.full.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/actual-css@0.16.0/dist/actual.full.min.css" />
 <link rel="stylesheet" href="hero.css" />
 
 <!-- paste the contents of src/blocks/hero/block.html here -->
@@ -103,7 +103,7 @@ Or, in a bundled app:
 Blocks marked **(JS)** also need Actual CSS's own runtime, once per page:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/actual-css@0.15.1/dist/actual.full.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/actual-css@0.16.0/dist/actual.full.js" defer></script>
 ```
 
 or, in a bundled app, only the enhancers they use (`import "actual-css/js/tab";`). Use one or the other, never both.
@@ -139,7 +139,6 @@ src/
 scripts/
   build.js             static generator
   check.js             source and output contract checks
-  docs-map.js          docs paths for components documented outside components/
   serve.js             local static server
   serve-subpath.js     subpath deployment check
 tests/

@@ -1,5 +1,5 @@
 /* Actual Blocks — App Topbar
-   Scoped to .ab-topbar. Requires Actual CSS 0.15.x and its flyout enhancer. */
+   Scoped to .ab-topbar. Requires Actual CSS 0.16.x and its flyout enhancer. */
 
 .ab-topbar {
   --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;

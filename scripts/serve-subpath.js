@@ -1,10 +1,11 @@
 import { join, normalize, extname } from "node:path";
 import { existsSync, statSync } from "node:fs";
+import { SUBPATH_PORT } from "./ports.js";
 
 const root = join(import.meta.dir, "..");
 const dist = join(root, "dist");
 const prefix = "/actual-blocks";
-const port = Number(process.env.SUBPATH_PORT ?? 4174);
+const port = Number(process.env.SUBPATH_PORT ?? SUBPATH_PORT);
 
 const types = {
   ".html": "text/html; charset=utf-8",

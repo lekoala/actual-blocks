@@ -1,8 +1,10 @@
 import { test, expect } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { PORT, SUBPATH_PORT } from "../scripts/ports.js";
 
 const root = process.cwd();
+const origin = `http://127.0.0.1:${PORT}`;
 
 const BLOCKS = [
   { id: "hero", title: "Product Hero", root: ".ab-hero" },
@@ -235,9 +237,9 @@ test("copied JS block works standalone with the published runtime", async ({ pag
     <html lang="en">
       <head>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="http://127.0.0.1:4173/assets/actual-css.css" />
-        <link rel="stylesheet" href="http://127.0.0.1:4173/assets/blocks/project.css" />
-        <script src="http://127.0.0.1:4173/assets/actual-css.js" defer></script>
+        <link rel="stylesheet" href="${origin}/assets/actual-css.css" />
+        <link rel="stylesheet" href="${origin}/assets/blocks/project.css" />
+        <script src="${origin}/assets/actual-css.js" defer></script>
       </head>
       <body>${canonical("project", "block.html")}</body>
     </html>`,
@@ -258,8 +260,8 @@ test("copied block renders standalone without gallery CSS", async ({ page }) => 
       <html lang="en">
         <head>
           <meta charset="utf-8" />
-          <link rel="stylesheet" href="http://127.0.0.1:4173/assets/actual-css.css" />
-          <link rel="stylesheet" href="http://127.0.0.1:4173/assets/blocks/${block.id}.css" />
+          <link rel="stylesheet" href="${origin}/assets/actual-css.css" />
+          <link rel="stylesheet" href="${origin}/assets/blocks/${block.id}.css" />
         </head>
         <body>${canonical(block.id, "block.html")}</body>
       </html>`,
@@ -280,7 +282,7 @@ test("copied block renders standalone without gallery CSS", async ({ page }) => 
 });
 
 test("static build works under a subpath", async ({ page }) => {
-  await page.goto("http://127.0.0.1:4174/actual-blocks/");
+  await page.goto(`http://127.0.0.1:${SUBPATH_PORT}/actual-blocks/`);
 
   await expect(page.locator(".g-card")).toHaveCount(BLOCKS.length);
   await expect(page.locator(".g-brand__mark")).toBeVisible();

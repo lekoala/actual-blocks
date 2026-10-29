@@ -111,3 +111,18 @@ Running 61 tests using 8 workers
 ```
 
 New coverage: keyboard tab switching, scrollspy following the scroll position, flyouts opening one at a time and closing on Escape, the copied Project Overview fragment working in a blank page with only Actual CSS, its block CSS and the published runtime, and Axe on an open flyout panel. Browser checks found no console errors or warnings from the runtime. Output: 68 files, about 1 MB on disk (the runtime bundle adds 63 KB).
+
+## Actual CSS 0.16.0 upgrade verification
+
+Same 19 blocks, pinned to `actual-css` 0.16.0. Component docs links now come from `components.json`, `scripts/check.js` validates every `var()` in block CSS against `tokens.json` and public component hooks, Plan Change uses `.field-group.flush`, and the hero and sidebar avatar stacks use the new default overlap. The local servers moved to ports 4782/4783. Same environment.
+
+```text
+$ bun run test
+Built 19 blocks with Actual CSS 0.16.0 into dist/
+- 19 block sources passed metadata, class, scoping and fragment checks
+- 39 generated HTML files resolve their local references
+Running 61 tests using 8 workers
+61 passed
+```
+
+The hero (light, dark) and sidebar (mobile) baselines were regenerated after review: only the avatar stacks and the text beside them move, by about half a pixel. Every generated docs link is the same as with the former local docs map. Output: 68 files, about 1.1 MB on disk.

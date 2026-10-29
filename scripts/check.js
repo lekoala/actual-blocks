@@ -1,7 +1,6 @@
 import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
 import { join, dirname, resolve, extname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { componentDocPath } from "./docs-map.js";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const src = join(root, "src");
@@ -39,6 +38,14 @@ const actualPkg = JSON.parse(readFileSync(join(root, "node_modules/actual-css/pa
 const reserved = new Set(JSON.parse(readFileSync(join(root, "node_modules/actual-css/reserved-classes.json"), "utf8")));
 const catalog = JSON.parse(readFileSync(join(root, "node_modules/actual-css/components.json"), "utf8"));
 const componentNames = new Set(catalog.map((entry) => entry.name));
+const componentDocs = Object.fromEntries(catalog.map((entry) => [entry.name, entry.docs]));
+const docsBase = actualPkg.homepage.replace(/\/?$/, "/");
+// Custom properties a block may read from Actual CSS: the public global tokens
+// and each component's public hooks. Internal hooks are not a contract.
+const publicProperties = new Set([
+  ...JSON.parse(readFileSync(join(root, "node_modules/actual-css/tokens.json"), "utf8")).global,
+  ...catalog.flatMap((entry) => entry.publicHooks ?? [])
+]);
 const jsModules = new Set(
   Object.keys(actualPkg.exports ?? {})
     .filter((key) => key.startsWith("./js/"))
@@ -91,8 +98,11 @@ for (const id of blockDirs) {
 
   for (const component of metadata.components ?? []) {
     if (!componentNames.has(component)) fail(`${id}: unknown Actual CSS component "${component}"`);
-    // The gallery links each component to its docs page, so the page must exist.
-    if (!existsSync(join(root, "node_modules/actual-css/docs/pages", `${componentDocPath(component)}.md`))) {
+    // The gallery links each component to its catalog docs URL, so that page must exist.
+    const docs = componentDocs[component];
+    if (!docs?.startsWith(docsBase)) {
+      fail(`${id}: component "${component}" has no docs URL under ${docsBase} in components.json`);
+    } else if (!existsSync(join(root, "node_modules/actual-css/docs/pages", docs.slice(docsBase.length).replace(/\.html$/, ".md")))) {
       fail(`${id}: component "${component}" has no documentation page in the pinned package`);
     }
   }
@@ -152,6 +162,15 @@ for (const id of blockDirs) {
   if (/@import\b/.test(css)) fail(`${id}: block.css must not import other stylesheets`);
   if (/url\s*\(/i.test(css)) fail(`${id}: block.css must not reference external assets`);
   if (/\.g-[a-z]/.test(css)) fail(`${id}: gallery selectors leaked into block.css`);
+
+  // Every var() must be declared by the block itself or be public in Actual CSS.
+  const cssCode = css.replace(/\/\*[\s\S]*?\*\//g, "");
+  const ownProperties = new Set([...cssCode.matchAll(/(--[\w-]+)\s*:/g)].map((match) => match[1]));
+  for (const name of new Set([...cssCode.matchAll(/var\(\s*(--[\w-]+)/g)].map((match) => match[1]))) {
+    if (!ownProperties.has(name) && !publicProperties.has(name)) {
+      fail(`${id}: var(${name}) is neither declared in block.css nor a public Actual CSS token or hook`);
+    }
+  }
 
   const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
   const duplicateIds = ids.filter((value, index) => ids.indexOf(value) !== index);

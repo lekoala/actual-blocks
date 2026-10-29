@@ -1,5 +1,5 @@
 /* Actual Blocks — App Sidebar
-   Scoped to .ab-sidebar. Requires Actual CSS 0.15.x. */
+   Scoped to .ab-sidebar. Requires Actual CSS 0.16.x. */
 
 .ab-sidebar {
   --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
@@ -270,7 +270,6 @@
 }
 
 .ab-sidebar__project .avatar-stack {
-  --avatar-stack-overlap: -0.1875rem;
   --avatar-stack-font-size: 0.65rem;
 }
 
