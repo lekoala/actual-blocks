@@ -1,75 +1,46 @@
 # Actual Blocks — roadmap
 
-> Status: **v0.1 implemented and verified.** The checkboxes below record the delivered scope. See `docs/acceptance.md` for the verification evidence and `docs/decisions.md` for the real limitations.
+> Status: **first release ready.** Nineteen blocks on `actual-css` 0.16.0. `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
 
-## Phase 1 — Foundation (first review gate)
+## Delivered
 
-Objective: prove the end-to-end consumer experience with **one complete Hero**.
+- **Foundation:** static Bun build, canonical source per block, isolated iframe previews, desktop/mobile and light/dark controls applied inside the preview, copy HTML/CSS, dependency and limitation notes, subpath-safe output.
+- **Initial catalog (brief v0.1):** Hero, Feature Grid, Three-tier Pricing, Dashboard, Account Settings, Data Listing, Empty State, App Sidebar.
+- **Marketing sections:** Testimonials, FAQ, Call to Action, Site Header, Site Footer.
+- **Application flows:** Plan Change, Code Verification, Order Tracking.
+- **Blocks on Actual CSS's published runtime** (`requiresJs` + `scripts`): Article with Contents (`scrollspy`), Project Overview (`tab`), App Topbar (`flyout`).
+- **Contract checks:** reserved classes, scoped selectors, published enhancer modules, docs pages, and every `var()` against public tokens and hooks.
+- **Actual CSS 0.16 upgrade:** docs links from `components.json`, `.field-group.flush`, the new avatar stack overlap.
 
-- [x] Inspect Actual CSS published package, docs, classes, themes and JS enhancements.
-- [x] Select lightweight static build and pin `actual-css`.
-- [x] Implement minimal gallery navigation and dedicated block detail page.
-- [x] Define a small canonical block source/metadata contract.
-- [x] Implement isolated responsive preview (desktop/mobile).
-- [x] Implement light/dark switching **inside the preview**.
-- [x] Implement visible source and copy HTML; copy CSS if needed.
-- [x] Build a visually polished, semantic, responsive Hero.
-- [x] Verify Hero copied outside the gallery still renders as expected.
-- [x] Smoke-test preview, theme, viewport and copy flow.
-- [x] Document architectural decisions and limitations.
+Block types were chosen from a survey of common template catalogs. Only the *types* were retained; every block is written from scratch with Actual CSS and fictional content, and no third-party markup, styles, copy or assets are reused.
 
-**Stop/review gate:** before scaling content, verify true source fidelity and independent rendering. Do not batch-produce seven blocks while these foundations are unresolved.
+## Release
 
-## Phase 2 — Full initial catalog
+1. Create the public repository.
+2. CI: `bun run test` on every push. Visual baselines are Windows-only today; CI needs its own Linux set or runs the visual spec locally only.
+3. Deploy `dist/` to GitHub Pages under the repository subpath (the subpath test already covers relative links).
 
-- [x] Feature grid.
-- [x] Three-tier pricing.
-- [x] Dashboard overview.
-- [x] Account settings.
-- [x] Data listing.
-- [x] Empty state.
-- [x] Application sidebar, including a working mobile strategy.
-- [x] Add categories, visual thumbnails and details for all blocks.
-- [x] Check each block's source/preview parity, themes, responsive layouts and dependencies.
+## Next blocks
 
-## Phase 3 — Polish / release readiness
+Ordered by value for consumers. All built from scratch; a block is a consumer composition, not a component demo, and no dozens of variants.
 
-- [x] Design pass: content realism, typography, spacing, consistency and visual quality.
-- [x] Keyboard and focus checks for representative controls.
-- [x] Automated accessibility checks where practical.
-- [x] Responsive checks including a narrow mobile viewport for all blocks.
-- [x] Focused browser smoke tests; a small visual screenshot baseline (Hero, Dashboard, Settings, Sidebar).
-- [x] README, contribution guide and block docs finalized.
-- [x] Validate static production build under a subpath.
-- [x] Inspect generated output, complete diff and asset/dependency licensing.
-- [x] Prepare v0.1 summary including checks run and outstanding limits.
+1. **Sign-in / sign-up page.** The most visible gap for an application catalog.
+2. **Contact form on the validation enhancer.** `actual-css/js/validation`, `.field-error`, `aria-invalid`: the one runtime family not covered yet.
+3. **Stats band.** Key figures for a marketing page.
+4. **Team directory.** `avatar`, `card`, roles and contact links.
+5. **Blog index.** The list page next to Article with Contents.
 
-## v0.2 — Wider catalog (in progress)
+Later, as one dedicated batch rather than piecemeal: commerce (product card, product detail, cart, checkout, reviews). Out of scope: carousel (needs custom JS), image gallery (blocks ship no external assets), a standalone banner or data table (covered by Site Header and Data Listing).
 
-Block types were chosen from a survey of common site-template catalogs. Only the *types* were retained; every block is written from scratch with Actual CSS and fictional content, and no third-party markup, styles, copy or assets are reused.
+## Quality backlog
 
-Batch 1 — marketing site sections, no JavaScript:
+- **Visual baselines for newer blocks.** Nothing added after the initial eight has one. Start with Plan Change desktop, Order Tracking mobile and the topbar notifications panel open.
+- **Average rating in Testimonials**, only if it carries meaning: "4.8 from 312 reviews" with `.rating[role="img"]`, never decorative stars on individual quotes.
+- **Site Header thumbnail.** The card thumbnail is almost empty because the block is a thin bar. Decide a per-block crop or height before adding other thin blocks.
+- **Upstream compatibility job.** A scheduled build, check and test run against the latest `actual-css` release, so each release gets an independent consumer test.
 
-- [x] Testimonials (featured quote with outcomes, three supporting quotes).
-- [x] FAQ (native exclusive accordion).
-- [x] Call to action (dark theme-island panel).
-- [x] Site header (navbar, announcement line, native mobile drawer).
-- [x] Site footer (newsletter field, link groups, status line).
+## Feeding friction back upstream
 
-Batch 2 — application flows, no JavaScript:
+Keep a running list while building (wrong guesses, missing hooks, surprising defaults) and send it after each batch, sorted as framework fix, documentation, or consumer misuse to fix here. Open from the 0.16 upgrade:
 
-- [x] Plan change / billing (`forms/choice-cards`, `data-list`).
-- [x] One-time-code verification (`forms/otp`).
-- [x] Order tracking (`steps` / `timeline` / `data-list`).
-
-Batch 3 — blocks on Actual CSS's published runtime (`requiresJs` + `scripts`):
-
-- [x] Article with contents (`scrollspy`).
-- [x] Project overview with tabs (`tab`).
-- [x] App topbar with menus and a notifications panel (`flyout`).
-
-Not done: a marketing mega-menu (it would mostly duplicate the Site Header), tooltips and form validation enhancers.
-
-## After v0.1 (not required)
-
-More block variants; extra reference theme previews where supported; simple playground; application page templates; richer filtering/search; automation to check compatibility against newer Actual CSS versions. Avoid committing to these early.
+- `.field-group.flush > legend` is `--font-size-xs` while `.field-label` uses `--control-font-size`, so a flush group beside a plain field reads unevenly. Plan Change matches them locally.

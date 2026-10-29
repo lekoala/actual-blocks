@@ -1,5 +1,7 @@
 # Actual Blocks — v0.1 product brief
 
+> The original brief, kept as written. It asked for eight blocks; what shipped and what comes next are in [`roadmap.md`](roadmap.md).
+
 ## Vision
 
 Create **Actual Blocks**, a separate open-source gallery of polished, copy-paste interface compositions powered by [Actual CSS](https://github.com/lekoala/actual-css).

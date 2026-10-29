@@ -136,7 +136,7 @@ These are the real limits of the v0.1 implementation, not hidden TODOs.
 2. **Runtime-dependent blocks degrade.** Without JavaScript, the article contents stay plain anchor links, the project page shows only its Overview panel and the topbar menus stay closed. Each block's notes say so. Tooltips and validation enhancers are not used yet.
 3. **Native command support varies.** `command` / `commandfor` is modern. Older browsers may show the menu button but not open the drawer. The block is documented as such; adding a JavaScript fallback would change the block's dependency story.
 4. **Two themes only.** Light and dark are exposed. Actual CSS reference presets are demo assets, not public package entrypoints, so no Neo Brutalist or Admin Neutral preview is offered.
-5. **Thumbnails are live iframes.** They are accurate but cost more than static screenshots. Thirteen lazy iframes is acceptable for this catalog; a much larger catalog would need generated thumbnails.
+5. **Thumbnails are live iframes.** They are accurate but cost more than static screenshots. Nineteen lazy iframes is acceptable for this catalog; a much larger catalog would need generated thumbnails.
 6. **Visual baselines are platform-specific.** The Playwright snapshots were generated on Windows/Chromium. Another OS may need its own baseline.
 7. **The chart is inline SVG.** It is static and accessible via a text summary, but it is not a charting component and does not respond to the date-range control.
 8. **No global search.** Category filters are implemented; search across blocks is not.
