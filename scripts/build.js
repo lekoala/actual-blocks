@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync, mkdirSync, rmSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { componentDocPath } from "./docs-map.js";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const src = join(root, "src");
@@ -96,7 +97,7 @@ const componentLinks = (block) =>
   block.components
     .map((name) => {
       const label = COMPONENT_LABELS[name] ?? titleCase(name);
-      const href = `${DOCS_BASE}components/${name}.html`;
+      const href = `${DOCS_BASE}${componentDocPath(name)}.html`;
       return `<li><a href="${href}" rel="noopener">${escapeHtml(label)}</a></li>`;
     })
     .join("\n");
@@ -108,7 +109,7 @@ const primitiveChips = (block) =>
 // only carries the remaining guides (layout, forms, patterns).
 const docsSection = (block) => {
   const links = block.docs
-    .filter((path) => !block.components.some((name) => path === `components/${name}.html`))
+    .filter((path) => !block.components.some((name) => path === `${componentDocPath(name)}.html`))
     .map((path) => {
       const [section, page] = path.replace(/\.html$/, "").split("/");
       return `<li><a href="${DOCS_BASE}${path}" rel="noopener">${escapeHtml(titleCase(page))} <span>${escapeHtml(titleCase(section))}</span></a></li>`;
@@ -118,6 +119,27 @@ const docsSection = (block) => {
   return links
     ? `<p class="g-aside__label">Further reading</p>\n          <ul class="g-docs">\n            ${links}\n          </ul>`
     : "";
+};
+
+// Blocks never ship their own script. A block that needs behavior names the
+// Actual CSS enhancer modules it relies on; the page offers the published
+// bundle or those modules, never both (the runtime would register twice).
+const jsSection = (block) => {
+  if (!block.requiresJs) return "";
+  const bundle = `<script src="https://cdn.jsdelivr.net/npm/actual-css@${version}/dist/actual.full.js" defer></script>`;
+  const modules = block.scripts.map((name) => `import "actual-css/js/${name}";`).join("\n");
+  return `<p class="g-aside__label">JavaScript</p>
+          <p>Needs the Actual CSS runtime (${block.scripts.map((name) => `<code>${escapeHtml(name)}</code>`).join(", ")}). Load the full bundle once per page:</p>
+          <div class="g-import">
+            <code id="g-js-bundle">${escapeHtml(bundle)}</code>
+            <button class="g-copy g-copy--small" type="button" data-copy-target="g-js-bundle">Copy</button>
+          </div>
+          <p class="g-aside__note">Or, with a bundler, import only the enhancers it uses:</p>
+          <div class="g-import">
+            <code id="g-js-modules">${escapeHtml(modules)}</code>
+            <button class="g-copy g-copy--small" type="button" data-copy-target="g-js-modules">Copy</button>
+          </div>
+          <p class="g-aside__note">Use one or the other: loading both registers every behavior twice.</p>`;
 };
 
 const notes = (block) => block.notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("\n");
@@ -142,7 +164,7 @@ const card = (block) => {
       <iframe class="g-card__frame" src="previews/${block.id}.html?embed=1" title="${escapeHtml(block.title)} preview" loading="lazy" tabindex="-1" aria-hidden="true" inert></iframe>
     </span>
     <span class="g-card__body">
-      <span class="g-card__meta"><span><span aria-hidden="true">${String(block.index + 1).padStart(2, "0")} · </span>${escapeHtml(category.label)}</span><span>${block.requiresJs ? "Vanilla JS" : "No JS"}</span></span>
+      <span class="g-card__meta"><span><span aria-hidden="true">${String(block.index + 1).padStart(2, "0")} · </span>${escapeHtml(category.label)}</span><span>${block.requiresJs ? "Actual JS" : "No JS"}</span></span>
       <span class="g-card__title">${escapeHtml(block.title)}</span>
       <span class="g-card__description">${escapeHtml(block.description)}</span>
       <span class="g-card__cta">View block <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
@@ -193,7 +215,8 @@ const detailHtml = (block) => {
     DESCRIPTION: escapeHtml(block.description),
     SUMMARY: escapeHtml(block.summary),
     PREVIEW_HEIGHT: escapeHtml(block.previewHeight),
-    REQUIRES_JS: block.requiresJs ? "Included inline" : "None",
+    REQUIRES_JS: block.requiresJs ? "Actual CSS runtime" : "None",
+    JS_SECTION: jsSection(block),
     SOURCE_HTML: escapeHtml(block.html),
     SOURCE_CSS: escapeHtml(block.css),
     COMPONENT_LINKS: componentLinks(block),
@@ -225,7 +248,7 @@ const previewHtml = (block) => `<!doctype html>
     })();
   </script>
   <link rel="stylesheet" href="../assets/actual-css.css" />
-  <link rel="stylesheet" href="../assets/blocks/${block.id}.css" />
+  <link rel="stylesheet" href="../assets/blocks/${block.id}.css" />${block.requiresJs ? '\n  <script src="../assets/actual-css.js" defer></script>' : ""}
   <style>
     html,
     body {
@@ -265,6 +288,12 @@ writeFileSync(
   `/*! Actual CSS ${version} | MIT | https://github.com/lekoala/actual-css */\n${actualCss}`
 );
 copyFileSync(join(root, "node_modules/actual-css/LICENSE"), join(dist, "assets", "actual-css.LICENSE.txt"));
+// The published runtime bundle, loaded only by previews of blocks that need it.
+const actualJs = readFileSync(join(root, "node_modules/actual-css/dist/actual.full.js"), "utf8");
+writeFileSync(
+  join(dist, "assets", "actual-css.js"),
+  `/*! Actual CSS ${version} runtime | MIT | https://github.com/lekoala/actual-css */\n${actualJs}`
+);
 copyFileSync(join(src, "gallery", "gallery.css"), join(dist, "assets", "gallery.css"));
 copyFileSync(join(src, "gallery", "gallery.js"), join(dist, "assets", "gallery.js"));
 copyFileSync(join(src, "gallery", "actual-blocks-icon.svg"), join(dist, "assets", "actual-blocks-icon.svg"));

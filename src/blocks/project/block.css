@@ -1,0 +1,163 @@
+/* Actual Blocks — Project Overview
+   Scoped to .ab-project. Requires Actual CSS 0.15.x and its tabs enhancer. */
+
+.ab-project {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  --center-size: 68rem;
+  --center-pad: var(--space-40);
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.ab-project__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-30);
+  margin-block-end: var(--space-50);
+}
+
+.ab-project__header .breadcrumb {
+  margin-block-end: var(--space-20);
+  font-size: var(--font-size-sm);
+}
+
+.ab-project__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-20) var(--space-30);
+}
+
+.ab-project__title h1 {
+  margin: 0;
+  font-family: var(--ab-font-display);
+  font-size: clamp(2rem, 4vw, 2.85rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.ab-project__actions {
+  --gap: var(--space-20);
+}
+
+.ab-project__tabs .badge {
+  margin-inline-start: var(--space-10);
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-project__panel {
+  padding-block: var(--space-50) 0;
+}
+
+.ab-project__panel:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus);
+  outline-offset: var(--space-20);
+  border-radius: var(--radius);
+}
+
+.ab-project h2 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.015em;
+}
+
+/* Overview */
+
+.ab-project__overview {
+  display: grid;
+  gap: var(--space-50);
+}
+
+.ab-project__brief {
+  --gap: var(--space-30);
+  max-inline-size: 40rem;
+}
+
+.ab-project__brief p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.ab-project__progress {
+  display: grid;
+  gap: var(--space-10);
+  margin-block-start: var(--space-20);
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-project__progress .cluster {
+  --cluster-justify: space-between;
+}
+
+.ab-project__progress .progress {
+  --bar-height: 0.5rem;
+}
+
+.ab-project__facts {
+  align-self: start;
+  padding: var(--space-40);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-subtle);
+  font-size: var(--font-size-sm);
+}
+
+/* Tasks and files */
+
+.ab-project__tasks,
+.ab-project__files {
+  --list-item-pad-block: var(--space-30);
+  --list-item-gap: var(--space-30);
+  --list-item-min-size: 0;
+  max-inline-size: 48rem;
+}
+
+.ab-project__tasks .list-item-title,
+.ab-project__files .list-item-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.ab-project__tasks .list-item-text,
+.ab-project__files .list-item-text {
+  margin-block-start: var(--space-10);
+  font-size: var(--font-size-xs);
+}
+
+.ab-project__files time {
+  font-size: var(--font-size-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-project__timeline {
+  max-inline-size: 40rem;
+  font-size: var(--font-size-sm);
+}
+
+.ab-project__timeline time {
+  font-size: var(--font-size-xs);
+}
+
+@media (width >= 56rem) {
+  .ab-project__overview {
+    grid-template-columns: minmax(0, 1fr) 20rem;
+  }
+}
+
+@media (width < 48rem) {
+  .ab-project {
+    --center-pad: var(--space-30);
+  }
+
+  .ab-project__header {
+    align-items: flex-start;
+  }
+}

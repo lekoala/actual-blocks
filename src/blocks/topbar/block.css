@@ -1,0 +1,156 @@
+/* Actual Blocks — App Topbar
+   Scoped to .ab-topbar. Requires Actual CSS 0.15.x and its flyout enhancer. */
+
+.ab-topbar {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  border-block-end: var(--border-width) solid var(--border);
+  background: var(--surface-raised);
+  color: var(--text);
+}
+
+.ab-topbar__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-30);
+  min-block-size: 3.5rem;
+  padding: var(--space-20) clamp(var(--space-30), 3vw, var(--space-50));
+}
+
+.ab-topbar__brand {
+  display: inline-flex;
+  flex: none;
+  border-radius: var(--radius);
+}
+
+.ab-topbar__mark {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--primary-fg);
+  font-family: var(--ab-font-display);
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+}
+
+.ab-topbar__workspace {
+  gap: var(--space-20);
+  max-inline-size: 15rem;
+}
+
+.ab-topbar__workspace-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ab-topbar__search {
+  flex: 0 1 24rem;
+  min-inline-size: 0;
+  margin-inline-start: auto;
+}
+
+.ab-topbar__actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-10);
+}
+
+.ab-topbar__menu {
+  --flyout-inline-size: 15rem;
+}
+
+.ab-topbar__menu kbd {
+  font-size: var(--font-size-xs);
+}
+
+.ab-topbar__bell {
+  position: relative;
+}
+
+.ab-topbar__unread {
+  position: absolute;
+  inset-block-start: 0.45rem;
+  inset-inline-end: 0.45rem;
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--danger);
+  box-shadow: 0 0 0 2px var(--surface-raised);
+}
+
+/* Notifications panel */
+
+.ab-topbar__panel {
+  --flyout-inline-size: 22rem;
+  display: grid;
+  gap: var(--space-30);
+  padding: var(--space-40);
+}
+
+.ab-topbar__panel header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-20);
+}
+
+.ab-topbar__panel h2 {
+  margin: 0;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ab-topbar__notifications {
+  --list-item-pad-block: var(--space-20);
+  --list-item-gap: var(--space-20);
+  --list-item-min-size: 0;
+}
+
+.ab-topbar__notifications .list-item-title {
+  color: var(--text);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}
+
+.ab-topbar__notifications .list-item-title:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.ab-topbar__notifications .list-item-text {
+  margin-block-start: var(--space-10);
+  font-size: var(--font-size-xs);
+}
+
+.ab-topbar__panel footer .btn {
+  inline-size: 100%;
+  justify-content: center;
+}
+
+@media (width < 48rem) {
+  .ab-topbar__search {
+    display: none;
+  }
+
+  .ab-topbar__workspace {
+    margin-inline-end: auto;
+  }
+}
+
+@media (width < 30rem) {
+  .ab-topbar__workspace-name,
+  .ab-topbar__create-label {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

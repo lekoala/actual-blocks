@@ -83,9 +83,16 @@ The `bun run check` script enforces the root scope and the class manifest. It is
 
 ### JavaScript
 
-Prefer native HTML and Actual CSS progressive enhancement. A block should need no JavaScript unless the interaction genuinely requires it. If it does, include the behavior in the canonical source, document it in `metadata.json` and make the dependency explicit on the detail page.
+Prefer native HTML first (`<details name>`, `<dialog>` with `command` / `commandfor`). When a block genuinely needs behavior, use an Actual CSS enhancer through its documented `data-enhance` hook. Never add a `<script>` or custom JavaScript to a block.
 
-The v0.1 blocks ship with no JavaScript. The sidebar drawer uses native `command` / `commandfor`.
+For such a block, set in `metadata.json`:
+
+```json
+"requiresJs": true,
+"scripts": ["tab"]
+```
+
+`scripts` lists `actual-css/js/<name>` modules. `bun run check` fails if a module is not published, if a `data-enhance` hook is not covered, or if a block without `requiresJs` contains a hook. Add a note saying what the block looks like without JavaScript, and a smoke test for the behavior.
 
 ## Validate
 

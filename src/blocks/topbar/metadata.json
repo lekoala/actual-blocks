@@ -1,0 +1,18 @@
+{
+  "id": "topbar",
+  "title": "App Topbar",
+  "category": "navigation",
+  "description": "An application top bar with a workspace switcher, global search, a create menu, a notifications panel and an account menu.",
+  "summary": "Four anchored flyouts: two action menus, a switcher and a rich panel.",
+  "components": ["flyout", "menu", "avatar", "badge", "button", "list"],
+  "primitives": ["input-icon", "flyout-trigger"],
+  "requiresJs": true,
+  "scripts": ["flyout"],
+  "previewHeight": "28rem",
+  "docs": ["enhancements/flyout.html", "patterns/icon-input.html", "components/avatar.html", "components/list.html"],
+  "notes": [
+    "The flyout enhancer opens one panel at a time, positions it, closes it on outside click or Escape and moves focus with the arrow keys inside .menu lists. Without JavaScript the panels stay hidden and only the links outside them work.",
+    "The notifications panel uses data-flyout-auto-close=\"outside\" so its links and button can be used without the panel closing first. Unread state, counts and the bell dot must come from your application.",
+    "Keyboard shortcuts shown in the create menu are labels only; bind them in your application. Below 30rem the workspace name and the New label are visually hidden but stay in the accessible name."
+  ]
+}

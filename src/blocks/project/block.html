@@ -1,0 +1,149 @@
+<section class="ab-project" aria-labelledby="ab-project-title">
+  <div class="center">
+    <header class="ab-project__header">
+      <div class="stack gap-none">
+        <nav aria-label="Breadcrumb">
+          <ol class="breadcrumb">
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#client-harbor">Harbor &amp; Co</a></li>
+            <li aria-current="page">Harbor rebrand</li>
+          </ol>
+        </nav>
+        <div class="ab-project__title">
+          <h1 id="ab-project-title">Harbor rebrand</h1>
+          <span class="badge secondary soft">In review</span>
+        </div>
+      </div>
+      <div class="cluster ab-project__actions">
+        <a class="btn outline sm" href="#share">Share with client</a>
+        <a class="btn primary sm" href="#new-task">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          New task
+        </a>
+      </div>
+    </header>
+
+    <div class="tabs ab-project__tabs" role="tablist" aria-label="Project sections" data-enhance="tabs">
+      <button class="tab primary" id="ab-project-tab-overview" type="button" role="tab" aria-selected="true" aria-controls="ab-project-overview">Overview</button>
+      <button class="tab primary" id="ab-project-tab-tasks" type="button" role="tab" aria-selected="false" aria-controls="ab-project-tasks" tabindex="-1">Tasks <span class="badge sm">5</span></button>
+      <button class="tab primary" id="ab-project-tab-files" type="button" role="tab" aria-selected="false" aria-controls="ab-project-files" tabindex="-1">Files <span class="badge sm">3</span></button>
+      <button class="tab primary" id="ab-project-tab-activity" type="button" role="tab" aria-selected="false" aria-controls="ab-project-activity" tabindex="-1">Activity</button>
+    </div>
+
+    <section class="ab-project__panel" id="ab-project-overview" role="tabpanel" aria-labelledby="ab-project-tab-overview" tabindex="-1">
+      <div class="ab-project__overview">
+        <div class="stack ab-project__brief">
+          <h2>Brief</h2>
+          <p>Harbor &amp; Co is moving from a regional ferry operator to a year-round travel brand. The new identity has to work on hull livery, tickets and a mobile app, and stay legible in salt spray and bright sun.</p>
+          <div class="ab-project__progress">
+            <div class="cluster">
+              <span class="muted">Overall progress</span>
+              <strong>68%</strong>
+            </div>
+            <progress class="progress" value="68" max="100">68%</progress>
+          </div>
+        </div>
+
+        <dl class="data-list ab-project__facts">
+          <dt>Client</dt>
+          <dd>Harbor &amp; Co</dd>
+          <dt>Lead</dt>
+          <dd>Maya Chen</dd>
+          <dt>Budget</dt>
+          <dd>$38,000 · 61% used</dd>
+          <dt>Due</dt>
+          <dd><time datetime="2026-10-30">Friday 30 October</time></dd>
+        </dl>
+      </div>
+    </section>
+
+    <section class="ab-project__panel" id="ab-project-tasks" role="tabpanel" aria-labelledby="ab-project-tab-tasks" tabindex="-1" hidden>
+      <h2 class="sr-only">Tasks</h2>
+      <ul class="list ab-project__tasks">
+        <li class="list-item">
+          <span class="list-item-content">
+            <strong class="list-item-title">Final route presentation</strong>
+            <span class="list-item-text">Maya Chen · due Friday</span>
+          </span>
+          <span class="badge secondary soft sm">In review</span>
+        </li>
+        <li class="list-item">
+          <span class="list-item-content">
+            <strong class="list-item-title">Hull livery mock-ups</strong>
+            <span class="list-item-text">Jonas Reed · due Thursday</span>
+          </span>
+          <span class="badge warning soft sm">Blocked</span>
+        </li>
+        <li class="list-item">
+          <span class="list-item-content">
+            <strong class="list-item-title">App icon set</strong>
+            <span class="list-item-text">Priya Shah · due 3 Nov</span>
+          </span>
+          <span class="badge sm">To do</span>
+        </li>
+        <li class="list-item">
+          <span class="list-item-content">
+            <strong class="list-item-title">Ticket typography test</strong>
+            <span class="list-item-text">Jonas Reed · done 27 Oct</span>
+          </span>
+          <span class="badge success soft sm">Done</span>
+        </li>
+        <li class="list-item">
+          <span class="list-item-content">
+            <strong class="list-item-title">Colour test on uncoated stock</strong>
+            <span class="list-item-text">Priya Shah · done 24 Oct</span>
+          </span>
+          <span class="badge success soft sm">Done</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="ab-project__panel" id="ab-project-files" role="tabpanel" aria-labelledby="ab-project-tab-files" tabindex="-1" hidden>
+      <h2 class="sr-only">Files</h2>
+      <ul class="list ab-project__files">
+        <li class="list-item">
+          <span class="list-item-content">
+            <a class="list-item-title" href="#file-routes">Harbor routes v3.pdf</a>
+            <span class="list-item-text">12.4 MB · uploaded by Maya Chen</span>
+          </span>
+          <time class="muted" datetime="2026-10-28">28 Oct</time>
+        </li>
+        <li class="list-item">
+          <span class="list-item-content">
+            <a class="list-item-title" href="#file-livery">Livery mock-ups.fig</a>
+            <span class="list-item-text">48 MB · uploaded by Jonas Reed</span>
+          </span>
+          <time class="muted" datetime="2026-10-27">27 Oct</time>
+        </li>
+        <li class="list-item">
+          <span class="list-item-content">
+            <a class="list-item-title" href="#file-brief">Client brief.docx</a>
+            <span class="list-item-text">220 KB · shared by Harbor &amp; Co</span>
+          </span>
+          <time class="muted" datetime="2026-10-02">2 Oct</time>
+        </li>
+      </ul>
+    </section>
+
+    <section class="ab-project__panel" id="ab-project-activity" role="tabpanel" aria-labelledby="ab-project-tab-activity" tabindex="-1" hidden>
+      <h2 class="sr-only">Activity</h2>
+      <ol class="timeline ab-project__timeline">
+        <li class="primary">
+          <time datetime="2026-10-29T10:20">Today, 10:20</time>
+          <strong>Maya sent the final routes for review</strong>
+        </li>
+        <li class="warning">
+          <time datetime="2026-10-28T15:05">Yesterday, 15:05</time>
+          <strong>Jonas flagged the livery as blocked</strong>
+          <p class="muted">Waiting for hull dimensions from the shipyard.</p>
+        </li>
+        <li class="success">
+          <time datetime="2026-10-27T09:40">27 Oct, 09:40</time>
+          <strong>Ticket typography approved by the client</strong>
+        </li>
+      </ol>
+    </section>
+  </div>
+</section>

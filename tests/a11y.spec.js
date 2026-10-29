@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-const BLOCKS = ["hero", "features", "testimonials", "pricing", "faq", "cta", "dashboard", "settings", "plan", "listing", "tracking", "verify", "empty-state", "header", "sidebar", "footer"];
+const BLOCKS = ["hero", "features", "testimonials", "pricing", "faq", "cta", "article", "dashboard", "project", "settings", "plan", "listing", "tracking", "verify", "empty-state", "header", "topbar", "sidebar", "footer"];
 
 const analyze = async (page, label) => {
   const results = await new AxeBuilder({ page })
@@ -45,4 +45,11 @@ test("open mobile drawer passes WCAG A/AA checks", async ({ page }) => {
   await expect.poll(() => page.locator("#ab-sidebar-drawer").evaluate((element) => element.open)).toBe(true);
   await page.waitForTimeout(350);
   await analyze(page, "sidebar drawer");
+});
+
+test("open topbar notifications panel passes WCAG A/AA checks", async ({ page }) => {
+  await page.goto("/previews/topbar.html?theme=light");
+  await page.locator('[aria-controls="ab-topbar-notifications"]').click();
+  await expect(page.locator("#ab-topbar-notifications")).toBeVisible();
+  await analyze(page, "topbar notifications");
 });

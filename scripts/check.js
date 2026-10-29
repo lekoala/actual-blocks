@@ -1,6 +1,7 @@
 import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
 import { join, dirname, resolve, extname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { componentDocPath } from "./docs-map.js";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const src = join(root, "src");
@@ -38,6 +39,13 @@ const actualPkg = JSON.parse(readFileSync(join(root, "node_modules/actual-css/pa
 const reserved = new Set(JSON.parse(readFileSync(join(root, "node_modules/actual-css/reserved-classes.json"), "utf8")));
 const catalog = JSON.parse(readFileSync(join(root, "node_modules/actual-css/components.json"), "utf8"));
 const componentNames = new Set(catalog.map((entry) => entry.name));
+const jsModules = new Set(
+  Object.keys(actualPkg.exports ?? {})
+    .filter((key) => key.startsWith("./js/"))
+    .map((key) => key.slice("./js/".length))
+);
+// data-enhance values whose module name differs from the hook name.
+const enhanceModule = { tabs: "tab" };
 
 const categories = new Set(["marketing", "application", "navigation"]);
 const requiredMetadata = ["id", "title", "category", "description", "summary", "components", "primitives", "requiresJs", "previewHeight", "docs", "notes"];
@@ -84,7 +92,7 @@ for (const id of blockDirs) {
   for (const component of metadata.components ?? []) {
     if (!componentNames.has(component)) fail(`${id}: unknown Actual CSS component "${component}"`);
     // The gallery links each component to its docs page, so the page must exist.
-    if (!existsSync(join(root, "node_modules/actual-css/docs/pages/components", `${component}.md`))) {
+    if (!existsSync(join(root, "node_modules/actual-css/docs/pages", `${componentDocPath(component)}.md`))) {
       fail(`${id}: component "${component}" has no documentation page in the pinned package`);
     }
   }
@@ -115,6 +123,24 @@ for (const id of blockDirs) {
     if (token.startsWith("g-")) fail(`${id}: gallery class "${token}" leaked into a block`);
     if (token.startsWith("is-")) fail(`${id}: runtime-only state class "${token}" authored in a block`);
     if (!reserved.has(token)) fail(`${id}: class "${token}" is not in the Actual CSS reserved-class manifest`);
+  }
+
+  const enhancers = [...new Set([...html.matchAll(/\sdata-enhance="([^"]+)"/g)].map((match) => match[1]))];
+  if (metadata.requiresJs) {
+    if (!Array.isArray(metadata.scripts) || metadata.scripts.length === 0) {
+      fail(`${id}: requiresJs blocks must list their Actual CSS enhancer modules in "scripts"`);
+    }
+    for (const name of metadata.scripts ?? []) {
+      if (!jsModules.has(name)) fail(`${id}: script "${name}" is not a published actual-css/js/* module`);
+    }
+    for (const hook of enhancers) {
+      const module = enhanceModule[hook] ?? hook;
+      if (!(metadata.scripts ?? []).includes(module)) fail(`${id}: data-enhance="${hook}" needs "${module}" in scripts`);
+    }
+    if (enhancers.length === 0) fail(`${id}: requiresJs is true but the block has no data-enhance hook`);
+  } else {
+    if (metadata.scripts?.length) fail(`${id}: "scripts" is only allowed when requiresJs is true`);
+    if (enhancers.length) fail(`${id}: data-enhance hooks need requiresJs and scripts in metadata`);
   }
 
   for (const match of html.matchAll(/\s(href|src)="([^"]+)"/g)) {
@@ -260,6 +286,7 @@ if (existsSync(dist)) {
     ".nojekyll",
     "assets/actual-css.css",
     "assets/actual-css.LICENSE.txt",
+    "assets/actual-css.js",
     "assets/actual-blocks-icon.svg",
     "assets/actual-blocks-mark.svg",
     "assets/actual-blocks-wordmark.svg",
@@ -286,6 +313,9 @@ if (existsSync(dist)) {
     if (!detail.includes(escapeHtml(block.html))) fail(`${block.id}: detail page does not contain the canonical HTML source`);
     if (!detail.includes(escapeHtml(block.css))) fail(`${block.id}: detail page does not contain the canonical CSS source`);
     if (outputCss !== `${block.css}\n`) fail(`${block.id}: copied CSS differs from block.css`);
+    const loadsRuntime = preview.includes("../assets/actual-css.js");
+    if (block.metadata.requiresJs && !loadsRuntime) fail(`${block.id}: preview does not load the Actual CSS runtime`);
+    if (!block.metadata.requiresJs && loadsRuntime) fail(`${block.id}: preview loads the runtime although the block needs no JavaScript`);
     if (/\{\{[A-Z_]+\}\}/.test(detail)) fail(`${block.id}: detail page contains an unresolved placeholder`);
   }
 

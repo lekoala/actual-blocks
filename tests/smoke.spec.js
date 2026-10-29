@@ -11,7 +11,9 @@ const BLOCKS = [
   { id: "pricing", title: "Three-tier Pricing", root: ".ab-pricing" },
   { id: "faq", title: "FAQ", root: ".ab-faq" },
   { id: "cta", title: "Call to Action", root: ".ab-cta" },
+  { id: "article", title: "Article with Contents", root: ".ab-article" },
   { id: "dashboard", title: "Dashboard Overview", root: ".ab-dashboard" },
+  { id: "project", title: "Project Overview", root: ".ab-project" },
   { id: "settings", title: "Account Settings", root: ".ab-settings" },
   { id: "plan", title: "Plan Change", root: ".ab-plan" },
   { id: "listing", title: "Data Listing", root: ".ab-listing" },
@@ -19,6 +21,7 @@ const BLOCKS = [
   { id: "verify", title: "Code Verification", root: ".ab-verify" },
   { id: "empty-state", title: "Empty State", root: ".ab-empty" },
   { id: "header", title: "Site Header", root: ".ab-header" },
+  { id: "topbar", title: "App Topbar", root: ".ab-topbar" },
   { id: "sidebar", title: "App Sidebar", root: ".ab-sidebar" },
   { id: "footer", title: "Site Footer", root: ".ab-footer" }
 ];
@@ -38,16 +41,16 @@ test("catalog renders every block and filters by category", async ({ page }) => 
   const initialCardWidth = (await page.locator(".g-card").first().boundingBox())?.width ?? 0;
 
   await page.getByRole("button", { name: /Marketing/ }).click();
-  await expect(page.locator(".g-card:visible")).toHaveCount(6);
-  await expect(page.locator("#g-visible-count")).toHaveText("6");
-
-  await page.getByRole("button", { name: /Application/ }).click();
   await expect(page.locator(".g-card:visible")).toHaveCount(7);
   await expect(page.locator("#g-visible-count")).toHaveText("7");
 
+  await page.getByRole("button", { name: /Application/ }).click();
+  await expect(page.locator(".g-card:visible")).toHaveCount(8);
+  await expect(page.locator("#g-visible-count")).toHaveText("8");
+
   await page.getByRole("button", { name: /Navigation/ }).click();
-  await expect(page.locator(".g-card:visible")).toHaveCount(3);
-  await expect(page.locator("#g-visible-count")).toHaveText("3");
+  await expect(page.locator(".g-card:visible")).toHaveCount(4);
+  await expect(page.locator("#g-visible-count")).toHaveText("4");
 
   const filteredCardWidth = (await page.locator(".g-card:visible").first().boundingBox())?.width ?? 0;
   expect(Math.abs(filteredCardWidth - initialCardWidth)).toBeLessThan(2);
@@ -177,6 +180,73 @@ test("faq keeps one answer open at a time", async ({ page }) => {
   await items.nth(2).locator("summary").click();
   await expect(items.nth(2)).toHaveAttribute("open", "");
   await expect(items.nth(0)).not.toHaveAttribute("open", "");
+});
+
+test("project tabs switch with the keyboard", async ({ page }) => {
+  await page.goto("/previews/project.html?theme=light");
+  const overview = page.getByRole("tab", { name: "Overview" });
+
+  await overview.focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(page.getByRole("tab", { name: /Tasks/ })).toHaveAttribute("aria-selected", "true");
+  await expect(page.locator("#ab-project-tasks")).toBeVisible();
+  await expect(page.locator("#ab-project-overview")).toBeHidden();
+
+  await page.keyboard.press("End");
+  await expect(page.getByRole("tab", { name: "Activity" })).toHaveAttribute("aria-selected", "true");
+  await expect(page.locator("#ab-project-activity")).toBeVisible();
+});
+
+test("article contents follow the section being read", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto("/previews/article.html?theme=light");
+
+  await page.evaluate(() => {
+    const section = document.getElementById("ab-article-outcome");
+    window.scrollTo(0, section.getBoundingClientRect().top + window.scrollY - 40);
+  });
+  await expect(page.locator('.ab-article__toc a[aria-current="location"]')).toHaveText("Price the outcome");
+
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await expect(page.locator('.ab-article__toc a[aria-current="location"]')).toHaveText("Review every project");
+});
+
+test("topbar flyouts open one at a time and close on Escape", async ({ page }) => {
+  await page.goto("/previews/topbar.html?theme=light");
+  const bell = page.locator('[aria-controls="ab-topbar-notifications"]');
+  const account = page.locator('[aria-controls="ab-topbar-account"]');
+
+  await bell.click();
+  await expect(bell).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator("#ab-topbar-notifications")).toBeVisible();
+
+  await account.click();
+  await expect(page.locator("#ab-topbar-account")).toBeVisible();
+  await expect(page.locator("#ab-topbar-notifications")).toBeHidden();
+
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#ab-topbar-account")).toBeHidden();
+  await expect(account).toHaveAttribute("aria-expanded", "false");
+});
+
+test("copied JS block works standalone with the published runtime", async ({ page }) => {
+  await page.setContent(
+    `<!doctype html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="http://127.0.0.1:4173/assets/actual-css.css" />
+        <link rel="stylesheet" href="http://127.0.0.1:4173/assets/blocks/project.css" />
+        <script src="http://127.0.0.1:4173/assets/actual-css.js" defer></script>
+      </head>
+      <body>${canonical("project", "block.html")}</body>
+    </html>`,
+    { waitUntil: "networkidle" }
+  );
+
+  await page.getByRole("tab", { name: "Files" }).click();
+  await expect(page.locator("#ab-project-files")).toBeVisible();
+  await expect(page.locator("#ab-project-overview")).toBeHidden();
 });
 
 test("copied block renders standalone without gallery CSS", async ({ page }) => {

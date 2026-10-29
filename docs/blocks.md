@@ -2,7 +2,7 @@
 
 Each block is a semantic HTML fragment plus a scoped stylesheet. The canonical files live in `src/blocks/<id>/`. The gallery detail page is generated from them.
 
-All blocks require **Actual CSS 0.15.1**. The quick start is `@import "actual-css/full";`, or the component modules listed below. No block requires the gallery CSS, gallery JavaScript or an `actual-blocks` package.
+All blocks require **Actual CSS 0.15.1**. The quick start is `@import "actual-css/full";`, or the component modules listed below. Three blocks also need Actual CSS's published JavaScript runtime (see the JavaScript column). No block requires the gallery CSS, gallery JavaScript or an `actual-blocks` package.
 
 | Block | Category | JavaScript | Custom CSS |
 | --- | --- | --- | --- |
@@ -12,7 +12,9 @@ All blocks require **Actual CSS 0.15.1**. The quick start is `@import "actual-cs
 | Three-tier Pricing (`pricing`) | Marketing | None | `block.css` |
 | FAQ (`faq`) | Marketing | None | `block.css` |
 | Call to Action (`cta`) | Marketing | None | `block.css` |
+| Article with Contents (`article`) | Marketing | Actual CSS `scrollspy` | `block.css` |
 | Dashboard Overview (`dashboard`) | Application | None | `block.css` |
+| Project Overview (`project`) | Application | Actual CSS `tab` | `block.css` |
 | Account Settings (`settings`) | Application | None | `block.css` |
 | Plan Change (`plan`) | Application | None | `block.css` |
 | Data Listing (`listing`) | Application | None | `block.css` |
@@ -20,6 +22,7 @@ All blocks require **Actual CSS 0.15.1**. The quick start is `@import "actual-cs
 | Code Verification (`verify`) | Application | None | `block.css` |
 | Empty State (`empty-state`) | Application | None | `block.css` |
 | Site Header (`header`) | Navigation | None | `block.css` |
+| App Topbar (`topbar`) | Navigation | Actual CSS `flyout` | `block.css` |
 | App Sidebar (`sidebar`) | Navigation | None | `block.css` |
 | Site Footer (`footer`) | Navigation | None | `block.css` |
 
@@ -65,12 +68,28 @@ All blocks require **Actual CSS 0.15.1**. The quick start is `@import "actual-cs
 - **Primitives:** center, cluster
 - **Notes:** The panel is a `data-theme="dark"` island and stays dark on light pages. Actions are placeholder links; trial terms are sample copy.
 
+## Article with Contents
+
+- **Files:** `src/blocks/article/block.html`, `block.css`
+- **JavaScript:** Actual CSS `scrollspy` enhancer (`actual-css/js/scrollspy` or the full runtime).
+- **Actual CSS components:** navbar (`.nav-list` / `.nav-link`), avatar, button
+- **Primitives:** center, stack, nav-list, scrollspy
+- **Notes:** The enhancer sets `aria-current="location"` on the section being read. Without JavaScript the contents are plain anchor links. Spying follows the viewport; use `data-scrollspy-root` for a scroll container.
+
 ## Dashboard Overview
 
 - **Files:** `src/blocks/dashboard/block.html`, `block.css`
 - **Actual CSS components:** card, badge, avatar, progress, list, segmented
 - **Primitives:** center, grid-4, container-query, sidebar-layout, stack, cluster
 - **Notes:** All figures and activity are sample data. The period control is navigation, not a filter. The chart is a static inline SVG with a text summary. Project progress uses native `<progress>`.
+
+## Project Overview
+
+- **Files:** `src/blocks/project/block.html`, `block.css`
+- **JavaScript:** Actual CSS `tab` enhancer (`actual-css/js/tab` or the full runtime).
+- **Actual CSS components:** tabs, breadcrumb, badge, button, data-list, progress, list, timeline
+- **Primitives:** center, stack, cluster
+- **Notes:** Real tab semantics; the enhancer owns `aria-selected`, roving `tabindex`, panel `hidden` and arrow/Home/End keys. Without JavaScript only Overview shows. On narrow screens the tab strip scrolls horizontally, as upstream documents.
 
 ## Account Settings
 
@@ -113,6 +132,14 @@ All blocks require **Actual CSS 0.15.1**. The quick start is `@import "actual-cs
 - **Actual CSS components:** button, badge, steps
 - **Primitives:** center, cluster, stack, grid
 - **Notes:** Actions are placeholder links. The illustration is inline SVG drawn with theme tokens, not a vendor asset.
+
+## App Topbar
+
+- **Files:** `src/blocks/topbar/block.html`, `block.css`
+- **JavaScript:** Actual CSS `flyout` enhancer (`actual-css/js/flyout` or the full runtime).
+- **Actual CSS components:** flyout, menu, avatar, badge, button, list
+- **Primitives:** input-icon, flyout-trigger
+- **Notes:** Three action menus and one rich notifications panel (`data-flyout-auto-close="outside"`). One panel open at a time; Escape and outside click close it. Without JavaScript the panels stay closed. Shortcuts, unread state and counts are labels only.
 
 ## App Sidebar
 

@@ -62,7 +62,13 @@ Batch 2 — application flows, no JavaScript:
 - [x] One-time-code verification (`forms/otp`).
 - [x] Order tracking (`steps` / `timeline` / `data-list`).
 
-Later, once the Actual CSS JS runtime story is documented for blocks: article with table of contents (`scrollspy`), mega-menu (`flyout`), tabbed content (`tabs`).
+Batch 3 — blocks on Actual CSS's published runtime (`requiresJs` + `scripts`):
+
+- [x] Article with contents (`scrollspy`).
+- [x] Project overview with tabs (`tab`).
+- [x] App topbar with menus and a notifications panel (`flyout`).
+
+Not done: a marketing mega-menu (it would mostly duplicate the Site Header), tooltips and form validation enhancers.
 
 ## After v0.1 (not required)
 

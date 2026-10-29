@@ -1,0 +1,18 @@
+{
+  "id": "project",
+  "title": "Project Overview",
+  "category": "application",
+  "description": "A project page with a brief, key facts and in-place tabs for tasks, files and activity, using real tab semantics.",
+  "summary": "Project header with keyboard-operable tabs over four panels.",
+  "components": ["tab", "breadcrumb", "badge", "button", "data-list", "progress", "list", "timeline"],
+  "primitives": ["center", "stack", "cluster"],
+  "requiresJs": true,
+  "scripts": ["tab"],
+  "previewHeight": "44rem",
+  "docs": ["enhancements/tabs.html", "components/data-list.html", "components/list.html", "components/timeline.html", "components/breadcrumb.html"],
+  "notes": [
+    "The tabs enhancer owns aria-selected, roving tabindex, the hidden attribute on panels and arrow-key, Home and End navigation. Without JavaScript only the Overview panel is shown; render the other sections as separate pages if they must work without it.",
+    "Use real tabs only for panels that switch in place. For sections with their own URL, use links with aria-current=\"page\" styled as .tabs instead.",
+    "Tasks, files and activity are static sample data."
+  ]
+}

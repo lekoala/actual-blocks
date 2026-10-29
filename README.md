@@ -1,6 +1,6 @@
 # Actual Blocks
 
-A standalone, copy-paste gallery of **sixteen polished interface blocks built with [Actual CSS](https://github.com/lekoala/actual-css)**.
+A standalone, copy-paste gallery of **nineteen polished interface blocks built with [Actual CSS](https://github.com/lekoala/actual-css)**.
 
 > Status: **v0.1 implemented**. The gallery, isolated previews, light/dark themes, viewport controls, canonical source, copy actions and browser checks are in place.
 
@@ -22,7 +22,9 @@ Actual Blocks is a separate repository. It consumes a **published, pinned** `act
 | Marketing | [Three-tier Pricing](src/blocks/pricing/) | Recommended dark tier, feature lists, honest billing note |
 | Marketing | [FAQ](src/blocks/faq/) | Native exclusive accordion beside a contact prompt |
 | Marketing | [Call to Action](src/blocks/cta/) | Dark theme-island panel, two actions, trial promises |
+| Marketing | [Article with Contents](src/blocks/article/) | Long-form guide, sticky contents driven by `scrollspy` (JS) |
 | Application | [Dashboard Overview](src/blocks/dashboard/) | KPIs, inline SVG chart, activity, project progress |
+| Application | [Project Overview](src/blocks/project/) | Brief, facts and keyboard tabs for tasks, files, activity (JS) |
 | Application | [Account Settings](src/blocks/settings/) | Section rail, labeled forms, switches, danger zone |
 | Application | [Plan Change](src/blocks/plan/) | Choice-card plan and cycle, seats, prorated summary |
 | Application | [Data Listing](src/blocks/listing/) | Search, filters, table, status, row actions, pagination |
@@ -30,6 +32,7 @@ Actual Blocks is a separate repository. It consumes a **published, pinned** `act
 | Application | [Code Verification](src/blocks/verify/) | One native one-time-code input drawn as six cells |
 | Application | [Empty State](src/blocks/empty-state/) | Custom illustration, two next actions, three steps |
 | Navigation | [Site Header](src/blocks/header/) | Announcement line, floating navbar, native mobile drawer |
+| Navigation | [App Topbar](src/blocks/topbar/) | Workspace switcher, create and account menus, notifications panel (JS) |
 | Navigation | [App Sidebar](src/blocks/sidebar/) | Grouped rail, account actions, native mobile drawer |
 | Navigation | [Site Footer](src/blocks/footer/) | Newsletter field, four link groups, status line |
 
@@ -97,6 +100,14 @@ Or, in a bundled app:
 <!-- paste the block HTML; import hero.css from the block folder -->
 ```
 
+Blocks marked **(JS)** also need Actual CSS's own runtime, once per page:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/actual-css@0.15.1/dist/actual.full.js" defer></script>
+```
+
+or, in a bundled app, only the enhancers they use (`import "actual-css/js/tab";`). Use one or the other, never both.
+
 The block does not require the gallery CSS, the gallery JavaScript, an `actual-blocks` npm package, or a build step. Each detail page lists the Actual CSS components and documentation pages the block uses.
 
 ### What is illustrative
@@ -128,6 +139,7 @@ src/
 scripts/
   build.js             static generator
   check.js             source and output contract checks
+  docs-map.js          docs paths for components documented outside components/
   serve.js             local static server
   serve-subpath.js     subpath deployment check
 tests/
@@ -164,8 +176,8 @@ No server, database, auth or runtime framework is required.
 The repository includes:
 
 - **Contract checks** — metadata, known Actual CSS classes, component names, documentation paths, scoped selectors, fragment shape, source/preview parity and local asset resolution.
-- **Smoke tests** — catalog filters, every detail page, theme switching, viewport width, copy HTML/CSS fidelity, reload persistence, header and sidebar native drawers, FAQ exclusive accordion, 360px overflow checks and subpath deployment.
-- **Accessibility** — Axe WCAG A/AA checks for the gallery, every preview in light and dark, a detail page and the open mobile drawer.
+- **Smoke tests** — catalog filters, every detail page, theme switching, viewport width, copy HTML/CSS fidelity, reload persistence, header and sidebar native drawers, FAQ exclusive accordion, keyboard tabs, scrollspy, flyouts, a copied JS block running on the published runtime, 360px overflow checks and subpath deployment.
+- **Accessibility** — Axe WCAG A/AA checks for the gallery, every preview in light and dark, a detail page, the open mobile drawer and an open flyout panel.
 - **Visual baselines** — Hero light/dark, Dashboard desktop/mobile, Settings desktop and Sidebar mobile.
 
 ## Contributing

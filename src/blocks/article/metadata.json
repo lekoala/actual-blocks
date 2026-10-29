@@ -1,0 +1,18 @@
+{
+  "id": "article",
+  "title": "Article with Contents",
+  "category": "marketing",
+  "description": "A long-form guide with a byline, a pull-out rule and a sticky table of contents that follows the reader.",
+  "summary": "Editorial article with a scrollspy table of contents.",
+  "components": ["navbar", "avatar", "button"],
+  "primitives": ["center", "stack", "nav-list", "scrollspy"],
+  "requiresJs": true,
+  "scripts": ["scrollspy"],
+  "previewHeight": "48rem",
+  "docs": ["enhancements/scrollspy.html", "components/navbar.html", "components/avatar.html", "layout/center.html"],
+  "notes": [
+    "The scrollspy enhancer sets aria-current=\"location\" on the contents link of the section being read. Without JavaScript the contents stay plain anchor links and the article is unchanged.",
+    "Spying follows the page viewport. If the article sits in its own scroll container, add data-scrollspy-root pointing at it.",
+    "Author, figures and advice are sample copy; replace them with your own content."
+  ]
+}

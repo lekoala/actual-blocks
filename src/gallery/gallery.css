@@ -1259,7 +1259,7 @@ body.g-page {
   overflow: auto;
   font-family: var(--font-mono);
   font-size: 0.65rem;
-  white-space: nowrap;
+  white-space: pre;
 }
 
 .g-aside__label {

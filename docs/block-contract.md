@@ -19,7 +19,7 @@ Copy/paste must not require the gallery runtime, generated wrapper selectors or 
 
 - Source visible in gallery is the same source used for preview (modulo documented transforms such as base asset path or theme selection).
 - HTML and CSS separately copyable; if no custom CSS, say so rather than provide empty misleading code.
-- Any JS that is essential to the behavior is included or clearly identified with usable instructions; adding **Copy JS** can be considered if necessary, but never hide mandatory behavior.
+- Blocks contain no `<script>`. Behavior comes from the platform or from Actual CSS's published enhancers, declared with `requiresJs` and `scripts`; the detail page shows how to load them, with copy buttons, and the notes say how the block degrades without them.
 - Links/buttons within isolated previews must not unexpectedly navigate the gallery.
 - Illustrative buttons that require an application backend must be clearly labeled in documentation and not imply production-ready persistence.
 

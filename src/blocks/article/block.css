@@ -1,0 +1,170 @@
+/* Actual Blocks — Article with Contents
+   Scoped to .ab-article. Requires Actual CSS 0.15.x and its scrollspy enhancer. */
+
+.ab-article {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  --center-size: 68rem;
+  --center-pad: var(--space-40);
+  padding-block: clamp(2.5rem, 6vw, 5rem);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.ab-article__header {
+  max-inline-size: 44rem;
+  margin-block-end: clamp(2rem, 5vw, 3.5rem);
+}
+
+.ab-article__header .overline {
+  margin-block-end: var(--space-20);
+}
+
+.ab-article__header h1 {
+  margin: 0;
+  font-family: var(--ab-font-display);
+  font-size: clamp(2.3rem, 5vw, 3.6rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.ab-article__lead {
+  margin-block: var(--space-40) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.ab-article__byline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-30);
+  margin-block-start: var(--space-50);
+  font-size: var(--font-size-sm);
+}
+
+.ab-article__byline .muted {
+  font-size: var(--font-size-xs);
+}
+
+.ab-article__layout {
+  display: grid;
+  gap: var(--space-50);
+}
+
+/* Contents */
+
+.ab-article__toc {
+  align-self: start;
+  padding-block: var(--space-30);
+  border-block: var(--border-width) solid var(--border);
+}
+
+.ab-article__toc .overline {
+  margin: 0 0 var(--space-20);
+  padding-inline: var(--space-20);
+}
+
+.ab-article__toc .nav-link {
+  font-size: var(--font-size-sm);
+}
+
+/* Body */
+
+.ab-article__body {
+  max-inline-size: 42rem;
+  min-inline-size: 0;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.ab-article__body section {
+  scroll-margin-block-start: var(--space-50);
+}
+
+.ab-article__body section + section {
+  margin-block-start: clamp(2rem, 4vw, 2.75rem);
+}
+
+.ab-article__body section:focus {
+  outline: none;
+}
+
+.ab-article__body h2 {
+  margin: 0 0 var(--space-30);
+  font-family: var(--ab-font-display);
+  font-size: clamp(1.5rem, 3vw, 1.85rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.ab-article__body p,
+.ab-article__body ul {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.ab-article__body :is(p, ul) + :is(p, ul, blockquote) {
+  margin-block-start: var(--space-40);
+}
+
+.ab-article__body ul {
+  padding-inline-start: 1.25rem;
+}
+
+.ab-article__body li + li {
+  margin-block-start: var(--space-10);
+}
+
+.ab-article__callout {
+  margin: var(--space-40) 0 0;
+  padding: var(--space-40) var(--space-50);
+  border-inline-start: 3px solid var(--secondary);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: color-mix(in oklab, var(--secondary) 8%, var(--surface));
+}
+
+.ab-article__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-30);
+  margin-block-start: clamp(2.5rem, 5vw, 3.5rem);
+  padding-block-start: var(--space-40);
+  border-block-start: var(--border-width) solid var(--border);
+  font-size: var(--font-size-sm);
+}
+
+.ab-article__footer p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+@media (width >= 56rem) {
+  .ab-article__layout {
+    grid-template-columns: 14rem minmax(0, 1fr);
+    gap: clamp(2.5rem, 5vw, 4.5rem);
+  }
+
+  .ab-article__toc {
+    position: sticky;
+    inset-block-start: var(--space-50);
+    padding-block: 0;
+    border-block: 0;
+  }
+}
+
+@media (width < 48rem) {
+  .ab-article {
+    --center-pad: var(--space-30);
+  }
+
+  .ab-article__body {
+    font-size: var(--font-size-md);
+  }
+}

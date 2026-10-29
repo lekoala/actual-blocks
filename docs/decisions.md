@@ -88,11 +88,20 @@ All gallery and preview links are relative:
 
 ## 9. JavaScript
 
-The blocks contain no JavaScript. The interactions that could have required it are the mobile header and sidebar drawers and the FAQ accordion. The drawers use the native `<dialog>` element with `command="show-modal"` / `commandfor`, `form method="dialog"` and `closedby="any"`, as documented by Actual CSS. The FAQ uses native `<details name>` exclusive groups.
+No block contains a `<script>`. Most interactions use the platform: the mobile header and sidebar drawers use the native `<dialog>` element with `command="show-modal"` / `commandfor`, `form method="dialog"` and `closedby="any"`, as documented by Actual CSS. The FAQ uses native `<details name>` exclusive groups.
 
 The gallery's own `gallery.js` handles filtering, tabs, copy, theme/viewport state and localStorage. It is never loaded inside a block preview and is not part of the copied source.
 
-Actual CSS's JS runtime is not bundled. None of the v0.1 blocks need an enhancer; adding the full runtime would make the gallery heavier without changing a block.
+### Blocks that need the Actual CSS runtime
+
+Three blocks need behavior the platform does not provide: Article with Contents (`scrollspy`), Project Overview (`tab`) and App Topbar (`flyout`). They rely on Actual CSS's own published enhancers rather than custom code, so the dependency story stays "Actual CSS, nothing else":
+
+- `metadata.json` sets `requiresJs: true` and lists `scripts`, the `actual-css/js/<name>` modules the block needs. `scripts/check.js` verifies that each module is a published export, that every `data-enhance` hook in the HTML is covered, and that blocks without `requiresJs` carry no hook.
+- Only those previews load the runtime, as `dist/assets/actual-css.js`: a copy of the published `dist/actual.full.js` bundle. Every other preview stays script-free, so the no-JS blocks are still tested without JavaScript.
+- The detail page offers both supported loading paths, each copyable: the CDN bundle `<script>` or the per-enhancer `import` lines. Upstream warns against loading both, and the page says so.
+- Components documented outside `components/` (tabs, flyout, menu, scrollspy…) are mapped in `scripts/docs-map.js`, shared by build and check.
+
+A smoke test pastes the Project Overview fragment into a blank page with only Actual CSS, the block CSS and the published runtime, and switches tabs, to prove the copied source works outside the gallery.
 
 ## 10. Accessibility approach
 
@@ -122,7 +131,7 @@ Detail pages link each listed component to `https://lekoala.github.io/actual-css
 These are the real limits of the v0.1 implementation, not hidden TODOs.
 
 1. **No backend or application state.** Search, filters, saves, uploads, pagination and row selection are illustrative. There is no server, auth, persistence or routing.
-2. **No Actual CSS JS runtime.** Blocks that would need tabs, flyouts, tooltips or validation enhancers are not part of v0.1. The sidebar drawer relies on native dialog command support.
+2. **Runtime-dependent blocks degrade.** Without JavaScript, the article contents stay plain anchor links, the project page shows only its Overview panel and the topbar menus stay closed. Each block's notes say so. Tooltips and validation enhancers are not used yet.
 3. **Native command support varies.** `command` / `commandfor` is modern. Older browsers may show the menu button but not open the drawer. The block is documented as such; adding a JavaScript fallback would change the block's dependency story.
 4. **Two themes only.** Light and dark are exposed. Actual CSS reference presets are demo assets, not public package entrypoints, so no Neo Brutalist or Admin Neutral preview is offered.
 5. **Thumbnails are live iframes.** They are accurate but cost more than static screenshots. Thirteen lazy iframes is acceptable for this catalog; a much larger catalog would need generated thumbnails.

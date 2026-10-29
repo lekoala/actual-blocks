@@ -96,3 +96,18 @@ Running 50 tests using 8 workers
 ```
 
 The three blocks are covered by the per-block detail/copy-fidelity smoke tests, the 360px overflow pass and Axe light/dark previews. No new visual baselines.
+
+## v0.2 batch 3 verification — runtime-dependent blocks
+
+Three blocks added on Actual CSS's published enhancers (Article with Contents / `scrollspy`, Project Overview / `tab`, App Topbar / `flyout`), plus the `requiresJs` + `scripts` contract. Same environment.
+
+```text
+$ bun run test
+Built 19 blocks with Actual CSS 0.15.1 into dist/
+- 19 block sources passed metadata, class, scoping and fragment checks
+- 39 generated HTML files resolve their local references
+Running 61 tests using 8 workers
+61 passed
+```
+
+New coverage: keyboard tab switching, scrollspy following the scroll position, flyouts opening one at a time and closing on Escape, the copied Project Overview fragment working in a blank page with only Actual CSS, its block CSS and the published runtime, and Axe on an open flyout panel. Browser checks found no console errors or warnings from the runtime. Output: 68 files, about 1 MB on disk (the runtime bundle adds 63 KB).
