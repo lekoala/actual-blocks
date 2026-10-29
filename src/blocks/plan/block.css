@@ -1,0 +1,178 @@
+/* Actual Blocks — Plan Change
+   Scoped to .ab-plan. Requires Actual CSS 0.15.x. */
+
+.ab-plan {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  --center-size: 68rem;
+  --center-pad: var(--space-40);
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.ab-plan__header {
+  max-inline-size: 40rem;
+  margin-block-end: clamp(2rem, 4vw, 2.75rem);
+}
+
+.ab-plan__header .overline {
+  margin-block-end: var(--space-20);
+}
+
+.ab-plan__header h1 {
+  margin: 0;
+  font-family: var(--ab-font-display);
+  font-size: clamp(2rem, 4vw, 2.85rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.ab-plan__lead {
+  margin-block: var(--space-30) 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.ab-plan__lead strong {
+  color: var(--text);
+}
+
+.ab-plan__layout {
+  display: grid;
+  gap: var(--space-50);
+  align-items: start;
+}
+
+.ab-plan__options {
+  --gap: var(--space-50);
+  min-inline-size: 0;
+}
+
+/* The options read as one form section, not as boxed fieldsets: the group
+   keeps its fieldset semantics and drops the .field-group frame. */
+.ab-plan .field-group {
+  padding: 0;
+  border: 0;
+}
+
+.ab-plan .field-group > legend {
+  margin-block-end: var(--space-20);
+  padding-inline: 0;
+  font-size: var(--font-size-sm);
+}
+
+.ab-plan__plans {
+  --gap: var(--space-20);
+}
+
+.ab-plan__cycles {
+  --gap: var(--space-20);
+}
+
+.ab-plan__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-20);
+}
+
+.ab-plan .choice-card .muted {
+  font-size: var(--font-size-sm);
+}
+
+.ab-plan__price {
+  margin-block-start: var(--space-10);
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.ab-plan__price strong {
+  color: var(--text);
+  font-size: var(--font-size-md);
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-plan__seats {
+  max-inline-size: 16rem;
+}
+
+/* Summary */
+
+.ab-plan__summary {
+  --card-pad: var(--space-50);
+  --card-gap: var(--space-40);
+  --card-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.ab-plan__summary h2 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ab-plan__lines {
+  font-size: var(--font-size-sm);
+}
+
+.ab-plan__lines dd {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-plan__total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-30);
+  margin: 0;
+  padding-block-start: var(--space-40);
+  border-block-start: var(--border-width) solid var(--border);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ab-plan__total strong {
+  font-family: var(--ab-font-display);
+  font-size: 1.75rem;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-plan__note {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  line-height: 1.5;
+}
+
+.ab-plan__submit {
+  inline-size: 100%;
+  justify-content: center;
+}
+
+.ab-plan__compare {
+  align-self: center;
+}
+
+@media (width >= 56rem) {
+  .ab-plan__layout {
+    grid-template-columns: minmax(0, 1fr) 21rem;
+  }
+
+  .ab-plan__summary {
+    position: sticky;
+    inset-block-start: var(--space-50);
+  }
+}
+
+@media (width < 48rem) {
+  .ab-plan {
+    --center-pad: var(--space-30);
+  }
+
+  .ab-plan__seats {
+    max-inline-size: none;
+  }
+}

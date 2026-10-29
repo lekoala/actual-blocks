@@ -1,0 +1,17 @@
+{
+  "id": "footer",
+  "title": "Site Footer",
+  "category": "navigation",
+  "description": "A four-column site footer with a labelled newsletter field, legal links and a service-status line.",
+  "summary": "Brand, newsletter, four link groups and a status line.",
+  "components": ["button", "badge"],
+  "primitives": ["center", "field", "join"],
+  "requiresJs": false,
+  "previewHeight": "30rem",
+  "docs": ["components/button.html", "components/badge.html", "forms/joined-controls.html", "forms/labels.html", "layout/center.html"],
+  "notes": [
+    "The newsletter form has no action and no backend. Point it at your mailing provider and handle validation and confirmation messages there.",
+    "The status line is static text. Link it to a real status page or remove it rather than leaving a permanent \"All systems normal\".",
+    "Link destinations, the company name and the open-roles count are placeholders."
+  ]
+}

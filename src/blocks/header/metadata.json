@@ -1,0 +1,17 @@
+{
+  "id": "header",
+  "title": "Site Header",
+  "category": "navigation",
+  "description": "A marketing-site header with an announcement line, a floating navbar and a native drawer on small screens.",
+  "summary": "Announcement, navbar and a command-driven mobile drawer.",
+  "components": ["navbar", "drawer", "button", "badge"],
+  "primitives": ["center", "cluster", "stack", "nav-list"],
+  "requiresJs": false,
+  "previewHeight": "24rem",
+  "docs": ["components/navbar.html", "components/drawer.html", "components/button.html", "components/badge.html", "layout/center.html"],
+  "notes": [
+    "Below 56rem the inline links are replaced by a menu button that opens a native dialog drawer with command=\"show-modal\" / commandfor. Browsers without invoker commands show the button but do not open the drawer.",
+    "The desktop and mobile navigations are separate lists, as the Actual CSS navbar guide recommends. Keep their links and aria-current in sync.",
+    "Links are placeholder fragments; the current page is marked with aria-current=\"page\"."
+  ]
+}

@@ -153,9 +153,9 @@
 
 .ab-empty__steps {
   --step-min: 9rem;
+  max-inline-size: 40rem;
   margin-block-start: clamp(2rem, 4vw, 3rem);
-  padding-block-start: var(--space-40);
-  border-block-start: var(--border-width) solid var(--border);
+  margin-inline: auto;
 }
 
 @media (width >= 56rem) {

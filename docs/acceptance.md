@@ -66,3 +66,33 @@ The 32 tests are:
 
 Output size: 31 files, 533.3 KB total; the pinned Actual CSS bundle is 147.3 KB. No backend, database, auth or runtime framework is present.
 
+
+## v0.2 batch 1 verification
+
+Five blocks added (Testimonials, FAQ, Call to Action, Site Header, Site Footer). Run on Windows, Bun 1.4.4, Playwright 1.64.1 / Chromium.
+
+```text
+$ bun run test
+Built 13 blocks with Actual CSS 0.15.1 into dist/
+- 13 block sources passed metadata, class, scoping and fragment checks
+- 27 generated HTML files resolve their local references
+Running 44 tests using 8 workers
+44 passed
+```
+
+New coverage: the five blocks in the per-block detail/copy-fidelity smoke tests, the 360px overflow pass and Axe light/dark previews; a header native-drawer test; a FAQ exclusive-accordion test. No new visual baselines were added. Output: 49 files, about 767 KB on disk.
+
+## v0.2 batch 2 verification
+
+Three application blocks added (Plan Change, Order Tracking, Code Verification). Same environment.
+
+```text
+$ bun run test
+Built 16 blocks with Actual CSS 0.15.1 into dist/
+- 16 block sources passed metadata, class, scoping and fragment checks
+- 33 generated HTML files resolve their local references
+Running 50 tests using 8 workers
+50 passed
+```
+
+The three blocks are covered by the per-block detail/copy-fidelity smoke tests, the 360px overflow pass and Axe light/dark previews. No new visual baselines.

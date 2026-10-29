@@ -44,6 +44,26 @@ Objective: prove the end-to-end consumer experience with **one complete Hero**.
 - [x] Inspect generated output, complete diff and asset/dependency licensing.
 - [x] Prepare v0.1 summary including checks run and outstanding limits.
 
+## v0.2 — Wider catalog (in progress)
+
+Block types were chosen from a survey of common site-template catalogs. Only the *types* were retained; every block is written from scratch with Actual CSS and fictional content, and no third-party markup, styles, copy or assets are reused.
+
+Batch 1 — marketing site sections, no JavaScript:
+
+- [x] Testimonials (featured quote with outcomes, three supporting quotes).
+- [x] FAQ (native exclusive accordion).
+- [x] Call to action (dark theme-island panel).
+- [x] Site header (navbar, announcement line, native mobile drawer).
+- [x] Site footer (newsletter field, link groups, status line).
+
+Batch 2 — application flows, no JavaScript:
+
+- [x] Plan change / billing (`forms/choice-cards`, `data-list`).
+- [x] One-time-code verification (`forms/otp`).
+- [x] Order tracking (`steps` / `timeline` / `data-list`).
+
+Later, once the Actual CSS JS runtime story is documented for blocks: article with table of contents (`scrollspy`), mega-menu (`flyout`), tabbed content (`tabs`).
+
 ## After v0.1 (not required)
 
 More block variants; extra reference theme previews where supported; simple playground; application page templates; richer filtering/search; automation to check compatibility against newer Actual CSS versions. Avoid committing to these early.

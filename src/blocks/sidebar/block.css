@@ -212,7 +212,7 @@
 }
 
 .ab-sidebar__projects {
-  --grid-min: 16rem;
+  --grid-min: 19rem;
   --gap: var(--space-30);
 }
 
@@ -267,6 +267,11 @@
 
 .ab-sidebar__project-progress .progress {
   --bar-height: 0.375rem;
+}
+
+.ab-sidebar__project .avatar-stack {
+  --avatar-stack-overlap: -0.1875rem;
+  --avatar-stack-font-size: 0.65rem;
 }
 
 .ab-sidebar__project footer {

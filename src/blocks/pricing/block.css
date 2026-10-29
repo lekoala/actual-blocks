@@ -158,8 +158,9 @@
 
 .ab-pricing__card--featured {
   position: relative;
-  border-color: color-mix(in oklab, var(--primary) 38%, var(--border));
-  box-shadow: var(--shadow-popout);
+  border-color: var(--primary);
+  background: color-mix(in oklab, var(--primary) 7%, var(--surface-raised));
+  box-shadow: 0 0 0 1px var(--primary), var(--shadow-popout);
 }
 
 .ab-pricing__footnote {

@@ -1,0 +1,17 @@
+{
+  "id": "testimonials",
+  "title": "Testimonials",
+  "category": "marketing",
+  "description": "One featured customer story with two outcomes, three supporting quotes and a link to the full stories.",
+  "summary": "A featured quote with measurable outcomes and a three-card grid.",
+  "components": ["card", "avatar", "button"],
+  "primitives": ["center", "grid", "stack", "cluster"],
+  "requiresJs": false,
+  "previewHeight": "52rem",
+  "docs": ["components/card.html", "components/avatar.html", "layout/grid.html", "layout/center.html"],
+  "notes": [
+    "Every name, studio, quote and figure is fictional. Publish only testimonials you have permission to use, and keep the metrics verifiable.",
+    "Quotes use figure, blockquote and figcaption. The opening quotation mark is a decorative pseudo-element with empty alternative text.",
+    "There is no carousel: all quotes stay readable without interaction or JavaScript."
+  ]
+}

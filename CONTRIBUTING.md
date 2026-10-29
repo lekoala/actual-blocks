@@ -35,7 +35,7 @@ Example metadata:
 }
 ```
 
-Add the block id to `ORDER` in `scripts/build.js` and to the test lists in `tests/`.
+Add the block id to `src/blocks/order.json` (catalog order; `bun run check` fails if a folder is missing from it) and to the test lists in `tests/`.
 
 ## Authoring rules
 

@@ -1,0 +1,17 @@
+{
+  "id": "cta",
+  "title": "Call to Action",
+  "category": "marketing",
+  "description": "A closing dark panel with one primary action, a softer alternative and three concrete promises about the trial.",
+  "summary": "A dark-island CTA panel with actions and trial guarantees.",
+  "components": ["button"],
+  "primitives": ["center", "cluster"],
+  "requiresJs": false,
+  "previewHeight": "34rem",
+  "docs": ["components/button.html", "foundations/theming.html", "layout/cluster.html"],
+  "notes": [
+    "The panel sets data-theme=\"dark\", Actual CSS's documented theme island, so it stays dark on light and dark pages alike.",
+    "Both actions are placeholder fragment links. The trial terms are sample copy; state your real ones.",
+    "The checkmarks are decorative inline SVG; each promise is plain text."
+  ]
+}

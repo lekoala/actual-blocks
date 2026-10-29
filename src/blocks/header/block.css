@@ -1,0 +1,133 @@
+/* Actual Blocks — Site Header
+   Scoped to .ab-header. Requires Actual CSS 0.15.x. */
+
+.ab-header {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  --center-size: 72rem;
+  --center-pad: var(--space-40);
+  color: var(--text);
+}
+
+.ab-header__announce {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10) var(--space-20);
+  margin: 0;
+  padding: var(--space-20) var(--space-40);
+  border-block-end: var(--border-width) solid var(--border);
+  background: var(--surface-subtle);
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  text-align: center;
+}
+
+.ab-header__announce a {
+  color: var(--text);
+  font-weight: var(--font-weight-medium);
+  text-underline-offset: 0.2em;
+}
+
+.ab-header__inner {
+  padding-block: var(--space-30);
+}
+
+.ab-header__bar {
+  --gap: var(--space-30);
+  flex-wrap: nowrap;
+  padding-block: var(--space-20);
+  padding-inline: var(--space-40) var(--space-20);
+  box-shadow: var(--shadow);
+}
+
+.ab-header__brand {
+  flex: none;
+  font-size: var(--font-size-lg);
+  letter-spacing: -0.02em;
+}
+
+.ab-header__mark {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 1.85rem;
+  block-size: 1.85rem;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--primary-fg);
+  font-family: var(--ab-font-display);
+  font-size: 1.05rem;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+}
+
+.ab-header__links {
+  min-inline-size: 0;
+}
+
+.ab-header__links .cluster {
+  --gap: var(--space-10);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ab-header__links .nav-link {
+  font-size: var(--font-size-sm);
+}
+
+.ab-header__actions {
+  --gap: var(--space-10);
+  --cluster-align: center;
+  flex: none;
+  flex-wrap: nowrap;
+}
+
+.ab-header__menu {
+  display: none;
+}
+
+/* Mobile drawer */
+
+.ab-header__drawer {
+  --drawer-size: 19rem;
+}
+
+.ab-header__drawer-brand {
+  --gap: var(--space-20);
+  --cluster-align: center;
+}
+
+.ab-header__drawer .nav-link {
+  font-size: var(--font-size-md);
+}
+
+.ab-header__drawer-footer {
+  padding-block-start: var(--space-30);
+  border-block-start: var(--border-width) solid var(--border);
+}
+
+.ab-header__drawer-footer .btn {
+  justify-content: center;
+}
+
+@media (width < 56rem) {
+  .ab-header__links,
+  .ab-header__sign-in {
+    display: none;
+  }
+
+  .ab-header__menu {
+    display: inline-flex;
+  }
+}
+
+@media (width < 48rem) {
+  .ab-header {
+    --center-pad: var(--space-30);
+  }
+
+  .ab-header__announce {
+    padding-inline: var(--space-30);
+  }
+}

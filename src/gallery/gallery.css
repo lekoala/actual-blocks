@@ -561,34 +561,6 @@ body.g-page {
   pointer-events: none;
 }
 
-.g-card__category {
-  position: absolute;
-  inset-block-start: var(--space-20);
-  inset-inline-start: var(--space-20);
-  z-index: 1;
-  padding: 0.22rem 0.5rem;
-  border: var(--border-width) solid var(--border);
-  border-radius: var(--radius-full);
-  background: color-mix(in oklab, var(--surface) 84%, transparent);
-  backdrop-filter: blur(8px);
-  color: var(--text-muted);
-  font-size: 0.6rem;
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.g-card__number {
-  position: absolute;
-  inset-block-start: var(--space-20);
-  inset-inline-end: var(--space-20);
-  z-index: 1;
-  color: var(--text-muted);
-  font-family: var(--g-font-display);
-  font-size: 0.8rem;
-  font-variant-numeric: tabular-nums;
-}
-
 .g-card__body {
   display: flex;
   flex-direction: column;
@@ -607,7 +579,7 @@ body.g-page {
   text-transform: uppercase;
 }
 
-.g-card__meta span:first-child {
+.g-card__meta > span:first-child {
   flex: 1 1 auto;
   min-inline-size: 0;
   overflow: hidden;
@@ -615,7 +587,7 @@ body.g-page {
   white-space: nowrap;
 }
 
-.g-card__meta span:last-child {
+.g-card__meta > span:last-child {
   flex: none;
   white-space: nowrap;
 }
@@ -1170,6 +1142,8 @@ body.g-page {
 
 .g-source__panel pre {
   max-block-size: 36rem;
+  font-size: 0.72rem;
+  line-height: 1.65;
   margin: 0;
   padding: var(--space-30);
   overflow: auto;
@@ -1227,6 +1201,16 @@ body.g-page {
   margin: var(--space-20) 0 0;
   padding: 0;
   list-style: none;
+}
+
+.g-deps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-10) var(--space-30);
+}
+
+.g-docs a span {
+  color: var(--text-muted);
 }
 
 .g-deps a,
@@ -1347,9 +1331,8 @@ body.g-page {
   text-align: end;
 }
 
-.g-pager__link.is-disabled {
-  border-style: dashed;
-  color: var(--text-muted);
+.g-pager__link.is-empty {
+  display: none;
 }
 
 /* Responsive */

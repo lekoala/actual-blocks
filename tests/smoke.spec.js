@@ -7,12 +7,20 @@ const root = process.cwd();
 const BLOCKS = [
   { id: "hero", title: "Product Hero", root: ".ab-hero" },
   { id: "features", title: "Feature Grid", root: ".ab-features" },
+  { id: "testimonials", title: "Testimonials", root: ".ab-testimonials" },
   { id: "pricing", title: "Three-tier Pricing", root: ".ab-pricing" },
+  { id: "faq", title: "FAQ", root: ".ab-faq" },
+  { id: "cta", title: "Call to Action", root: ".ab-cta" },
   { id: "dashboard", title: "Dashboard Overview", root: ".ab-dashboard" },
   { id: "settings", title: "Account Settings", root: ".ab-settings" },
+  { id: "plan", title: "Plan Change", root: ".ab-plan" },
   { id: "listing", title: "Data Listing", root: ".ab-listing" },
+  { id: "tracking", title: "Order Tracking", root: ".ab-tracking" },
+  { id: "verify", title: "Code Verification", root: ".ab-verify" },
   { id: "empty-state", title: "Empty State", root: ".ab-empty" },
-  { id: "sidebar", title: "App Sidebar", root: ".ab-sidebar" }
+  { id: "header", title: "Site Header", root: ".ab-header" },
+  { id: "sidebar", title: "App Sidebar", root: ".ab-sidebar" },
+  { id: "footer", title: "Site Footer", root: ".ab-footer" }
 ];
 
 const canonical = (id, file) =>
@@ -20,33 +28,32 @@ const canonical = (id, file) =>
 
 const normalize = (value) => value.replace(/\r\n/g, "\n");
 
-test("catalog renders eight blocks and filters by category", async ({ page }) => {
+test("catalog renders every block and filters by category", async ({ page }) => {
   await page.goto("/");
 
-  await expect(page.locator(".g-card")).toHaveCount(8);
-  await expect(page.locator("#g-visible-count")).toHaveText("8");
+  await expect(page.locator(".g-card")).toHaveCount(BLOCKS.length);
+  await expect(page.locator("#g-visible-count")).toHaveText(String(BLOCKS.length));
   await expect(page.locator("#g-visible-noun")).toHaveText("blocks");
 
   const initialCardWidth = (await page.locator(".g-card").first().boundingBox())?.width ?? 0;
 
   await page.getByRole("button", { name: /Marketing/ }).click();
+  await expect(page.locator(".g-card:visible")).toHaveCount(6);
+  await expect(page.locator("#g-visible-count")).toHaveText("6");
+
+  await page.getByRole("button", { name: /Application/ }).click();
+  await expect(page.locator(".g-card:visible")).toHaveCount(7);
+  await expect(page.locator("#g-visible-count")).toHaveText("7");
+
+  await page.getByRole("button", { name: /Navigation/ }).click();
   await expect(page.locator(".g-card:visible")).toHaveCount(3);
   await expect(page.locator("#g-visible-count")).toHaveText("3");
 
-  await page.getByRole("button", { name: /Application/ }).click();
-  await expect(page.locator(".g-card:visible")).toHaveCount(4);
-  await expect(page.locator("#g-visible-count")).toHaveText("4");
-
-  await page.getByRole("button", { name: /Navigation/ }).click();
-  await expect(page.locator(".g-card:visible")).toHaveCount(1);
-  await expect(page.locator("#g-visible-count")).toHaveText("1");
-  await expect(page.locator("#g-visible-noun")).toHaveText("block");
-
-  const filteredCardWidth = (await page.locator(".g-card:visible").boundingBox())?.width ?? 0;
+  const filteredCardWidth = (await page.locator(".g-card:visible").first().boundingBox())?.width ?? 0;
   expect(Math.abs(filteredCardWidth - initialCardWidth)).toBeLessThan(2);
 
   await page.getByRole("button", { name: /^All/ }).click();
-  await expect(page.locator(".g-card:visible")).toHaveCount(8);
+  await expect(page.locator(".g-card:visible")).toHaveCount(BLOCKS.length);
   await expect(page.locator("#g-visible-noun")).toHaveText("blocks");
 });
 
@@ -142,6 +149,36 @@ test("sidebar switches from a rail to a working native drawer", async ({ page })
   await expect.poll(() => page.locator("#ab-sidebar-drawer").evaluate((element) => element.open)).toBe(false);
 });
 
+test("header switches from inline links to a working native drawer", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/previews/header.html?theme=light");
+
+  await expect(page.locator(".ab-header__links")).toBeVisible();
+  await expect(page.locator(".ab-header__menu")).toBeHidden();
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(page.locator(".ab-header__links")).toBeHidden();
+  await expect(page.locator(".ab-header__menu")).toBeVisible();
+
+  await page.locator('[commandfor="ab-header-drawer"]').click();
+  await expect.poll(() => page.locator("#ab-header-drawer").evaluate((element) => element.open)).toBe(true);
+  await page.waitForTimeout(350);
+  await expect(page.locator("#ab-header-drawer").getByRole("link", { name: "Pricing" })).toHaveAttribute("aria-current", "page");
+
+  await page.locator("#ab-header-drawer").getByRole("button", { name: "Close menu" }).click();
+  await expect.poll(() => page.locator("#ab-header-drawer").evaluate((element) => element.open)).toBe(false);
+});
+
+test("faq keeps one answer open at a time", async ({ page }) => {
+  await page.goto("/previews/faq.html?theme=light");
+  const items = page.locator(".ab-faq details");
+
+  await expect(items.nth(0)).toHaveAttribute("open", "");
+  await items.nth(2).locator("summary").click();
+  await expect(items.nth(2)).toHaveAttribute("open", "");
+  await expect(items.nth(0)).not.toHaveAttribute("open", "");
+});
+
 test("copied block renders standalone without gallery CSS", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
 
@@ -175,7 +212,7 @@ test("copied block renders standalone without gallery CSS", async ({ page }) => 
 test("static build works under a subpath", async ({ page }) => {
   await page.goto("http://127.0.0.1:4174/actual-blocks/");
 
-  await expect(page.locator(".g-card")).toHaveCount(8);
+  await expect(page.locator(".g-card")).toHaveCount(BLOCKS.length);
   await expect(page.locator(".g-brand__mark")).toBeVisible();
   await expect(page.locator(".g-brand__name")).toHaveText("Actual Blocks");
 

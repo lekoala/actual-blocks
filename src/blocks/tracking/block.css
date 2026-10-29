@@ -1,0 +1,158 @@
+/* Actual Blocks — Order Tracking
+   Scoped to .ab-tracking. Requires Actual CSS 0.15.x. */
+
+.ab-tracking {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  --center-size: 68rem;
+  --center-pad: var(--space-40);
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.ab-tracking__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-30);
+  margin-block-end: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.ab-tracking__header .overline {
+  margin-block-end: var(--space-10);
+}
+
+.ab-tracking__header h1 {
+  margin: 0;
+  font-family: var(--ab-font-display);
+  font-size: clamp(2rem, 4vw, 2.85rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.ab-tracking__subtitle {
+  margin-block: var(--space-20) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.ab-tracking__actions {
+  --gap: var(--space-20);
+}
+
+/* Status */
+
+.ab-tracking__status {
+  --card-pad: var(--space-50);
+  --card-gap: var(--space-50);
+  --card-radius: var(--radius-lg);
+}
+
+.ab-tracking__eta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-20);
+}
+
+.ab-tracking__eta .muted {
+  font-size: var(--font-size-sm);
+}
+
+.ab-tracking__eta strong {
+  font-family: var(--ab-font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.ab-tracking__steps {
+  --step-complete-mark: "✓";
+}
+
+/* History and details */
+
+.ab-tracking__layout {
+  display: grid;
+  gap: var(--space-30);
+  margin-block-start: var(--space-30);
+  align-items: start;
+}
+
+.ab-tracking__history,
+.ab-tracking__details {
+  --card-pad: var(--space-50);
+  --card-gap: var(--space-40);
+  --card-radius: var(--radius-lg);
+  min-inline-size: 0;
+}
+
+.ab-tracking__history header {
+  align-items: baseline;
+}
+
+.ab-tracking__history header .muted {
+  font-size: var(--font-size-xs);
+}
+
+.ab-tracking h2 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.015em;
+}
+
+.ab-tracking__timeline {
+  font-size: var(--font-size-sm);
+}
+
+.ab-tracking__timeline time {
+  font-size: var(--font-size-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-tracking__timeline p {
+  line-height: 1.55;
+}
+
+.ab-tracking__data {
+  font-size: var(--font-size-sm);
+}
+
+.ab-tracking__data dd {
+  overflow-wrap: anywhere;
+}
+
+@media (width >= 56rem) {
+  .ab-tracking__layout {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  }
+}
+
+@media (width < 48rem) {
+  .ab-tracking {
+    --center-pad: var(--space-30);
+  }
+
+  .ab-tracking__header {
+    align-items: flex-start;
+  }
+
+  .ab-tracking__status,
+  .ab-tracking__history,
+  .ab-tracking__details {
+    --card-pad: var(--space-40);
+  }
+}
+
+/* Phone width: the end labels only get half a step's share, so the status
+   card gives the row its last few pixels instead of breaking a word. */
+@media (width < 25rem) {
+  .ab-tracking__status {
+    --card-pad: var(--space-30);
+  }
+}

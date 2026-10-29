@@ -87,10 +87,17 @@
 }
 
 .ab-settings__card-head {
+  flex-wrap: nowrap;
   align-items: flex-start;
 }
 
+.ab-settings__card-head > .stack {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
 .ab-settings__card-head .badge {
+  flex: none;
   margin-inline-start: auto;
 }
 
@@ -177,21 +184,14 @@
     gap: var(--space-30);
   }
 
-  .ab-settings__nav nav {
-    overflow-x: auto;
-    overscroll-behavior-inline: contain;
-    padding-block-end: var(--space-10);
-    scrollbar-width: none;
-  }
-
-  .ab-settings__nav nav::-webkit-scrollbar {
-    display: none;
-  }
-
   .ab-settings__nav .nav-list {
-    grid-template-columns: none;
-    grid-auto-flow: column;
-    grid-auto-columns: max-content;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-10);
+  }
+
+  .ab-settings__nav .nav-link::before {
+    display: none;
   }
 
   .ab-settings__nav .nav-link {

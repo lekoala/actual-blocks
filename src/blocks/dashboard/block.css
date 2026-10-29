@@ -293,6 +293,18 @@
   --bar-height: 0.375rem;
 }
 
+@media (width >= 48rem) {
+  .ab-dashboard__project-list .list-item {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) minmax(8rem, 12rem) 6rem;
+    align-items: center;
+  }
+
+  .ab-dashboard__project-list .badge {
+    justify-self: end;
+  }
+}
+
 .ab-dashboard__activity-footer {
   display: flex;
   flex-wrap: wrap;

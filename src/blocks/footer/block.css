@@ -1,0 +1,147 @@
+/* Actual Blocks — Site Footer
+   Scoped to .ab-footer. Requires Actual CSS 0.15.x. */
+
+.ab-footer {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  --center-size: 72rem;
+  --center-pad: var(--space-40);
+  padding-block: clamp(3rem, 6vw, 4.5rem) var(--space-50);
+  border-block-start: var(--border-width) solid var(--border);
+  background: var(--surface-subtle);
+  color: var(--text);
+}
+
+.ab-footer__top {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.ab-footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-20);
+  color: var(--text);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.ab-footer__mark {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 1.85rem;
+  block-size: 1.85rem;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--primary-fg);
+  font-family: var(--ab-font-display);
+  font-size: 1.05rem;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+}
+
+.ab-footer__tagline {
+  max-inline-size: 22rem;
+  margin-block: var(--space-30) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.ab-footer__newsletter {
+  max-inline-size: 24rem;
+  margin-block-start: var(--space-50);
+}
+
+.ab-footer__newsletter .input {
+  min-inline-size: 0;
+  flex: 1 1 auto;
+}
+
+.ab-footer__nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  gap: var(--space-50) var(--space-40);
+}
+
+.ab-footer__title {
+  margin: 0 0 var(--space-30);
+  color: var(--text);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ab-footer__nav ul {
+  display: grid;
+  gap: var(--space-20);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--font-size-sm);
+}
+
+.ab-footer__nav li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-10) var(--space-20);
+}
+
+.ab-footer__nav a,
+.ab-footer__status {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.ab-footer__nav a:hover,
+.ab-footer__status:hover {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.ab-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-20) var(--space-40);
+  margin-block-start: clamp(2.5rem, 5vw, 3.5rem);
+  padding-block-start: var(--space-40);
+  border-block-start: var(--border-width) solid var(--border);
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.ab-footer__bottom p {
+  margin: 0;
+}
+
+.ab-footer__status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-20);
+}
+
+.ab-footer__status-dot {
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  background: var(--success);
+}
+
+@media (width >= 56rem) {
+  .ab-footer__top {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
+  }
+}
+
+@media (width < 48rem) {
+  .ab-footer {
+    --center-pad: var(--space-30);
+  }
+
+  .ab-footer__nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

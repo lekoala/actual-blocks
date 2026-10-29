@@ -11,7 +11,7 @@
   "docs": ["components/table.html", "components/badge.html", "components/pagination.html", "components/alert.html", "patterns/icon-input.html"],
   "notes": [
     "Search, filters, row selection and pagination are illustrative. Wire them to your own query and routing layer.",
-    "The table keeps its columns and scrolls horizontally inside .table-wrap on narrow screens.",
+    "Below 48rem the issue date column is hidden; the remaining columns scroll horizontally inside .table-wrap.",
     "Invoice numbers, clients and amounts are sample data."
   ]
 }

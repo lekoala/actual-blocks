@@ -137,6 +137,20 @@
     --center-pad: var(--space-30);
   }
 
+  /* The due date carries the urgency on small screens; the issue date is
+     dropped so amount and status stay closer to the first screen. */
+  .ab-listing__table {
+    --table-min: 36rem;
+  }
+
+  .ab-listing__table :is(th, td):nth-child(4) {
+    display: none;
+  }
+
+  .ab-listing__table td:nth-child(3) {
+    white-space: nowrap;
+  }
+
   .ab-listing__header-actions {
     inline-size: 100%;
   }

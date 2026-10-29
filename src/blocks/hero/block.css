@@ -74,7 +74,7 @@
 
 .ab-hero__lead {
   max-inline-size: 33rem;
-  margin-block: var(--space-40) 0;
+  margin-block: var(--space-50) 0;
   color: var(--text-muted);
   font-size: var(--font-size-lg);
   line-height: 1.65;
@@ -93,9 +93,15 @@
 
 .ab-hero__proof {
   --gap: var(--space-20);
+  --cluster-align: center;
   margin-block-start: var(--space-50);
   padding-block-start: var(--space-40);
   border-block-start: var(--border-width) solid var(--border);
+}
+
+.ab-hero__proof .avatar-stack {
+  --avatar-stack-overlap: -0.1875rem;
+  --avatar-stack-font-size: 0.65rem;
 }
 
 .ab-hero__proof p {
@@ -221,6 +227,7 @@
 
 .ab-hero__float {
   position: absolute;
+  flex-direction: row;
   inset-block-end: calc(var(--space-60) * -2.25);
   inset-inline-start: calc(var(--space-50) * -1);
   display: flex;

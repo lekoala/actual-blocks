@@ -1,0 +1,17 @@
+{
+  "id": "verify",
+  "title": "Code Verification",
+  "category": "application",
+  "description": "A centred sign-in step that asks for a six-digit email code, with one native input drawn as six cells.",
+  "summary": "OTP entry with resend and change-email paths.",
+  "components": ["card", "button"],
+  "primitives": ["stack", "field", "otp"],
+  "requiresJs": false,
+  "previewHeight": "44rem",
+  "docs": ["forms/otp.html", "components/card.html", "forms/labels.html"],
+  "notes": [
+    "The code is a single input with autocomplete=\"one-time-code\", so paste, autofill and password managers work without JavaScript. The six cells are decorative spans; keep their count equal to maxlength and the pattern.",
+    "Nothing is sent or checked here. Code delivery, expiry, rate-limited resends and error messages belong to your authentication service.",
+    "inputmode=\"numeric\" only requests a numeric keyboard; validate the submitted value on the server."
+  ]
+}

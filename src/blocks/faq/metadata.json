@@ -1,0 +1,17 @@
+{
+  "id": "faq",
+  "title": "FAQ",
+  "category": "marketing",
+  "description": "Six real objections answered in a native, exclusive accordion, beside a quiet offer to talk to a person.",
+  "summary": "A two-column FAQ built on details/summary with no JavaScript.",
+  "components": ["accordion", "card", "button"],
+  "primitives": ["center"],
+  "requiresJs": false,
+  "previewHeight": "44rem",
+  "docs": ["components/accordion.html", "patterns/exclusive-accordion.html", "components/card.html", "layout/center.html"],
+  "notes": [
+    "Questions open and close with native details and summary. The shared name attribute keeps one answer open at a time; browsers without exclusive-details support simply allow several open.",
+    "Answers are sample copy about a fictional product. Replace the hosting, billing and export claims with your own policies.",
+    "The walkthrough link is a placeholder fragment."
+  ]
+}

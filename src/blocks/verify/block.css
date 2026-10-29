@@ -1,0 +1,125 @@
+/* Actual Blocks — Code Verification
+   Scoped to .ab-verify. Requires Actual CSS 0.15.x. */
+
+.ab-verify {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--space-40);
+  min-block-size: 100dvh;
+  padding: clamp(2rem, 6vw, 4rem) var(--space-40);
+  background:
+    radial-gradient(40rem 24rem at 50% 0%, color-mix(in oklab, var(--primary) 8%, transparent), transparent 70%),
+    var(--surface-subtle);
+  color: var(--text);
+}
+
+.ab-verify__card {
+  --card-pad: clamp(var(--space-50), 5vw, 2.5rem);
+  --card-gap: var(--space-50);
+  --card-radius: var(--radius-lg);
+  inline-size: min(100%, 27rem);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.ab-verify__icon {
+  display: inline-grid;
+  place-items: center;
+  align-self: center;
+  inline-size: 3.25rem;
+  block-size: 3.25rem;
+  border-radius: var(--radius-full);
+  background: color-mix(in oklab, var(--primary) 10%, var(--surface));
+  color: var(--primary);
+}
+
+.ab-verify__header h1 {
+  margin: 0;
+  font-family: var(--ab-font-display);
+  font-size: clamp(1.75rem, 4vw, 2.1rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.ab-verify__header p {
+  margin-block: var(--space-30) 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.ab-verify__header strong {
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.ab-verify__form {
+  --gap: var(--space-40);
+}
+
+.ab-verify__field {
+  justify-items: center;
+}
+
+.ab-verify__field .field-label {
+  /* The heading already says what to do; the label stays for assistive tech
+     and autofill, at a quieter weight. */
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.ab-verify__field .otp {
+  --otp-gap: var(--space-20);
+}
+
+.ab-verify__submit {
+  inline-size: 100%;
+  justify-content: center;
+}
+
+.ab-verify__help {
+  display: grid;
+  gap: var(--space-20);
+  padding-block-start: var(--space-40);
+  border-block-start: var(--border-width) solid var(--border);
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.ab-verify__help p {
+  margin: 0;
+}
+
+.ab-verify__help a {
+  color: var(--text);
+  font-weight: var(--font-weight-medium);
+  text-underline-offset: 0.2em;
+}
+
+.ab-verify__secure {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-20);
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  text-align: center;
+}
+
+.ab-verify__secure svg {
+  flex: none;
+}
+
+@media (width < 30rem) {
+  .ab-verify {
+    padding-inline: var(--space-30);
+  }
+
+  .ab-verify__field .otp {
+    --otp-gap: var(--space-10);
+    --otp-cell-size: 2.6rem;
+  }
+}

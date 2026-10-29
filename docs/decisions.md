@@ -8,7 +8,7 @@ This note records what was actually built, why, and what remains unsupported. It
 
 Why:
 
-- Eight blocks and two page templates do not justify a site framework.
+- A dozen blocks and two page templates do not justify a site framework.
 - A single script makes the source-to-output transform inspectable.
 - The output is plain HTML, CSS and a small vanilla JS file.
 
@@ -88,7 +88,7 @@ All gallery and preview links are relative:
 
 ## 9. JavaScript
 
-The eight blocks contain no JavaScript. The only interaction that could have required it is the mobile sidebar drawer. That uses the native `<dialog>` element with `command="show-modal"` / `commandfor`, `form method="dialog"` and `closedby="any"`, as documented by Actual CSS.
+The blocks contain no JavaScript. The interactions that could have required it are the mobile header and sidebar drawers and the FAQ accordion. The drawers use the native `<dialog>` element with `command="show-modal"` / `commandfor`, `form method="dialog"` and `closedby="any"`, as documented by Actual CSS. The FAQ uses native `<details name>` exclusive groups.
 
 The gallery's own `gallery.js` handles filtering, tabs, copy, theme/viewport state and localStorage. It is never loaded inside a block preview and is not part of the copied source.
 
@@ -113,6 +113,10 @@ The gallery uses the Actual Blocks concept from the Actual CSS brand pack:
 
 The brand assets are fixed-color vectors, so the display font is not required to render the logo. The brand palette is applied on `body.g-page`; block previews are separate documents and keep the Actual CSS default theme. The mark is theme-aware through `currentColor` and the brand violet token; there is no dark gallery chrome in v0.1.
 
+## 12. Documentation links
+
+Detail pages link each listed component to `https://lekoala.github.io/actual-css/site/<section>/<page>.html`. The package homepage (`/actual-css/`) only redirects to `/site/`, so deep links must include that segment. `scripts/check.js` verifies that every component and doc page named in `metadata.json` exists in the pinned package's `docs/pages/`; it does not make network requests.
+
 ## Limitations
 
 These are the real limits of the v0.1 implementation, not hidden TODOs.
@@ -121,7 +125,7 @@ These are the real limits of the v0.1 implementation, not hidden TODOs.
 2. **No Actual CSS JS runtime.** Blocks that would need tabs, flyouts, tooltips or validation enhancers are not part of v0.1. The sidebar drawer relies on native dialog command support.
 3. **Native command support varies.** `command` / `commandfor` is modern. Older browsers may show the menu button but not open the drawer. The block is documented as such; adding a JavaScript fallback would change the block's dependency story.
 4. **Two themes only.** Light and dark are exposed. Actual CSS reference presets are demo assets, not public package entrypoints, so no Neo Brutalist or Admin Neutral preview is offered.
-5. **Thumbnails are live iframes.** They are accurate but cost more than static screenshots. Eight lazy iframes is acceptable for this catalog; a much larger catalog would need generated thumbnails.
+5. **Thumbnails are live iframes.** They are accurate but cost more than static screenshots. Thirteen lazy iframes is acceptable for this catalog; a much larger catalog would need generated thumbnails.
 6. **Visual baselines are platform-specific.** The Playwright snapshots were generated on Windows/Chromium. Another OS may need its own baseline.
 7. **The chart is inline SVG.** It is static and accessible via a text summary, but it is not a charting component and does not respond to the date-range control.
 8. **No global search.** Category filters are implemented; search across blocks is not.

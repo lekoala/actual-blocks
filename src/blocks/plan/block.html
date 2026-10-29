@@ -1,0 +1,86 @@
+<section class="ab-plan" aria-labelledby="ab-plan-title">
+  <div class="center">
+    <header class="ab-plan__header">
+      <p class="overline">Billing</p>
+      <h1 id="ab-plan-title">Change your plan</h1>
+      <p class="ab-plan__lead">
+        Northstar Studio is on <strong>Studio</strong>, billed monthly. Changes apply today and unused time is credited.
+      </p>
+    </header>
+
+    <form class="ab-plan__layout" novalidate>
+      <div class="stack ab-plan__options">
+        <fieldset class="field-group">
+          <legend class="field-label">Plan</legend>
+          <div class="stack ab-plan__plans">
+            <label class="choice-card">
+              <input type="radio" name="plan" value="studio" />
+              <span class="ab-plan__name"><strong>Studio</strong> <span class="badge sm">Current</span></span>
+              <span class="muted">3 active projects, client portal and invoicing.</span>
+              <span class="ab-plan__price"><strong>$29</strong> per seat / month, billed yearly</span>
+            </label>
+            <label class="choice-card">
+              <input type="radio" name="plan" value="scale" checked />
+              <span class="ab-plan__name"><strong>Scale</strong> <span class="badge primary soft sm">Most popular</span></span>
+              <span class="muted">Unlimited projects, capacity planning and time tracking.</span>
+              <span class="ab-plan__price"><strong>$79</strong> per seat / month, billed yearly</span>
+            </label>
+            <label class="choice-card">
+              <input type="radio" name="plan" value="collective" />
+              <span class="ab-plan__name"><strong>Collective</strong></span>
+              <span class="muted">Custom branding, advanced insights and dedicated onboarding.</span>
+              <span class="ab-plan__price"><strong>$149</strong> per seat / month, billed yearly</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field-group">
+          <legend class="field-label">Billing cycle</legend>
+          <div class="grid-2 ab-plan__cycles">
+            <label class="choice-card">
+              <input type="radio" name="cycle" value="monthly" />
+              <strong>Monthly</strong>
+              <span class="muted">$99 per seat. Cancel any month.</span>
+            </label>
+            <label class="choice-card">
+              <input type="radio" name="cycle" value="yearly" checked />
+              <span class="ab-plan__name"><strong>Yearly</strong> <span class="badge success soft sm">Save 20%</span></span>
+              <span class="muted">$948 per seat, once a year.</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="field ab-plan__seats">
+          <label class="field-label" for="ab-plan-seats">Billable seats</label>
+          <input class="input" id="ab-plan-seats" name="seats" type="number" min="1" step="1" value="6" inputmode="numeric" aria-describedby="ab-plan-seats-help" />
+          <span class="field-help" id="ab-plan-seats-help">12 members, 6 who edit. Viewers and clients are always free.</span>
+        </div>
+      </div>
+
+      <aside class="card ab-plan__summary" aria-labelledby="ab-plan-summary-title">
+        <h2 id="ab-plan-summary-title">Summary</h2>
+
+        <dl class="data-list ab-plan__lines">
+          <dt>Scale, yearly</dt>
+          <dd>6 × $948.00</dd>
+          <dt>Subtotal</dt>
+          <dd>$5,688.00</dd>
+          <dt>Unused Studio time</dt>
+          <dd>−$412.40</dd>
+          <dt>VAT (21%)</dt>
+          <dd>$1,107.88</dd>
+        </dl>
+
+        <p class="ab-plan__total">
+          <span>Due today</span>
+          <strong>$6,383.48</strong>
+        </p>
+
+        <p class="ab-plan__note">Charged to the card ending 4242. Renews on <time datetime="2027-10-29">29 Oct 2027</time>.</p>
+
+        <button class="btn primary ab-plan__submit" type="submit">Confirm and pay</button>
+        <a class="btn link sm ab-plan__compare" href="#compare">Compare every feature</a>
+      </aside>
+    </form>
+  </div>
+</section>

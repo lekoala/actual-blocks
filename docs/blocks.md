@@ -1,4 +1,4 @@
-# Block reference (v0.1)
+# Block reference
 
 Each block is a semantic HTML fragment plus a scoped stylesheet. The canonical files live in `src/blocks/<id>/`. The gallery detail page is generated from them.
 
@@ -8,12 +8,20 @@ All blocks require **Actual CSS 0.15.1**. The quick start is `@import "actual-cs
 | --- | --- | --- | --- |
 | Product Hero (`hero`) | Marketing | None | `block.css` |
 | Feature Grid (`features`) | Marketing | None | `block.css` |
+| Testimonials (`testimonials`) | Marketing | None | `block.css` |
 | Three-tier Pricing (`pricing`) | Marketing | None | `block.css` |
+| FAQ (`faq`) | Marketing | None | `block.css` |
+| Call to Action (`cta`) | Marketing | None | `block.css` |
 | Dashboard Overview (`dashboard`) | Application | None | `block.css` |
 | Account Settings (`settings`) | Application | None | `block.css` |
+| Plan Change (`plan`) | Application | None | `block.css` |
 | Data Listing (`listing`) | Application | None | `block.css` |
+| Order Tracking (`tracking`) | Application | None | `block.css` |
+| Code Verification (`verify`) | Application | None | `block.css` |
 | Empty State (`empty-state`) | Application | None | `block.css` |
+| Site Header (`header`) | Navigation | None | `block.css` |
 | App Sidebar (`sidebar`) | Navigation | None | `block.css` |
+| Site Footer (`footer`) | Navigation | None | `block.css` |
 
 ## Product Hero
 
@@ -29,12 +37,33 @@ All blocks require **Actual CSS 0.15.1**. The quick start is `@import "actual-cs
 - **Primitives:** center, grid, stack, cluster
 - **Notes:** Feature copy and links are illustrative. Integration names are plain text; no vendor logos are used.
 
+## Testimonials
+
+- **Files:** `src/blocks/testimonials/block.html`, `block.css`
+- **Actual CSS components:** card, avatar, button
+- **Primitives:** center, grid, stack, cluster
+- **Notes:** All names, quotes and figures are fictional; publish only testimonials you may use. Quotes are `figure` / `blockquote` / `figcaption`. No carousel.
+
 ## Three-tier Pricing
 
 - **Files:** `src/blocks/pricing/block.html`, `block.css`
 - **Actual CSS components:** card, button, badge
 - **Primitives:** center, grid, stack, cluster
 - **Notes:** Prices and features are illustrative. The annual-billing note is static; there is no working monthly/annual toggle. The recommended tier is a `data-theme="dark"` card.
+
+## FAQ
+
+- **Files:** `src/blocks/faq/block.html`, `block.css`
+- **Actual CSS components:** accordion (`flush`), card, button
+- **Primitives:** center
+- **Notes:** Native `<details>` / `<summary>` with a shared `name`, so one answer is open at a time where exclusive details are supported. Answers are sample policy copy.
+
+## Call to Action
+
+- **Files:** `src/blocks/cta/block.html`, `block.css`
+- **Actual CSS components:** button
+- **Primitives:** center, cluster
+- **Notes:** The panel is a `data-theme="dark"` island and stays dark on light pages. Actions are placeholder links; trial terms are sample copy.
 
 ## Dashboard Overview
 
@@ -50,12 +79,33 @@ All blocks require **Actual CSS 0.15.1**. The quick start is `@import "actual-cs
 - **Primitives:** center, sidebar-layout, stack, cluster, grid-2, field, form-actions
 - **Notes:** Saving, uploading and deleting are illustrative. The section rail is in-page navigation. Switch rows use native checked state; keep `aria-checked` in sync if application code adopts `role="switch"` state management.
 
+## Plan Change
+
+- **Files:** `src/blocks/plan/block.html`, `block.css`
+- **Actual CSS components:** card, badge, button, data-list
+- **Primitives:** center, stack, grid-2, field, field-group, choice-card
+- **Notes:** Plan and cycle are real radio groups and seats a real number input, but the summary does not recalculate; totals, proration, tax and the saved card come from your billing provider. The block removes the `.field-group` frame in its scoped CSS so the options read as one section.
+
 ## Data Listing
 
 - **Files:** `src/blocks/listing/block.html`, `block.css`
 - **Actual CSS components:** table, badge, button, alert, pagination
 - **Primitives:** center, cluster, stack, input-icon, form-actions
-- **Notes:** Search, filters, selection and pagination are illustrative. The table keeps its columns and scrolls inside `.table-wrap` on narrow screens. Invoice data is fictional.
+- **Notes:** Search, filters, selection and pagination are illustrative. Below 48rem the issue-date column is hidden and the remaining columns scroll inside `.table-wrap`. Invoice data is fictional.
+
+## Order Tracking
+
+- **Files:** `src/blocks/tracking/block.html`, `block.css`
+- **Actual CSS components:** card, steps, timeline, data-list, badge, button
+- **Primitives:** center, stack, cluster, container-query
+- **Notes:** Steps say where the order is (`aria-current="step"`), the timeline what already happened. Both are static. Step labels are kept short because the end labels only get half a share at phone width.
+
+## Code Verification
+
+- **Files:** `src/blocks/verify/block.html`, `block.css`
+- **Actual CSS components:** card, button
+- **Primitives:** stack, field, otp
+- **Notes:** One input with `autocomplete="one-time-code"`, so paste and autofill work without JavaScript; the six spans are decorative and must match `maxlength`. Delivery, expiry, resends and errors belong to your auth service.
 
 ## Empty State
 
@@ -70,6 +120,20 @@ All blocks require **Actual CSS 0.15.1**. The quick start is `@import "actual-cs
 - **Actual CSS components:** avatar, badge, button, card, drawer, list, progress, navbar
 - **Primitives:** topbar, cluster, stack, grid, nav-list
 - **Notes:** The desktop rail and mobile drawer are separate elements, following the Actual CSS navigation pattern. Opening the drawer uses native `command="show-modal"` / `commandfor`; no JavaScript is bundled. It needs native dialog command support. Project links and actions are placeholders.
+
+## Site Header
+
+- **Files:** `src/blocks/header/block.html`, `block.css`
+- **Actual CSS components:** navbar, drawer, button, badge
+- **Primitives:** center, cluster, stack, nav-list
+- **Notes:** Below 56rem the inline links give way to a menu button that opens a native dialog drawer via `command="show-modal"` / `commandfor`; this needs invoker-command support. Desktop and mobile link lists are separate, per the Actual CSS navbar guide — keep them and `aria-current` in sync.
+
+## Site Footer
+
+- **Files:** `src/blocks/footer/block.html`, `block.css`
+- **Actual CSS components:** button, badge
+- **Primitives:** center, field, join
+- **Notes:** The newsletter form has no action or backend. The status line is static text; link it to a real status page or remove it.
 
 ## Copy checklist
 

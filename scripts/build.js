@@ -14,7 +14,11 @@ const CATEGORIES = [
   { id: "navigation", label: "Navigation", description: "The quiet structure that holds an application together." }
 ];
 
-const ORDER = ["hero", "features", "pricing", "dashboard", "settings", "listing", "empty-state", "sidebar"];
+// The docs site lives under /site/; the package homepage only redirects there.
+const DOCS_BASE = "https://lekoala.github.io/actual-css/site/";
+
+// Catalog order lives next to the blocks so build and check read the same list.
+const ORDER = JSON.parse(readFileSync(join(src, "blocks", "order.json"), "utf8"));
 
 const COMPONENT_LABELS = {
   accordion: "Accordion",
@@ -92,7 +96,7 @@ const componentLinks = (block) =>
   block.components
     .map((name) => {
       const label = COMPONENT_LABELS[name] ?? titleCase(name);
-      const href = `https://lekoala.github.io/actual-css/components/${name}.html`;
+      const href = `${DOCS_BASE}components/${name}.html`;
       return `<li><a href="${href}" rel="noopener">${escapeHtml(label)}</a></li>`;
     })
     .join("\n");
@@ -100,13 +104,21 @@ const componentLinks = (block) =>
 const primitiveChips = (block) =>
   block.primitives.map((name) => `<code>.${escapeHtml(name)}</code>`).join(" ");
 
-const docLinks = (block) =>
-  block.docs
+// Component pages are already linked from the dependency list, so this list
+// only carries the remaining guides (layout, forms, patterns).
+const docsSection = (block) => {
+  const links = block.docs
+    .filter((path) => !block.components.some((name) => path === `components/${name}.html`))
     .map((path) => {
-      const href = `https://lekoala.github.io/actual-css/${path}`;
-      return `<li><a href="${href}" rel="noopener">${escapeHtml(titleCase(path.replace(/\.html$/, "")))}</a></li>`;
+      const [section, page] = path.replace(/\.html$/, "").split("/");
+      return `<li><a href="${DOCS_BASE}${path}" rel="noopener">${escapeHtml(titleCase(page))} <span>${escapeHtml(titleCase(section))}</span></a></li>`;
     })
     .join("\n");
+
+  return links
+    ? `<p class="g-aside__label">Further reading</p>\n          <ul class="g-docs">\n            ${links}\n          </ul>`
+    : "";
+};
 
 const notes = (block) => block.notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("\n");
 
@@ -115,10 +127,10 @@ const pager = (index) => {
   const next = blocks[index + 1];
   const previousMarkup = previous
     ? `<a class="g-pager__link" href="${previous.id}.html"><span>Previous</span><strong>${escapeHtml(previous.title)}</strong></a>`
-    : `<span class="g-pager__link is-disabled"><span>Previous</span><strong>Start of catalog</strong></span>`;
+    : `<span class="g-pager__link is-empty" aria-hidden="true"></span>`;
   const nextMarkup = next
     ? `<a class="g-pager__link g-pager__link--next" href="${next.id}.html"><span>Next</span><strong>${escapeHtml(next.title)}</strong></a>`
-    : `<span class="g-pager__link g-pager__link--next is-disabled"><span>Next</span><strong>End of catalog</strong></span>`;
+    : `<span class="g-pager__link g-pager__link--next is-empty" aria-hidden="true"></span>`;
   return `${previousMarkup}${nextMarkup}`;
 };
 
@@ -128,11 +140,9 @@ const card = (block) => {
   <a class="g-card__link" href="blocks/${block.id}.html">
     <span class="g-card__thumb">
       <iframe class="g-card__frame" src="previews/${block.id}.html?embed=1" title="${escapeHtml(block.title)} preview" loading="lazy" tabindex="-1" aria-hidden="true" inert></iframe>
-      <span class="g-card__category">${escapeHtml(category.label)}</span>
-      <span class="g-card__number" aria-hidden="true">${String(block.index + 1).padStart(2, "0")}</span>
     </span>
     <span class="g-card__body">
-      <span class="g-card__meta"><span>Actual CSS ${version}</span><span>${block.requiresJs ? "Vanilla JS" : "No JS"}</span></span>
+      <span class="g-card__meta"><span><span aria-hidden="true">${String(block.index + 1).padStart(2, "0")} · </span>${escapeHtml(category.label)}</span><span>${block.requiresJs ? "Vanilla JS" : "No JS"}</span></span>
       <span class="g-card__title">${escapeHtml(block.title)}</span>
       <span class="g-card__description">${escapeHtml(block.description)}</span>
       <span class="g-card__cta">View block <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
@@ -165,6 +175,7 @@ const snippet = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/actua
 const indexHtml = render(indexTemplate, {
   VERSION: version,
   BLOCK_COUNT: String(blocks.length),
+  BLOCK_COUNT_PADDED: String(blocks.length).padStart(2, "0"),
   CATEGORY_FILTERS: filters(),
   BLOCK_CARDS: blocks.map(card).join("\n"),
   SNIPPET: escapeHtml(snippet),
@@ -187,7 +198,7 @@ const detailHtml = (block) => {
     SOURCE_CSS: escapeHtml(block.css),
     COMPONENT_LINKS: componentLinks(block),
     PRIMITIVE_CHIPS: primitiveChips(block),
-    DOC_LINKS: docLinks(block),
+    DOCS_SECTION: docsSection(block),
     NOTES: notes(block),
     PAGER: pager(block.index),
     IMPORT_CODE: escapeHtml('@import "actual-css/full";'),

@@ -1,0 +1,17 @@
+{
+  "id": "tracking",
+  "title": "Order Tracking",
+  "category": "application",
+  "description": "A print-order status page: estimated delivery, labelled progress steps, a dated history and the order details.",
+  "summary": "Steps for where the order is, a timeline for what happened.",
+  "components": ["card", "steps", "timeline", "data-list", "badge", "button"],
+  "primitives": ["center", "stack", "cluster", "container-query"],
+  "requiresJs": false,
+  "previewHeight": "56rem",
+  "docs": ["components/steps.html", "components/timeline.html", "components/data-list.html", "components/card.html", "layout/center.html"],
+  "notes": [
+    "Steps show where the order is now (aria-current=\"step\"); the timeline records what already happened. Both are static: your order system must render the current stage and events.",
+    "Timeline dot colours repeat the state already written in each event title, so colour is never the only signal.",
+    "The steps row uses .container-query, so labels go inline from a 60rem container and stack below it. Order, printer and address are fictional."
+  ]
+}

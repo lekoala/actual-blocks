@@ -1,0 +1,17 @@
+{
+  "id": "plan",
+  "title": "Plan Change",
+  "category": "application",
+  "description": "An in-app billing screen: choose a plan and billing cycle with native choice cards, set seats and review a prorated summary.",
+  "summary": "Choice-card plan picker with a sticky order summary.",
+  "components": ["card", "badge", "button", "data-list"],
+  "primitives": ["center", "stack", "grid-2", "field", "field-group", "choice-card"],
+  "requiresJs": false,
+  "previewHeight": "52rem",
+  "docs": ["forms/choice-cards.html", "components/data-list.html", "components/card.html", "forms/labels.html", "layout/center.html"],
+  "notes": [
+    "Plan and cycle are real radio groups and the seat count is a real number input, but the summary does not recalculate: totals, proration, tax and the saved card must come from your billing provider.",
+    "Prices match the Three-tier Pricing block and are sample figures. The form has no action; submitting it only reloads the page.",
+    "The summary card becomes sticky beside the options from 56rem."
+  ]
+}

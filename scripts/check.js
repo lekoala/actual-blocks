@@ -83,6 +83,10 @@ for (const id of blockDirs) {
 
   for (const component of metadata.components ?? []) {
     if (!componentNames.has(component)) fail(`${id}: unknown Actual CSS component "${component}"`);
+    // The gallery links each component to its docs page, so the page must exist.
+    if (!existsSync(join(root, "node_modules/actual-css/docs/pages/components", `${component}.md`))) {
+      fail(`${id}: component "${component}" has no documentation page in the pinned package`);
+    }
   }
 
   for (const doc of metadata.docs ?? []) {
@@ -231,7 +235,13 @@ for (const id of blockDirs) {
   blocks.push({ id, metadata, html, css, rootClass });
 }
 
-if (blocks.length !== 8) fail(`expected 8 blocks, found ${blocks.length}`);
+const order = JSON.parse(readFileSync(join(src, "blocks", "order.json"), "utf8"));
+for (const id of blockDirs) {
+  if (!order.includes(id)) fail(`${id}: block folder is missing from src/blocks/order.json`);
+}
+for (const id of order) {
+  if (!blockDirs.includes(id)) fail(`order.json lists "${id}" but src/blocks/${id}/ does not exist`);
+}
 
 if (pkg.dependencies?.["actual-css"] !== actualPkg.version) {
   fail(`package.json must pin actual-css to the installed version (${actualPkg.version})`);

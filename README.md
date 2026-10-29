@@ -1,6 +1,6 @@
 # Actual Blocks
 
-A standalone, copy-paste gallery of **eight polished interface blocks built with [Actual CSS](https://github.com/lekoala/actual-css)**.
+A standalone, copy-paste gallery of **sixteen polished interface blocks built with [Actual CSS](https://github.com/lekoala/actual-css)**.
 
 > Status: **v0.1 implemented**. The gallery, isolated previews, light/dark themes, viewport controls, canonical source, copy actions and browser checks are in place.
 
@@ -18,12 +18,20 @@ Actual Blocks is a separate repository. It consumes a **published, pinned** `act
 | --- | --- | --- |
 | Marketing | [Product Hero](src/blocks/hero/) | Editorial split hero, product composition, social proof |
 | Marketing | [Feature Grid](src/blocks/features/) | Six responsive capability cards and an integration strip |
+| Marketing | [Testimonials](src/blocks/testimonials/) | Featured quote with outcomes, three supporting quotes |
 | Marketing | [Three-tier Pricing](src/blocks/pricing/) | Recommended dark tier, feature lists, honest billing note |
+| Marketing | [FAQ](src/blocks/faq/) | Native exclusive accordion beside a contact prompt |
+| Marketing | [Call to Action](src/blocks/cta/) | Dark theme-island panel, two actions, trial promises |
 | Application | [Dashboard Overview](src/blocks/dashboard/) | KPIs, inline SVG chart, activity, project progress |
 | Application | [Account Settings](src/blocks/settings/) | Section rail, labeled forms, switches, danger zone |
+| Application | [Plan Change](src/blocks/plan/) | Choice-card plan and cycle, seats, prorated summary |
 | Application | [Data Listing](src/blocks/listing/) | Search, filters, table, status, row actions, pagination |
+| Application | [Order Tracking](src/blocks/tracking/) | Delivery estimate, labelled steps, dated timeline, details |
+| Application | [Code Verification](src/blocks/verify/) | One native one-time-code input drawn as six cells |
 | Application | [Empty State](src/blocks/empty-state/) | Custom illustration, two next actions, three steps |
+| Navigation | [Site Header](src/blocks/header/) | Announcement line, floating navbar, native mobile drawer |
 | Navigation | [App Sidebar](src/blocks/sidebar/) | Grouped rail, account actions, native mobile drawer |
+| Navigation | [Site Footer](src/blocks/footer/) | Newsletter field, four link groups, status line |
 
 Every block has a dedicated detail page with a live isolated preview, desktop/mobile viewport control, light/dark control, visible HTML and CSS, copy buttons, dependencies, documentation links and limitations.
 
@@ -96,16 +104,17 @@ The block does not require the gallery CSS, the gallery JavaScript, an `actual-b
 Blocks are static compositions, not an application:
 
 - Links point at placeholder fragments such as `#new-project`.
-- Search, filters, row selection, pagination, uploads and saves are illustrative. Wire them to your own application.
+- Search, filters, row selection, pagination, uploads, saves and the newsletter signup are illustrative. Wire them to your own application.
 - Sample names, amounts, dates and activity are fictional.
 - The dashboard chart is inline SVG with a text summary, not a charting dependency.
-- The sidebar drawer uses the native `command="show-modal"` / `commandfor` pair. No JavaScript is bundled. It needs a browser with native dialog command support; see [Limitations](docs/decisions.md#limitations).
+- The header and sidebar drawers use the native `command="show-modal"` / `commandfor` pair. No JavaScript is bundled. It needs a browser with native dialog command support; see [Limitations](docs/decisions.md#limitations).
 
 ## Repository layout
 
 ```text
 src/
   blocks/
+    order.json         catalog order, read by build and check
     hero/
       block.html       canonical semantic fragment
       block.css        scoped, exportable styles
@@ -155,7 +164,7 @@ No server, database, auth or runtime framework is required.
 The repository includes:
 
 - **Contract checks** — metadata, known Actual CSS classes, component names, documentation paths, scoped selectors, fragment shape, source/preview parity and local asset resolution.
-- **Smoke tests** — catalog filters, all eight detail pages, theme switching, viewport width, copy HTML/CSS fidelity, reload persistence, native drawer, 360px overflow checks and subpath deployment.
+- **Smoke tests** — catalog filters, every detail page, theme switching, viewport width, copy HTML/CSS fidelity, reload persistence, header and sidebar native drawers, FAQ exclusive accordion, 360px overflow checks and subpath deployment.
 - **Accessibility** — Axe WCAG A/AA checks for the gallery, every preview in light and dark, a detail page and the open mobile drawer.
 - **Visual baselines** — Hero light/dark, Dashboard desktop/mobile, Settings desktop and Sidebar mobile.
 

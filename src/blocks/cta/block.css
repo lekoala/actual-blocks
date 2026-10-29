@@ -1,0 +1,106 @@
+/* Actual Blocks — Call to Action
+   Scoped to .ab-cta. Requires Actual CSS 0.15.x. */
+
+.ab-cta {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  --center-size: 72rem;
+  --center-pad: var(--space-40);
+  padding-block: clamp(3rem, 6vw, 5rem);
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* The panel is a data-theme="dark" island: every token inside it resolves to
+   the dark scheme, whatever theme the page uses. */
+.ab-cta__panel {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+  padding: clamp(2rem, 5vw, 4rem);
+  overflow: hidden;
+  border: var(--border-width) solid var(--border);
+  border-radius: calc(var(--radius-lg) * 1.5);
+  background:
+    radial-gradient(36rem 20rem at 0% 0%, color-mix(in oklab, var(--primary) 22%, transparent), transparent 70%),
+    radial-gradient(28rem 18rem at 100% 100%, color-mix(in oklab, var(--secondary) 16%, transparent), transparent 70%),
+    var(--surface);
+  color: var(--text);
+}
+
+.ab-cta__copy .overline {
+  margin-block-end: var(--space-20);
+}
+
+.ab-cta__copy h2 {
+  max-inline-size: 21ch;
+  margin: 0;
+  font-family: var(--ab-font-display);
+  font-size: clamp(2.15rem, 4.6vw, 3.5rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.ab-cta__lead {
+  max-inline-size: 36rem;
+  margin-block: var(--space-40) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.ab-cta__actions {
+  --gap: var(--space-20);
+  margin-block-start: var(--space-50);
+}
+
+.ab-cta__points {
+  display: grid;
+  gap: var(--space-40);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--font-size-sm);
+  line-height: 1.55;
+}
+
+.ab-cta__points li {
+  display: flex;
+  gap: var(--space-30);
+  color: var(--text-muted);
+}
+
+.ab-cta__points svg {
+  flex: none;
+  margin-block-start: 0.1em;
+  color: var(--success);
+}
+
+.ab-cta__points strong {
+  color: var(--text);
+  font-weight: var(--font-weight-semibold);
+}
+
+@media (width >= 56rem) {
+  .ab-cta__panel {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    align-items: end;
+  }
+
+  .ab-cta__points {
+    padding-inline-start: var(--space-50);
+    border-inline-start: var(--border-width) solid var(--border);
+  }
+}
+
+@media (width < 48rem) {
+  .ab-cta {
+    --center-pad: var(--space-30);
+  }
+
+  .ab-cta__actions .btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}

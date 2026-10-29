@@ -1,0 +1,109 @@
+/* Actual Blocks — FAQ
+   Scoped to .ab-faq. Requires Actual CSS 0.15.x. */
+
+.ab-faq {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  --center-size: 72rem;
+  --center-pad: var(--space-40);
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.ab-faq__inner {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
+.ab-faq__header .overline {
+  margin-block-end: var(--space-20);
+}
+
+.ab-faq__header h2 {
+  margin: 0;
+  font-family: var(--ab-font-display);
+  font-size: clamp(2.15rem, 4.4vw, 3.25rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.ab-faq__lead {
+  max-inline-size: 30rem;
+  margin-block: var(--space-40) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.ab-faq__help {
+  --card-pad: var(--space-40);
+  --card-gap: var(--space-20);
+  --card-radius: var(--radius-lg);
+  align-items: flex-start;
+  max-inline-size: 26rem;
+  margin-block-start: var(--space-50);
+  background: var(--surface-subtle);
+}
+
+.ab-faq__help h3 {
+  margin: 0;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ab-faq__help p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.55;
+}
+
+/* Two classes so the outer rules win over .accordion.flush, which drops the
+   group border. */
+.ab-faq .ab-faq__list {
+  --accordion-pad: var(--space-40);
+  --accordion-marker-icon: var(--icon-plus);
+  --accordion-marker-open-rotate: 45deg;
+  border-block-start: var(--border-width) solid var(--border);
+  border-block-end: var(--border-width) solid var(--border);
+}
+
+.ab-faq__list summary {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.ab-faq__list p {
+  max-inline-size: 40rem;
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+@media (width >= 56rem) {
+  .ab-faq__inner {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    align-items: start;
+  }
+
+  .ab-faq__header {
+    position: sticky;
+    inset-block-start: var(--space-60);
+  }
+}
+
+@media (width < 48rem) {
+  .ab-faq {
+    --center-pad: var(--space-30);
+  }
+
+  .ab-faq__list summary {
+    font-size: var(--font-size-md);
+  }
+}
