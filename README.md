@@ -170,6 +170,8 @@ A Bun script reads each block's canonical `block.html` and `block.css`, validate
 
 No server, database, auth or runtime framework is required.
 
+`.github/workflows/pages.yml` builds, checks and runs the smoke and accessibility specs on every push and pull request, then deploys `dist/` to GitHub Pages from `master`. Enable Pages with the **GitHub Actions** source in the repository settings. The visual spec stays local until a Linux baseline exists.
+
 ## Verification
 
 The repository includes:

@@ -144,5 +144,5 @@ These are the real limits of the v0.1 implementation, not hidden TODOs.
 10. **Actual CSS is pre-1.0.** The project pins `0.16.0`. A future Actual CSS minor release may rename classes or hooks; the contract checks and visual tests would need to run against the new version before upgrading.
 11. **Fonts are system fonts.** The editorial serif is a system stack, not a bundled webfont. This avoids licensing and network dependencies, but rendering differs across operating systems.
 12. **No dark gallery chrome.** The previews switch theme; the gallery itself stays in the light Ink & Terra scheme. The dark "How it works" band is a deliberate theme island, not a gallery-wide dark mode.
-13. **No visual diff in CI by default.** The tests are runnable locally, but no CI workflow is committed in this starter. A hosted runner would need its own snapshot baseline.
+13. **No visual diff in CI.** The GitHub Actions workflow runs build, check, smoke and accessibility specs. The visual spec runs locally only, because its baselines are Windows snapshots; a Linux set would let CI run it too.
 14. **No server-side validation of copy output.** Copy fidelity is verified in the browser via the clipboard and in the build via exact source comparisons. A consumer's own formatting tooling can still change whitespace after paste.
