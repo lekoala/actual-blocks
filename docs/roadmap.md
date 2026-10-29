@@ -16,9 +16,9 @@ Block types were chosen from a survey of common template catalogs. Only the *typ
 
 ## Release
 
-1. Create the public repository.
-2. CI: `bun run test` on every push. Visual baselines are Windows-only today; CI needs its own Linux set or runs the visual spec locally only.
-3. Deploy `dist/` to GitHub Pages under the repository subpath (the subpath test already covers relative links).
+- [x] CI and Pages workflow (`.github/workflows/pages.yml`): build, check, smoke and accessibility specs, then deploy `dist/` from `master`. The visual spec stays local until a Linux baseline exists.
+- [ ] Create the public repository, push `master`, enable Pages with the GitHub Actions source.
+- [ ] Check the first CI run and the deployed gallery under its repository subpath.
 
 ## Next blocks
 
