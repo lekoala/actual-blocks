@@ -1,0 +1,227 @@
+<section class="ab-dashboard" aria-labelledby="ab-dashboard-title">
+  <div class="center ab-dashboard__inner">
+    <header class="ab-dashboard__header">
+      <div class="stack gap-none">
+        <p class="overline">Thursday, 29 October</p>
+        <h1 id="ab-dashboard-title">Good morning, Maya.</h1>
+        <p class="ab-dashboard__subtitle">Here's what's happening at Northstar Studio this week.</p>
+      </div>
+
+      <div class="cluster ab-dashboard__actions">
+        <nav class="segmented sm" aria-label="Reporting period">
+          <a class="segment" href="#week" aria-current="page">7 days</a>
+          <a class="segment" href="#month">30 days</a>
+          <a class="segment" href="#quarter">Quarter</a>
+        </nav>
+        <a class="btn primary" href="#new-project">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          New project
+        </a>
+      </div>
+    </header>
+
+    <div class="container-query">
+      <div class="grid-4 ab-dashboard__kpis">
+        <article class="card ab-dashboard__kpi">
+          <header>
+            <span class="muted">Net revenue</span>
+            <span class="badge success soft">+12.4%</span>
+          </header>
+          <p class="ab-dashboard__value">$48,290</p>
+          <p class="ab-dashboard__kpi-note">vs. $42,960 last week</p>
+        </article>
+
+        <article class="card ab-dashboard__kpi">
+          <header>
+            <span class="muted">Active projects</span>
+            <span class="badge success soft">+3 new</span>
+          </header>
+          <p class="ab-dashboard__value">18</p>
+          <p class="ab-dashboard__kpi-note">2 in review · 1 overdue</p>
+        </article>
+
+        <article class="card ab-dashboard__kpi">
+          <header>
+            <span class="muted">Billable hours</span>
+            <span class="badge warning soft">-6.0%</span>
+          </header>
+          <p class="ab-dashboard__value">412</p>
+          <p class="ab-dashboard__kpi-note">vs. 438 last week</p>
+        </article>
+
+        <article class="card ab-dashboard__kpi">
+          <header>
+            <span class="muted">Outstanding</span>
+            <span class="badge warning soft">4 invoices</span>
+          </header>
+          <p class="ab-dashboard__value">$12,840</p>
+          <p class="ab-dashboard__kpi-note">2 overdue · 2 due this week</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="sidebar-layout ab-dashboard__main">
+      <article class="card ab-dashboard__chart">
+        <header class="ab-dashboard__section-head">
+          <div class="stack gap-none">
+            <h2>Revenue</h2>
+            <p class="muted">Invoiced and collected, last six months</p>
+          </div>
+          <div class="cluster ab-dashboard__legend">
+            <span><span class="dot ab-dashboard__dot ab-dashboard__dot--invoiced" aria-hidden="true"></span> Invoiced</span>
+            <span><span class="dot ab-dashboard__dot ab-dashboard__dot--collected" aria-hidden="true"></span> Collected</span>
+          </div>
+        </header>
+
+        <figure class="ab-dashboard__figure">
+          <svg class="ab-dashboard__chart-svg" viewBox="0 0 640 240" role="img" aria-label="Invoiced and collected revenue rise from May to October, with invoiced revenue slightly ahead of collected revenue each month">
+            <g class="ab-dashboard__grid-lines" aria-hidden="true">
+              <path d="M0 40h640M0 100h640M0 160h640M0 220h640" />
+            </g>
+            <path class="ab-dashboard__area" d="M0 196C48 188 74 170 118 174S188 142 236 148s72-28 118-22 76-28 122-22 80-24 120-18 36-6 44-4V240H0Z" />
+            <path class="ab-dashboard__line ab-dashboard__line--invoiced" d="M0 196C48 188 74 170 118 174S188 142 236 148s72-28 118-22 76-28 122-22 80-24 120-18 36-6 44-4" />
+            <path class="ab-dashboard__line ab-dashboard__line--collected" d="M0 208C48 202 74 188 118 192S188 164 236 170s72-24 118-18 76-24 122-18 80-18 120-12 36-6 44-4" />
+            <g class="ab-dashboard__points" aria-hidden="true">
+              <circle class="ab-dashboard__point ab-dashboard__point--invoiced" cx="598" cy="82" r="4" />
+              <circle class="ab-dashboard__point ab-dashboard__point--collected" cx="598" cy="94" r="4" />
+            </g>
+          </svg>
+          <figcaption class="ab-dashboard__chart-labels" aria-hidden="true">
+            <span>May</span>
+            <span>Jun</span>
+            <span>Jul</span>
+            <span>Aug</span>
+            <span>Sep</span>
+            <span>Oct</span>
+          </figcaption>
+        </figure>
+
+        <footer class="cluster ab-dashboard__chart-footer">
+          <div class="ab-dashboard__chart-stat">
+            <span class="muted">Collected</span>
+            <strong>$41,820</strong>
+          </div>
+          <div class="ab-dashboard__chart-stat">
+            <span class="muted">Outstanding</span>
+            <strong>$6,470</strong>
+          </div>
+          <span class="badge success soft">82% collected</span>
+        </footer>
+      </article>
+
+      <aside class="card ab-dashboard__activity">
+        <header class="ab-dashboard__section-head">
+          <h2>Recent activity</h2>
+          <a class="btn link sm" href="#activity">View all</a>
+        </header>
+
+        <ul class="list ab-dashboard__activity-list">
+          <li class="list-item">
+            <span class="avatar sm" aria-hidden="true"><abbr>MC</abbr></span>
+            <span class="list-item-content">
+              <strong class="list-item-title">Maya approved the Harbor rebrand</strong>
+              <span class="list-item-text">Brand identity</span>
+            </span>
+            <time class="list-item-trailing muted" datetime="2026-10-29T09:48">12m</time>
+          </li>
+          <li class="list-item">
+            <span class="avatar sm" aria-hidden="true"><abbr>HC</abbr></span>
+            <span class="list-item-content">
+              <strong class="list-item-title">Invoice #1042 was paid</strong>
+              <span class="list-item-text">Harbor &amp; Co · $8,400</span>
+            </span>
+            <time class="list-item-trailing muted" datetime="2026-10-29T09:12">48m</time>
+          </li>
+          <li class="list-item">
+            <span class="avatar sm" aria-hidden="true"><abbr>JR</abbr></span>
+            <span class="list-item-content">
+              <strong class="list-item-title">Jonas uploaded 6 files</strong>
+              <span class="list-item-text">Fieldnotes app</span>
+            </span>
+            <time class="list-item-trailing muted" datetime="2026-10-29T08:00">2h</time>
+          </li>
+          <li class="list-item">
+            <span class="avatar sm" aria-hidden="true"><abbr>PS</abbr></span>
+            <span class="list-item-content">
+              <strong class="list-item-title">Priya left feedback on Atlas</strong>
+              <span class="list-item-text">Art direction</span>
+            </span>
+            <time class="list-item-trailing muted" datetime="2026-10-29T07:00">3h</time>
+          </li>
+          <li class="list-item">
+            <span class="avatar sm" aria-hidden="true"><abbr>MD</abbr></span>
+            <span class="list-item-content">
+              <strong class="list-item-title">Invoice #1043 was sent</strong>
+              <span class="list-item-text">Meridian · $3,200</span>
+            </span>
+            <time class="list-item-trailing muted" datetime="2026-10-29T06:00">4h</time>
+          </li>
+          <li class="list-item">
+            <span class="avatar sm" aria-hidden="true"><abbr>SO</abbr></span>
+            <span class="list-item-content">
+              <strong class="list-item-title">Sam joined the studio</strong>
+              <span class="list-item-text">Producer · Invited by Maya</span>
+            </span>
+            <time class="list-item-trailing muted" datetime="2026-10-29T05:00">5h</time>
+          </li>
+        </ul>
+
+        <footer class="ab-dashboard__activity-footer">
+          <span class="muted">Updated 2 minutes ago</span>
+          <a class="link-muted" href="#activity">Open activity log</a>
+        </footer>
+      </aside>
+    </div>
+
+    <article class="card ab-dashboard__projects">
+      <header class="ab-dashboard__section-head">
+        <div class="stack gap-none">
+          <h2>Projects in flight</h2>
+          <p class="muted">Progress across the studio this week</p>
+        </div>
+        <a class="btn outline sm" href="#projects">All projects</a>
+      </header>
+
+      <ul class="list ab-dashboard__project-list">
+        <li class="list-item">
+          <span class="avatar sm" aria-hidden="true"><abbr>HR</abbr></span>
+          <span class="list-item-content">
+            <strong class="list-item-title">Harbor rebrand</strong>
+            <span class="list-item-text">Brand identity · Due Friday</span>
+          </span>
+          <span class="ab-dashboard__project-progress">
+            <span class="muted">68%</span>
+            <progress class="progress" value="68" max="100">68%</progress>
+          </span>
+          <span class="badge secondary soft">In review</span>
+        </li>
+        <li class="list-item">
+          <span class="avatar sm" aria-hidden="true"><abbr>FN</abbr></span>
+          <span class="list-item-content">
+            <strong class="list-item-title">Fieldnotes app</strong>
+            <span class="list-item-text">Product design · Due 4 Nov</span>
+          </span>
+          <span class="ab-dashboard__project-progress">
+            <span class="muted">42%</span>
+            <progress class="progress" value="42" max="100">42%</progress>
+          </span>
+          <span class="badge success soft">On track</span>
+        </li>
+        <li class="list-item">
+          <span class="avatar sm" aria-hidden="true"><abbr>AT</abbr></span>
+          <span class="list-item-content">
+            <strong class="list-item-title">Atlas campaign</strong>
+            <span class="list-item-text">Art direction · Due 12 Nov</span>
+          </span>
+          <span class="ab-dashboard__project-progress">
+            <span class="muted">81%</span>
+            <progress class="progress" value="81" max="100">81%</progress>
+          </span>
+          <span class="badge warning soft">At risk</span>
+        </li>
+      </ul>
+    </article>
+  </div>
+</section>

@@ -1,0 +1,25 @@
+{
+  "name": "actual-blocks",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A standalone gallery of copy-paste interface blocks built with Actual CSS.",
+  "license": "MIT",
+  "scripts": {
+    "build": "bun scripts/build.js",
+    "check": "bun scripts/check.js",
+    "dev": "bun run build && bun scripts/serve.js",
+    "test": "bun run build && bun run check && playwright test",
+    "test:smoke": "bun run build && bun run check && playwright test tests/smoke.spec.js",
+    "test:a11y": "bun run build && bun run check && playwright test tests/a11y.spec.js",
+    "test:visual": "bun run build && bun run check && playwright test tests/visual.spec.js"
+  },
+  "dependencies": {
+    "actual-css": "0.15.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.64.1",
+    "axe-core": "4.14.0"
+  }
+}

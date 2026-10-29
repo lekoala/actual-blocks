@@ -1,0 +1,188 @@
+/* Actual Blocks — Empty State
+   Scoped to .ab-empty. Requires Actual CSS 0.15.x. */
+
+.ab-empty {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  --center-size: 68rem;
+  --center-pad: var(--space-40);
+  padding-block: clamp(3rem, 6vw, 5.5rem);
+  background:
+    radial-gradient(40rem 26rem at 50% 8%, color-mix(in oklab, var(--secondary) 9%, transparent), transparent 72%),
+    var(--surface);
+  color: var(--text);
+}
+
+.ab-empty__header {
+  max-inline-size: 42rem;
+  margin-inline: auto;
+  margin-block-end: clamp(2rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.ab-empty__header .overline {
+  margin-block-end: var(--space-20);
+}
+
+.ab-empty__header h1 {
+  margin: 0;
+  font-family: var(--ab-font-display);
+  font-size: clamp(2.3rem, 4.6vw, 3.5rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.ab-empty__lead {
+  max-inline-size: 34rem;
+  margin-inline: auto;
+  margin-block: var(--space-30) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.ab-empty__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+  border: var(--border-width) dashed color-mix(in oklab, var(--primary) 28%, var(--border));
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(135deg, color-mix(in oklab, var(--surface-raised) 82%, transparent), color-mix(in oklab, var(--surface-subtle) 55%, transparent));
+}
+
+.ab-empty__art {
+  justify-self: center;
+  inline-size: min(100%, 20rem);
+}
+
+.ab-empty__art svg {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  overflow: visible;
+}
+
+.ab-empty__art-grid {
+  stroke: var(--border);
+  stroke-width: 1;
+  opacity: 0.55;
+}
+
+.ab-empty__art-path {
+  stroke: color-mix(in oklab, var(--secondary) 55%, var(--border));
+  stroke-width: 1.5;
+  stroke-dasharray: 4 7;
+  stroke-linecap: round;
+}
+
+.ab-empty__art-card {
+  fill: var(--surface-raised);
+  stroke: var(--border);
+  stroke-width: 1.5;
+}
+
+.ab-empty__art-card--back {
+  fill: var(--surface-subtle);
+}
+
+.ab-empty__art-folder {
+  fill: color-mix(in oklab, var(--primary) 12%, var(--surface-raised));
+  stroke: color-mix(in oklab, var(--primary) 45%, var(--border));
+  stroke-width: 2;
+}
+
+.ab-empty__art-plus-bg {
+  fill: var(--primary);
+}
+
+.ab-empty__art-plus {
+  stroke: var(--primary-fg);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.ab-empty__art-dot {
+  fill: var(--secondary);
+}
+
+.ab-empty__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-20);
+  max-inline-size: 34rem;
+}
+
+.ab-empty__copy h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.025em;
+}
+
+.ab-empty__copy p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.ab-empty__actions {
+  --gap: var(--space-20);
+  margin-block-start: var(--space-10);
+}
+
+.ab-empty__hint {
+  font-size: var(--font-size-sm);
+}
+
+.ab-empty__hint a {
+  color: var(--text);
+  text-decoration-color: color-mix(in oklab, currentColor 40%, transparent);
+  text-underline-offset: 0.2em;
+}
+
+.ab-empty__hint a:hover {
+  text-decoration-color: currentColor;
+}
+
+.ab-empty__steps {
+  --step-min: 9rem;
+  margin-block-start: clamp(2rem, 4vw, 3rem);
+  padding-block-start: var(--space-40);
+  border-block-start: var(--border-width) solid var(--border);
+}
+
+@media (width >= 56rem) {
+  .ab-empty__panel {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  }
+
+  .ab-empty__art {
+    justify-self: start;
+  }
+}
+
+@media (width < 48rem) {
+  .ab-empty {
+    --center-pad: var(--space-30);
+  }
+
+  .ab-empty__panel {
+    padding: var(--space-40);
+  }
+
+  .ab-empty__actions {
+    inline-size: 100%;
+  }
+
+  .ab-empty__actions .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}

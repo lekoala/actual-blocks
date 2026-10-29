@@ -1,0 +1,17 @@
+{
+  "id": "settings",
+  "title": "Account Settings",
+  "category": "application",
+  "description": "A complete settings surface with a section rail, labeled profile and workspace fields, notification switches and a danger zone.",
+  "summary": "A settings rail, real form anatomy and a calm danger zone.",
+  "components": ["card", "button", "avatar", "badge", "list"],
+  "primitives": ["center", "sidebar-layout", "stack", "cluster", "grid-2", "field", "form-actions"],
+  "requiresJs": false,
+  "previewHeight": "58rem",
+  "docs": ["components/card.html", "components/list.html", "forms/overview.html", "forms/labels.html", "forms/form-actions.html", "layout/sidebar-layout.html"],
+  "notes": [
+    "Saving, uploading and deleting are illustrative actions. Connect the forms and buttons to your application handlers.",
+    "The section rail is in-page navigation; it does not load separate routes.",
+    "The switch rows use native checked state. Keep aria-checked in sync if you adopt role=\"switch\" with application code."
+  ]
+}

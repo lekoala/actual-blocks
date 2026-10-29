@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{TITLE}} — Actual Blocks</title>
+  <meta name="description" content="{{DESCRIPTION}}" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/actual-css.css" />
+  <link rel="stylesheet" href="../assets/gallery.css" />
+</head>
+<body class="g-page g-detail">
+  <a class="g-skip" href="#g-preview-title">Skip to preview</a>
+
+  <header class="g-header">
+    <div class="g-header__inner">
+      <a class="g-brand" href="../index.html">
+        <svg class="g-brand__mark" viewBox="20 26 140 128" aria-hidden="true" focusable="false">
+          <path fill="currentColor" fill-rule="evenodd" d="M54.1,143.7 L150.1,143.7 L102.1,39.7ZM131.3,131.7 L72.9,131.7 L102.1,68.3Z" />
+          <path fill="var(--g-brand-violet)" fill-rule="evenodd" d="M29.9,143.7 L43.1,143.7 L86.1,50.6 L79.4,36.3Z" />
+          <path fill="var(--g-brand-violet)" fill-rule="evenodd" d="M113.1,109.7 L91.1,109.7 L91.1,131.7 L113.1,131.7Z" />
+        </svg>
+        <span class="g-brand__name">Actual Blocks</span>
+        <span class="g-brand__version">v0.1</span>
+      </a>
+
+      <nav class="g-nav" aria-label="Primary">
+        <a href="../index.html#blocks">Blocks</a>
+        <a href="../index.html#how">How it works</a>
+        <a href="https://github.com/lekoala/actual-css" rel="noopener">Actual CSS</a>
+      </nav>
+
+      <a class="btn primary sm g-header__cta" href="../index.html#blocks">All blocks</a>
+    </div>
+  </header>
+
+  <main class="g-detail__main">
+    <nav class="g-breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb">
+        <li><a href="../index.html">Blocks</a></li>
+        <li><a href="../index.html#blocks">{{CATEGORY_LABEL}}</a></li>
+        <li aria-current="page">{{TITLE}}</li>
+      </ol>
+    </nav>
+
+    <header class="g-detail__head">
+      <div class="g-detail__title">
+        <p class="overline">{{CATEGORY_LABEL}} · Block {{ID}}</p>
+        <h1>{{TITLE}}</h1>
+        <p class="g-detail__lead">{{DESCRIPTION}}</p>
+      </div>
+
+      <dl class="g-detail__meta">
+        <div>
+          <dt>Category</dt>
+          <dd>{{CATEGORY_LABEL}}</dd>
+        </div>
+        <div>
+          <dt>Actual CSS</dt>
+          <dd>{{VERSION}}</dd>
+        </div>
+        <div>
+          <dt>JavaScript</dt>
+          <dd>{{REQUIRES_JS}}</dd>
+        </div>
+        <div>
+          <dt>Block source</dt>
+          <dd>block.html + block.css</dd>
+        </div>
+      </dl>
+    </header>
+
+    <section class="g-preview" aria-labelledby="g-preview-title">
+      <div class="g-preview__toolbar">
+        <div class="g-preview__toolbar-group">
+          <span class="g-toolbar-label" id="g-preview-title">Preview</span>
+
+          <div class="g-segmented" role="group" aria-label="Preview viewport">
+            <button class="g-seg" type="button" data-viewport="desktop" aria-pressed="true">Desktop</button>
+            <button class="g-seg" type="button" data-viewport="mobile" aria-pressed="false">Mobile</button>
+          </div>
+
+          <div class="g-segmented" role="group" aria-label="Preview theme">
+            <button class="g-seg" type="button" data-preview-theme="light" aria-pressed="true">Light</button>
+            <button class="g-seg" type="button" data-preview-theme="dark" aria-pressed="false">Dark</button>
+          </div>
+        </div>
+
+        <a class="g-open" href="../previews/{{ID}}.html?theme=light" target="_blank" rel="noopener" data-preview-link="../previews/{{ID}}.html">
+          Open preview
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+        </a>
+      </div>
+
+      <div class="g-stage" data-viewport="desktop" data-preview-theme="light" style="--g-preview-height: {{PREVIEW_HEIGHT}}">
+        <div class="g-browser">
+          <div class="g-browser__bar">
+            <span class="g-browser__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="g-browser__url">previews/{{ID}}.html</span>
+            <span class="g-browser__size" aria-hidden="true">Live</span>
+          </div>
+          <iframe class="g-frame" id="g-preview-frame" src="../previews/{{ID}}.html?theme=light" title="{{TITLE}} live preview" data-preview-src="../previews/{{ID}}.html"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <div class="g-detail__columns">
+      <section class="g-source" aria-labelledby="g-source-title">
+        <div class="g-source__head">
+          <div>
+            <p class="overline">Source</p>
+            <h2 id="g-source-title">The canonical block</h2>
+          </div>
+          <p class="muted">The preview and this source are generated from the same files.</p>
+        </div>
+
+        <div class="g-tabs" role="tablist" aria-label="Source files">
+          <button class="g-tab" id="g-tab-html" type="button" role="tab" aria-selected="true" aria-controls="g-panel-html" tabindex="0">HTML</button>
+          <button class="g-tab" id="g-tab-css" type="button" role="tab" aria-selected="false" aria-controls="g-panel-css" tabindex="-1">CSS</button>
+        </div>
+
+        <section class="g-source__panel" id="g-panel-html" role="tabpanel" aria-labelledby="g-tab-html" tabindex="0">
+          <div class="g-source__bar">
+            <span>block.html</span>
+            <button class="g-copy" type="button" data-copy-target="g-source-html">Copy HTML</button>
+          </div>
+          <pre tabindex="0" aria-label="Block HTML source"><code id="g-source-html">{{SOURCE_HTML}}</code></pre>
+        </section>
+
+        <section class="g-source__panel" id="g-panel-css" role="tabpanel" aria-labelledby="g-tab-css" tabindex="0" hidden>
+          <div class="g-source__bar">
+            <span>block.css</span>
+            <button class="g-copy" type="button" data-copy-target="g-source-css">Copy CSS</button>
+          </div>
+          <pre tabindex="0" aria-label="Block CSS source"><code id="g-source-css">{{SOURCE_CSS}}</code></pre>
+        </section>
+      </section>
+
+      <aside class="g-aside" aria-label="Block details">
+        <section class="g-aside__block">
+          <p class="overline">Dependencies</p>
+          <h2>What this block uses</h2>
+          <p>
+            Requires <a href="https://lekoala.github.io/actual-css/" rel="noopener">Actual CSS {{VERSION}}</a>. Import the full bundle for a quick start, or the modules you already use.
+          </p>
+
+          <ul class="g-deps">
+            {{COMPONENT_LINKS}}
+          </ul>
+
+          <p class="g-aside__label">Layout &amp; form primitives</p>
+          <p class="g-chips">{{PRIMITIVE_CHIPS}}</p>
+
+          <div class="g-import">
+            <code id="g-import-code">{{IMPORT_CODE}}</code>
+            <button class="g-copy g-copy--small" type="button" data-copy-target="g-import-code">Copy</button>
+          </div>
+
+          <p class="g-aside__note">The block stylesheet is copied separately. No gallery CSS or gallery JavaScript is required.</p>
+
+          <p class="g-aside__label">Documentation</p>
+          <ul class="g-docs">
+            {{DOC_LINKS}}
+          </ul>
+        </section>
+
+        <section class="g-aside__block">
+          <p class="overline">Good to know</p>
+          <h2>Limits &amp; notes</h2>
+          <ul class="g-notes">
+            {{NOTES}}
+          </ul>
+        </section>
+
+        <section class="g-aside__block">
+          <p class="overline">Keep browsing</p>
+          <nav class="g-pager" aria-label="Block pagination">
+            {{PAGER}}
+          </nav>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="g-footer">
+    <div class="g-footer__inner">
+      <div class="g-footer__brand">
+        <img class="g-footer__icon" src="../assets/actual-blocks-icon.svg" alt="" width="32" height="32" aria-hidden="true" />
+        <div>
+          <strong>Actual Blocks</strong>
+          <p class="muted">A separate, copy-paste gallery for Actual CSS.</p>
+        </div>
+      </div>
+      <p class="g-footer__note">Built with Actual CSS {{VERSION}}. Product names and sample data are fictional. Block source is MIT.</p>
+      <nav class="g-footer__nav" aria-label="Footer">
+        <a href="https://lekoala.github.io/actual-css/" rel="noopener">Actual CSS docs</a>
+        <a href="https://github.com/lekoala/actual-css" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../assets/gallery.js" defer></script>
+</body>
+</html>

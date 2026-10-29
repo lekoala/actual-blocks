@@ -1,0 +1,17 @@
+{
+  "id": "sidebar",
+  "title": "App Sidebar",
+  "category": "navigation",
+  "description": "A persistent studio sidebar with grouped navigation, account actions and a native drawer for small screens.",
+  "summary": "Grouped rail navigation with a real mobile drawer strategy.",
+  "components": ["avatar", "badge", "button", "card", "drawer", "list", "progress", "navbar"],
+  "primitives": ["topbar", "cluster", "stack", "grid", "nav-list"],
+  "requiresJs": false,
+  "previewHeight": "56rem",
+  "docs": ["components/navbar.html", "components/drawer.html", "patterns/navigation-list.html", "layout/topbar.html", "components/list.html", "components/progress.html"],
+  "notes": [
+    "The desktop rail and the mobile drawer are separate elements, as the Actual CSS navigation pattern recommends.",
+    "Opening the drawer uses the native command=\"show-modal\" / commandfor pair. It needs a browser with native dialog command support; no JavaScript is bundled.",
+    "Project links, filters and account actions are placeholders for your application routes."
+  ]
+}

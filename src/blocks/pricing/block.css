@@ -1,0 +1,194 @@
+/* Actual Blocks — Three-tier Pricing
+   Scoped to .ab-pricing. Requires Actual CSS 0.15.x. */
+
+.ab-pricing {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  --center-size: 74rem;
+  --center-pad: var(--space-40);
+  padding-block: clamp(3.5rem, 7vw, 6.5rem);
+  background:
+    radial-gradient(48rem 30rem at 50% 0%, color-mix(in oklab, var(--primary) 8%, transparent), transparent 70%),
+    var(--surface);
+  color: var(--text);
+}
+
+.ab-pricing__header {
+  max-inline-size: 44rem;
+  margin-inline: auto;
+  margin-block-end: clamp(2.5rem, 5vw, 4rem);
+  text-align: center;
+}
+
+.ab-pricing__header .overline {
+  margin-block-end: var(--space-20);
+}
+
+.ab-pricing__header h2 {
+  margin: 0;
+  font-family: var(--ab-font-display);
+  font-size: clamp(2.15rem, 4.4vw, 3.5rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.ab-pricing__lead {
+  max-inline-size: 36rem;
+  margin-inline: auto;
+  margin-block: var(--space-30) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.ab-pricing__billing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-20);
+  margin-block: var(--space-30) 0;
+  font-size: var(--font-size-sm);
+}
+
+.ab-pricing__grid {
+  --grid-min: 17.5rem;
+  --gap: var(--space-30);
+  align-items: stretch;
+}
+
+.ab-pricing__card {
+  --card-pad: var(--space-50);
+  --card-gap: var(--space-40);
+  --card-radius: var(--radius-lg);
+  block-size: 100%;
+}
+
+.ab-pricing__card h3 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.015em;
+}
+
+.ab-pricing__card header p {
+  margin-block: var(--space-10) 0;
+  font-size: var(--font-size-sm);
+  line-height: 1.55;
+}
+
+@media (width >= 48rem) {
+  .ab-pricing__card header {
+    min-block-size: 5.5rem;
+  }
+}
+
+.ab-pricing__plan-head {
+  --cluster-justify: space-between;
+  --cluster-align: center;
+}
+
+.ab-pricing__price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.15rem;
+  margin: 0;
+  font-family: var(--ab-font-display);
+  font-size: clamp(2.75rem, 5vw, 3.75rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-pricing__currency {
+  align-self: flex-start;
+  margin-block-start: 0.35em;
+  font-size: 0.45em;
+  letter-spacing: 0;
+}
+
+.ab-pricing__period {
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  letter-spacing: 0;
+}
+
+.ab-pricing__features {
+  --gap: var(--space-20);
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ab-pricing__features li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-20);
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+.ab-pricing__check {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  inline-size: 1.15rem;
+  block-size: 1.15rem;
+  margin-block-start: 0.1rem;
+  border-radius: var(--radius-full);
+  background: color-mix(in oklab, var(--success) 16%, var(--surface));
+  color: var(--success);
+}
+
+.ab-pricing__card footer {
+  margin-block-start: auto;
+}
+
+.ab-pricing__card footer .btn {
+  inline-size: 100%;
+  justify-content: center;
+}
+
+.ab-pricing__card--featured {
+  position: relative;
+  border-color: color-mix(in oklab, var(--primary) 38%, var(--border));
+  box-shadow: var(--shadow-popout);
+}
+
+.ab-pricing__footnote {
+  margin-block: var(--space-50) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
+.ab-pricing__footnote a {
+  color: var(--text);
+  text-decoration-color: color-mix(in oklab, currentColor 40%, transparent);
+  text-underline-offset: 0.2em;
+}
+
+.ab-pricing__footnote a:hover {
+  text-decoration-color: currentColor;
+}
+
+@media (width < 48rem) {
+  .ab-pricing {
+    --center-pad: var(--space-30);
+  }
+
+  .ab-pricing__card {
+    --card-pad: var(--space-40);
+  }
+
+  .ab-pricing__card--featured {
+    order: -1;
+  }
+}

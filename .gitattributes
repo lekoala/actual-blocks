@@ -1,0 +1,32 @@
+# Auto detect text files and normalize line endings to LF on checkout
+* text=auto eol=lf
+
+# Source files
+*.css text eol=lf
+*.js text eol=lf
+*.html text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.svg text eol=lf
+
+# npm package export-ignore
+# These files are tracked by git but excluded from npm package exports
+demo/ export-ignore
+tests/ export-ignore
+scripts/ export-ignore
+playwright.config.js export-ignore
+*.spec.js export-ignore

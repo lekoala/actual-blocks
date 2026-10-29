@@ -1,0 +1,16 @@
+{
+  "id": "features",
+  "title": "Feature Grid",
+  "category": "marketing",
+  "description": "Six studio capabilities arranged in a calm, responsive grid with a short integration note.",
+  "summary": "A six-card capability grid with a restrained integration strip.",
+  "components": ["card"],
+  "primitives": ["center", "grid", "stack", "cluster"],
+  "requiresJs": false,
+  "previewHeight": "46rem",
+  "docs": ["layout/grid.html", "components/card.html", "layout/center.html"],
+  "notes": [
+    "Feature copy and links are illustrative. Replace them with your product's real capabilities and destinations.",
+    "The integration names are plain text, not third-party logos, so no vendor assets are required."
+  ]
+}

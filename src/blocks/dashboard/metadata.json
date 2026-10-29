@@ -1,0 +1,17 @@
+{
+  "id": "dashboard",
+  "title": "Dashboard Overview",
+  "category": "application",
+  "description": "A studio dashboard with four KPIs, a revenue chart, recent activity and project progress, built from real layout and data primitives.",
+  "summary": "KPIs, a hand-drawn revenue chart, activity and project health.",
+  "components": ["card", "badge", "avatar", "progress", "list", "segmented"],
+  "primitives": ["center", "grid-4", "container-query", "sidebar-layout", "stack", "cluster"],
+  "requiresJs": false,
+  "previewHeight": "56rem",
+  "docs": ["components/card.html", "components/badge.html", "components/progress.html", "components/list.html", "components/segmented.html", "layout/sidebar-layout.html"],
+  "notes": [
+    "All figures, names and activity are sample data. Wire the block to your own queries before shipping it.",
+    "The reporting-period control is navigation, not a working date filter. The chart is a static inline SVG.",
+    "The chart has a text summary for assistive technology; the visible labels are plain HTML."
+  ]
+}

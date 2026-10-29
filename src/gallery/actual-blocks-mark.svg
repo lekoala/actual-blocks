@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 26 140 128" role="img" aria-labelledby="ab-mark-title">
+  <title id="ab-mark-title">Actual Blocks</title>
+  <path fill="currentColor" fill-rule="evenodd" d="M54.1,143.7 L150.1,143.7 L102.1,39.7ZM131.3,131.7 L72.9,131.7 L102.1,68.3Z"/>
+  <path fill="var(--g-brand-violet, #9B7BCB)" fill-rule="evenodd" d="M29.9,143.7 L43.1,143.7 L86.1,50.6 L79.4,36.3Z"/>
+  <path fill="var(--g-brand-violet, #9B7BCB)" fill-rule="evenodd" d="M113.1,109.7 L91.1,109.7 L91.1,131.7 L113.1,131.7Z"/>
+</svg>

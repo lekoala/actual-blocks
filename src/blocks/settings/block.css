@@ -1,0 +1,231 @@
+/* Actual Blocks — Account Settings
+   Scoped to .ab-settings. Requires Actual CSS 0.15.x. */
+
+.ab-settings {
+  --center-size: 76rem;
+  --center-pad: var(--space-40);
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--surface-subtle) 50%, transparent), transparent 20rem),
+    var(--surface);
+  color: var(--text);
+}
+
+.ab-settings__header {
+  max-inline-size: 44rem;
+  margin-block-end: clamp(2rem, 4vw, 3rem);
+}
+
+.ab-settings__header .overline {
+  margin-block-end: var(--space-20);
+}
+
+.ab-settings__header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.85rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.ab-settings__lead {
+  margin-block: var(--space-20) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+}
+
+.ab-settings__layout {
+  --sidebar-layout-size: 14rem;
+  --sidebar-content-min: 32rem;
+  --gap: var(--space-50);
+  align-items: start;
+}
+
+.ab-settings__nav {
+  position: sticky;
+  inset-block-start: var(--space-40);
+  display: grid;
+  gap: var(--space-40);
+}
+
+.ab-settings__nav .nav-list {
+  --gap: var(--space-10);
+}
+
+.ab-settings__nav .nav-link {
+  font-size: var(--font-size-sm);
+}
+
+.ab-settings__help {
+  --card-pad: var(--space-30);
+  --card-gap: var(--space-20);
+  font-size: var(--font-size-sm);
+}
+
+.ab-settings__help p {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  line-height: 1.55;
+}
+
+.ab-settings__help .btn {
+  align-self: start;
+  justify-content: flex-start;
+  padding-inline: 0;
+}
+
+.ab-settings__main {
+  min-inline-size: 0;
+}
+
+.ab-settings__card {
+  --card-pad: var(--space-50);
+  --card-gap: var(--space-40);
+  --card-radius: var(--radius-lg);
+  scroll-margin-block-start: var(--space-50);
+}
+
+.ab-settings__card-head {
+  align-items: flex-start;
+}
+
+.ab-settings__card-head .badge {
+  margin-inline-start: auto;
+}
+
+.ab-settings__card-head h2 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.015em;
+}
+
+.ab-settings__card-head p {
+  margin-block: var(--space-10) 0;
+  font-size: var(--font-size-sm);
+}
+
+.ab-settings__form {
+  --gap: var(--space-40);
+}
+
+.ab-settings__avatar-row {
+  --cluster-align: center;
+  --gap: var(--space-20);
+  padding-block-end: var(--space-30);
+  border-block-end: var(--border-width) solid var(--border);
+}
+
+.ab-settings__avatar-actions {
+  --gap: var(--space-10);
+  margin-inline-start: auto;
+}
+
+.ab-settings__fields {
+  --gap: var(--space-30);
+}
+
+.ab-settings__field-full {
+  grid-column: 1 / -1;
+}
+
+.ab-settings__actions {
+  --form-actions-justify: flex-end;
+  padding-block-start: var(--space-10);
+}
+
+.ab-settings__switches {
+  --list-item-pad-block: var(--space-30);
+  --list-item-gap: var(--space-30);
+  --list-item-min-size: 0;
+}
+
+.ab-settings__switches .list-item-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.ab-settings__switches .list-item-text {
+  margin-block-start: var(--space-10);
+  font-size: var(--font-size-xs);
+  line-height: 1.5;
+}
+
+.ab-settings__danger {
+  border-color: color-mix(in oklab, var(--danger) 28%, var(--border));
+}
+
+.ab-settings__danger-copy {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.ab-settings__danger footer {
+  justify-content: flex-start;
+}
+
+@media (width < 64rem) {
+  .ab-settings__layout {
+    --gap: var(--space-40);
+  }
+
+  .ab-settings__nav {
+    position: static;
+    gap: var(--space-30);
+  }
+
+  .ab-settings__nav nav {
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    padding-block-end: var(--space-10);
+    scrollbar-width: none;
+  }
+
+  .ab-settings__nav nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ab-settings__nav .nav-list {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+  }
+
+  .ab-settings__nav .nav-link {
+    white-space: nowrap;
+  }
+
+  .ab-settings__help {
+    display: none;
+  }
+}
+
+@media (width < 48rem) {
+  .ab-settings {
+    --center-pad: var(--space-30);
+  }
+
+  .ab-settings__card {
+    --card-pad: var(--space-40);
+  }
+
+  .ab-settings__avatar-row {
+    align-items: flex-start;
+  }
+
+  .ab-settings__avatar-actions {
+    margin-inline-start: 0;
+  }
+
+  .ab-settings__actions {
+    --form-actions-justify: stretch;
+  }
+
+  .ab-settings__actions .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}

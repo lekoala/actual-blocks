@@ -1,0 +1,140 @@
+/* Actual Blocks — Feature Grid
+   Scoped to .ab-features. Requires Actual CSS 0.15.x. */
+
+.ab-features {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  --center-size: 72rem;
+  --center-pad: var(--space-40);
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--surface-subtle) 55%, transparent), transparent 18rem),
+    var(--surface);
+  color: var(--text);
+}
+
+.ab-features__header {
+  max-inline-size: 46rem;
+  margin-block-end: clamp(2rem, 4vw, 3rem);
+}
+
+.ab-features__header .overline {
+  margin-block-end: var(--space-20);
+}
+
+.ab-features__header h2 {
+  margin: 0;
+  font-family: var(--ab-font-display);
+  font-size: clamp(2.15rem, 4.4vw, 3.5rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.ab-features__lead {
+  max-inline-size: 40rem;
+  margin-block: var(--space-30) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.ab-features__grid {
+  --grid-min: 18rem;
+  --gap: var(--space-30);
+}
+
+.ab-features__card {
+  --card-pad: var(--space-40);
+  --card-gap: var(--space-20);
+  --card-radius: var(--radius-lg);
+  transition: border-color var(--duration) ease, translate var(--duration) ease;
+}
+
+.ab-features__card:hover {
+  border-color: color-mix(in oklab, var(--primary) 35%, var(--border));
+  translate: 0 -2px;
+}
+
+.ab-features__card h3 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.015em;
+}
+
+.ab-features__card p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.ab-features__icon {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  border-radius: var(--radius);
+  background: color-mix(in oklab, var(--primary) 10%, var(--surface));
+  color: var(--primary);
+}
+
+.ab-features__icon--secondary {
+  background: color-mix(in oklab, var(--secondary) 12%, var(--surface));
+  color: var(--secondary);
+}
+
+.ab-features__icon--success {
+  background: color-mix(in oklab, var(--success) 12%, var(--surface));
+  color: var(--success);
+}
+
+.ab-features__icon--warning {
+  background: color-mix(in oklab, var(--warning) 14%, var(--surface));
+  color: var(--warning);
+}
+
+.ab-features__footer {
+  --cluster-justify: space-between;
+  --cluster-align: center;
+  margin-block-start: var(--space-50);
+  padding-block-start: var(--space-40);
+  border-block-start: var(--border-width) solid var(--border);
+}
+
+.ab-features__footer p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.ab-features__footer strong {
+  color: var(--text);
+  font-weight: var(--font-weight-medium);
+}
+
+@media (width < 48rem) {
+  .ab-features {
+    --center-pad: var(--space-30);
+  }
+
+  .ab-features__card {
+    min-block-size: 0;
+  }
+
+  .ab-features__footer {
+    --cluster-justify: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ab-features__card {
+    transition: none;
+  }
+
+  .ab-features__card:hover {
+    translate: none;
+  }
+}

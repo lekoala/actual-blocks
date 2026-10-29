@@ -1,0 +1,275 @@
+/* Actual Blocks — Hero
+   Scoped to .ab-hero. Requires Actual CSS 0.15.x. */
+
+.ab-hero {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  --center-size: 76rem;
+  --center-pad: var(--space-40);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding-block: clamp(3.5rem, 8vw, 7rem) clamp(4rem, 9vw, 7.5rem);
+  background:
+    radial-gradient(52rem 36rem at 88% 8%, color-mix(in oklab, var(--secondary) 14%, transparent), transparent 72%),
+    radial-gradient(44rem 32rem at 6% 96%, color-mix(in oklab, var(--primary) 11%, transparent), transparent 74%),
+    var(--surface);
+  color: var(--text);
+}
+
+.ab-hero__grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(var(--border) var(--border-width), transparent var(--border-width)),
+    linear-gradient(90deg, var(--border) var(--border-width), transparent var(--border-width));
+  background-size: 4.5rem 4.5rem;
+  opacity: 0.38;
+  mask-image: radial-gradient(70% 70% at 50% 35%, #000 10%, transparent 100%);
+  pointer-events: none;
+}
+
+.ab-hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 5rem);
+}
+
+.ab-hero__copy {
+  max-inline-size: 38rem;
+}
+
+.ab-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-20);
+  margin-block-end: var(--space-40);
+}
+
+.ab-hero__pulse {
+  flex: none;
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--success);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--success) 14%, transparent);
+}
+
+.ab-hero__title {
+  margin: 0;
+  font-family: var(--ab-font-display);
+  font-size: clamp(2.85rem, 6.2vw, 5rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.ab-hero__title em {
+  color: var(--secondary);
+  font-style: italic;
+  font-weight: inherit;
+}
+
+.ab-hero__lead {
+  max-inline-size: 33rem;
+  margin-block: var(--space-40) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.ab-hero__actions {
+  --gap: var(--space-20);
+  margin-block-start: var(--space-50);
+}
+
+.ab-hero__fineprint {
+  margin-block-start: var(--space-30);
+  font-size: var(--font-size-sm);
+}
+
+.ab-hero__proof {
+  --gap: var(--space-20);
+  margin-block-start: var(--space-50);
+  padding-block-start: var(--space-40);
+  border-block-start: var(--border-width) solid var(--border);
+}
+
+.ab-hero__proof p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.ab-hero__proof strong {
+  color: var(--text);
+}
+
+.ab-hero__visual {
+  position: relative;
+  isolation: isolate;
+  inline-size: 100%;
+  max-inline-size: 31rem;
+  margin-inline: auto;
+}
+
+.ab-hero__glow {
+  position: absolute;
+  inset: 8% 2%;
+  z-index: -1;
+  border-radius: var(--radius-full);
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--primary) 22%, transparent), transparent);
+  filter: blur(2.5rem);
+  opacity: 0.8;
+}
+
+.ab-hero__app {
+  --card-pad: clamp(1.25rem, 2.6vw, 1.75rem);
+  --card-gap: var(--space-40);
+  --card-radius: var(--radius-lg);
+  position: relative;
+  box-shadow: var(--shadow-popout);
+}
+
+.ab-hero__app-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-20);
+}
+
+.ab-hero__app-head h2 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.01em;
+}
+
+.ab-hero__metric {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-20);
+}
+
+.ab-hero__amount {
+  font-family: var(--ab-font-display);
+  font-size: clamp(2rem, 4vw, 2.65rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-hero__spark {
+  inline-size: 100%;
+  block-size: 4.5rem;
+  margin-block: calc(var(--space-10) * -1) 0;
+  color: var(--primary);
+  overflow: visible;
+}
+
+.ab-hero__spark-grid path {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 1;
+  stroke-dasharray: 2 5;
+}
+
+.ab-hero__spark-area {
+  fill: color-mix(in oklab, currentColor 16%, transparent);
+}
+
+.ab-hero__spark-line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.ab-hero__capacity-head {
+  --cluster-justify: space-between;
+  margin-block-end: var(--space-10);
+  font-size: var(--font-size-sm);
+}
+
+.ab-hero__capacity .meter {
+  --bar-height: 0.5rem;
+  --meter-track: var(--surface-subtle);
+}
+
+.ab-hero__projects {
+  --list-divider: 0;
+  --list-item-pad-block: var(--space-20);
+  --list-item-gap: var(--space-20);
+  --list-item-min-size: 0;
+  margin-block-start: var(--space-10);
+}
+
+.ab-hero__projects .list-item-title {
+  font-size: var(--font-size-sm);
+}
+
+.ab-hero__projects .list-item-text {
+  font-size: var(--font-size-xs);
+}
+
+.ab-hero__float {
+  position: absolute;
+  inset-block-end: calc(var(--space-60) * -2.25);
+  inset-inline-start: calc(var(--space-50) * -1);
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);
+  inline-size: 15.5rem;
+  padding: var(--space-20);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-popout);
+  font-size: var(--font-size-sm);
+}
+
+.ab-hero__float-icon {
+  --badge-size: 2rem;
+  --badge-dot-size: 0.5rem;
+  flex: none;
+}
+
+.ab-hero__float strong {
+  display: block;
+  font-size: var(--font-size-sm);
+}
+
+.ab-hero__float .muted {
+  font-size: var(--font-size-xs);
+}
+
+@media (width >= 64rem) {
+  .ab-hero__inner {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  }
+}
+
+@media (width < 48rem) {
+  .ab-hero {
+    --center-pad: var(--space-30);
+    padding-block: var(--space-60) var(--space-60);
+  }
+
+  .ab-hero__grid {
+    background-size: 3rem 3rem;
+  }
+
+  .ab-hero__actions .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .ab-hero__float {
+    display: none;
+  }
+}

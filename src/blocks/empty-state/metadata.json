@@ -1,0 +1,16 @@
+{
+  "id": "empty-state",
+  "title": "Empty State",
+  "category": "application",
+  "description": "A helpful zero-project state with a custom illustration, two clear next actions and a three-step path forward.",
+  "summary": "A warm empty state that explains the next move.",
+  "components": ["button", "badge", "steps"],
+  "primitives": ["center", "cluster", "stack", "grid"],
+  "requiresJs": false,
+  "previewHeight": "46rem",
+  "docs": ["components/steps.html", "components/button.html", "components/badge.html", "layout/center.html"],
+  "notes": [
+    "The actions are placeholder links. Point them at your create and import flows.",
+    "The illustration is inline SVG drawn with theme tokens, not a vendor asset."
+  ]
+}

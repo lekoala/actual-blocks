@@ -1,0 +1,172 @@
+/* Actual Blocks — Data Listing
+   Scoped to .ab-listing. Requires Actual CSS 0.15.x. */
+
+.ab-listing {
+  --center-size: 78rem;
+  --center-pad: var(--space-40);
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.ab-listing__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-30);
+  margin-block-end: var(--space-40);
+}
+
+.ab-listing__header .overline {
+  margin-block-end: var(--space-10);
+}
+
+.ab-listing__header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.85rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.ab-listing__lead {
+  margin-block: var(--space-20) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+}
+
+.ab-listing__header-actions {
+  --gap: var(--space-20);
+}
+
+.ab-listing__filters {
+  --gap: var(--space-20);
+  --cluster-align: center;
+  margin-block-end: var(--space-30);
+}
+
+.ab-listing__search {
+  flex: 1 1 16rem;
+  max-inline-size: 24rem;
+}
+
+.ab-listing__filters .select {
+  flex: 0 1 11rem;
+  inline-size: auto;
+  min-inline-size: 0;
+}
+
+.ab-listing__filter-note {
+  margin-inline-start: auto;
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-listing__alert {
+  margin-block-end: var(--space-30);
+}
+
+.ab-listing__alert-content {
+  --cluster-justify: space-between;
+  --cluster-align: center;
+  inline-size: 100%;
+  gap: var(--space-20);
+}
+
+.ab-listing__alert-content > span {
+  font-size: var(--font-size-sm);
+}
+
+.ab-listing__table-wrap {
+  border-radius: var(--radius-lg);
+}
+
+.ab-listing__table {
+  --table-min: 52rem;
+}
+
+.ab-listing__table thead th {
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ab-listing__table tbody th {
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.ab-listing__table td,
+.ab-listing__table th {
+  vertical-align: middle;
+}
+
+.ab-listing__check-cell {
+  inline-size: 1%;
+  padding-inline-end: 0;
+}
+
+.ab-listing__invoice {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+}
+
+.ab-listing__invoice:hover {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.ab-listing__footer {
+  --cluster-justify: space-between;
+  --cluster-align: center;
+  margin-block-start: var(--space-30);
+}
+
+.ab-listing__footer p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (width < 48rem) {
+  .ab-listing {
+    --center-pad: var(--space-30);
+  }
+
+  .ab-listing__header-actions {
+    inline-size: 100%;
+  }
+
+  .ab-listing__header-actions .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .ab-listing__search {
+    flex-basis: 100%;
+    max-inline-size: none;
+  }
+
+  .ab-listing__filters .select {
+    flex: 1 1 8rem;
+    min-inline-size: 0;
+  }
+
+  .ab-listing__filter-note {
+    flex-basis: 100%;
+    margin-inline-start: 0;
+  }
+
+  .ab-listing__alert-content {
+    --cluster-justify: flex-start;
+    --cluster-align: flex-start;
+  }
+
+  .ab-listing__footer {
+    --cluster-justify: flex-start;
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "listing",
+  "title": "Data Listing",
+  "category": "application",
+  "description": "An invoice table with search, filters, status, row actions and pagination that stays usable on a narrow screen.",
+  "summary": "A real data table with filters, status and a scroll strategy.",
+  "components": ["table", "badge", "button", "alert", "pagination"],
+  "primitives": ["center", "cluster", "stack", "input-icon", "form-actions"],
+  "requiresJs": false,
+  "previewHeight": "56rem",
+  "docs": ["components/table.html", "components/badge.html", "components/pagination.html", "components/alert.html", "patterns/icon-input.html"],
+  "notes": [
+    "Search, filters, row selection and pagination are illustrative. Wire them to your own query and routing layer.",
+    "The table keeps its columns and scrolls horizontally inside .table-wrap on narrow screens.",
+    "Invoice numbers, clients and amounts are sample data."
+  ]
+}

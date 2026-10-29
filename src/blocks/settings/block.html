@@ -1,0 +1,210 @@
+<section class="ab-settings" aria-labelledby="ab-settings-title">
+  <div class="center ab-settings__inner">
+    <header class="ab-settings__header">
+      <p class="overline">Account</p>
+      <h1 id="ab-settings-title">Account settings</h1>
+      <p class="ab-settings__lead">Manage your profile, workspace details and the notifications you actually want.</p>
+    </header>
+
+    <div class="sidebar-layout reverse ab-settings__layout">
+      <aside class="ab-settings__nav" aria-label="Settings sections">
+        <nav aria-label="Settings">
+          <ul class="nav-list">
+            <li><a class="nav-link" href="#profile" aria-current="page">Profile</a></li>
+            <li><a class="nav-link" href="#workspace">Workspace</a></li>
+            <li><a class="nav-link" href="#notifications">Notifications</a></li>
+            <li><a class="nav-link" href="#billing">Billing</a></li>
+            <li><a class="nav-link" href="#security">Security</a></li>
+          </ul>
+        </nav>
+
+        <div class="card subtle ab-settings__help">
+          <strong>Need a hand?</strong>
+          <p class="muted">Read the workspace setup guide or talk to a human.</p>
+          <a class="btn ghost sm" href="#help">Open help centre</a>
+        </div>
+      </aside>
+
+      <div class="stack loose ab-settings__main">
+        <article class="card ab-settings__card" id="profile">
+          <header class="ab-settings__card-head">
+            <div class="stack gap-none">
+              <h2>Profile</h2>
+              <p class="muted">This is how you appear to your team and clients.</p>
+            </div>
+            <span class="badge success soft">Verified</span>
+          </header>
+
+          <form class="stack ab-settings__form" novalidate>
+            <div class="cluster ab-settings__avatar-row">
+              <span class="avatar lg" role="img" aria-label="Maya Chen">
+                <abbr title="Maya Chen">MC</abbr>
+              </span>
+              <div class="stack gap-none">
+                <strong>Profile photo</strong>
+                <span class="muted">JPG, PNG or WebP. 2 MB max.</span>
+              </div>
+              <div class="cluster ab-settings__avatar-actions">
+                <button class="btn outline sm" type="button">Change</button>
+                <button class="btn ghost sm" type="button">Remove</button>
+              </div>
+            </div>
+
+            <div class="grid-2 ab-settings__fields">
+              <label class="field">
+                <span class="field-label">First name</span>
+                <input class="input" type="text" name="first-name" autocomplete="given-name" value="Maya" />
+              </label>
+
+              <label class="field">
+                <span class="field-label">Last name</span>
+                <input class="input" type="text" name="last-name" autocomplete="family-name" value="Chen" />
+              </label>
+
+              <label class="field">
+                <span class="field-label">Email address</span>
+                <input class="input" type="email" name="email" autocomplete="email" value="maya@northstar.studio" aria-describedby="ab-settings-email-help" />
+                <span class="field-help" id="ab-settings-email-help">Used for sign-in and account notices.</span>
+              </label>
+
+              <label class="field">
+                <span class="field-label">Role</span>
+                <select class="select" name="role">
+                  <option selected>Studio owner</option>
+                  <option>Producer</option>
+                  <option>Designer</option>
+                  <option>Contractor</option>
+                </select>
+              </label>
+
+              <label class="field ab-settings__field-full">
+                <span class="field-label">Bio</span>
+                <textarea class="textarea" name="bio" rows="3" maxlength="180" aria-describedby="ab-settings-bio-help">Design lead at Northstar Studio. I like clear briefs, good coffee, and shipping on time.</textarea>
+                <span class="field-help" id="ab-settings-bio-help">180 characters max. Shown on your team profile.</span>
+              </label>
+            </div>
+
+            <div class="cluster form-actions ab-settings__actions">
+              <button class="btn outline" type="button">Cancel</button>
+              <button class="btn primary" type="submit">Save changes</button>
+            </div>
+          </form>
+        </article>
+
+        <article class="card ab-settings__card" id="workspace">
+          <header class="ab-settings__card-head">
+            <div class="stack gap-none">
+              <h2>Workspace</h2>
+              <p class="muted">Shared details for everyone at Northstar Studio.</p>
+            </div>
+          </header>
+
+          <form class="stack ab-settings__form" novalidate>
+            <div class="grid-2 ab-settings__fields">
+              <label class="field">
+                <span class="field-label">Workspace name</span>
+                <input class="input" type="text" name="workspace-name" value="Northstar Studio" />
+              </label>
+
+              <div class="field">
+                <label class="field-label" for="ab-settings-url">Workspace URL</label>
+                <div class="join">
+                  <span class="join-addon">sable.app/</span>
+                  <input class="input" id="ab-settings-url" type="text" name="workspace-url" value="northstar" aria-describedby="ab-settings-url-help" />
+                </div>
+                <span class="field-help" id="ab-settings-url-help">Lowercase letters, numbers and hyphens.</span>
+              </div>
+
+              <label class="field">
+                <span class="field-label">Timezone</span>
+                <select class="select" name="timezone">
+                  <option selected>Europe/Brussels (GMT+1)</option>
+                  <option>Europe/London (GMT)</option>
+                  <option>America/New_York (GMT-5)</option>
+                  <option>America/Los_Angeles (GMT-8)</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span class="field-label">Week starts on</span>
+                <select class="select" name="week-start">
+                  <option selected>Monday</option>
+                  <option>Sunday</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="cluster form-actions ab-settings__actions">
+              <button class="btn primary" type="submit">Save workspace</button>
+            </div>
+          </form>
+        </article>
+
+        <article class="card ab-settings__card" id="notifications">
+          <header class="ab-settings__card-head">
+            <div class="stack gap-none">
+              <h2>Notifications</h2>
+              <p class="muted">Choose what lands in your inbox. You can change this any time.</p>
+            </div>
+          </header>
+
+          <ul class="list ab-settings__switches">
+            <li class="list-item">
+              <label class="list-item-content" for="ab-settings-digest">
+                <span class="list-item-title">Weekly digest</span>
+                <span class="list-item-text">A Monday summary of projects, hours, and invoices.</span>
+              </label>
+              <span class="list-item-trailing">
+                <input class="switch" type="checkbox" role="switch" id="ab-settings-digest" checked />
+              </span>
+            </li>
+            <li class="list-item">
+              <label class="list-item-content" for="ab-settings-comments">
+                <span class="list-item-title">Comments and mentions</span>
+                <span class="list-item-text">When someone replies to you or mentions your name.</span>
+              </label>
+              <span class="list-item-trailing">
+                <input class="switch" type="checkbox" role="switch" id="ab-settings-comments" checked />
+              </span>
+            </li>
+            <li class="list-item">
+              <label class="list-item-content" for="ab-settings-invoices">
+                <span class="list-item-title">Invoice activity</span>
+                <span class="list-item-text">When an invoice is viewed, paid, or becomes overdue.</span>
+              </label>
+              <span class="list-item-trailing">
+                <input class="switch" type="checkbox" role="switch" id="ab-settings-invoices" checked />
+              </span>
+            </li>
+            <li class="list-item">
+              <label class="list-item-content" for="ab-settings-product">
+                <span class="list-item-title">Product updates</span>
+                <span class="list-item-text">Occasional notes about new Sable features.</span>
+              </label>
+              <span class="list-item-trailing">
+                <input class="switch" type="checkbox" role="switch" id="ab-settings-product" />
+              </span>
+            </li>
+          </ul>
+
+          <div class="cluster form-actions ab-settings__actions">
+            <button class="btn primary" type="button">Save preferences</button>
+          </div>
+        </article>
+
+        <article class="card ab-settings__card ab-settings__danger" id="security">
+          <header class="ab-settings__card-head">
+            <div class="stack gap-none">
+              <h2>Delete account</h2>
+              <p class="muted">This removes your profile and signs you out everywhere.</p>
+            </div>
+          </header>
+          <p class="ab-settings__danger-copy">Workspace projects and invoices stay with the studio. This action cannot be undone.</p>
+          <footer>
+            <button class="btn danger outline" type="button">Delete my account</button>
+          </footer>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
