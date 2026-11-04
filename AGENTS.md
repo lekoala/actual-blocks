@@ -51,7 +51,7 @@ Build a small, polished, standalone gallery of HTML/CSS blocks for consumers of 
 5. When a block changes visually, update the affected visual baseline deliberately and review the new image.
 6. Review the full diff, dependencies, output size, source fidelity and test coverage before finishing.
 7. Clearly report changes, why they were made, checks actually executed and remaining uncertainties.
-8. Blocks are evergreen, with no compatibility guarantee. When a change adds or modifies blocks, list them in `CHANGELOG.md` under an unreleased heading; the maintainer picks the version (minor for new blocks, patch for improvements).
+8. Blocks are evergreen, with no compatibility guarantee. When a change adds or modifies blocks, list them in `CHANGELOG.md` under an unreleased heading; the maintainer picks the version (minor for new blocks, patch for improvements). Releases are a `package.json` bump plus a `vX.Y.Z` Git tag; nothing goes to npm, and GitHub Pages deploys the gallery from `master`.
 9. Do not merge or publish the release yourself. Human retains the integration decision.
 
 ## Definition of done

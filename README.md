@@ -37,9 +37,9 @@ Blocks are compositions, not an application. Links point at placeholder fragment
 
 ## Versions and updates
 
-Blocks are evergreen: the gallery always shows their current version.
+Actual Blocks is distributed through this GitHub repository and its GitHub Pages gallery only; nothing is published to npm. Blocks are evergreen: the gallery is deployed from `master` and always shows their current version.
 
-- Each release bumps the project version: minor when blocks are added, patch when existing blocks are improved.
+- A release is a version bump in `package.json`, a [CHANGELOG.md](CHANGELOG.md) entry and a matching `vX.Y.Z` Git tag: minor when blocks are added, patch when existing blocks are improved.
 - There is no compatibility guarantee between versions. To get an improvement, copy the block again.
 - [CHANGELOG.md](CHANGELOG.md) lists the blocks each release adds or changes, and the Actual CSS version it pins.
 

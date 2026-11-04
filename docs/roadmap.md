@@ -24,6 +24,7 @@ Block types were chosen from a survey of common template catalogs. Only the *typ
 - [x] CI and Pages workflow (`.github/workflows/pages.yml`): build, check, smoke and accessibility specs, then deploy `dist/` from `master`. The visual spec stays local until a Linux baseline exists.
 - [ ] Create the public repository, push `master`, enable Pages with the GitHub Actions source.
 - [ ] Check the first CI run and the deployed gallery under its repository subpath.
+- [ ] Tag `v0.1.0` once the deployed gallery checks out.
 
 ## Next blocks
 

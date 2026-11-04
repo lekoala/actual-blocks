@@ -25,9 +25,9 @@ A block is a finished page section or application screen a consumer would actual
 
 ## Versions and updates
 
-Blocks are evergreen. The gallery always shows the current version of each block, built on the pinned Actual CSS release.
+Blocks are evergreen. The project lives on GitHub only: the repository holds the source and GitHub Pages serves the gallery, deployed from `master`, so it always shows the current version of each block, built on the pinned Actual CSS release. Nothing is published to npm.
 
-- The project version goes up with each release: a minor version when blocks are added, a patch when existing blocks are only improved or fixed.
+- A release bumps the version in `package.json`, adds a changelog entry and tags the commit `vX.Y.Z`: a minor version when blocks are added, a patch when existing blocks are only improved or fixed.
 - There is no compatibility guarantee between versions. A block's markup, classes and CSS may change in any release.
 - To get an improvement, copy the block again. [`CHANGELOG.md`](../CHANGELOG.md) lists which blocks each release adds or changes.
 - Each block requires the Actual CSS version the project pins at that release, as stated on its detail page.
