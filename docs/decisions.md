@@ -1,6 +1,6 @@
-# Architecture decisions (v0.1)
+# Architecture decisions
 
-This note records what was actually built, why, and what remains unsupported. It replaces the open questions in `docs/architecture.md` for the v0.1 implementation.
+This note records what was actually built, why, and what remains unsupported. It replaces the open questions in `docs/architecture.md`.
 
 ## 1. Static generator: one Bun script
 
@@ -122,7 +122,7 @@ The gallery uses the Actual Blocks concept from the Actual CSS brand pack:
 - The full wordmark (`src/gallery/actual-blocks-wordmark.svg`) remains available as a brand asset but is not used in the compact header.
 - Gallery-only tokens (`--g-brand-*`) map the brand aubergine, violet, pale and dark violet into the gallery chrome.
 
-The brand assets are fixed-color vectors, so the display font is not required to render the logo. The brand palette is applied on `body.g-page`; block previews are separate documents and keep the Actual CSS default theme. The mark is theme-aware through `currentColor` and the brand violet token; there is no dark gallery chrome in v0.1.
+The brand assets are fixed-color vectors, so the display font is not required to render the logo. The brand palette is applied on `body.g-page`; block previews are separate documents and keep the Actual CSS default theme. The mark is theme-aware through `currentColor` and the brand violet token; there is no dark gallery chrome.
 
 ## 12. Documentation links
 
@@ -130,7 +130,7 @@ Detail pages link each listed component to the `docs` URL its `components.json` 
 
 ## Limitations
 
-These are the real limits of the v0.1 implementation, not hidden TODOs.
+These are the real limits of the current implementation, not hidden TODOs.
 
 1. **No backend or application state.** Search, filters, saves, uploads, pagination and row selection are illustrative. There is no server, auth, persistence or routing.
 2. **Runtime-dependent blocks degrade.** Without JavaScript, the article contents stay plain anchor links, the project page shows only its Overview panel and the topbar menus stay closed. Each block's notes say so. Tooltips and validation enhancers are not used yet.

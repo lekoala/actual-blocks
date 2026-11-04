@@ -1,4 +1,4 @@
-# v0.1 acceptance checklist
+# Acceptance checklist
 
 > Status: **met**. Verification evidence is recorded at the end of this file.
 

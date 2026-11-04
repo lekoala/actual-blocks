@@ -1,4 +1,4 @@
-# Block authoring contract (v0.1)
+# Block authoring contract
 
 ## What qualifies as a block?
 

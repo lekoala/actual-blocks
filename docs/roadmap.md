@@ -5,7 +5,7 @@
 ## Delivered
 
 - **Foundation:** static Bun build, canonical source per block, isolated iframe previews, desktop/mobile and light/dark controls applied inside the preview, copy HTML/CSS, dependency and limitation notes, subpath-safe output.
-- **Initial catalog (brief v0.1):** Hero, Feature Grid, Three-tier Pricing, Dashboard, Account Settings, Data Listing, Empty State, App Sidebar.
+- **Initial catalog (original brief):** Hero, Feature Grid, Three-tier Pricing, Dashboard, Account Settings, Data Listing, Empty State, App Sidebar.
 - **Marketing sections:** Testimonials, FAQ, Call to Action, Site Header, Site Footer.
 - **Application flows:** Plan Change, Code Verification, Order Tracking.
 - **Blocks on Actual CSS's published runtime** (`requiresJs` + `scripts`): Article with Contents (`scrollspy`), Project Overview (`tab`), App Topbar (`flyout`).

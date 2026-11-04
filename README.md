@@ -1,193 +1,82 @@
 # Actual Blocks
 
-A standalone, copy-paste gallery of **twenty-four polished interface blocks built with [Actual CSS](https://github.com/lekoala/actual-css)**.
-
-> Status: **v0.1 implemented**. The gallery, isolated previews, light/dark themes, viewport controls, canonical source, copy actions and browser checks are in place.
-
-## What this is
+A gallery of polished, copy-paste interface blocks built with [Actual CSS](https://github.com/lekoala/actual-css): marketing sections, application screens and navigation.
 
 - **Actual CSS** provides the vocabulary: tokens, layout primitives, components, forms and theme islands.
 - **Actual CSS documentation** teaches individual components and behaviors.
-- **Actual Blocks** demonstrates complete consumer interfaces composed from that vocabulary.
+- **Actual Blocks** shows complete interfaces composed from that vocabulary.
 
-Actual Blocks is a separate repository. It consumes a **published, pinned** `actual-css` package and does not modify Actual CSS.
+Each block has a detail page with a live, isolated preview, desktop/mobile and light/dark controls, its HTML and CSS with copy buttons, its dependencies and its limitations. The full list, with each block's dependencies, is in [docs/blocks.md](docs/blocks.md).
 
-## Block catalog
+## Using a block
 
-| Category | Block | What it demonstrates |
-| --- | --- | --- |
-| Marketing | [Product Hero](src/blocks/hero/) | Editorial split hero, product composition, social proof |
-| Marketing | [Feature Grid](src/blocks/features/) | Six responsive capability cards and an integration strip |
-| Marketing | [Testimonials](src/blocks/testimonials/) | Featured quote with outcomes, three supporting quotes |
-| Marketing | [Three-tier Pricing](src/blocks/pricing/) | Recommended dark tier, feature lists, honest billing note |
-| Marketing | [FAQ](src/blocks/faq/) | Native exclusive accordion beside a contact prompt |
-| Marketing | [Call to Action](src/blocks/cta/) | Dark theme-island panel, two actions, trial promises |
-| Marketing | [Article with Contents](src/blocks/article/) | Long-form guide, sticky contents driven by `scrollspy` (JS) |
-| Application | [Dashboard Overview](src/blocks/dashboard/) | KPIs, inline SVG chart, activity, project progress |
-| Application | [Project Overview](src/blocks/project/) | Brief, facts and keyboard tabs for tasks, files, activity (JS) |
-| Application | [Account Settings](src/blocks/settings/) | Section rail, labeled forms, switches, danger zone |
-| Application | [Plan Change](src/blocks/plan/) | Choice-card plan and cycle, seats, prorated summary |
-| Application | [Data Listing](src/blocks/listing/) | Search, filters, table, status, row actions, pagination |
-| Application | [Order Tracking](src/blocks/tracking/) | Delivery estimate, labelled steps, dated timeline, details |
-| Application | [Code Verification](src/blocks/verify/) | One native one-time-code input drawn as six cells |
-| Application | [Empty State](src/blocks/empty-state/) | Custom illustration, two next actions, three steps |
-| Navigation | [Site Header](src/blocks/header/) | Announcement line, floating navbar, native mobile drawer |
-| Navigation | [App Topbar](src/blocks/topbar/) | Workspace switcher, create and account menus, notifications panel (JS) |
-| Navigation | [App Sidebar](src/blocks/sidebar/) | Grouped rail, account actions, native mobile drawer |
-| Navigation | [Site Footer](src/blocks/footer/) | Newsletter field, four link groups, status line |
+A block is a semantic HTML fragment plus a scoped stylesheet. Load Actual CSS, add the block CSS, paste the HTML:
 
-Every block has a dedicated detail page with a live isolated preview, desktop/mobile viewport control, light/dark control, visible HTML and CSS, copy buttons, dependencies, documentation links and limitations.
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/actual-css@0.16.1/dist/actual.full.min.css" />
+<link rel="stylesheet" href="hero.css" />
 
-## Brand
+<!-- paste the block HTML here -->
+```
 
-The gallery uses the Actual Blocks identity from the Actual CSS brand pack:
+In a bundled app, `@import "actual-css/full";` (or only the modules the block lists) replaces the first link.
 
-- `src/gallery/actual-blocks-mark.svg` — the compact transparent header mark: triangle, bar and the square “posé” inside it.
-- `src/gallery/actual-blocks-icon.svg` — the rounded app icon; also used as the favicon.
-- `src/gallery/actual-blocks-wordmark.svg` — the full vector wordmark with the square separator, kept as a brand asset but not used in the compact header.
-- `--g-brand-aubergine`, `--g-brand-violet`, `--g-brand-pale`, `--g-brand-dark-violet` — gallery-only brand tokens.
+A few blocks also need Actual CSS's own JavaScript enhancers, once per page:
 
-The header follows the Actual CSS docs pattern: the mark plus a plain text name, not the full wordmark. The assets are self-contained vectors; the display font is not required to render the logo. The brand palette applies to the gallery chrome only. Block previews keep the Actual CSS theme and tokens, so copying a block does not bring gallery branding with it.
+```html
+<script src="https://cdn.jsdelivr.net/npm/actual-css@0.16.1/dist/actual.full.js" defer></script>
+```
 
-## Requirements
+or, in a bundled app, only the enhancers the block lists (`import "actual-css/js/tab";`). Use one or the other, never both.
 
-- [Bun](https://bun.sh/) 1.4+
-- Node 18+ (Playwright runner)
-- Chromium installed for Playwright: `bunx playwright install chromium`
+A block never needs the gallery CSS, the gallery JavaScript, an `actual-blocks` package or a build step.
 
-## Commands
+### What is illustrative
+
+Blocks are compositions, not an application. Links point at placeholder fragments, sample content is fictional, and anything that needs a backend (search, filters, saves, uploads, payments, sign-in) is illustrative. Each block's notes say what your application must supply.
+
+## Versions and updates
+
+Blocks are evergreen: the gallery always shows their current version.
+
+- Each release bumps the project version: minor when blocks are added, patch when existing blocks are improved.
+- There is no compatibility guarantee between versions. To get an improvement, copy the block again.
+- [CHANGELOG.md](CHANGELOG.md) lists the blocks each release adds or changes, and the Actual CSS version it pins.
+
+## Development
+
+Requires [Bun](https://bun.sh/) 1.4+, Node 18+ for the Playwright runner, and Chromium for Playwright (`bunx playwright install chromium`).
 
 ```sh
 bun install
 bun run build      # generate dist/ from src/
 bun run check      # metadata, class, scoping, source/preview and output checks
 bun run dev        # build, then serve dist/ at http://127.0.0.1:4782
-bun run test       # build + check + smoke + accessibility + visual tests
+bun run test       # build + check + smoke, accessibility and visual tests
 ```
 
-Focused test commands:
+Focused runs: `bun run test:smoke`, `bun run test:a11y`, `bun run test:visual`. Visual snapshots are platform-specific; on a new machine, create the local baseline once with `bunx playwright test tests/visual.spec.js --update-snapshots`.
 
-```sh
-bun run test:smoke
-bun run test:a11y
-bun run test:visual
-```
-
-Visual snapshots are platform-specific. On a new machine, create the local baseline once:
-
-```sh
-bunx playwright test tests/visual.spec.js --update-snapshots
-```
-
-## Using a block
-
-A block is a semantic HTML fragment plus an optional, scoped stylesheet. For example, the Hero:
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/actual-css@0.16.1/dist/actual.full.min.css" />
-<link rel="stylesheet" href="hero.css" />
-
-<!-- paste the contents of src/blocks/hero/block.html here -->
-```
-
-Or, in a bundled app:
-
-```css
-@import "actual-css/full";
-```
-
-```html
-<!-- paste the block HTML; import hero.css from the block folder -->
-```
-
-Blocks marked **(JS)** also need Actual CSS's own runtime, once per page:
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/actual-css@0.16.1/dist/actual.full.js" defer></script>
-```
-
-or, in a bundled app, only the enhancers they use (`import "actual-css/js/tab";`). Use one or the other, never both.
-
-The block does not require the gallery CSS, the gallery JavaScript, an `actual-blocks` npm package, or a build step. Each detail page lists the Actual CSS components and documentation pages the block uses.
-
-### What is illustrative
-
-Blocks are static compositions, not an application:
-
-- Links point at placeholder fragments such as `#new-project`.
-- Search, filters, row selection, pagination, uploads, saves and the newsletter signup are illustrative. Wire them to your own application.
-- Sample names, amounts, dates and activity are fictional.
-- The dashboard chart is inline SVG with a text summary, not a charting dependency.
-- The header and sidebar drawers use the native `command="show-modal"` / `commandfor` pair. No JavaScript is bundled. It needs a browser with native dialog command support; see [Limitations](docs/decisions.md#limitations).
-
-## Repository layout
+### Layout
 
 ```text
-src/
-  blocks/
-    order.json         catalog order, read by build and check
-    hero/
-      block.html       canonical semantic fragment
-      block.css        scoped, exportable styles
-      metadata.json    title, category, dependencies, notes
-    ...
-  gallery/
-    index.template.html
-    block.template.html
-    gallery.css        gallery chrome only
-    gallery.js         filters, copy, tabs, theme/viewport state
-scripts/
-  build.js             static generator
-  check.js             source and output contract checks
-  serve.js             local static server
-  serve-subpath.js     subpath deployment check
-tests/
-  smoke.spec.js
-  a11y.spec.js
-  visual.spec.js
-docs/
-  brief-v0.1.md
-  architecture.md
-  decisions.md
-  blocks.md
-  roadmap.md
-  acceptance.md
+src/blocks/<id>/     block.html (canonical fragment), block.css (scoped), metadata.json
+src/blocks/order.json  catalog order
+src/gallery/         page templates, gallery CSS and JS, brand assets
+scripts/             build, check and local servers
+tests/               smoke, accessibility and visual specs
+docs/                brief, architecture, decisions, block contract, catalog, roadmap, acceptance
 ```
 
-The generated `dist/` is intentionally not committed.
+`dist/` is generated and not committed. It is plain static output with relative paths, so it works from a repository subpath. `.github/workflows/pages.yml` builds, checks and runs the smoke and accessibility specs on every push and pull request, then deploys `dist/` to GitHub Pages from `master`.
 
-## Architecture in one paragraph
+### How it works
 
-A Bun script reads each block's canonical `block.html` and `block.css`, validates the block contract, and generates a static gallery. Detail pages embed the escaped canonical source. Preview pages are standalone documents that load the pinned Actual CSS bundle and the block CSS, then insert the same fragment. Theme is a `?theme=light|dark` query parameter applied as `data-theme` on the preview document. Viewport control changes the iframe's real layout width, not a scaled screenshot. The gallery's own controls use `data-preview-theme`, not `data-theme`, so Actual CSS theme islands do not restyle the controls. See [Architecture decisions](docs/decisions.md).
-
-## Deployment
-
-`dist/` is plain static output and works from a repository subpath:
-
-- All asset references are relative.
-- `dist/.nojekyll` is included for GitHub Pages.
-- A subpath smoke test serves the build at `/actual-blocks/`.
-
-No server, database, auth or runtime framework is required.
-
-`.github/workflows/pages.yml` builds, checks and runs the smoke and accessibility specs on every push and pull request, then deploys `dist/` to GitHub Pages from `master`. Enable Pages with the **GitHub Actions** source in the repository settings. The visual spec stays local until a Linux baseline exists.
-
-## Verification
-
-The repository includes:
-
-- **Contract checks** — metadata, known Actual CSS classes, component names, documentation paths, scoped selectors, fragment shape, source/preview parity and local asset resolution.
-- **Smoke tests** — catalog filters, every detail page, theme switching, viewport width, copy HTML/CSS fidelity, reload persistence, header and sidebar native drawers, FAQ exclusive accordion, keyboard tabs, scrollspy, flyouts, a copied JS block running on the published runtime, 360px overflow checks and subpath deployment.
-- **Accessibility** — Axe WCAG A/AA checks for the gallery, every preview in light and dark, a detail page, the open mobile drawer and an open flyout panel.
-- **Visual baselines** — Hero light/dark, Dashboard desktop/mobile, Settings desktop and Sidebar mobile.
+`scripts/build.js` reads each block's `block.html` and `block.css`, and generates the gallery. Detail pages embed the escaped canonical source; preview pages are standalone documents that load the pinned Actual CSS bundle and the block CSS, then insert the same fragment, so what you see is what you copy. Theme is applied as `data-theme` on the preview document; the viewport control changes the iframe's real width. See [docs/decisions.md](docs/decisions.md).
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/block-contract.md](docs/block-contract.md) before adding or changing a block. The short version: one canonical fragment, scoped CSS, documented Actual CSS classes, honest limitations and a passing `bun run test`.
-
-## Deliberate non-goals for v0.1
-
-No CLI installer, registry, backend, authentication, drag-and-drop editor, theme editor, complex playground, full page builder, third-party component runtime, dozens of variants or speculative abstractions.
+Start with [docs/brief.md](docs/brief.md) for the scope, then [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/block-contract.md](docs/block-contract.md). In short: one canonical fragment, scoped CSS, documented Actual CSS classes only, honest limitations and a passing `bun run test`. Upcoming blocks are listed in [docs/roadmap.md](docs/roadmap.md).
 
 ## License
 

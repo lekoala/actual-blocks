@@ -134,4 +134,4 @@ Review the new images before committing them.
 
 ## Commit and release
 
-Keep changes scoped. Do not merge or publish a release without human approval. The maintainer owns the integration and release decision.
+Keep changes scoped. When you add or change a block, list it in [CHANGELOG.md](CHANGELOG.md) under an unreleased heading: consumers rely on it to know which blocks to copy again, since blocks carry no compatibility guarantee. The maintainer picks the version (minor for new blocks, patch for improvements), and owns the integration and release decision. Do not merge or publish a release without human approval.
