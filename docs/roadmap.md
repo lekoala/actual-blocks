@@ -40,11 +40,9 @@ One canonical block, plus an optional `remix.css` that gives it a different iden
 - The detail page gets an **Original / Remix** switch on the preview and a copy button for the remix CSS.
 - Three blocks to prove it: Product Hero (editorial), Dashboard (assertive, dense) and Sign-in (strong graphic identity, for example neo-brutalist).
 
-To decide before building:
+Built (unreleased): Monograph (Hero), Control Room (Dashboard) and Poster (Sign-in). The contract is in [`block-contract.md`](block-contract.md), the reasoning in [`decisions.md`](decisions.md) §13: a page-level brand theme of public tokens, then scoped art direction; pinned open-licensed Fontsource fonts; `bun run contrast` as a gate; light/dark, 360px, Axe and a visual baseline per remix.
 
-- **Fonts.** Blocks use system stacks only. A real identity change usually needs a typeface: either allow a remix to declare a webfont as a dependency (and say so on the page), or prove the point with system stacks, weights and proportions.
-- **Contract.** What a remix may change (tokens and public hooks first, block classes, never Actual CSS classes from outside the root), and how `check.js` enforces it.
-- **Tests.** Light/dark and 360px for each remix, Axe, and a visual baseline per remix.
+Still open: whether the card thumbnails or the home page should show remixes (part of step 2's featured blocks).
 
 ### 2. Complete interfaces
 

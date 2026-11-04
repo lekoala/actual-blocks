@@ -5,6 +5,12 @@
     "": {
       "name": "actual-blocks",
       "dependencies": {
+        "@fontsource-variable/fraunces": "5.3.0",
+        "@fontsource-variable/geist": "5.3.0",
+        "@fontsource-variable/geist-mono": "5.3.0",
+        "@fontsource-variable/instrument-sans": "5.3.0",
+        "@fontsource-variable/space-grotesk": "5.3.0",
+        "@fontsource/archivo-black": "5.3.0",
         "actual-css": "0.16.1",
       },
       "devDependencies": {
@@ -16,6 +22,18 @@
   },
   "packages": {
     "@axe-core/playwright": ["@axe-core/playwright@4.14.0", "", { "dependencies": { "axe-core": "~4.14.0" }, "peerDependencies": { "playwright-core": ">= 1.0.0" } }, "sha512-SGUhG5PIHd2eMdpgBF2PyQLOhX+qyDR2PT4cmoS4Qk2ak+jX/rrSvst9l0PGv5WTHolKpUMvVmoHpr4cZgf1RQ=="],
+
+    "@fontsource-variable/fraunces": ["@fontsource-variable/fraunces@5.3.0", "", {}, "sha512-9BYGySn4AHEJdgp9Z28tQ3X+laJMEOITXkQarZXeloWQZDq5oOvXJ3kDA8c7MGIfpogIaZfjrQBqmda8POOCKA=="],
+
+    "@fontsource-variable/geist": ["@fontsource-variable/geist@5.3.0", "", {}, "sha512-j0m+vLQuG5XAYoHtGCVu0spvlGreR3EzpECUVzkFmI1mTVnAO38l/NEPDCFgZ177JxzYJCLSmTQibIiYPilGrA=="],
+
+    "@fontsource-variable/geist-mono": ["@fontsource-variable/geist-mono@5.3.0", "", {}, "sha512-vBbuwDEo9AkrqADMXOrlAR3DFcJi4/JxeuU43FoiQERnNwsfXNnvxvReZG02cQKmyk4DZkZdBZX3oTDvy2zBAw=="],
+
+    "@fontsource-variable/instrument-sans": ["@fontsource-variable/instrument-sans@5.3.0", "", {}, "sha512-u4gKbDBTNFGkg997tfQn3eHOhHuquWUFTRT/rwzuKtrxX5P2ekfs2x+LgBPP4P32+cC+vUwF1Cr+IdRoPQbrGw=="],
+
+    "@fontsource-variable/space-grotesk": ["@fontsource-variable/space-grotesk@5.3.0", "", {}, "sha512-2IxmvfB08i9vnGB3Ym/AXvhRE+8XOjWMXIyDum03c+tPwH0FUoMNQfGpU8NXPxjbws0Vvss3AH0Zqt4oJBBAdw=="],
+
+    "@fontsource/archivo-black": ["@fontsource/archivo-black@5.3.0", "", {}, "sha512-7EsTIQ+Blf96ktpzTUpI7msi+u9/AJxM/GZxOSkEubVd1jSTrFSTNxMgfpX/8rQsjZ+19a+qvRbtcTEp5J/72g=="],
 
     "@lekoala/floating": ["@lekoala/floating@0.3.1", "", {}, "sha512-Ec1Ba5Xy0zLOy3S2uhtrJv7mmdvSK8tlLwy279qOQScZXMFT2EnhIuQpdMRX+tzB8ZLglOoEZix4mzq1zo8uNA=="],
 

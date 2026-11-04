@@ -8,6 +8,14 @@
   "primitives": ["center", "grid-4", "container-query", "sidebar-layout", "stack", "cluster"],
   "requiresJs": false,
   "previewHeight": "56rem",
+  "remix": {
+    "name": "Control Room",
+    "description": "Dense and assertive: graphite and graph paper, an amber signal accent, tight cards under ink rules, monospaced figures and panel labels set like instrument captions.",
+    "fonts": [
+      { "family": "Geist", "package": "@fontsource-variable/geist" },
+      { "family": "Geist Mono", "package": "@fontsource-variable/geist-mono" }
+    ]
+  },
   "docs": ["components/card.html", "components/badge.html", "components/progress.html", "components/list.html", "components/segmented.html", "layout/sidebar-layout.html"],
   "notes": [
     "All figures, names and activity are sample data. Wire the block to your own queries before shipping it.",

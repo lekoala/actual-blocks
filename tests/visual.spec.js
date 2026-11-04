@@ -52,3 +52,13 @@ test("visual: sidebar mobile", async ({ page }) => {
   await expect(page.locator(".ab-sidebar")).toBeVisible();
   await expect(page).toHaveScreenshot("sidebar-mobile.png", { fullPage: true, animations: "disabled", caret: "hide" });
 });
+
+for (const [id, root] of [["hero", ".ab-hero"], ["dashboard", ".ab-dashboard"], ["signin", ".ab-signin"]]) {
+  test(`visual: ${id} remix light`, async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(`/previews/${id}--remix.html?theme=light`);
+    await ready(page);
+    await expect(page.locator(root)).toBeVisible();
+    await expect(page).toHaveScreenshot(`${id}-remix-light.png`, { fullPage: true, animations: "disabled", caret: "hide" });
+  });
+}

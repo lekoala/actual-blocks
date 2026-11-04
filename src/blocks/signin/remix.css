@@ -1,0 +1,225 @@
+/* Actual Blocks — Sign-in, "Poster" remix
+   Neo-brutalist: 2px ink frames, hard offset shadows, pastel fills under
+   black ink, a heavy grotesque display face. Same HTML as the block.
+   Load after Actual CSS and block.css, with Space Grotesk and Archivo Black. */
+
+/* Brand theme --------------------------------------------------------------
+   Page level, Actual CSS tokens only: a palette set here reaches every
+   derived token and theme island, which a block-scoped override cannot.
+   Move it to your application theme if the whole product adopts it. */
+
+:root,
+[data-theme="light"] {
+  --font-sans: "Space Grotesk Variable", system-ui, sans-serif;
+
+  --primary: light-dark(hsl(78 88% 62%), hsl(78 82% 60%));
+  --primary-fg: hsl(240 10% 7%);
+  --secondary: light-dark(hsl(197 82% 68%), hsl(197 80% 66%));
+  --secondary-fg: hsl(240 10% 7%);
+  --success: light-dark(hsl(150 55% 55%), hsl(150 52% 56%));
+  --success-fg: hsl(240 10% 7%);
+  --warning: light-dark(hsl(27 100% 64%), hsl(27 96% 64%));
+  --warning-fg: hsl(240 10% 7%);
+  /* The one intent used as bare ink (field errors), so it stays readable. */
+  --danger: light-dark(hsl(335 85% 38%), hsl(335 90% 72%));
+  --danger-fg: light-dark(white, hsl(240 10% 7%));
+  --neutral: light-dark(hsl(240 10% 7%), hsl(48 40% 94%));
+  --neutral-fg: light-dark(white, hsl(240 10% 7%));
+
+  --surface: light-dark(hsl(48 56% 94%), hsl(240 8% 9%));
+  --surface-raised: light-dark(hsl(0 0% 100%), hsl(240 7% 13%));
+  --surface-subtle: light-dark(hsl(48 32% 88%), hsl(240 6% 17%));
+  --surface-solid: light-dark(hsl(240 10% 7%), hsl(48 56% 94%));
+
+  --text: light-dark(hsl(240 10% 7%), hsl(48 40% 94%));
+  --text-muted: light-dark(hsl(240 5% 28%), hsl(48 12% 76%));
+  --text-subtle: light-dark(hsl(240 4% 40%), hsl(48 8% 64%));
+
+  --border: light-dark(hsl(240 10% 7%), hsl(48 40% 90%));
+  /* 3:1 on --surface and on --surface-solid, which is cream in dark mode. */
+  --focus: light-dark(hsl(222 100% 50%), hsl(220 100% 60%));
+  /* Pastels cannot carry text on the page: selected ink stays the text. */
+  --state-selected-text: var(--text);
+  --hover-overlay: light-dark(rgb(0 0 0 / 0.08), rgb(255 255 255 / 0.1));
+  --shadow-color: light-dark(hsl(240 10% 7%), hsl(0 0% 0%));
+
+  --radius: 0;
+  --radius-sm: 0;
+  --radius-lg: 0;
+  --border-width: 2px;
+
+  /* Soft fills are light pastels of their intent under the page ink. On
+     :root the default palette's calibrated soft inks apply, so replace them. */
+  --soft-bg-mix: 76%;
+  --primary-soft-fg: var(--text);
+  --secondary-soft-fg: var(--text);
+  --success-soft-fg: var(--text);
+  --warning-soft-fg: var(--text);
+  --danger-soft-fg: var(--text);
+  --neutral-soft-fg: var(--text);
+
+  --font-weight-medium: 600;
+  --font-weight-semibold: 700;
+  --font-weight-bold: 800;
+}
+
+/* Block art direction ------------------------------------------------------ */
+
+.ab-signin {
+  --ab-font-display: "Archivo Black", "Arial Black", var(--font-sans);
+  --ab-offset: 4px;
+  --btn-border-color: var(--border);
+  --btn-shadow: var(--ab-offset) var(--ab-offset) 0 var(--border);
+  --control-shadow: var(--ab-offset) var(--ab-offset) 0 var(--border);
+  --control-hover-border: var(--border);
+  background-color: var(--surface);
+  background-image: radial-gradient(color-mix(in oklab, var(--text) 18%, transparent) 1px, transparent 1.5px);
+  background-size: 18px 18px;
+}
+
+/* Joined faces share edges, so the group casts one offset, not each face. */
+.ab-signin .join {
+  box-shadow: var(--ab-offset) var(--ab-offset) 0 var(--border);
+}
+
+.ab-signin .join .btn {
+  --btn-shadow: 0 0 #0000;
+}
+
+.ab-signin .join .input {
+  --control-shadow: 0 0 #0000;
+}
+
+/* Lift on hover, press flat: the shadow is the travel. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ab-signin .btn:not(:where(:disabled, .join *)):hover {
+    --btn-hover-overlay: transparent;
+    --btn-shadow: calc(var(--ab-offset) + 2px) calc(var(--ab-offset) + 2px) 0 var(--border);
+    transform: translate(-2px, -2px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ab-signin .btn:not(:where(:disabled, .join *)):active {
+    --btn-shadow: 0 0 #0000;
+    transform: translate(var(--ab-offset), var(--ab-offset));
+  }
+}
+
+.ab-signin__main {
+  padding-block: var(--space-50);
+}
+
+.ab-signin__brand {
+  font-family: var(--ab-font-display);
+  font-size: var(--font-size-lg);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.ab-signin__mark {
+  border: var(--border-width) solid var(--border);
+  background: var(--primary);
+  box-shadow: 3px 3px 0 var(--border);
+  font-family: var(--ab-font-display);
+}
+
+/* The form stands on the page as one framed object. */
+.ab-signin__panel {
+  inline-size: min(100%, 26rem);
+  padding: clamp(var(--space-40), 5vw, var(--space-60));
+  border: var(--border-width) solid var(--border);
+  background: var(--surface-raised);
+  box-shadow: 8px 8px 0 var(--border);
+}
+
+.ab-signin__header h1 {
+  font-family: var(--ab-font-display);
+  font-size: clamp(2.2rem, 7vw, 3.1rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.ab-signin__header p {
+  display: inline-block;
+  margin-block-start: var(--space-30);
+  padding: 0.1em 0.4em;
+  background: var(--secondary);
+  color: var(--secondary-fg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ab-signin__divider {
+  color: var(--text);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ab-signin__divider::before,
+.ab-signin__divider::after {
+  border-block-start-width: var(--border-width);
+  border-block-start-color: var(--border);
+}
+
+.ab-signin .field-label {
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ab-signin__submit {
+  min-block-size: 3rem;
+  font-family: var(--ab-font-display);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ab-signin__switch a,
+.ab-signin__legal a,
+.ab-signin__label-row a {
+  color: var(--text);
+  font-weight: var(--font-weight-bold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+/* The aside is a black poster on the light page (a dark island) and a
+   framed panel in dark mode; the accent carries the numbers. */
+@media (width >= 60rem) {
+  .ab-signin__aside {
+    margin: var(--space-50);
+    border: var(--border-width) solid var(--border);
+    border-radius: 0;
+    background: var(--surface);
+    box-shadow: 10px 10px 0 var(--primary);
+  }
+}
+
+.ab-signin__quote blockquote p {
+  font-family: var(--ab-font-display);
+  font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.ab-signin__quote .avatar {
+  --avatar-radius: 0;
+  --avatar-bg: var(--primary);
+  border: var(--border-width) solid var(--primary-fg);
+  color: var(--primary-fg);
+}
+
+.ab-signin__facts {
+  border-block-start-width: var(--border-width);
+}
+
+.ab-signin__facts strong {
+  color: var(--primary);
+  font-family: var(--ab-font-display);
+  font-weight: 400;
+}

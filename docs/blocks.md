@@ -37,6 +37,7 @@ All blocks require **Actual CSS 0.16.1**. The quick start is `@import "actual-cs
 - **Actual CSS components:** button, card, badge, avatar, meter, list
 - **Primitives:** center, cluster, stack, list, grid
 - **Notes:** CTAs are placeholder fragments. The studio overview is a static illustration, not live data. The sparkline is inline SVG with a text summary.
+- **Remix — Monograph:** `remix.css` with Fraunces (roman and italic) and Instrument Sans. Warm paper, ink type and one vermilion accent, a masthead rule, a drop cap, the product sheet on a colour plate. Its brand theme rule sets the page palette.
 
 ## Feature Grid
 
@@ -101,6 +102,7 @@ All blocks require **Actual CSS 0.16.1**. The quick start is `@import "actual-cs
 - **Actual CSS components:** card, badge, avatar, progress, list, segmented
 - **Primitives:** center, grid-4, container-query, sidebar-layout, stack, cluster
 - **Notes:** All figures and activity are sample data. The period control is navigation, not a filter. The chart is a static inline SVG with a text summary. Project progress uses native `<progress>`.
+- **Remix — Control Room:** `remix.css` with Geist and Geist Mono. Graphite and graph paper, an amber signal accent, tighter cards under ink rules, monospaced figures. The tighter rhythm comes from the block's own card and list hooks, not from `.compact`, which would need an HTML change.
 
 ## Project Overview
 
@@ -124,6 +126,7 @@ All blocks require **Actual CSS 0.16.1**. The quick start is `@import "actual-cs
 - **Actual CSS components:** button, status-bar, avatar
 - **Primitives:** stack, field, join, choice, validation
 - **Notes:** Errors appear after blur or submit; an invalid submit sets `aria-invalid`, focuses the first invalid field and shows `data-validation-message` in the status bar. The password toggle is a `command="--password-toggle"` invoker whose icon follows `aria-pressed`. Passkey and single sign-on are placeholders; map server errors with `FormValidator.setErrors`. Without JavaScript the form submits natively. The `data-theme="dark"` brand panel appears from 60rem.
+- **Remix — Poster:** `remix.css` with Space Grotesk and Archivo Black. Neo-brutalist: 2px ink frames, hard offset shadows that lift on hover (not under reduced motion), pastel fills under black ink.
 
 ## Account Settings
 
@@ -211,5 +214,6 @@ All blocks require **Actual CSS 0.16.1**. The quick start is `@import "actual-cs
 3. Copy `block.css` into a stylesheet loaded after Actual CSS.
 4. Replace placeholder links, sample data and illustrative controls with your application's behavior.
 5. Keep the `ab-` root class on the fragment so the scoped CSS continues to apply.
+6. For a remix, load its font stylesheets and `remix.css` after `block.css`. Its first rule is a page-level brand theme: keep it once in your application theme rather than per block.
 
 See [Architecture decisions](decisions.md) for the isolation, theme, viewport and deployment decisions.

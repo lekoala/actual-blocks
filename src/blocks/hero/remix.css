@@ -1,0 +1,190 @@
+/* Actual Blocks — Hero, "Monograph" remix
+   Editorial: warm paper, ink type and one vermilion accent, a high-contrast
+   serif at poster size, a masthead rule and a drop cap. Same HTML as the
+   block. Load after Actual CSS and block.css, with Fraunces (roman and
+   italic) and Instrument Sans. */
+
+/* Brand theme --------------------------------------------------------------
+   Page level, Actual CSS tokens only: a palette set here reaches every
+   derived token and theme island, which a block-scoped override cannot.
+   Move it to your application theme if the whole product adopts it. */
+
+:root,
+[data-theme="light"] {
+  --font-sans: "Instrument Sans Variable", system-ui, sans-serif;
+
+  --primary: light-dark(hsl(9 80% 44%), hsl(12 90% 66%));
+  --primary-fg: light-dark(hsl(40 50% 98%), hsl(20 30% 8%));
+  --secondary: light-dark(hsl(190 45% 28%), hsl(188 40% 62%));
+  --secondary-fg: light-dark(hsl(40 50% 98%), hsl(190 30% 8%));
+  --success: light-dark(hsl(150 40% 29%), hsl(150 38% 62%));
+  --success-fg: light-dark(hsl(40 50% 98%), hsl(150 30% 8%));
+  --warning: light-dark(hsl(38 75% 32%), hsl(40 70% 62%));
+  --warning-fg: light-dark(hsl(40 50% 98%), hsl(38 30% 8%));
+  --danger: light-dark(hsl(355 65% 42%), hsl(355 70% 72%));
+  --danger-fg: light-dark(hsl(40 50% 98%), hsl(355 30% 9%));
+  --neutral: light-dark(hsl(30 6% 38%), hsl(35 8% 70%));
+  --neutral-fg: light-dark(hsl(40 50% 98%), hsl(30 10% 8%));
+
+  --surface: light-dark(hsl(40 38% 95%), hsl(30 8% 8%));
+  --surface-raised: light-dark(hsl(40 50% 98%), hsl(30 7% 11%));
+  --surface-subtle: light-dark(hsl(40 26% 90%), hsl(30 6% 15%));
+  --surface-solid: light-dark(hsl(30 12% 9%), hsl(40 38% 93%));
+
+  --text: light-dark(hsl(30 12% 9%), hsl(40 30% 93%));
+  --text-muted: light-dark(hsl(30 6% 34%), hsl(38 10% 70%));
+  --text-subtle: light-dark(hsl(30 5% 46%), hsl(38 6% 58%));
+
+  --border: light-dark(hsl(32 14% 80%), hsl(30 6% 24%));
+  /* 3:1 on --surface and on --surface-solid, which is paper in dark mode. */
+  --focus: light-dark(hsl(9 80% 44%), hsl(10 80% 52%));
+  /* Vermilion fills well but is light as text: selected and soft ink lean
+     toward the page ink. */
+  --state-selected-text: color-mix(in oklab, var(--primary) 78%, var(--text));
+  --primary-soft-fg: color-mix(in oklab, var(--primary) 70%, var(--text));
+  --hover-overlay: light-dark(hsl(30 30% 10% / 0.05), hsl(40 40% 96% / 0.07));
+  --shadow-color: light-dark(hsl(30 30% 12%), hsl(30 30% 2%));
+
+  --radius: 2px;
+  --radius-sm: 1px;
+  --radius-lg: 3px;
+}
+
+/* Block art direction ------------------------------------------------------ */
+
+.ab-hero {
+  --ab-font-display: "Fraunces Variable", Georgia, serif;
+  background: var(--surface);
+}
+
+/* The grid gives way to a masthead: one heavy rule over the spread. */
+.ab-hero__grid {
+  display: none;
+}
+
+.ab-hero__inner {
+  align-items: start;
+  padding-block-start: var(--space-50);
+  border-block-start: 3px solid var(--text);
+  background: linear-gradient(var(--text), var(--text)) 0 6px / 100% 1px no-repeat;
+}
+
+.ab-hero__eyebrow {
+  color: var(--text);
+  letter-spacing: 0.16em;
+}
+
+.ab-hero__pulse {
+  border-radius: 0;
+  background: var(--primary);
+  box-shadow: none;
+}
+
+.ab-hero__title {
+  font-size: clamp(3.1rem, 8.4vw, 6.75rem);
+  font-weight: 380;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+}
+
+.ab-hero__title em {
+  color: var(--primary);
+  font-weight: 300;
+}
+
+.ab-hero__lead {
+  color: var(--text);
+  font-size: clamp(var(--font-size-md), 1.6vw, 1.25rem);
+  line-height: 1.6;
+}
+
+.ab-hero__lead::first-letter {
+  float: inline-start;
+  margin: 0.06em 0.1em 0 0;
+  color: var(--primary);
+  font-family: var(--ab-font-display);
+  font-size: 3.6em;
+  font-weight: 400;
+  line-height: 0.82;
+}
+
+.ab-hero__actions .btn {
+  --btn-radius: 0;
+}
+
+.ab-hero__actions .btn.ghost {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+}
+
+.ab-hero__fineprint {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ab-hero__proof {
+  border-block-start-color: var(--text);
+}
+
+/* The product sheet is printed matter: square, framed in ink, laid on a
+   vermilion plate instead of floating in a glow. */
+.ab-hero__glow {
+  inset: var(--space-50) calc(var(--space-40) * -1) calc(var(--space-40) * -1) var(--space-50);
+  border-radius: 0;
+  background: var(--primary);
+  filter: none;
+  opacity: 1;
+}
+
+.ab-hero__app {
+  --card-radius: 0;
+  border: 1px solid var(--text);
+  box-shadow: none;
+}
+
+.ab-hero__app-head h2 {
+  font-family: var(--ab-font-display);
+  font-size: 1.5rem;
+  font-weight: 420;
+  letter-spacing: -0.02em;
+}
+
+.ab-hero__amount {
+  font-size: clamp(2.4rem, 4.6vw, 3.2rem);
+  font-weight: 320;
+}
+
+.ab-hero__spark {
+  color: var(--text);
+}
+
+.ab-hero__spark-area {
+  fill: color-mix(in oklab, var(--primary) 18%, transparent);
+}
+
+.ab-hero__spark-line {
+  stroke-width: 1.75;
+}
+
+.ab-hero__capacity .meter {
+  --bar-height: 0.35rem;
+}
+
+.ab-hero__float {
+  border: 1px solid var(--text);
+  border-radius: 0;
+  box-shadow: none;
+  rotate: -3deg;
+}
+
+.ab-hero__float-icon {
+  --badge-radius: 0;
+}
+
+/* Keep the plate inside the narrow page padding. */
+@media (width < 48rem) {
+  .ab-hero__glow {
+    inset: var(--space-40) calc(var(--space-20) * -1) calc(var(--space-20) * -1) var(--space-40);
+  }
+}

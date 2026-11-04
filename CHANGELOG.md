@@ -2,6 +2,14 @@
 
 Blocks are evergreen and carry no compatibility guarantee: to pick up a change, copy the block again. Each release lists the blocks it adds or changes and the Actual CSS version it pins. A minor version adds blocks; a patch only improves existing ones. Versions are Git tags (`vX.Y.Z`); nothing is published to npm.
 
+## Unreleased
+
+Remixes: the same HTML with a different identity, as an optional `remix.css` and open-licensed fonts. No block HTML or `block.css` changed; nothing to copy again unless you want a remix.
+
+- **Product Hero — Monograph:** editorial, Fraunces and Instrument Sans.
+- **Dashboard Overview — Control Room:** dense, Geist and Geist Mono.
+- **Sign-in — Poster:** neo-brutalist, Space Grotesk and Archivo Black.
+
 ## 0.1.0
 
 First release, on Actual CSS 0.16.1.

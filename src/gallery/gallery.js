@@ -105,23 +105,46 @@
   const frame = document.getElementById("g-preview-frame");
   const openLink = document.querySelector("[data-preview-link]");
 
-  if (stage && themeButtons.length && frame) {
-    const previewBase = frame.dataset.previewSrc;
+  const variantButtons = [...document.querySelectorAll("button[data-preview-variant]")];
+  const previewUrl = document.getElementById("g-preview-url");
 
-    const applyTheme = (theme) => {
+  if (stage && themeButtons.length && frame) {
+    // Original and remix are two generated documents over the same fragment;
+    // the theme travels as a query parameter to whichever one is shown.
+    let theme = stage.dataset.previewTheme || "light";
+    let variant = "original";
+
+    const previewBase = () => (variant === "remix" ? frame.dataset.previewRemixSrc : frame.dataset.previewSrc);
+
+    const showPreview = () => {
+      const base = previewBase();
+      if (base) frame.src = `${base}?theme=${theme}`;
+      if (openLink && base) openLink.href = `${base}?theme=${theme}`;
+      if (previewUrl && base) previewUrl.textContent = base.replace(/^\.\.\//, "");
+    };
+
+    const applyVariant = (value) => {
+      variant = value;
+      stage.dataset.previewVariant = value;
+      for (const button of variantButtons) {
+        button.setAttribute("aria-pressed", String(button.dataset.previewVariant === value));
+      }
+      showPreview();
+    };
+
+    for (const button of variantButtons) {
+      button.addEventListener("click", () => applyVariant(button.dataset.previewVariant));
+    }
+
+    const applyTheme = (value) => {
+      theme = value;
       stage.dataset.previewTheme = theme;
 
       for (const button of themeButtons) {
         button.setAttribute("aria-pressed", String(button.dataset.previewTheme === theme));
       }
 
-      if (previewBase) {
-        frame.src = `${previewBase}?theme=${theme}`;
-      }
-
-      if (openLink && openLink.dataset.previewLink) {
-        openLink.href = `${openLink.dataset.previewLink}?theme=${theme}`;
-      }
+      showPreview();
 
       try {
         localStorage.setItem("actual-blocks:theme", theme);

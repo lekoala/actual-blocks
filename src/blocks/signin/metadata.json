@@ -9,6 +9,14 @@
   "requiresJs": true,
   "scripts": ["validation", "password", "status"],
   "previewHeight": "48rem",
+  "remix": {
+    "name": "Poster",
+    "description": "Neo-brutalist: 2px ink frames, hard offset shadows, pastel fills under black ink and a heavy grotesque display face, in light and dark.",
+    "fonts": [
+      { "family": "Space Grotesk", "package": "@fontsource-variable/space-grotesk" },
+      { "family": "Archivo Black", "package": "@fontsource/archivo-black" }
+    ]
+  },
   "docs": ["forms/validation.html", "forms/password.html", "enhancements/status-bar.html", "forms/joined-controls.html", "forms/labels.html"],
   "notes": [
     "The validation enhancer waits for blur or submit before showing errors, sets aria-invalid, focuses the first invalid field and blocks an invalid submit; the status module then shows the form's data-validation-message in the status bar. Without JavaScript the form submits natively and the server must answer with its own errors.",

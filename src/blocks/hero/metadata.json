@@ -8,6 +8,14 @@
   "primitives": ["center", "cluster", "stack", "list", "grid"],
   "requiresJs": false,
   "previewHeight": "48rem",
+  "remix": {
+    "name": "Monograph",
+    "description": "Editorial: warm paper, ink type and one vermilion accent, a high-contrast serif at poster size, a masthead rule, a drop cap and the product sheet laid on a colour plate.",
+    "fonts": [
+      { "family": "Fraunces", "package": "@fontsource-variable/fraunces", "files": ["index.css", "wght-italic.css"] },
+      { "family": "Instrument Sans", "package": "@fontsource-variable/instrument-sans" }
+    ]
+  },
   "docs": ["components/button.html", "components/card.html", "components/badge.html", "components/avatar.html", "components/meter.html", "layout/center.html"],
   "notes": [
     "The calls to action use placeholder fragment links. Point them at your signup and product-tour routes.",

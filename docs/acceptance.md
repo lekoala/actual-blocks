@@ -225,3 +225,22 @@ $ playwright test
 ```
 
 Manually checked at 390×760 after an invalid Checkout submit: the status bar (y 611–675) sits above the sticky pay bar (y 691–760), and the Pay button stays visible.
+
+## Remixes verification
+
+Three remixes added (`hero`, `dashboard`, `signin`), unreleased. No `block.html` or `block.css` changed. Same environment, Actual CSS 0.16.1, fonts from Fontsource 5.3.0.
+
+```text
+$ bun run build && bun run check
+Built 24 blocks with Actual CSS 0.16.1 into dist/
+- 24 block sources passed metadata, class, scoping and fragment checks
+- 52 generated HTML files resolve their local references
+
+$ bun run contrast
+Contrast passed: 3 remix themes meet the Actual CSS thresholds in every scheme.
+
+$ playwright test
+87 passed
+```
+
+New coverage: the Original / Remix switch keeps the theme and updates the preview URL, the remix CSS tab and copy match `remix.css`, blocks without a remix show no control, remix previews pass the 360px overflow check and Axe in light and dark, a copied remix renders from its stated files only with every declared face loaded, and one desktop light baseline per remix. The check and contrast gates were each tested against a deliberately broken remix (unscoped selector, internal hook in the theme rule, unknown `var()`, `url()`, a 2.26:1 focus line) and failed as expected. One run of four showed a single `net::ERR_ABORTED` on a gallery navigation under full parallel load; it did not reproduce.

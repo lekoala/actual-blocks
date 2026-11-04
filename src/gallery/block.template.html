@@ -64,7 +64,7 @@
         </div>
         <div>
           <dt>Block source</dt>
-          <dd>block.html + block.css</dd>
+          <dd>{{SOURCE_FILES}}</dd>
         </div>
       </dl>
     </header>
@@ -83,6 +83,8 @@
             <button class="g-seg" type="button" data-preview-theme="light" aria-pressed="true">Light</button>
             <button class="g-seg" type="button" data-preview-theme="dark" aria-pressed="false">Dark</button>
           </div>
+
+          {{VARIANT_CONTROL}}
         </div>
 
         <a class="g-open" href="../previews/{{ID}}.html?theme=light" target="_blank" rel="noopener" data-preview-link="../previews/{{ID}}.html">
@@ -95,10 +97,10 @@
         <div class="g-browser">
           <div class="g-browser__bar">
             <span class="g-browser__dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="g-browser__url">previews/{{ID}}.html</span>
+            <span class="g-browser__url" id="g-preview-url">previews/{{ID}}.html</span>
             <span class="g-browser__size" aria-hidden="true">Live</span>
           </div>
-          <iframe class="g-frame" id="g-preview-frame" src="../previews/{{ID}}.html?theme=light" title="{{TITLE}} live preview" data-preview-src="../previews/{{ID}}.html"></iframe>
+          <iframe class="g-frame" id="g-preview-frame" src="../previews/{{ID}}.html?theme=light" title="{{TITLE}} live preview" data-preview-src="../previews/{{ID}}.html"{{REMIX_SRC}}></iframe>
         </div>
       </div>
     </section>
@@ -115,7 +117,7 @@
 
         <div class="g-tabs" role="tablist" aria-label="Source files">
           <button class="g-tab" id="g-tab-html" type="button" role="tab" aria-selected="true" aria-controls="g-panel-html" tabindex="0">HTML</button>
-          <button class="g-tab" id="g-tab-css" type="button" role="tab" aria-selected="false" aria-controls="g-panel-css" tabindex="-1">CSS</button>
+          <button class="g-tab" id="g-tab-css" type="button" role="tab" aria-selected="false" aria-controls="g-panel-css" tabindex="-1">CSS</button>{{REMIX_TAB}}
         </div>
 
         <section class="g-source__panel" id="g-panel-html" role="tabpanel" aria-labelledby="g-tab-html" tabindex="0">
@@ -133,6 +135,8 @@
           </div>
           <pre tabindex="0" aria-label="Block CSS source"><code id="g-source-css">{{SOURCE_CSS}}</code></pre>
         </section>
+
+        {{REMIX_PANEL}}
       </section>
 
       <aside class="g-aside" aria-label="Block details">
@@ -161,6 +165,8 @@
 
           {{DOCS_SECTION}}
         </section>
+
+        {{REMIX_SECTION}}
 
         <section class="g-aside__block">
           <p class="overline">Good to know</p>

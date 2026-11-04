@@ -33,6 +33,16 @@ for (const id of BLOCKS) {
   });
 }
 
+for (const id of ["hero", "dashboard", "signin"]) {
+  test(`remix preview passes WCAG A/AA checks: ${id}`, async ({ page }) => {
+    await page.goto(`/previews/${id}--remix.html?theme=light`);
+    await analyze(page, `${id} remix light`);
+
+    await page.goto(`/previews/${id}--remix.html?theme=dark`);
+    await analyze(page, `${id} remix dark`);
+  });
+}
+
 test("detail page passes WCAG A/AA checks", async ({ page }) => {
   await page.goto("/blocks/dashboard.html");
   await analyze(page, "dashboard detail");

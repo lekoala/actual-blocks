@@ -1,0 +1,199 @@
+/* Actual Blocks — Dashboard Overview, "Control Room" remix
+   Dense and assertive: graphite and graph paper, an amber signal accent,
+   tight cards with ink rules, monospaced figures and panel labels. Same
+   HTML as the block. Load after Actual CSS and block.css, with Geist and
+   Geist Mono. */
+
+/* Brand theme --------------------------------------------------------------
+   Page level, Actual CSS tokens only: a palette set here reaches every
+   derived token and theme island, which a block-scoped override cannot.
+   Move it to your application theme if the whole product adopts it. */
+
+:root,
+[data-theme="light"] {
+  --font-sans: "Geist Variable", system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+
+  --primary: light-dark(hsl(40 100% 48%), hsl(42 100% 56%));
+  --primary-fg: hsl(220 18% 8%);
+  --secondary: light-dark(hsl(192 85% 27%), hsl(188 85% 58%));
+  --secondary-fg: light-dark(hsl(0 0% 100%), hsl(220 18% 8%));
+  --success: light-dark(hsl(152 60% 29%), hsl(150 55% 56%));
+  --success-fg: light-dark(hsl(0 0% 100%), hsl(220 18% 8%));
+  --warning: light-dark(hsl(28 90% 35%), hsl(34 95% 62%));
+  --warning-fg: light-dark(hsl(0 0% 100%), hsl(220 18% 8%));
+  --danger: light-dark(hsl(356 75% 42%), hsl(356 85% 70%));
+  --danger-fg: light-dark(hsl(0 0% 100%), hsl(220 18% 8%));
+  --neutral: light-dark(hsl(220 8% 38%), hsl(220 8% 70%));
+  --neutral-fg: light-dark(hsl(0 0% 100%), hsl(220 18% 8%));
+
+  --surface: light-dark(hsl(220 14% 96%), hsl(220 13% 6%));
+  --surface-raised: light-dark(hsl(0 0% 100%), hsl(220 12% 9%));
+  --surface-subtle: light-dark(hsl(220 14% 92%), hsl(220 11% 13%));
+  --surface-solid: light-dark(hsl(220 18% 8%), hsl(210 20% 94%));
+
+  --text: light-dark(hsl(220 18% 8%), hsl(210 20% 94%));
+  --text-muted: light-dark(hsl(220 8% 36%), hsl(215 10% 68%));
+  --text-subtle: light-dark(hsl(220 6% 48%), hsl(215 7% 54%));
+
+  --border: light-dark(hsl(220 12% 84%), hsl(220 10% 19%));
+  /* Amber cannot carry a focus line on light paper: the ring is signal blue,
+     3:1 on --surface and on --surface-solid in both schemes. */
+  --focus: light-dark(hsl(210 100% 42%), hsl(210 100% 50%));
+  /* Amber fills well but is light as text on paper: selected and soft ink
+     lean toward the page ink in the light scheme. */
+  --state-selected-text: light-dark(color-mix(in oklab, var(--primary) 45%, var(--text)), var(--primary));
+  --primary-soft-fg: light-dark(color-mix(in oklab, var(--primary) 40%, var(--text)), var(--primary));
+  --hover-overlay: light-dark(hsl(220 30% 10% / 0.05), hsl(210 40% 96% / 0.06));
+  --shadow-color: light-dark(hsl(220 30% 10%), hsl(220 40% 2%));
+
+  --radius: 3px;
+  --radius-sm: 2px;
+  --radius-lg: 4px;
+}
+
+/* Block art direction ------------------------------------------------------ */
+
+.ab-dashboard {
+  --ab-font-display: var(--font-sans);
+  --ab-grid: color-mix(in oklab, var(--border) 55%, transparent);
+  padding-block: clamp(2rem, 4vw, 3.5rem);
+  background-color: var(--surface);
+  background-image:
+    linear-gradient(var(--ab-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ab-grid) 1px, transparent 1px);
+  background-size: 1.5rem 1.5rem;
+}
+
+.ab-dashboard .card {
+  --card-radius: var(--radius);
+  box-shadow: none;
+}
+
+.ab-dashboard .badge {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Header: a status line, then the greeting set tight. */
+.ab-dashboard__header .overline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-20);
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+}
+
+.ab-dashboard__header .overline::before {
+  content: "";
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  background: var(--success);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--success) 22%, transparent);
+}
+
+.ab-dashboard__header h1 {
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+}
+
+.ab-dashboard__subtitle {
+  font-size: var(--font-size-md);
+}
+
+/* KPIs: tight tiles under an ink rule; the lead figure takes the signal. */
+.ab-dashboard__kpis {
+  --gap: var(--space-20);
+}
+
+.ab-dashboard__kpi {
+  --card-pad: var(--space-30);
+  border-block-start: 3px solid var(--text);
+}
+
+.ab-dashboard__kpi:first-child {
+  border-block-start-color: var(--primary);
+}
+
+.ab-dashboard__value {
+  font-family: var(--font-mono);
+  font-size: clamp(1.75rem, 2.8vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+}
+
+.ab-dashboard__kpi-note,
+.ab-dashboard__chart-labels,
+.ab-dashboard__activity-list time,
+.ab-dashboard__project-progress,
+.ab-dashboard__activity-footer {
+  font-family: var(--font-mono);
+}
+
+/* Panels: tighter rhythm, labels set like instrument captions. */
+.ab-dashboard__main {
+  --gap: var(--space-20);
+  margin-block-start: var(--space-20);
+}
+
+.ab-dashboard__chart,
+.ab-dashboard__activity,
+.ab-dashboard__projects {
+  --card-pad: var(--space-30);
+}
+
+.ab-dashboard__projects {
+  margin-block-start: var(--space-20);
+}
+
+/* Small caption titles sit on the baseline of their action or legend, not
+   at the top of a taller button. */
+.ab-dashboard__section-head {
+  align-items: baseline;
+}
+
+.ab-dashboard__section-head h2 {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ab-dashboard__legend {
+  font-family: var(--font-mono);
+}
+
+.ab-dashboard__dot {
+  border-radius: 0;
+}
+
+.ab-dashboard__grid-lines path {
+  stroke-dasharray: none;
+  opacity: 0.7;
+}
+
+.ab-dashboard__area {
+  fill: color-mix(in oklab, var(--primary) 22%, transparent);
+}
+
+.ab-dashboard__line {
+  stroke-width: 2;
+  stroke-linecap: square;
+}
+
+.ab-dashboard__chart-stat strong {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.ab-dashboard__activity-list .list-item-title {
+  font-weight: 500;
+}
+
+.ab-dashboard__project-progress .progress {
+  --bar-height: 0.5rem;
+}

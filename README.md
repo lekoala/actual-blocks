@@ -31,6 +31,10 @@ or, in a bundled app, only the enhancers the block lists (`import "actual-css/js
 
 A block never needs the gallery CSS, the gallery JavaScript, an `actual-blocks` package or a build step.
 
+### Remixes
+
+A few blocks also have a **remix**: the same HTML with a different identity (an editorial Product Hero, a dense Control Room dashboard, a neo-brutalist Sign-in). Switch to it on the detail page, then copy `remix.css` and load it, with the open-licensed fonts it lists, after the block CSS. Its first rule is a brand theme made of Actual CSS tokens, at page level; the rest is scoped to the block.
+
 ### What is illustrative
 
 Blocks are compositions, not an application. Links point at placeholder fragments, sample content is fictional, and anything that needs a backend (search, filters, saves, uploads, payments, sign-in) is illustrative. Each block's notes say what your application must supply.
@@ -51,8 +55,9 @@ Requires [Bun](https://bun.sh/) 1.4+, Node 18+ for the Playwright runner, and Ch
 bun install
 bun run build      # generate dist/ from src/
 bun run check      # metadata, class, scoping, source/preview and output checks
+bun run contrast   # Actual CSS contrast checker on every remix theme
 bun run dev        # build, then serve dist/ at http://127.0.0.1:4782
-bun run test       # build + check + smoke, accessibility and visual tests
+bun run test       # build + check + contrast + smoke, accessibility and visual tests
 ```
 
 Focused runs: `bun run test:smoke`, `bun run test:a11y`, `bun run test:visual`. Visual snapshots are platform-specific; on a new machine, create the local baseline once with `bunx playwright test tests/visual.spec.js --update-snapshots`.
@@ -60,7 +65,7 @@ Focused runs: `bun run test:smoke`, `bun run test:a11y`, `bun run test:visual`. 
 ### Layout
 
 ```text
-src/blocks/<id>/     block.html (canonical fragment), block.css (scoped), metadata.json
+src/blocks/<id>/     block.html (canonical fragment), block.css (scoped), metadata.json, optional remix.css
 src/blocks/order.json  catalog order
 src/gallery/         page templates, gallery CSS and JS, brand assets
 scripts/             build, check and local servers

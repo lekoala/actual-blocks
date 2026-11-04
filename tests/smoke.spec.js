@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { PORT, SUBPATH_PORT } from "../scripts/ports.js";
 
@@ -32,6 +32,9 @@ const BLOCKS = [
   { id: "sidebar", title: "App Sidebar", root: ".ab-sidebar" },
   { id: "footer", title: "Site Footer", root: ".ab-footer" }
 ];
+
+// Blocks that ship a remix.css: the same HTML under a second, copyable identity.
+const REMIXES = BLOCKS.filter((block) => existsSync(join(root, "src", "blocks", block.id, "remix.css")));
 
 const canonical = (id, file) =>
   readFileSync(join(root, "src", "blocks", id, file), "utf8").replace(/\r\n/g, "\n").trimEnd();
@@ -96,7 +99,7 @@ for (const block of BLOCKS) {
     const copiedHtml = await page.evaluate(() => navigator.clipboard.readText());
     expect(normalize(copiedHtml)).toBe(normalize(canonical(block.id, "block.html")));
 
-    await page.getByRole("tab", { name: "CSS" }).click();
+    await page.getByRole("tab", { name: "CSS", exact: true }).click();
     await expect(page.locator("#g-panel-css")).toBeVisible();
     expect(await page.locator("#g-source-css").textContent()).toBe(canonical(block.id, "block.css"));
 
@@ -107,11 +110,46 @@ for (const block of BLOCKS) {
   });
 }
 
+for (const block of REMIXES) {
+  test(`remix switch and source fidelity: ${block.id}`, async ({ page }) => {
+    await page.goto(`/blocks/${block.id}.html`);
+    const frame = page.locator("#g-preview-frame");
+
+    await page.getByRole("button", { name: "Remix", exact: true }).click();
+    await expect(frame).toHaveAttribute("src", `../previews/${block.id}--remix.html?theme=light`);
+    await expect(page.locator("#g-preview-url")).toHaveText(`previews/${block.id}--remix.html`);
+    await expect(page.frameLocator("#g-preview-frame").locator(block.root)).toBeVisible();
+
+    // The theme follows whichever version is shown, and Original comes back.
+    await page.getByRole("button", { name: "Dark", exact: true }).click();
+    await expect(frame).toHaveAttribute("src", `../previews/${block.id}--remix.html?theme=dark`);
+    await page.getByRole("button", { name: "Original", exact: true }).click();
+    await expect(frame).toHaveAttribute("src", `../previews/${block.id}.html?theme=dark`);
+
+    await page.getByRole("tab", { name: "Remix CSS" }).click();
+    await expect(page.locator("#g-panel-remix")).toBeVisible();
+    expect(await page.locator("#g-source-remix").textContent()).toBe(canonical(block.id, "remix.css"));
+
+    await page.locator('[data-copy-target="g-source-remix"]').click();
+    await expect(page.locator('[data-copy-target="g-source-remix"]')).toHaveText("Copied");
+    const copied = await page.evaluate(() => navigator.clipboard.readText());
+    expect(normalize(copied)).toBe(normalize(canonical(block.id, "remix.css")));
+  });
+}
+
+test("blocks without a remix show no remix control", async ({ page }) => {
+  const plain = BLOCKS.find((block) => !REMIXES.includes(block));
+  await page.goto(`/blocks/${plain.id}.html`);
+  await expect(page.getByRole("button", { name: "Remix", exact: true })).toHaveCount(0);
+  await expect(page.getByRole("tab", { name: "Remix CSS" })).toHaveCount(0);
+});
+
 test("previews do not overflow a 360px viewport", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 800 });
 
-  for (const block of BLOCKS) {
-    await page.goto(`/previews/${block.id}.html?theme=light`);
+  const previews = [...BLOCKS.map((block) => ({ ...block, file: block.id })), ...REMIXES.map((block) => ({ ...block, file: `${block.id}--remix` }))];
+  for (const block of previews) {
+    await page.goto(`/previews/${block.file}.html?theme=light`);
     await expect(page.locator(block.root)).toBeVisible();
 
     const sizes = await page.evaluate(() => ({
@@ -120,8 +158,8 @@ test("previews do not overflow a 360px viewport", async ({ page }) => {
       viewport: window.innerWidth
     }));
 
-    expect(sizes.document, `${block.id}: document overflows`).toBeLessThanOrEqual(sizes.viewport + 1);
-    expect(sizes.body, `${block.id}: body overflows`).toBeLessThanOrEqual(sizes.viewport + 1);
+    expect(sizes.document, `${block.file}: document overflows`).toBeLessThanOrEqual(sizes.viewport + 1);
+    expect(sizes.body, `${block.file}: body overflows`).toBeLessThanOrEqual(sizes.viewport + 1);
   }
 });
 
@@ -403,6 +441,41 @@ test("copied block renders standalone without gallery CSS", async ({ page }) => 
     expect(sizes.document, `${block.id}: standalone block overflows`).toBeLessThanOrEqual(sizes.viewport + 1);
 
     await page.setViewportSize({ width: 1280, height: 900 });
+  }
+});
+
+test("copied remix renders standalone with only its stated files", async ({ page }) => {
+  // Webfonts are fetched with CORS; start from the server's origin as a page would.
+  await page.goto("/");
+
+  for (const block of REMIXES) {
+    const metadata = JSON.parse(readFileSync(join(root, "src", "blocks", block.id, "metadata.json"), "utf8"));
+    const fonts = metadata.remix.fonts
+      .flatMap((font) => (font.files ?? ["index.css"]).map((file) => `${origin}/assets/fonts/${font.package.replace(/^@/, "").replace("/", "-")}/${file}`))
+      .map((href) => `<link rel="stylesheet" href="${href}" />`)
+      .join("");
+
+    await page.setContent(
+      `<!doctype html>
+      <html lang="en">
+        <head>
+          <meta charset="utf-8" />
+          <link rel="stylesheet" href="${origin}/assets/actual-css.css" />
+          ${fonts}
+          <link rel="stylesheet" href="${origin}/assets/blocks/${block.id}.css" />
+          <link rel="stylesheet" href="${origin}/assets/blocks/${block.id}.remix.css" />
+        </head>
+        <body>${canonical(block.id, "block.html")}</body>
+      </html>`,
+      { waitUntil: "networkidle" }
+    );
+    await page.evaluate(() => document.fonts.ready);
+
+    await expect(page.locator(block.root)).toBeVisible();
+    // Every face the remix names is actually loaded and used.
+    for (const font of metadata.remix.fonts) {
+      expect(await page.evaluate((family) => [...document.fonts].some((face) => face.family.replace(/"/g, "").startsWith(family) && face.status === "loaded"), font.family), `${block.id}: ${font.family} did not load`).toBe(true);
+    }
   }
 });
 

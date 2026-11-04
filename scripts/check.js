@@ -40,12 +40,28 @@ const catalog = JSON.parse(readFileSync(join(root, "node_modules/actual-css/comp
 const componentNames = new Set(catalog.map((entry) => entry.name));
 const componentDocs = Object.fromEntries(catalog.map((entry) => [entry.name, entry.docs]));
 const docsBase = actualPkg.homepage.replace(/\/?$/, "/");
+// Forms, layout and effects document their public hooks only in the header of
+// their published source file, under "Public hooks:".
+const headerHooks = (directory) =>
+  readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(directory, entry.name);
+    if (entry.isDirectory()) return headerHooks(path);
+    if (extname(entry.name) !== ".css") return [];
+    const header = /^\/\*([\s\S]*?)\*\//.exec(readFileSync(path, "utf8"))?.[1] ?? "";
+    const section = /Public hooks:\s*\n((?:\s*\*\s*--[\w-]+.*\n)+)/.exec(header)?.[1] ?? "";
+    return [...section.matchAll(/--[\w-]+/g)].map((match) => match[0]);
+  });
 // Custom properties a block may read from Actual CSS: the public global tokens
-// and each component's public hooks. Internal hooks are not a contract.
+// and each family's public hooks. Internal hooks are not a contract.
 const publicProperties = new Set([
   ...JSON.parse(readFileSync(join(root, "node_modules/actual-css/tokens.json"), "utf8")).global,
-  ...catalog.flatMap((entry) => entry.publicHooks ?? [])
+  ...catalog.flatMap((entry) => entry.publicHooks ?? []),
+  ...["forms", "layout", "effects"].flatMap((folder) => headerHooks(join(root, "node_modules/actual-css/src/css", folder)))
 ]);
+// A remix font is a pinned Fontsource package under an open font license.
+const FONT_LICENSES = new Set(["OFL-1.1", "Apache-2.0"]);
+// The brand theme of a remix may only use these selectors and set public tokens.
+const THEME_SELECTORS = new Set([":root", '[data-theme="light"]']);
 const jsModules = new Set(
   Object.keys(actualPkg.exports ?? {})
     .filter((key) => key.startsWith("./js/"))
@@ -240,44 +256,67 @@ for (const id of blockDirs) {
     fail(`${id}: unclosed tags: ${openTags.join(", ")}`);
   }
 
-  // A small brace/selector audit. It catches the common failure: an unscoped
-  // application rule that would leak outside the block.
-  let depth = 0;
-  let buffer = "";
-  let atRuleDepth = 0;
-  for (const character of css.replace(/\/\*[\s\S]*?\*\//g, "")) {
-    if (character === "{") {
-      const selector = buffer.trim();
-      buffer = "";
+  for (const problem of auditRules(css, rootClass)) fail(`${id}: ${problem} in block.css`);
 
-      if (selector.startsWith("@")) {
-        atRuleDepth += 1;
-      } else if (selector && !/^(?:from|to|\d+(?:\.\d+)?%)$/.test(selector)) {
-        for (const value of splitSelectorList(selector)) {
-          if (value && !value.startsWith(`.${rootClass}`)) {
-            fail(`${id}: unscoped selector "${value}" in block.css`);
+  const remixPath = join(dir, "remix.css");
+  const remixCss = existsSync(remixPath) ? readFileSync(remixPath, "utf8").replace(/\r\n/g, "\n").trimEnd() : "";
+  if (Boolean(remixCss) !== Boolean(metadata.remix)) fail(`${id}: remix.css and metadata "remix" go together`);
+
+  if (remixCss && metadata.remix) {
+    for (const key of ["name", "description", "fonts"]) {
+      if (!(key in metadata.remix)) fail(`${id}: metadata.remix is missing "${key}"`);
+    }
+
+    for (const font of metadata.remix.fonts ?? []) {
+      const fontPkgPath = join(root, "node_modules", font.package ?? "", "package.json");
+      if (!font.family || !/^@fontsource(?:-variable)?\/[\w-]+$/.test(font.package ?? "")) {
+        fail(`${id}: remix font needs a family and a Fontsource package`);
+      } else if (!existsSync(fontPkgPath)) {
+        fail(`${id}: remix font package ${font.package} is not installed`);
+      } else {
+        const fontPkg = JSON.parse(readFileSync(fontPkgPath, "utf8"));
+        if (pkg.dependencies?.[font.package] !== fontPkg.version) fail(`${id}: package.json must pin ${font.package} to the installed version (${fontPkg.version})`);
+        if (!FONT_LICENSES.has(fontPkg.license)) fail(`${id}: ${font.package} license "${fontPkg.license}" is not an open font license`);
+        for (const file of font.files ?? ["index.css"]) {
+          const facePath = join(root, "node_modules", font.package, file);
+          if (!/^[\w-]+\.css$/.test(file) || !existsSync(facePath)) {
+            fail(`${id}: ${font.package} has no stylesheet "${file}"`);
+            continue;
           }
+          const family = /font-family:\s*'([^']+)'/.exec(readFileSync(facePath, "utf8"))?.[1];
+          if (!family || !remixCss.includes(`"${family}"`)) fail(`${id}: remix.css does not use the "${family}" face that ${font.package}/${file} loads`);
         }
       }
-
-      depth += 1;
-      continue;
     }
 
-    if (character === "}") {
-      depth -= 1;
-      buffer = "";
-      if (atRuleDepth > 0) atRuleDepth -= 1;
-      if (depth < 0) fail(`${id}: unbalanced closing brace in block.css`);
-      continue;
+    if (/@import\b/.test(remixCss)) fail(`${id}: remix.css must not import other stylesheets`);
+    if (/url\s*\(/i.test(remixCss)) fail(`${id}: remix.css must not reference external assets; fonts come from metadata`);
+    if (/\.g-[a-z]/.test(remixCss)) fail(`${id}: gallery selectors leaked into remix.css`);
+
+    for (const problem of auditRules(remixCss, rootClass, THEME_SELECTORS)) fail(`${id}: ${problem} in remix.css`);
+
+    // The brand theme sets public tokens only: it is the Actual CSS theme contract.
+    const remixCode = remixCss.replace(/\/\*[\s\S]*?\*\//g, "");
+    const themeRules = [...remixCode.matchAll(/(?:^|(?<=\}))\s*([^{}@]+)\{([^{}]*)\}/g)].filter((match) =>
+      splitSelectorList(match[1].trim()).every((value) => THEME_SELECTORS.has(value))
+    );
+    if (themeRules.length > 1) fail(`${id}: remix.css must have a single brand theme rule`);
+    for (const [, , body] of themeRules) {
+      for (const declaration of body.split(";").map((part) => part.trim()).filter(Boolean)) {
+        const name = declaration.split(":")[0].trim();
+        if (!publicProperties.has(name)) fail(`${id}: remix theme sets "${name}", which is not a public Actual CSS token or hook`);
+      }
     }
 
-    buffer += character;
+    const ownProperties = new Set([...`${cssCode}\n${remixCode}`.matchAll(/(--[\w-]+)\s*:/g)].map((match) => match[1]));
+    for (const name of new Set([...remixCode.matchAll(/var\(\s*(--[\w-]+)/g)].map((match) => match[1]))) {
+      if (!ownProperties.has(name) && !publicProperties.has(name)) {
+        fail(`${id}: var(${name}) in remix.css is neither declared by the block nor a public Actual CSS token or hook`);
+      }
+    }
   }
 
-  if (depth !== 0) fail(`${id}: unbalanced braces in block.css`);
-
-  blocks.push({ id, metadata, html, css, rootClass });
+  blocks.push({ id, metadata, html, css, remixCss, rootClass });
 }
 
 const order = JSON.parse(readFileSync(join(src, "blocks", "order.json"), "utf8"));
@@ -336,6 +375,21 @@ if (existsSync(dist)) {
     if (block.metadata.requiresJs && !loadsRuntime) fail(`${block.id}: preview does not load the Actual CSS runtime`);
     if (!block.metadata.requiresJs && loadsRuntime) fail(`${block.id}: preview loads the runtime although the block needs no JavaScript`);
     if (/\{\{[A-Z_]+\}\}/.test(detail)) fail(`${block.id}: detail page contains an unresolved placeholder`);
+
+    if (block.remixCss) {
+      const remixPreviewPath = join(dist, "previews", `${block.id}--remix.html`);
+      if (!existsSync(remixPreviewPath)) {
+        fail(`${block.id}: remix preview is missing`);
+        continue;
+      }
+      const remixPreview = readFileSync(remixPreviewPath, "utf8");
+      if (!remixPreview.includes(block.html)) fail(`${block.id}: remix preview does not contain the canonical HTML fragment`);
+      if (!remixPreview.includes(`../assets/blocks/${block.id}.remix.css`)) fail(`${block.id}: remix preview does not load remix.css`);
+      if (!detail.includes(escapeHtml(block.remixCss))) fail(`${block.id}: detail page does not contain the canonical remix CSS`);
+      if (readFileSync(join(dist, "assets", "blocks", `${block.id}.remix.css`), "utf8") !== `${block.remixCss}\n`) {
+        fail(`${block.id}: copied remix CSS differs from remix.css`);
+      }
+    }
   }
 
   const htmlFiles = [];
@@ -383,6 +437,49 @@ if (errors.length) {
 
 console.log("\nChecks passed:");
 for (const check of checks) console.log(`- ${check}`);
+
+// A small brace/selector audit. It catches the common failure: an unscoped
+// application rule that would leak outside the block. `allowed` lists the
+// exact extra selectors a file may use (the remix brand theme).
+function auditRules(source, rootClass, allowed = new Set()) {
+  const problems = [];
+  let depth = 0;
+  let buffer = "";
+  for (const character of source.replace(/\/\*[\s\S]*?\*\//g, "")) {
+    if (character === "{") {
+      const selector = buffer.trim();
+      buffer = "";
+
+      if (!selector.startsWith("@") && selector && !/^(?:from|to|\d+(?:\.\d+)?%)$/.test(selector)) {
+        for (const value of splitSelectorList(selector)) {
+          if (value && !value.startsWith(`.${rootClass}`) && !allowed.has(value)) {
+            problems.push(`unscoped selector "${value}"`);
+          }
+        }
+      }
+
+      depth += 1;
+      continue;
+    }
+
+    if (character === "}") {
+      depth -= 1;
+      buffer = "";
+      if (depth < 0) problems.push("unbalanced closing brace");
+      continue;
+    }
+
+    if (character === ";") {
+      buffer = "";
+      continue;
+    }
+
+    buffer += character;
+  }
+
+  if (depth !== 0) problems.push("unbalanced braces");
+  return problems;
+}
 
 function escapeHtml(value) {
   return String(value)

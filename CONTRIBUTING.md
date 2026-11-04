@@ -37,6 +37,24 @@ Example metadata:
 
 Add the block id to `src/blocks/order.json` (catalog order; `bun run check` fails if a folder is missing from it) and to the test lists in `tests/`.
 
+## Add a remix
+
+A remix is optional and rare: a few standout blocks, each with one strong identity. Read the remix section of [docs/block-contract.md](docs/block-contract.md) first.
+
+1. Add `src/blocks/<id>/remix.css`: if it changes the palette, one `:root, [data-theme="light"]` brand theme rule first (public tokens and hooks only, `light-dark()` for dark values), then rules scoped to the block root.
+2. Add fonts as exact pins: `bun add --exact @fontsource-variable/<family>`. Name them in `metadata.json`:
+
+```json
+"remix": {
+  "name": "Poster",
+  "description": "What changes, in one sentence.",
+  "fonts": [{ "family": "Space Grotesk", "package": "@fontsource-variable/space-grotesk" }]
+}
+```
+
+3. Run `bun run contrast`; fix every pair it reports (usually `--*-soft-fg`, `--state-selected-text` or `--focus`).
+4. Add the block to the remix lists in `tests/a11y.spec.js` and `tests/visual.spec.js`, create its baseline and review it.
+
 ## Authoring rules
 
 ### Use the vocabulary first
@@ -99,6 +117,7 @@ For such a block, set in `metadata.json`:
 ```sh
 bun run build
 bun run check
+bun run contrast   # remix themes only
 bun run test
 ```
 

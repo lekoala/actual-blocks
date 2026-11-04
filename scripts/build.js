@@ -84,13 +84,40 @@ const readBlock = (id, index) => {
   const html = readFileSync(join(dir, "block.html"), "utf8").replace(/\r\n/g, "\n").trimEnd();
   const cssPath = join(dir, "block.css");
   const css = existsSync(cssPath) ? readFileSync(cssPath, "utf8").replace(/\r\n/g, "\n").trimEnd() : "";
+  const remixPath = join(dir, "remix.css");
+  const remixCss = existsSync(remixPath) ? readFileSync(remixPath, "utf8").replace(/\r\n/g, "\n").trimEnd() : "";
 
   if (metadata.id !== id) {
     throw new Error(`metadata id "${metadata.id}" does not match folder "${id}"`);
   }
+  if (Boolean(remixCss) !== Boolean(metadata.remix)) {
+    throw new Error(`${id}: remix.css and metadata "remix" go together`);
+  }
 
-  return { ...metadata, html, css, index };
+  const remix = remixCss ? { ...metadata.remix, css: remixCss, fonts: (metadata.remix.fonts ?? []).map(resolveFont) } : null;
+  const rootClass = /class="([^"]+)"/.exec(html)[1].split(/\s+/).find((token) => token.startsWith("ab-"));
+  return { ...metadata, html, css, remix, rootClass, index };
 };
+
+// A remix may name webfonts. Each is a pinned Fontsource package: the gallery
+// serves a local copy so previews and tests work offline, and the detail page
+// gives consumers the same files from jsDelivr.
+function fontDir(name) {
+  return name.replace(/^@/, "").replace("/", "-");
+}
+
+function resolveFont(font) {
+  const fontPkg = JSON.parse(readFileSync(join(root, "node_modules", font.package, "package.json"), "utf8"));
+  return {
+    ...font,
+    version: fontPkg.version,
+    license: fontPkg.license,
+    // A package splits its faces across stylesheets (italics apart); index.css by default.
+    files: font.files ?? ["index.css"],
+    cdn: (font.files ?? ["index.css"]).map((file) => `https://cdn.jsdelivr.net/npm/${font.package}@${fontPkg.version}/${file}`),
+    local: (font.files ?? ["index.css"]).map((file) => `../assets/fonts/${fontDir(font.package)}/${file}`)
+  };
+}
 
 const blocks = ORDER.map(readBlock);
 const categoryById = Object.fromEntries(CATEGORIES.map((category) => [category.id, category]));
@@ -145,6 +172,57 @@ const jsSection = (block) => {
           <p class="g-aside__note">Use one or the other: loading both registers every behavior twice.</p>`;
 };
 
+// The remix is a third copyable file over the same HTML. Its fonts are the
+// only extra dependency, and they are listed with their license.
+const remixSection = (block) => {
+  if (!block.remix) return "";
+  const { remix } = block;
+  const links = remix.fonts.flatMap((font) => font.cdn.map((href) => `<link rel="stylesheet" href="${href}" />`)).join("\n");
+  const fonts = remix.fonts.length
+    ? `<p class="g-aside__label">Fonts</p>
+          <ul class="g-docs">
+            ${remix.fonts
+              .map((font) => `<li><a href="https://fontsource.org/fonts/${font.package.split("/")[1]}" rel="noopener">${escapeHtml(font.family)} <span>${escapeHtml(font.license)}</span></a></li>`)
+              .join("\n            ")}
+          </ul>
+          <div class="g-import">
+            <code id="g-remix-fonts">${escapeHtml(links)}</code>
+            <button class="g-copy g-copy--small" type="button" data-copy-target="g-remix-fonts">Copy</button>
+          </div>`
+    : "";
+  return `<section class="g-aside__block">
+          <p class="overline">Remix</p>
+          <h2>${escapeHtml(remix.name)}</h2>
+          <p>${escapeHtml(remix.description)}</p>
+          <p class="g-aside__note">Same HTML. Load <code>remix.css</code> after <code>block.css</code>. Its first rule is a page-level brand theme made of Actual CSS tokens; every other rule is scoped to <code>.${escapeHtml(block.rootClass)}</code>.</p>
+          ${fonts}
+        </section>`;
+};
+
+const variantControl = (block) =>
+  block.remix
+    ? `<div class="g-segmented" role="group" aria-label="Preview style">
+            <button class="g-seg" type="button" data-preview-variant="original" aria-pressed="true">Original</button>
+            <button class="g-seg" type="button" data-preview-variant="remix" aria-pressed="false">Remix</button>
+          </div>`
+    : "";
+
+const remixTab = (block) =>
+  block.remix
+    ? `\n          <button class="g-tab" id="g-tab-remix" type="button" role="tab" aria-selected="false" aria-controls="g-panel-remix" tabindex="-1">Remix CSS</button>`
+    : "";
+
+const remixPanel = (block) =>
+  block.remix
+    ? `<section class="g-source__panel" id="g-panel-remix" role="tabpanel" aria-labelledby="g-tab-remix" tabindex="0" hidden>
+          <div class="g-source__bar">
+            <span>remix.css</span>
+            <button class="g-copy" type="button" data-copy-target="g-source-remix">Copy remix CSS</button>
+          </div>
+          <pre tabindex="0" aria-label="Remix CSS source"><code id="g-source-remix">${escapeHtml(block.remix.css)}</code></pre>
+        </section>`
+    : "";
+
 const notes = (block) => block.notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("\n");
 
 const pager = (index) => {
@@ -167,7 +245,7 @@ const card = (block) => {
       <iframe class="g-card__frame" src="previews/${block.id}.html?embed=1" title="${escapeHtml(block.title)} preview" loading="lazy" tabindex="-1" aria-hidden="true" inert></iframe>
     </span>
     <span class="g-card__body">
-      <span class="g-card__meta"><span><span aria-hidden="true">${String(block.index + 1).padStart(2, "0")} · </span>${escapeHtml(category.label)}</span><span>${block.requiresJs ? "Actual JS" : "No JS"}</span></span>
+      <span class="g-card__meta"><span><span aria-hidden="true">${String(block.index + 1).padStart(2, "0")} · </span>${escapeHtml(category.label)}</span><span>${block.remix ? "Remix · " : ""}${block.requiresJs ? "Actual JS" : "No JS"}</span></span>
       <span class="g-card__title">${escapeHtml(block.title)}</span>
       <span class="g-card__description">${escapeHtml(block.description)}</span>
       <span class="g-card__cta">View block <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
@@ -221,6 +299,12 @@ const detailHtml = (block) => {
     SUMMARY: escapeHtml(block.summary),
     PREVIEW_HEIGHT: escapeHtml(block.previewHeight),
     REQUIRES_JS: block.requiresJs ? "Actual CSS runtime" : "None",
+    SOURCE_FILES: block.remix ? "block.html + block.css + remix.css" : "block.html + block.css",
+    VARIANT_CONTROL: variantControl(block),
+    REMIX_SRC: block.remix ? ` data-preview-remix-src="../previews/${block.id}--remix.html"` : "",
+    REMIX_TAB: remixTab(block),
+    REMIX_PANEL: remixPanel(block),
+    REMIX_SECTION: remixSection(block),
     JS_SECTION: jsSection(block),
     SOURCE_HTML: escapeHtml(block.html),
     SOURCE_CSS: escapeHtml(block.css),
@@ -234,12 +318,12 @@ const detailHtml = (block) => {
   });
 };
 
-const previewHtml = (block) => `<!doctype html>
+const previewHtml = (block, remix = false) => `<!doctype html>
 <html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${escapeHtml(block.title)} preview — Actual Blocks</title>
+  <title>${escapeHtml(block.title)}${remix ? ` (${escapeHtml(block.remix.name)} remix)` : ""} preview — Actual Blocks</title>
   <script>
     (() => {
       const params = new URLSearchParams(location.search);
@@ -253,7 +337,7 @@ const previewHtml = (block) => `<!doctype html>
     })();
   </script>
   <link rel="stylesheet" href="../assets/actual-css.css" />
-  <link rel="stylesheet" href="../assets/blocks/${block.id}.css" />${block.requiresJs ? '\n  <script src="../assets/actual-css.js" defer></script>' : ""}
+${remix ? block.remix.fonts.flatMap((font) => font.local.map((href) => `  <link rel="stylesheet" href="${href}" />\n`)).join("") : ""}  <link rel="stylesheet" href="../assets/blocks/${block.id}.css" />${remix ? `\n  <link rel="stylesheet" href="../assets/blocks/${block.id}.remix.css" />` : ""}${block.requiresJs ? '\n  <script src="../assets/actual-css.js" defer></script>' : ""}
   <style>
     html,
     body {
@@ -306,9 +390,29 @@ copyFileSync(join(src, "gallery", "actual-blocks-mark.svg"), join(dist, "assets"
 copyFileSync(join(src, "gallery", "actual-blocks-wordmark.svg"), join(dist, "assets", "actual-blocks-wordmark.svg"));
 copyFileSync(join(src, "gallery", "actual-blocks-icon.svg"), join(dist, "favicon.svg"));
 
+// Copy each remix font package's stylesheet and the files it references.
+const fontPackages = new Map(blocks.flatMap((block) => block.remix?.fonts ?? []).map((font) => [font.package, font]));
+for (const font of fontPackages.values()) {
+  const source = join(root, "node_modules", font.package);
+  const target = join(dist, "assets", "fonts", fontDir(font.package));
+  mkdirSync(join(target, "files"), { recursive: true });
+  copyFileSync(join(source, "LICENSE"), join(target, "LICENSE.txt"));
+  for (const sheet of font.files) {
+    const css = readFileSync(join(source, sheet), "utf8");
+    writeFileSync(join(target, sheet), `/*! ${font.family} | ${font.package}@${font.version} | ${font.license} */\n${css}`);
+    for (const [, file] of css.matchAll(/url\(\.\/(files\/[^)]+\.woff2)\)/g)) {
+      copyFileSync(join(source, file), join(target, file));
+    }
+  }
+}
+
 for (const block of blocks) {
   writeFileSync(join(dist, "assets", "blocks", `${block.id}.css`), `${block.css}\n`);
   writeFileSync(join(dist, "previews", `${block.id}.html`), previewHtml(block));
+  if (block.remix) {
+    writeFileSync(join(dist, "assets", "blocks", `${block.id}.remix.css`), `${block.remix.css}\n`);
+    writeFileSync(join(dist, "previews", `${block.id}--remix.html`), previewHtml(block, true));
+  }
   writeFileSync(join(dist, "blocks", `${block.id}.html`), detailHtml(block));
 }
 

@@ -128,6 +128,16 @@ The brand assets are fixed-color vectors, so the display font is not required to
 
 Detail pages link each listed component to the `docs` URL its `components.json` entry gives. Other pages in `metadata.docs` (layout, forms, patterns) are resolved against the package `homepage`, which is the docs site root (`…/actual-css/site/`). `scripts/check.js` verifies that every component docs URL sits under that root and, like every doc page named in `metadata.json`, exists in the pinned package's `docs/pages/`; it does not make network requests.
 
+## 13. Remixes
+
+A remix is `remix.css` over the unchanged `block.html` and `block.css`. The build writes a second preview, `previews/<id>--remix.html`, that adds the remix fonts and stylesheet; the detail page switches between the two documents with an **Original / Remix** control and keeps the theme parameter across the switch. The choice is not remembered, since most blocks have no remix.
+
+Why a page-level brand theme: Actual CSS resolves its derived tokens (heading, selection, control fill, state colors) where they are declared, on `:root` and on each `data-theme` boundary. A remix cannot add an island without changing the HTML, and a palette set on the block root would leave those derived tokens on the default palette. Redefining `:root` / `[data-theme="light"]` is the path the Actual CSS theming guide gives for a brand; nested `data-theme="dark"` islands keep working because the tokens carry both schemes through `light-dark()`.
+
+Why webfonts: an identity change without a typeface change is mostly a recolor. Fonts are Fontsource packages pinned like `actual-css`, under open licenses, served locally in `dist/assets/fonts/` so previews and tests do not depend on a CDN, and offered to consumers as jsDelivr links. Google Fonts is not used, to avoid sending visitors' requests to a third party.
+
+Why contrast is a gate: each remix theme replaces the whole palette, so `scripts/contrast.js` extracts its theme rule and runs `actual-css contrast` on it. A failing pair fails `bun run test`.
+
 ## Limitations
 
 These are the real limits of the current implementation, not hidden TODOs.
