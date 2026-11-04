@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-const BLOCKS = ["hero", "features", "testimonials", "pricing", "faq", "cta", "article", "dashboard", "project", "settings", "plan", "listing", "tracking", "verify", "empty-state", "header", "topbar", "sidebar", "footer"];
+const BLOCKS = ["hero", "features", "bento", "testimonials", "pricing", "compare", "faq", "cta", "article", "dashboard", "project", "assistant", "signin", "settings", "plan", "checkout", "listing", "tracking", "verify", "empty-state", "header", "topbar", "sidebar", "footer"];
 
 const analyze = async (page, label) => {
   const results = await new AxeBuilder({ page })

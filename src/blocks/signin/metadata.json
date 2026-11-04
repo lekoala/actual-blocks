@@ -1,0 +1,20 @@
+{
+  "id": "signin",
+  "title": "Sign-in",
+  "category": "application",
+  "description": "A sign-in page with passkey and single sign-on options, an email and password form with inline validation and a password toggle, and a brand panel on wide screens.",
+  "summary": "Passkey, SSO and email sign-in with validation and a status bar.",
+  "components": ["button", "status-bar", "avatar"],
+  "primitives": ["stack", "field", "join", "choice", "validation"],
+  "requiresJs": true,
+  "scripts": ["validation", "password", "status"],
+  "previewHeight": "48rem",
+  "docs": ["forms/validation.html", "forms/password.html", "enhancements/status-bar.html", "forms/joined-controls.html", "forms/labels.html"],
+  "notes": [
+    "The validation enhancer waits for blur or submit before showing errors, sets aria-invalid, focuses the first invalid field and blocks an invalid submit; the status module then shows the form's data-validation-message in the status bar. Without JavaScript the form submits natively and the server must answer with its own errors.",
+    "Nothing is authenticated here. Map server errors (wrong password, locked account) onto the fields with FormValidator.setErrors from actual-css/js/validation, and keep them generic so they do not reveal which accounts exist.",
+    "The passkey button and single sign-on link are placeholders: WebAuthn and your identity provider belong to your authentication service. The email field's autocomplete=\"username webauthn\" lets browsers offer passkeys in the autofill list.",
+    "The password toggle uses a command invoker handled by the password enhancer; it keeps the label \"Show password\" and announces the state through aria-pressed. A revealed password reverts to hidden on submit and on page hide.",
+    "Keep a single [data-status] status bar per page. The brand panel is a data-theme=\"dark\" island shown from 60rem; it repeats nothing the form needs."
+  ]
+}

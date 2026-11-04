@@ -2,21 +2,26 @@
 
 Each block is a semantic HTML fragment plus a scoped stylesheet. The canonical files live in `src/blocks/<id>/`. The gallery detail page is generated from them.
 
-All blocks require **Actual CSS 0.16.0**. The quick start is `@import "actual-css/full";`, or the component modules listed below. Three blocks also need Actual CSS's published JavaScript runtime (see the JavaScript column). No block requires the gallery CSS, gallery JavaScript or an `actual-blocks` package.
+All blocks require **Actual CSS 0.16.1**. The quick start is `@import "actual-css/full";`, or the component modules listed below. Five blocks also need Actual CSS's published JavaScript runtime (see the JavaScript column). No block requires the gallery CSS, gallery JavaScript or an `actual-blocks` package.
 
 | Block | Category | JavaScript | Custom CSS |
 | --- | --- | --- | --- |
 | Product Hero (`hero`) | Marketing | None | `block.css` |
 | Feature Grid (`features`) | Marketing | None | `block.css` |
+| Bento Feature Grid (`bento`) | Marketing | None | `block.css` |
 | Testimonials (`testimonials`) | Marketing | None | `block.css` |
 | Three-tier Pricing (`pricing`) | Marketing | None | `block.css` |
+| Compare Plans (`compare`) | Marketing | None | `block.css` |
 | FAQ (`faq`) | Marketing | None | `block.css` |
 | Call to Action (`cta`) | Marketing | None | `block.css` |
 | Article with Contents (`article`) | Marketing | Actual CSS `scrollspy` | `block.css` |
 | Dashboard Overview (`dashboard`) | Application | None | `block.css` |
 | Project Overview (`project`) | Application | Actual CSS `tab` | `block.css` |
+| AI Assistant (`assistant`) | Application | None | `block.css` |
+| Sign-in (`signin`) | Application | Actual CSS `validation`, `password`, `status` | `block.css` |
 | Account Settings (`settings`) | Application | None | `block.css` |
 | Plan Change (`plan`) | Application | None | `block.css` |
+| Checkout (`checkout`) | Application | Actual CSS `validation`, `mask`, `filter`, `status` | `block.css` |
 | Data Listing (`listing`) | Application | None | `block.css` |
 | Order Tracking (`tracking`) | Application | None | `block.css` |
 | Code Verification (`verify`) | Application | None | `block.css` |
@@ -40,6 +45,13 @@ All blocks require **Actual CSS 0.16.0**. The quick start is `@import "actual-cs
 - **Primitives:** center, grid, stack, cluster
 - **Notes:** Feature copy and links are illustrative. Integration names are plain text; no vendor logos are used.
 
+## Bento Feature Grid
+
+- **Files:** `src/blocks/bento/block.html`, `block.css`
+- **Actual CSS components:** card, badge, avatar, progress, meter, button
+- **Primitives:** center, stack, container-query, column-layout, aura, shimmer
+- **Notes:** Tiles are placed on `.column-layout` through classes. `.column-layout` never collapses on its own, so the block CSS states three compositions in `@container` rules: 7 + 5 with a two-row portal tile (plain `grid-row` on the block's class), then 6 + 6, then one column in source order. Each tile is also an inline-size container for its own illustration. Illustrations are `aria-hidden` mock-ups; one `aura` tile at most.
+
 ## Testimonials
 
 - **Files:** `src/blocks/testimonials/block.html`, `block.css`
@@ -53,6 +65,13 @@ All blocks require **Actual CSS 0.16.0**. The quick start is `@import "actual-cs
 - **Actual CSS components:** card, button, badge
 - **Primitives:** center, grid, stack, cluster
 - **Notes:** Prices and features are illustrative. The annual-billing note is static; there is no working monthly/annual toggle. The recommended tier is a `data-theme="dark"` card.
+
+## Compare Plans
+
+- **Files:** `src/blocks/compare/block.html`, `block.css`
+- **Actual CSS components:** table, button, badge
+- **Primitives:** center, container-query
+- **Notes:** A `.table-wrap` that scrolls sideways is a scroll container in both axes, so a sticky header cannot reach the page. From 46rem of container width the wrap uses `overflow: clip` and the plan row sticks to the viewport (`--ab-compare-sticky-top` clears a sticky site header); below, the wrap gets a height and both the plan row and the feature column stick inside it. Groups are `<tbody>` with `th scope="rowgroup"`; the group label, not its spanning cell, is sticky. Marks are icons with visually hidden text. Plans match Three-tier Pricing.
 
 ## FAQ
 
@@ -91,6 +110,21 @@ All blocks require **Actual CSS 0.16.0**. The quick start is `@import "actual-cs
 - **Primitives:** center, stack, cluster
 - **Notes:** Real tab semantics; the enhancer owns `aria-selected`, roving `tabindex`, panel `hidden` and arrow/Home/End keys. Without JavaScript only Overview shows. On narrow screens the tab strip scrolls horizontally, as upstream documents.
 
+## AI Assistant
+
+- **Files:** `src/blocks/assistant/block.html`, `block.css`
+- **Actual CSS components:** chat, skeleton, avatar, table, badge, button
+- **Primitives:** prose, cluster, shimmer (effect)
+- **Notes:** One `100dvh` column: header and composer stay put, only the `role="log"` conversation scrolls. A `column-reverse` scroller around one chronological thread opens on the newest message without JavaScript. The answer is `.prose` inside a widened `.chat-bubble`, so its table scrolls inside `.table-wrap`. The pending reply pairs a `role="status"` shimmer label with `aria-busy` skeleton lines. The composer is a borderless textarea in a surface that carries the focus ring, and grows with `field-sizing: content` where supported. Sending, streaming, Stop, feedback, copy and attachments are application code.
+
+## Sign-in
+
+- **Files:** `src/blocks/signin/block.html`, `block.css`
+- **JavaScript:** Actual CSS `validation`, `password` and `status` enhancers (`actual-css/js/validation`, `/password`, `/status`, or the full runtime).
+- **Actual CSS components:** button, status-bar, avatar
+- **Primitives:** stack, field, join, choice, validation
+- **Notes:** Errors appear after blur or submit; an invalid submit sets `aria-invalid`, focuses the first invalid field and shows `data-validation-message` in the status bar. The password toggle is a `command="--password-toggle"` invoker whose icon follows `aria-pressed`. Passkey and single sign-on are placeholders; map server errors with `FormValidator.setErrors`. Without JavaScript the form submits natively. The `data-theme="dark"` brand panel appears from 60rem.
+
 ## Account Settings
 
 - **Files:** `src/blocks/settings/block.html`, `block.css`
@@ -103,7 +137,15 @@ All blocks require **Actual CSS 0.16.0**. The quick start is `@import "actual-cs
 - **Files:** `src/blocks/plan/block.html`, `block.css`
 - **Actual CSS components:** card, badge, button, data-list
 - **Primitives:** center, stack, grid-2, field, field-group, choice-card
-- **Notes:** Plan and cycle are real radio groups and seats a real number input, but the summary does not recalculate; totals, proration, tax and the saved card come from your billing provider. Both groups use `.field-group.flush` so the options read as one section; the scoped CSS only sizes their legends like the seats label.
+- **Notes:** Plan and cycle are real radio groups and seats a real number input, but the summary does not recalculate; totals, proration, tax and the saved card come from your billing provider. Both groups use `.field-group.flush` so the options read as one section; their legends match the seats label.
+
+## Checkout
+
+- **Files:** `src/blocks/checkout/block.html`, `block.css`
+- **JavaScript:** Actual CSS `validation`, `mask`, `filter` and `status` enhancers, or the full runtime.
+- **Actual CSS components:** card, button, data-list, status-bar
+- **Primitives:** center, stack, grid-2, cluster, field, field-group, choice, choice-card, join, form-actions, validation
+- **Notes:** `data-mask` only on the fixed MM/YY expiry; `data-filter` on the security code, postcode and discount code; `tel-prefix` on the courier phone; no mask on the card number, whose length varies. Shipping is a choice-card radio group; the discount code is a separate form in the summary. Below 56rem the summary follows the form and the sticky pay bar carries the total; from 56rem the summary is a sticky column. Totals are static, and most payment providers require their hosted card fields in place of the Payment group.
 
 ## Data Listing
 
@@ -164,7 +206,7 @@ All blocks require **Actual CSS 0.16.0**. The quick start is `@import "actual-cs
 
 ## Copy checklist
 
-1. Load Actual CSS 0.16.0 (full bundle or the modules you need).
+1. Load Actual CSS 0.16.1 (full bundle or the modules you need).
 2. Copy `block.html` into a semantic page region.
 3. Copy `block.css` into a stylesheet loaded after Actual CSS.
 4. Replace placeholder links, sample data and illustrative controls with your application's behavior.

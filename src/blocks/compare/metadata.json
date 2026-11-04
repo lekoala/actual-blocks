@@ -1,0 +1,17 @@
+{
+  "id": "compare",
+  "title": "Compare Plans",
+  "category": "marketing",
+  "description": "A full feature comparison for three plans, grouped by theme, with a plan row that stays in view while the reader scrolls.",
+  "summary": "Grouped comparison table with sticky plan row and feature column.",
+  "components": ["table", "button", "badge"],
+  "primitives": ["center", "container-query"],
+  "requiresJs": false,
+  "previewHeight": "48rem",
+  "docs": ["components/table.html", "components/button.html", "components/badge.html"],
+  "notes": [
+    "A .table-wrap that scrolls sideways is a scroll container in both axes, so a sticky header can only stick inside it, never to the page. The block switches strategy on its container width: from 46rem the wrap uses overflow: clip and the plan row sticks to the viewport (set --ab-compare-sticky-top to clear a sticky site header); below, the wrap gets a height and scrolls both ways, with the plan row and the feature column sticky inside it.",
+    "Each theme is a <tbody> with a th scope=\"rowgroup\" label; features are th scope=\"row\". Included and not-included marks are aria-hidden icons with visually hidden text, so the table reads as words.",
+    "The highlighted plan is a tinted <col>. Plans, prices and features match the Three-tier Pricing block and are illustrative; the plan links are placeholders."
+  ]
+}

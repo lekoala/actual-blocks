@@ -1,6 +1,6 @@
 # Actual Blocks
 
-A standalone, copy-paste gallery of **nineteen polished interface blocks built with [Actual CSS](https://github.com/lekoala/actual-css)**.
+A standalone, copy-paste gallery of **twenty-four polished interface blocks built with [Actual CSS](https://github.com/lekoala/actual-css)**.
 
 > Status: **v0.1 implemented**. The gallery, isolated previews, light/dark themes, viewport controls, canonical source, copy actions and browser checks are in place.
 
@@ -84,7 +84,7 @@ bunx playwright test tests/visual.spec.js --update-snapshots
 A block is a semantic HTML fragment plus an optional, scoped stylesheet. For example, the Hero:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/actual-css@0.16.0/dist/actual.full.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/actual-css@0.16.1/dist/actual.full.min.css" />
 <link rel="stylesheet" href="hero.css" />
 
 <!-- paste the contents of src/blocks/hero/block.html here -->
@@ -103,7 +103,7 @@ Or, in a bundled app:
 Blocks marked **(JS)** also need Actual CSS's own runtime, once per page:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/actual-css@0.16.0/dist/actual.full.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/actual-css@0.16.1/dist/actual.full.js" defer></script>
 ```
 
 or, in a bundled app, only the enhancers they use (`import "actual-css/js/tab";`). Use one or the other, never both.

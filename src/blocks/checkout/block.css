@@ -1,0 +1,221 @@
+/* Actual Blocks — Checkout
+   Scoped to .ab-checkout. Requires Actual CSS 0.16.1 or later. */
+
+.ab-checkout {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  --center-size: 68rem;
+  --center-pad: var(--space-40);
+  padding-block: var(--space-50) clamp(3rem, 6vw, 5rem);
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* Form first, summary second in the source: on narrow screens the summary
+   follows the form and the sticky pay bar carries the total. From 56rem the
+   summary moves to its own column and stays in view. */
+.ab-checkout__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-50) clamp(var(--space-50), 5vw, 4rem);
+  align-items: start;
+}
+
+.ab-checkout__header {
+  display: grid;
+  gap: var(--space-10);
+}
+
+.ab-checkout__brand {
+  justify-self: start;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+}
+
+.ab-checkout__header h1 {
+  margin: 0;
+  font-family: var(--ab-font-display);
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+/* Form ---------------------------------------------------------------------- */
+
+.ab-checkout__form {
+  --gap: var(--space-60);
+}
+
+/* --gap is inherited: the sections' own stacks and grids reset it, or they
+   would take the distance between sections. */
+.ab-checkout__section > .stack,
+.ab-checkout__section .grid-2 {
+  --gap: var(--space-40);
+}
+
+/* Each flush field group is a form section: its legend holds the section's
+   heading, so the group keeps its accessible name and the page its outline. */
+.ab-checkout__section > legend > h2 {
+  margin: 0 0 var(--space-20);
+  font-size: var(--font-size-lg);
+  letter-spacing: -0.01em;
+}
+
+.ab-checkout__section > .ab-checkout__options {
+  --gap: var(--space-20);
+}
+
+.ab-checkout__option {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-30);
+}
+
+.ab-checkout__option > span {
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-checkout__secure {
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.ab-checkout__secure svg {
+  flex: none;
+}
+
+.ab-checkout__actions {
+  justify-content: space-between;
+}
+
+/* Summary ------------------------------------------------------------------- */
+
+.ab-checkout__summary {
+  display: grid;
+  gap: var(--space-30);
+}
+
+.ab-checkout__summary-card {
+  --card-gap: var(--space-40);
+  background: var(--surface-subtle);
+}
+
+.ab-checkout__summary-card h2 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+}
+
+.ab-checkout__items {
+  display: grid;
+  gap: var(--space-30);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ab-checkout__items li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-30);
+}
+
+/* Product images are the application's; the block ships no assets, so the
+   thumbnail is a tinted tile with a short code. */
+.ab-checkout__thumb {
+  display: grid;
+  place-items: center;
+  inline-size: 3rem;
+  block-size: 3rem;
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius);
+  background: color-mix(in oklab, var(--primary) 10%, var(--surface));
+  color: var(--primary);
+  font-family: var(--ab-font-display);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ab-checkout__item {
+  display: grid;
+  font-size: var(--font-size-sm);
+}
+
+.ab-checkout__item strong {
+  font-weight: var(--font-weight-medium);
+}
+
+.ab-checkout__price {
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-checkout__coupon {
+  display: grid;
+  gap: var(--space-10);
+  padding-block-start: var(--space-40);
+  border-block-start: var(--border-width) solid var(--border);
+}
+
+.ab-checkout__totals {
+  padding-block-start: var(--space-40);
+  border-block-start: var(--border-width) solid var(--border);
+}
+
+.ab-checkout__totals > dt {
+  color: var(--text-muted);
+  font-weight: var(--font-weight-normal);
+}
+
+.ab-checkout__totals > dd {
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+
+.ab-checkout__totals > .ab-checkout__total {
+  padding-block-start: var(--space-20);
+  color: var(--text);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ab-checkout__tax,
+.ab-checkout__returns {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.ab-checkout__tax {
+  margin-block-start: calc(-1 * var(--space-30));
+  text-align: end;
+}
+
+.ab-checkout__returns {
+  text-align: center;
+}
+
+/* Wide ---------------------------------------------------------------------- */
+
+@media (width >= 56rem) {
+  .ab-checkout__inner {
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
+  }
+
+  .ab-checkout__header,
+  .ab-checkout__form {
+    grid-column: 1;
+  }
+
+  .ab-checkout__summary {
+    position: sticky;
+    inset-block-start: var(--space-40);
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}

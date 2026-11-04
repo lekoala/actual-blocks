@@ -100,15 +100,6 @@ body.g-page {
   block-size: 2rem;
 }
 
-.g-brand__version {
-  padding: 0.12rem 0.4rem;
-  border: var(--border-width) solid var(--border);
-  border-radius: var(--radius-full);
-  color: var(--text-muted);
-  font-size: 0.65rem;
-  font-variant-numeric: tabular-nums;
-}
-
 .g-nav {
   display: flex;
   gap: var(--space-40);
@@ -1368,7 +1359,6 @@ body.g-page {
 }
 
 @media (width < 48rem) {
-  .g-brand__version,
   .g-header__cta {
     display: none;
   }

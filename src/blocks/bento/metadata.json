@@ -1,0 +1,18 @@
+{
+  "id": "bento",
+  "title": "Bento Feature Grid",
+  "category": "marketing",
+  "description": "A feature section of uneven tiles on the twelve-column canvas: a tall client-portal tile, small product illustrations and one emphasised assistant tile.",
+  "summary": "Six tiles placed on .column-layout, recomposed by container queries.",
+  "components": ["card", "badge", "avatar", "progress", "meter", "button"],
+  "primitives": ["center", "stack", "container-query", "column-layout", "aura", "shimmer"],
+  "requiresJs": false,
+  "previewHeight": "60rem",
+  "docs": ["layout/column-layout.html", "components/aura.html", "components/card.html", "components/meter.html"],
+  "notes": [
+    ".column-layout places columns only and never collapses on its own. The block CSS states the three compositions (7 + 5 with a two-row portal tile, then 6 + 6, then one column) in @container rules against the .container-query wrapper, and the row span is plain CSS Grid on the block's own class. Keep placement on classes, not inline styles, or the container queries cannot override it.",
+    "Each tile is its own inline-size query container, so its illustration adapts to the tile's width rather than the viewport (the portal shows file dates from 26rem).",
+    "The illustrations are aria-hidden mock-ups built from Actual CSS components; each tile's heading and text carry the content. Figures, names and the assistant prompt are sample copy.",
+    "The aura wrapper is the grid item and carries the placement; the card inside is a data-theme=\"dark\" island. With reduced motion the aura's accent stops travelling and the shimmer stays still. Use one emphasised tile at most."
+  ]
+}

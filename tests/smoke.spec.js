@@ -9,15 +9,20 @@ const origin = `http://127.0.0.1:${PORT}`;
 const BLOCKS = [
   { id: "hero", title: "Product Hero", root: ".ab-hero" },
   { id: "features", title: "Feature Grid", root: ".ab-features" },
+  { id: "bento", title: "Bento Feature Grid", root: ".ab-bento" },
   { id: "testimonials", title: "Testimonials", root: ".ab-testimonials" },
   { id: "pricing", title: "Three-tier Pricing", root: ".ab-pricing" },
+  { id: "compare", title: "Compare Plans", root: ".ab-compare" },
   { id: "faq", title: "FAQ", root: ".ab-faq" },
   { id: "cta", title: "Call to Action", root: ".ab-cta" },
   { id: "article", title: "Article with Contents", root: ".ab-article" },
   { id: "dashboard", title: "Dashboard Overview", root: ".ab-dashboard" },
   { id: "project", title: "Project Overview", root: ".ab-project" },
+  { id: "assistant", title: "AI Assistant", root: ".ab-assistant" },
+  { id: "signin", title: "Sign-in", root: ".ab-signin" },
   { id: "settings", title: "Account Settings", root: ".ab-settings" },
   { id: "plan", title: "Plan Change", root: ".ab-plan" },
+  { id: "checkout", title: "Checkout", root: ".ab-checkout" },
   { id: "listing", title: "Data Listing", root: ".ab-listing" },
   { id: "tracking", title: "Order Tracking", root: ".ab-tracking" },
   { id: "verify", title: "Code Verification", root: ".ab-verify" },
@@ -43,12 +48,12 @@ test("catalog renders every block and filters by category", async ({ page }) => 
   const initialCardWidth = (await page.locator(".g-card").first().boundingBox())?.width ?? 0;
 
   await page.getByRole("button", { name: /Marketing/ }).click();
-  await expect(page.locator(".g-card:visible")).toHaveCount(7);
-  await expect(page.locator("#g-visible-count")).toHaveText("7");
+  await expect(page.locator(".g-card:visible")).toHaveCount(9);
+  await expect(page.locator("#g-visible-count")).toHaveText("9");
 
   await page.getByRole("button", { name: /Application/ }).click();
-  await expect(page.locator(".g-card:visible")).toHaveCount(8);
-  await expect(page.locator("#g-visible-count")).toHaveText("8");
+  await expect(page.locator(".g-card:visible")).toHaveCount(11);
+  await expect(page.locator("#g-visible-count")).toHaveText("11");
 
   await page.getByRole("button", { name: /Navigation/ }).click();
   await expect(page.locator(".g-card:visible")).toHaveCount(4);
@@ -197,6 +202,126 @@ test("project tabs switch with the keyboard", async ({ page }) => {
   await page.keyboard.press("End");
   await expect(page.getByRole("tab", { name: "Activity" })).toHaveAttribute("aria-selected", "true");
   await expect(page.locator("#ab-project-activity")).toBeVisible();
+});
+
+test("assistant log opens on the newest message and only the log scrolls", async ({ page }) => {
+  for (const width of [1280, 360]) {
+    await page.setViewportSize({ width, height: 740 });
+    await page.goto("/previews/assistant.html?theme=light");
+
+    const log = page.getByRole("log", { name: "Conversation" });
+    const state = await log.evaluate((element) => ({
+      scrolls: element.scrollHeight > element.clientHeight,
+      pageScrolls: document.documentElement.scrollHeight > window.innerHeight
+    }));
+    expect(state).toEqual({ scrolls: true, pageScrolls: false });
+
+    await expect(page.locator(".ab-assistant__pending")).toBeInViewport();
+    await expect(page.getByText("Three invoices are more than 30 days")).not.toBeInViewport();
+    await expect(page.getByRole("textbox", { name: "Message" })).toBeInViewport();
+  }
+
+  const box = page.getByRole("textbox", { name: "Message" });
+  const before = (await box.boundingBox())?.height ?? 0;
+  await box.fill("First line\nSecond line\nThird line\nFourth line");
+  const after = (await box.boundingBox())?.height ?? 0;
+  expect(after).toBeGreaterThan(before);
+});
+
+test("sign-in validates on submit and toggles the password", async ({ page }) => {
+  await page.goto("/previews/signin.html?theme=light");
+  const email = page.getByRole("textbox", { name: "Email" });
+  const password = page.locator("#ab-signin-password");
+  const toggle = page.getByRole("button", { name: "Show password" });
+
+  await expect(email).not.toHaveAttribute("aria-invalid", "true");
+  await page.getByRole("button", { name: "Sign in", exact: true }).click();
+  await expect(email).toHaveAttribute("aria-invalid", "true");
+  await expect(password).toHaveAttribute("aria-invalid", "true");
+  await expect(email).toBeFocused();
+  await expect(page.getByText("Enter the email you signed up with.")).toBeVisible();
+  await expect(page.locator("[data-status]")).toHaveText("Check the highlighted fields.");
+
+  await email.fill("maya@northstar.studio");
+  await password.fill("correct horse");
+  await expect(email).not.toHaveAttribute("aria-invalid", "true");
+
+  await toggle.click();
+  await expect(password).toHaveAttribute("type", "text");
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
+  await toggle.click();
+  await expect(password).toHaveAttribute("type", "password");
+});
+
+test("bento recomposes from 7 + 5 to 6 + 6 to one column", async ({ page }) => {
+  const boxes = async () => {
+    const tiles = [".ab-bento__portal", ".ab-bento__approvals", ".ab-bento__time", ".ab-bento__security"];
+    return Promise.all(tiles.map(async (selector) => page.locator(selector).boundingBox()));
+  };
+
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/previews/bento.html?theme=light");
+  let [portal, approvals, time] = await boxes();
+  expect(approvals.x).toBeGreaterThan(portal.x + portal.width);
+  expect(time.x).toBe(approvals.x);
+  expect(Math.abs(portal.y + portal.height - (time.y + time.height))).toBeLessThan(2);
+
+  await page.setViewportSize({ width: 820, height: 900 });
+  [portal, approvals, time] = await boxes();
+  expect(approvals.y).toBeGreaterThan(portal.y + portal.height);
+  expect(Math.abs(approvals.y - time.y)).toBeLessThan(2);
+  expect(time.x).toBeGreaterThan(approvals.x);
+
+  await page.setViewportSize({ width: 360, height: 900 });
+  const narrow = await boxes();
+  for (const box of narrow) expect(box.x).toBe(narrow[0].x);
+  for (let i = 1; i < narrow.length; i += 1) expect(narrow[i].y).toBeGreaterThan(narrow[i - 1].y);
+  await expect(page.locator(".ab-bento__file-date").first()).toBeHidden();
+});
+
+test("checkout applies its input policy and blocks an incomplete order", async ({ page }) => {
+  await page.goto("/previews/checkout.html?theme=light");
+
+  await page.locator('[name="cc-exp"]').pressSequentially("1228");
+  await expect(page.locator('[name="cc-exp"]')).toHaveValue("12/28");
+  await page.locator('[name="cc-csc"]').pressSequentially("1a2b3");
+  await expect(page.locator('[name="cc-csc"]')).toHaveValue("123");
+  await page.getByRole("textbox", { name: "Discount code" }).pressSequentially("paper10");
+  await expect(page.getByRole("textbox", { name: "Discount code" })).toHaveValue("PAPER10");
+
+  const phone = page.getByRole("textbox", { name: "Phone" });
+  await phone.fill("+44 20 7946 0000");
+  await page.getByRole("button", { name: "Pay €146.90" }).click();
+  await expect(page.getByRole("textbox", { name: "Email" })).toBeFocused();
+  await expect(phone).toHaveAttribute("aria-invalid", "true");
+  await expect(page.locator('[name="cc-exp"]')).not.toHaveAttribute("aria-invalid", "true");
+  await expect(page.locator("[data-status]")).toHaveText("Some details are missing. Check the highlighted fields.");
+
+  await phone.fill("0470 12 34 56");
+  await phone.blur();
+  await expect(phone).not.toHaveAttribute("aria-invalid", "true");
+});
+
+test("compare keeps the plan row in view, on the page or inside the wrap", async ({ page }) => {
+  const planHeader = page.locator(".ab-compare__table thead th").first();
+  const wrap = page.locator(".ab-compare__wrap");
+
+  await page.setViewportSize({ width: 1280, height: 700 });
+  await page.goto("/previews/compare.html?theme=light");
+  await page.evaluate(() => window.scrollTo(0, 900));
+  await expect.poll(async () => Math.round((await planHeader.boundingBox()).y)).toBe(0);
+
+  await page.setViewportSize({ width: 360, height: 740 });
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await wrap.evaluate((element) => {
+    element.scrollTop = 400;
+    element.scrollLeft = 400;
+  });
+  const wrapBox = await wrap.boundingBox();
+  const rowHeader = page.getByRole("rowheader", { name: "Time tracking" });
+  await expect.poll(async () => Math.abs((await planHeader.boundingBox()).y - wrapBox.y)).toBeLessThan(2);
+  await expect.poll(async () => Math.abs((await rowHeader.boundingBox()).x - wrapBox.x)).toBeLessThan(2);
+  await expect(page.getByRole("rowheader", { name: "Billing" }).locator("span")).toBeInViewport();
 });
 
 test("article contents follow the section being read", async ({ page }) => {

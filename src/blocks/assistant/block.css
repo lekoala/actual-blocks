@@ -1,0 +1,272 @@
+/* Actual Blocks — AI Assistant
+   Scoped to .ab-assistant. Requires Actual CSS 0.16.1 or later. */
+
+.ab-assistant {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  --ab-measure: 46rem;
+  /* The block owns one viewport-tall column: header, scrolling log, composer.
+     Give it a smaller block size when it is embedded in a taller page. */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  block-size: 100dvh;
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* Header ------------------------------------------------------------------ */
+
+.ab-assistant__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-30);
+  padding: var(--space-30) var(--space-40);
+  border-block-end: var(--border-width) solid var(--border);
+}
+
+.ab-assistant__heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-30);
+  min-inline-size: 0;
+}
+
+.ab-assistant__mark {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  border-radius: var(--radius);
+  background: color-mix(in oklab, var(--primary) 12%, var(--surface));
+  color: var(--primary);
+}
+
+.ab-assistant__titles {
+  min-inline-size: 0;
+}
+
+.ab-assistant__titles h1 {
+  margin: 0;
+  overflow: hidden;
+  font-family: var(--ab-font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ab-assistant__titles p {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.ab-assistant__actions {
+  --gap: var(--space-20);
+  flex: none;
+}
+
+/* Log --------------------------------------------------------------------- */
+
+/* column-reverse with a single child starts the scroll position at the end of
+   the conversation without JavaScript, while the DOM and reading order stay
+   chronological. */
+.ab-assistant__scroller {
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.ab-assistant__scroller:focus {
+  /* Keep the scroll region's focus ring inside its own box. */
+  outline-offset: calc(-1 * var(--focus-ring-width));
+}
+
+.ab-assistant__thread {
+  display: grid;
+  gap: var(--space-50);
+  inline-size: min(100%, var(--ab-measure));
+  margin-inline: auto;
+  padding: var(--space-50) var(--space-40);
+}
+
+.ab-assistant__day {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  text-align: center;
+}
+
+.ab-assistant__reply {
+  /* Answers carry tables and quotes, so they get the full measure. A long
+     answer reads better with the speaker named at its start. */
+  --chat-max-size: 100%;
+  --chat-avatar-align: start;
+}
+
+.ab-assistant__bot {
+  --avatar-bg: var(--primary);
+  color: var(--primary-fg);
+}
+
+.ab-assistant__answer {
+  font-size: var(--font-size-md);
+}
+
+.ab-assistant__answer > :first-child {
+  margin-block-start: 0;
+}
+
+.ab-assistant__answer > :last-child {
+  margin-block-end: 0;
+}
+
+.ab-assistant__answer .table-wrap {
+  background: var(--surface);
+}
+
+.ab-assistant__answer th {
+  white-space: nowrap;
+}
+
+/* A full answer takes the whole column, so its footer actions end on the
+   bubble's edge rather than past it. */
+.ab-assistant__bubble {
+  justify-self: stretch;
+  inline-size: auto;
+}
+
+.ab-assistant__meta {
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  inline-size: 100%;
+  /* Room for the buttons' hover fill below the bubble. */
+  margin-block-start: var(--space-10);
+}
+
+.ab-assistant__meta a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+.ab-assistant__feedback {
+  --gap: 0;
+  /* Stays on the bubble's end edge, also when it wraps under the sources. */
+  margin-inline-start: auto;
+  color: var(--text-muted);
+}
+
+.ab-assistant__pending {
+  display: grid;
+  gap: var(--space-20);
+  inline-size: min(100%, 24rem);
+}
+
+.ab-assistant__pending p {
+  margin: 0;
+}
+
+.ab-assistant__placeholder {
+  display: grid;
+  gap: var(--space-20);
+}
+
+/* Composer ---------------------------------------------------------------- */
+
+.ab-assistant__footer {
+  display: grid;
+  gap: var(--space-20);
+  inline-size: min(100%, var(--ab-measure));
+  margin-inline: auto;
+  padding: var(--space-20) var(--space-40) var(--space-30);
+}
+
+/* Follows Actual CSS's composer recipe (demo/templates/composer.html): the
+   textarea stays a native control and the surface takes over its border,
+   hover and focus through the public --control-* hooks. */
+.ab-assistant__composer {
+  display: grid;
+  gap: var(--space-20);
+  padding: var(--space-20);
+  border: var(--border-width) solid var(--border-control);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow);
+  transition: border-color var(--duration);
+}
+
+.ab-assistant__composer:hover:has(.ab-assistant__input:not(:disabled)) {
+  border-color: var(--text-subtle);
+}
+
+/* The surface shows keyboard focus anywhere inside, inset like .input. */
+.ab-assistant__composer:has(:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--focus);
+  outline-offset: calc(var(--focus-ring-width) * -1);
+}
+
+.ab-assistant__composer .ab-assistant__input {
+  --control-border: transparent;
+  --control-bg: transparent;
+
+  min-block-size: 2.75rem;
+  max-block-size: 12rem;
+  resize: none;
+  /* Grows with the message; without support it keeps one size and scrolls. */
+  field-sizing: content;
+}
+
+/* Upstream's :hover and :focus-visible rules would repaint the inner border
+   and ring; one specificity step above them keeps only the surface. */
+.ab-assistant__composer > .ab-assistant__input:hover:not(:disabled) {
+  --control-border: transparent;
+}
+
+.ab-assistant__composer > .ab-assistant__input:focus-visible:not(:disabled) {
+  outline: none;
+  box-shadow: none;
+}
+
+.ab-assistant__tools {
+  --gap: var(--space-20);
+  align-items: center;
+}
+
+.ab-assistant__attach {
+  cursor: pointer;
+}
+
+/* The file input is visually hidden inside its label, so the label shows the
+   keyboard focus. */
+.ab-assistant__attach:has(:focus-visible) {
+  outline: var(--focus-outline, var(--focus-ring-width) solid var(--focus-outline-color));
+  outline-offset: var(--focus-outline-offset);
+}
+
+.ab-assistant__send {
+  margin-inline-start: auto;
+}
+
+.ab-assistant__disclaimer {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  text-align: center;
+}
+
+@media (width < 36rem) {
+  .ab-assistant__header,
+  .ab-assistant__thread,
+  .ab-assistant__footer {
+    padding-inline: var(--space-30);
+  }
+}

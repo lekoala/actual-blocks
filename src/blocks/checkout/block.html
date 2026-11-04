@@ -1,0 +1,188 @@
+<section class="ab-checkout" aria-labelledby="ab-checkout-title">
+  <div class="center ab-checkout__inner">
+    <header class="ab-checkout__header">
+      <a class="ab-checkout__brand" href="#shop">Fieldnotes Paper Co.</a>
+      <h1 id="ab-checkout-title">Checkout</h1>
+    </header>
+
+    <form class="stack needs-validation ab-checkout__form" id="ab-checkout-form" action="#pay" method="post" novalidate data-enhance="validation" data-validation-message="Some details are missing. Check the highlighted fields.">
+      <fieldset class="field-group flush ab-checkout__section">
+        <legend><h2>Contact</h2></legend>
+        <div class="stack">
+          <label class="field">
+            <span class="field-label">Email</span>
+            <input class="input" type="email" name="email" autocomplete="email" required aria-describedby="ab-checkout-email-help ab-checkout-email-error" />
+            <span class="field-help" id="ab-checkout-email-help">For your receipt and delivery updates.</span>
+            <span class="field-error" id="ab-checkout-email-error">Enter an email address for the receipt.</span>
+          </label>
+          <label class="choice">
+            <input class="check" type="checkbox" name="news" />
+            <span>Email me when a new collection is out</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field-group flush ab-checkout__section">
+        <legend><h2>Delivery</h2></legend>
+        <div class="stack">
+          <label class="field">
+            <span class="field-label">Country</span>
+            <select class="select" name="country" autocomplete="country">
+              <option value="BE" selected>Belgium</option>
+              <option value="FR">France</option>
+              <option value="LU">Luxembourg</option>
+              <option value="NL">Netherlands</option>
+            </select>
+          </label>
+          <div class="grid-2">
+            <label class="field">
+              <span class="field-label">First name</span>
+              <input class="input" name="given-name" autocomplete="shipping given-name" required aria-describedby="ab-checkout-given-error" />
+              <span class="field-error" id="ab-checkout-given-error">Enter a first name.</span>
+            </label>
+            <label class="field">
+              <span class="field-label">Last name</span>
+              <input class="input" name="family-name" autocomplete="shipping family-name" required aria-describedby="ab-checkout-family-error" />
+              <span class="field-error" id="ab-checkout-family-error">Enter a last name.</span>
+            </label>
+          </div>
+          <label class="field">
+            <span class="field-label">Street and number</span>
+            <input class="input" name="address-line1" autocomplete="shipping address-line1" required aria-describedby="ab-checkout-street-error" />
+            <span class="field-error" id="ab-checkout-street-error">Enter the street and house number.</span>
+          </label>
+          <label class="field">
+            <span class="field-label">Apartment, floor, company <span class="muted">(optional)</span></span>
+            <input class="input" name="address-line2" autocomplete="shipping address-line2" />
+          </label>
+          <div class="grid-2 ab-checkout__locality">
+            <label class="field">
+              <span class="field-label">Postcode</span>
+              <input class="input" name="postal-code" autocomplete="shipping postal-code" data-filter="upper" required aria-describedby="ab-checkout-postcode-error" />
+              <span class="field-error" id="ab-checkout-postcode-error">Enter a postcode.</span>
+            </label>
+            <label class="field">
+              <span class="field-label">City</span>
+              <input class="input" name="address-level2" autocomplete="shipping address-level2" required aria-describedby="ab-checkout-city-error" />
+              <span class="field-error" id="ab-checkout-city-error">Enter a city.</span>
+            </label>
+          </div>
+          <label class="field">
+            <span class="field-label">Phone</span>
+            <input class="input" type="tel" name="tel" inputmode="tel" autocomplete="shipping tel" required data-validation-rules="tel-prefix +32 +33 +352 +31" aria-describedby="ab-checkout-tel-help ab-checkout-tel-error" />
+            <span class="field-help" id="ab-checkout-tel-help">Only used by the courier if there is a problem.</span>
+            <span class="field-error" id="ab-checkout-tel-error">Use a local number, or one starting with +32, +33, +352 or +31.</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field-group flush ab-checkout__section">
+        <legend><h2>Shipping method</h2></legend>
+        <div class="stack ab-checkout__options">
+          <label class="choice-card">
+            <input type="radio" name="shipping" value="standard" checked />
+            <span class="ab-checkout__option"><strong>Standard</strong> <span>€6.90</span></span>
+            <span class="muted">3–5 business days, tracked</span>
+          </label>
+          <label class="choice-card">
+            <input type="radio" name="shipping" value="express" />
+            <span class="ab-checkout__option"><strong>Express</strong> <span>€12.90</span></span>
+            <span class="muted">Next business day if ordered before 14:00</span>
+          </label>
+          <label class="choice-card">
+            <input type="radio" name="shipping" value="pickup" />
+            <span class="ab-checkout__option"><strong>Pickup point</strong> <span>Free</span></span>
+            <span class="muted">Choose a point after payment, 2–4 business days</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field-group flush ab-checkout__section">
+        <legend><h2>Payment</h2></legend>
+        <div class="stack ab-checkout__card">
+          <p class="ab-checkout__secure">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="5" y="11" width="14" height="10" rx="2" />
+              <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+            </svg>
+            Card details are encrypted. Visa, Mastercard and American Express.
+          </p>
+          <label class="field">
+            <span class="field-label">Card number</span>
+            <input class="input" name="cc-number" inputmode="numeric" autocomplete="cc-number" required minlength="13" maxlength="23" aria-describedby="ab-checkout-number-error" />
+            <span class="field-error" id="ab-checkout-number-error">Enter the number on the front of the card.</span>
+          </label>
+          <div class="grid-2">
+            <label class="field">
+              <span class="field-label">Expiry</span>
+              <input class="input" name="cc-exp" data-mask="99/99" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" required pattern="(0[1-9]|1[0-2])/[0-9]{2}" aria-describedby="ab-checkout-exp-error" />
+              <span class="field-error" id="ab-checkout-exp-error">Use the MM/YY date on the card.</span>
+            </label>
+            <label class="field">
+              <span class="field-label">Security code</span>
+              <input class="input" name="cc-csc" data-filter="numeric" inputmode="numeric" autocomplete="cc-csc" required minlength="3" maxlength="4" aria-describedby="ab-checkout-csc-help ab-checkout-csc-error" />
+              <span class="field-help" id="ab-checkout-csc-help">3 digits on the back, 4 on the front for Amex.</span>
+              <span class="field-error" id="ab-checkout-csc-error">Enter the 3 or 4 digit code.</span>
+            </label>
+          </div>
+          <label class="field">
+            <span class="field-label">Name on card</span>
+            <input class="input" name="cc-name" autocomplete="cc-name" required aria-describedby="ab-checkout-ccname-error" />
+            <span class="field-error" id="ab-checkout-ccname-error">Enter the name as printed on the card.</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="cluster form-actions sticky ab-checkout__actions">
+        <a class="btn ghost" href="#cart">Back to cart</a>
+        <button class="btn primary lg ab-checkout__pay" type="submit">Pay €146.90</button>
+      </div>
+    </form>
+
+    <aside class="ab-checkout__summary" aria-labelledby="ab-checkout-summary-title">
+      <div class="card ab-checkout__summary-card">
+        <h2 id="ab-checkout-summary-title">Order summary</h2>
+
+        <ul class="ab-checkout__items">
+          <li>
+            <span class="ab-checkout__thumb" aria-hidden="true">A5</span>
+            <span class="ab-checkout__item"><strong>Dot-grid notebook, A5</strong><span class="muted">Sage · Qty 2</span></span>
+            <span class="ab-checkout__price">€48.00</span>
+          </li>
+          <li>
+            <span class="ab-checkout__thumb" aria-hidden="true">Pn</span>
+            <span class="ab-checkout__item"><strong>Brass fountain pen</strong><span class="muted">Fine nib · Qty 1</span></span>
+            <span class="ab-checkout__price">€38.00</span>
+          </li>
+          <li>
+            <span class="ab-checkout__thumb" aria-hidden="true">Mt</span>
+            <span class="ab-checkout__item"><strong>Linen desk mat</strong><span class="muted">Natural · Qty 1</span></span>
+            <span class="ab-checkout__price">€54.00</span>
+          </li>
+        </ul>
+
+        <form class="ab-checkout__coupon" action="#coupon" method="post">
+          <label class="field-label" for="ab-checkout-coupon">Discount code</label>
+          <div class="join">
+            <input class="input" id="ab-checkout-coupon" name="coupon" data-filter="upper" autocomplete="off" spellcheck="false" />
+            <button class="btn outline" type="submit">Apply</button>
+          </div>
+        </form>
+
+        <dl class="data-list ab-checkout__totals">
+          <dt>Subtotal</dt>
+          <dd>€140.00</dd>
+          <dt>Shipping</dt>
+          <dd>€6.90</dd>
+          <dt class="ab-checkout__total">Total</dt>
+          <dd class="ab-checkout__total">€146.90</dd>
+        </dl>
+        <p class="ab-checkout__tax">Includes €25.50 VAT.</p>
+      </div>
+
+      <p class="ab-checkout__returns">Free returns within 30 days. Questions? <a href="#help">Contact us</a>.</p>
+    </aside>
+  </div>
+
+  <div class="status-bar" data-status role="status" aria-live="polite" aria-atomic="true"></div>
+</section>

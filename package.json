@@ -15,7 +15,7 @@
     "test:visual": "bun run build && bun run check && playwright test tests/visual.spec.js"
   },
   "dependencies": {
-    "actual-css": "0.16.0"
+    "actual-css": "0.16.1"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",

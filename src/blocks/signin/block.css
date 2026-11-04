@@ -1,0 +1,206 @@
+/* Actual Blocks — Sign-in
+   Scoped to .ab-signin. Requires Actual CSS 0.16.x. */
+
+.ab-signin {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-block-size: 100dvh;
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* Form column ------------------------------------------------------------- */
+
+.ab-signin__main {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+  gap: var(--space-50);
+  padding: var(--space-40) clamp(var(--space-40), 5vw, 3rem);
+}
+
+.ab-signin__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-20);
+  justify-self: start;
+  color: var(--text);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+}
+
+.ab-signin__mark {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--primary-fg);
+  font-family: var(--ab-font-display);
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.ab-signin__panel {
+  display: grid;
+  align-content: center;
+  gap: var(--space-50);
+  inline-size: min(100%, 24rem);
+}
+
+.ab-signin__header h1 {
+  margin: 0;
+  font-family: var(--ab-font-display);
+  font-size: clamp(1.9rem, 4vw, 2.4rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.ab-signin__header p {
+  margin-block: var(--space-20) 0;
+  color: var(--text-muted);
+}
+
+.ab-signin__providers {
+  display: grid;
+  gap: var(--space-20);
+}
+
+.ab-signin__providers .btn {
+  justify-content: center;
+}
+
+.ab-signin__divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-30);
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.ab-signin__divider::before,
+.ab-signin__divider::after {
+  content: "";
+  flex: 1;
+  border-block-start: var(--border-width) solid var(--border);
+}
+
+.ab-signin__label-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-20);
+}
+
+.ab-signin__label-row a {
+  font-size: var(--font-size-sm);
+}
+
+/* aria-pressed is the state the password enhancer mirrors; the label stays
+   "Show password" and the icon follows the attribute. */
+.ab-signin__password [aria-pressed="true"] .ab-signin__icon-show,
+.ab-signin__password :not([aria-pressed="true"]) > .ab-signin__icon-hide {
+  display: none;
+}
+
+.ab-signin__submit {
+  justify-content: center;
+}
+
+.ab-signin__switch,
+.ab-signin__legal {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
+.ab-signin__legal {
+  font-size: var(--font-size-xs);
+}
+
+.ab-signin__switch a,
+.ab-signin__legal a {
+  color: var(--text);
+  text-underline-offset: 0.2em;
+}
+
+/* Aside ------------------------------------------------------------------- */
+
+/* A data-theme="dark" island: it stays dark on light pages. It repeats
+   nothing the form needs, so it is dropped on narrow screens. */
+.ab-signin__aside {
+  display: none;
+}
+
+@media (width >= 60rem) {
+  .ab-signin {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  }
+
+  .ab-signin__aside {
+    display: grid;
+    align-content: end;
+    gap: var(--space-60);
+    margin: var(--space-30);
+    padding: clamp(2rem, 4vw, 3.5rem);
+    border-radius: calc(var(--radius-lg) * 1.5);
+    background:
+      radial-gradient(40rem 28rem at 100% 0%, color-mix(in oklab, var(--primary) 30%, transparent), transparent 70%),
+      radial-gradient(30rem 20rem at 0% 100%, color-mix(in oklab, var(--secondary) 18%, transparent), transparent 70%),
+      var(--surface);
+    color: var(--text);
+  }
+}
+
+.ab-signin__quote {
+  display: grid;
+  gap: var(--space-40);
+  margin: 0;
+}
+
+.ab-signin__quote blockquote {
+  margin: 0;
+}
+
+.ab-signin__quote blockquote p {
+  margin: 0;
+  max-inline-size: 30ch;
+  font-family: var(--ab-font-display);
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  text-wrap: pretty;
+}
+
+.ab-signin__quote figcaption {
+  display: flex;
+  align-items: center;
+  gap: var(--space-30);
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.ab-signin__quote figcaption strong {
+  color: var(--text);
+}
+
+.ab-signin__facts {
+  display: grid;
+  gap: var(--space-20);
+  margin: 0;
+  padding: var(--space-40) 0 0;
+  border-block-start: var(--border-width) solid var(--border);
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  list-style: none;
+}
+
+.ab-signin__facts strong {
+  color: var(--text);
+}

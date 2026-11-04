@@ -1,0 +1,18 @@
+{
+  "id": "assistant",
+  "title": "AI Assistant",
+  "category": "application",
+  "description": "A full-height assistant conversation with a scrolling message log, an answer carrying a table and a draft, a reply in progress and a composer pinned to the bottom.",
+  "summary": "Chat log, pending reply and composer in one viewport-tall column.",
+  "components": ["chat", "skeleton", "avatar", "table", "badge", "button"],
+  "primitives": ["prose", "cluster", "shimmer"],
+  "requiresJs": false,
+  "previewHeight": "44rem",
+  "docs": ["components/chat.html", "components/shimmer.html", "components/skeleton.html", "components/table.html", "forms/controls.html"],
+  "notes": [
+    "The block is one 100dvh column: the header and composer stay put and only the conversation scrolls. The log starts at its newest message without JavaScript, through a column-reverse scroller around a single chronological thread. Set a smaller block size on .ab-assistant when it sits inside a page.",
+    "Nothing is sent, streamed or stored. Sending, streaming, the Stop button, feedback state (aria-pressed), copying and attachments belong to your application. A textarea inserts a new line on Enter; send-on-Enter is application code.",
+    "The conversation container has role=\"log\", so messages your application appends are announced politely. The pending reply announces its status through role=\"status\" on the shimmer label; only the placeholder lines are aria-busy.",
+    "The composer grows with its text in browsers that support field-sizing: content, up to 12rem; elsewhere it keeps one size and scrolls. With reduced motion the shimmer and skeleton stay still."
+  ]
+}

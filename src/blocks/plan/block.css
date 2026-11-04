@@ -1,5 +1,5 @@
 /* Actual Blocks — Plan Change
-   Scoped to .ab-plan. Requires Actual CSS 0.16.x. */
+   Scoped to .ab-plan. Requires Actual CSS 0.16.1 or later. */
 
 .ab-plan {
   --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
@@ -48,12 +48,6 @@
 .ab-plan__options {
   --gap: var(--space-50);
   min-inline-size: 0;
-}
-
-/* Plan, billing cycle and seats read as three sibling form sections. The flush
-   legend is xs upstream; match it to the .field-label of the seats field. */
-.ab-plan .field-group.flush > legend {
-  font-size: var(--control-font-size);
 }
 
 .ab-plan__plans {

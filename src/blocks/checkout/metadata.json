@@ -1,0 +1,20 @@
+{
+  "id": "checkout",
+  "title": "Checkout",
+  "category": "application",
+  "description": "A one-page checkout with contact, delivery address, shipping choice cards and card payment, validated inline, beside an order summary with a discount code.",
+  "summary": "Address, shipping and payment form with a sticky order summary.",
+  "components": ["card", "button", "data-list", "status-bar"],
+  "primitives": ["center", "stack", "grid-2", "cluster", "field", "field-group", "choice", "choice-card", "join", "form-actions", "validation"],
+  "requiresJs": true,
+  "scripts": ["validation", "mask", "filter", "status"],
+  "previewHeight": "60rem",
+  "docs": ["forms/validation.html", "forms/input-policy.html", "forms/choice-cards.html", "forms/sticky-actions.html", "forms/joined-controls.html", "components/data-list.html"],
+  "notes": [
+    "Input policy follows Actual CSS: data-mask only for the fixed MM/YY expiry, data-filter for the security code (digits), postcode and discount code (upper case), tel-prefix for the courier phone. The card number is not masked because card lengths and groupings vary. Masks and filters shape input; the server still validates every value.",
+    "Most payment providers require their own hosted card fields to keep card data off your servers. Replace the Payment group with your provider's element and theme it with Actual CSS tokens; keep the autocomplete tokens if you collect card data yourself.",
+    "Nothing is charged or calculated. The summary does not follow the shipping choice or apply the discount code, and the Pay label is static: totals, tax, shipping rates and code validation come from your commerce backend.",
+    "On narrow screens the summary follows the form and the sticky pay bar carries the total. From 56rem the summary sits in its own sticky column. Product images are yours to supply; the block uses lettered tiles instead of assets.",
+    "Address fields use shipping-scoped autocomplete tokens so browsers fill the right address. Keep a single [data-status] status bar per page."
+  ]
+}

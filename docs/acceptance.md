@@ -126,3 +126,102 @@ Running 61 tests using 8 workers
 ```
 
 The hero (light, dark) and sidebar (mobile) baselines were regenerated after review: only the avatar stacks and the text beside them move, by about half a pixel. Every generated docs link is the same as with the former local docs map. Output: 68 files, about 1.1 MB on disk.
+
+## AI Assistant verification
+
+One application block added (`assistant`), no JavaScript. Same environment, Actual CSS 0.16.0.
+
+```text
+$ bun run build && bun run check
+Built 20 blocks with Actual CSS 0.16.0 into dist/
+- 20 block sources passed metadata, class, scoping and fragment checks
+- 41 generated HTML files resolve their local references
+
+$ playwright test tests/smoke.spec.js tests/a11y.spec.js
+58 passed
+
+$ playwright test tests/visual.spec.js
+6 passed
+```
+
+New coverage: the block in the per-block detail/copy-fidelity tests, the 360px overflow and standalone passes and Axe light/dark previews, plus a test that the log opens on its newest message at 1280px and 360px, that only the log scrolls, and that the composer grows with its text. No visual baseline yet; existing baselines are unchanged.
+
+## Sign-in verification
+
+One application block added (`signin`) on the published `validation`, `password` and `status` enhancers. Same environment.
+
+```text
+$ bun run build && bun run check
+Built 21 blocks with Actual CSS 0.16.0 into dist/
+- 21 block sources passed metadata, class, scoping and fragment checks
+- 43 generated HTML files resolve their local references
+
+$ playwright test tests/smoke.spec.js tests/a11y.spec.js
+61 passed
+```
+
+New coverage: the block in the per-block, 360px overflow, standalone and Axe light/dark passes, plus a test that an empty submit marks both fields `aria-invalid`, focuses the email field, shows the inline error and the status-bar message, clears the error once filled, and that the password toggle switches the input type and `aria-pressed`. No visual baseline yet.
+
+## Bento Feature Grid verification
+
+One marketing block added (`bento`) on `.column-layout`, no JavaScript. Same environment.
+
+```text
+$ bun run build && bun run check
+Built 22 blocks with Actual CSS 0.16.0 into dist/
+- 22 block sources passed metadata, class, scoping and fragment checks
+- 45 generated HTML files resolve their local references
+
+$ playwright test tests/smoke.spec.js tests/a11y.spec.js
+64 passed
+```
+
+New coverage: the block in the per-block, 360px overflow, standalone and Axe light/dark passes, plus a test of the three compositions: at 1280px the portal tile spans the height of the two tiles beside it, at 820px tiles pair 6 + 6 under a full-width portal, at 360px every tile stacks in source order and the per-tile file dates are hidden. No visual baseline yet.
+
+## Checkout verification
+
+One application block added (`checkout`) on the published `validation`, `mask`, `filter` and `status` enhancers. Same environment.
+
+```text
+$ bun run build && bun run check
+Built 23 blocks with Actual CSS 0.16.0 into dist/
+- 23 block sources passed metadata, class, scoping and fragment checks
+- 47 generated HTML files resolve their local references
+
+$ playwright test tests/smoke.spec.js tests/a11y.spec.js
+67 passed
+```
+
+New coverage: the block in the per-block, 360px overflow, standalone and Axe light/dark passes, plus a test that the expiry mask, the security-code and discount-code filters rewrite typed input, that a foreign phone prefix and empty required fields block the order with focus on the first invalid field and the status-bar message, and that a local phone number clears its error. Manually checked: the sticky summary at 1280px while scrolling. No visual baseline yet.
+
+## Compare Plans verification
+
+One marketing block added (`compare`), no JavaScript. Same environment.
+
+```text
+$ bun run build && bun run check
+Built 24 blocks with Actual CSS 0.16.0 into dist/
+- 24 block sources passed metadata, class, scoping and fragment checks
+- 49 generated HTML files resolve their local references
+
+$ playwright test tests/smoke.spec.js tests/a11y.spec.js
+70 passed
+```
+
+New coverage: the block in the per-block, 360px overflow, standalone and Axe light/dark passes, plus a test that at 1280px the plan row sticks to the viewport top after a page scroll, and that at 360px, with the wrap scrolled both ways, the plan row sticks to the wrap's top, the feature column to its start edge, and a group label stays in view. No visual baseline yet.
+
+## Actual CSS 0.16.1 upgrade verification
+
+Same 24 blocks, pinned to `actual-css` 0.16.1, which ships three fixes found while building them. Plan Change drops its local `.field-group.flush > legend` size (the flush legend now matches `.field-label`, measured 16px/600). AI Assistant replaces its local `align-self: start` on `.chat-avatar` with the public `--chat-avatar-align: start` hook. Checkout needs no change: the published runtime raises the status bar above a docked `.form-actions.sticky`. The gallery header no longer shows a `v0.1` tag.
+
+```text
+$ bun run build && bun run check
+Built 24 blocks with Actual CSS 0.16.1 into dist/
+- 24 block sources passed metadata, class, scoping and fragment checks
+- 49 generated HTML files resolve their local references
+
+$ playwright test
+76 passed
+```
+
+Manually checked at 390×760 after an invalid Checkout submit: the status bar (y 611–675) sits above the sticky pay bar (y 691–760), and the Pay button stays visible.

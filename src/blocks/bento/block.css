@@ -1,0 +1,303 @@
+/* Actual Blocks — Bento Feature Grid
+   Scoped to .ab-bento. Requires Actual CSS 0.16.x. */
+
+.ab-bento {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  --center-size: 72rem;
+  --center-pad: var(--space-40);
+  padding-block: clamp(3rem, 7vw, 6rem);
+  background: var(--surface-subtle);
+  color: var(--text);
+}
+
+.ab-bento__inner {
+  --gap: clamp(2rem, 4vw, 3rem);
+}
+
+.ab-bento__header {
+  max-inline-size: 40rem;
+}
+
+.ab-bento__header h2 {
+  margin: var(--space-20) 0 0;
+  font-family: var(--ab-font-display);
+  font-size: clamp(2rem, 4.4vw, 3.1rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.ab-bento__header > p:last-child {
+  margin-block: var(--space-30) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+/* Placement ---------------------------------------------------------------
+   .column-layout has no automatic collapse: the block states every
+   composition. Wide: the portal spans two rows beside approvals and time,
+   then 5 + 4 + 3. Rows are plain CSS Grid on the block's own classes; the
+   primitive only places columns. */
+
+.ab-bento__grid {
+  --gap: var(--space-40);
+}
+
+.ab-bento__portal {
+  --column-span: 7;
+  grid-row: span 2;
+}
+
+.ab-bento__approvals,
+.ab-bento__time {
+  --column-span: 5;
+}
+
+.ab-bento__assistant-frame {
+  --column-span: 5;
+}
+
+.ab-bento__invoices {
+  --column-span: 4;
+}
+
+.ab-bento__security {
+  --column-span: 3;
+}
+
+/* Medium: the portal takes the row, the rest pair up 6 + 6, the assistant
+   takes its own row. */
+@container (width < 60rem) {
+  .ab-bento__portal,
+  .ab-bento__assistant-frame {
+    --column-span: 12;
+    grid-row: auto;
+  }
+
+  .ab-bento__approvals,
+  .ab-bento__time,
+  .ab-bento__invoices,
+  .ab-bento__security {
+    --column-span: 6;
+  }
+}
+
+/* Narrow: one column in source order, which is also the reading order. */
+@container (width < 36rem) {
+  .ab-bento__grid > * {
+    --column-span: 12;
+  }
+}
+
+/* Tiles ------------------------------------------------------------------- */
+
+.ab-bento__tile {
+  --card-pad: clamp(var(--space-40), 3vw, var(--space-50));
+  --card-gap: var(--space-40);
+  container-type: inline-size;
+  justify-content: space-between;
+  block-size: 100%;
+  overflow: hidden;
+}
+
+.ab-bento__copy h3 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.01em;
+}
+
+.ab-bento__copy p {
+  margin-block: var(--space-20) 0;
+  color: var(--text-muted);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.ab-bento__copy .ab-bento__new {
+  margin: 0 0 var(--space-20);
+}
+
+.ab-bento__visual {
+  margin: 0;
+}
+
+/* Security */
+.ab-bento__badges {
+  --gap: var(--space-20);
+}
+
+/* Portal: a small client window. The date column only appears once the tile
+   is wide enough to carry it — a query on the tile, not the viewport. */
+.ab-bento__window {
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  font-size: var(--font-size-sm);
+}
+
+.ab-bento__window-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  padding: var(--space-20) var(--space-30);
+  border-block-end: var(--border-width) solid var(--border);
+}
+
+.ab-bento__window-bar > span:not(.ab-bento__window-title) {
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--border-control);
+}
+
+.ab-bento__window-title {
+  margin-inline-start: var(--space-20);
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ab-bento__files {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ab-bento__files li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-30);
+  padding: var(--space-20) var(--space-30);
+}
+
+.ab-bento__files li + li {
+  border-block-start: var(--border-width) solid var(--border);
+}
+
+.ab-bento__file-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ab-bento__file-date {
+  display: none;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+}
+
+@container (width >= 26rem) {
+  .ab-bento__files li {
+    grid-template-columns: minmax(0, 1fr) auto 5.5rem;
+  }
+
+  .ab-bento__file-date {
+    display: block;
+  }
+}
+
+/* Approvals */
+.ab-bento__signoff {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-20) var(--space-30);
+}
+
+.ab-bento__signoff-text {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.ab-bento__signoff-text strong {
+  color: var(--text);
+}
+
+.ab-bento__signoff .progress {
+  grid-column: 1 / -1;
+}
+
+/* Time */
+.ab-bento__hours {
+  display: grid;
+  gap: var(--space-20);
+  font-size: var(--font-size-sm);
+}
+
+.ab-bento__hours > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  align-items: center;
+  gap: var(--space-30);
+}
+
+.ab-bento__hours dt {
+  overflow: hidden;
+  color: var(--text-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ab-bento__hours dd {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2.5rem;
+  align-items: center;
+  gap: var(--space-20);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+
+/* Assistant: the one emphasised tile. The aura wrapper is the grid item and
+   carries the placement; the card inside is a data-theme="dark" island. */
+.ab-bento__assistant {
+  background:
+    radial-gradient(26rem 16rem at 100% 0%, color-mix(in oklab, var(--primary) 24%, transparent), transparent 70%),
+    var(--surface);
+  color: var(--text);
+}
+
+.ab-bento__prompt {
+  display: grid;
+  gap: var(--space-20);
+  font-size: var(--font-size-sm);
+}
+
+.ab-bento__prompt-q {
+  justify-self: end;
+  max-inline-size: 85%;
+  padding: var(--space-20) var(--space-30);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-sm) var(--radius-lg);
+  background: var(--primary);
+  color: var(--primary-fg);
+}
+
+/* Invoices */
+.ab-bento__figure {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.ab-bento__figure strong {
+  display: block;
+  color: var(--text);
+  font-family: var(--ab-font-display);
+  font-size: clamp(2rem, 9cqi, 2.75rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.ab-bento__more {
+  margin: 0;
+  text-align: center;
+}

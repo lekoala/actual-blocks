@@ -5,7 +5,7 @@
     "": {
       "name": "actual-blocks",
       "dependencies": {
-        "actual-css": "0.16.0",
+        "actual-css": "0.16.1",
       },
       "devDependencies": {
         "@axe-core/playwright": "4.14.0",
@@ -21,7 +21,7 @@
 
     "@playwright/test": ["@playwright/test@1.64.1", "", { "dependencies": { "playwright": "1.64.1" }, "bin": { "playwright": "cli.js" } }, "sha512-IaYGml/nSOiZWROfPtuIL7neuu9qDOZ3TNvNljUIrhDMxiGTgPjzj/g9p9RxpS2tSepPDRY+UwAaEeiKtUvIAg=="],
 
-    "actual-css": ["actual-css@0.16.0", "", { "dependencies": { "@lekoala/floating": "^0.3.1" }, "bin": { "actual-css": "src/cli/actual-css.js" } }, "sha512-WFN+qKNoJpeDqnTi8+iiDP6vLMrmCmiezYGQRl2DUtNAuc+b5C/P4geuHPCC5HXEdDbwrK5x/XFqaEEj8QtHEA=="],
+    "actual-css": ["actual-css@0.16.1", "", { "dependencies": { "@lekoala/floating": "^0.3.1" }, "bin": { "actual-css": "src/cli/actual-css.js" } }, "sha512-Yh5ynm1vDnxYIrtfRpqwDvRfCVPFSsVR5VAdx8OAs9imrdtS4ZM5Sml86rQI8fHKt+R6Er2Honf3QP4Mso3lOA=="],
 
     "axe-core": ["axe-core@4.14.0", "", {}, "sha512-9WTZxEjsZ7b13TH8JPmbV2z8CHbl80/2hm3XPEG4JgNdQLK81IBRXmSxHfMAOkSqQeRxT/0dwNDz2GOm3zzpcQ=="],
 

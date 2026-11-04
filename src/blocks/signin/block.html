@@ -1,0 +1,94 @@
+<section class="ab-signin" aria-labelledby="ab-signin-title">
+  <div class="ab-signin__main">
+    <a class="ab-signin__brand" href="#home">
+      <span class="ab-signin__mark" aria-hidden="true">N</span>
+      Northstar
+    </a>
+
+    <div class="ab-signin__panel">
+      <div class="ab-signin__header">
+        <h1 id="ab-signin-title">Welcome back</h1>
+        <p>Sign in to your studio workspace.</p>
+      </div>
+
+      <div class="ab-signin__providers">
+        <button class="btn outline" type="button">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="9" cy="8" r="4" />
+            <path d="M3 20a6 6 0 0 1 10.5-4" />
+            <circle cx="17.5" cy="15.5" r="2.5" />
+            <path d="M17.5 18v3M17.5 20h1.5" />
+          </svg>
+          Sign in with a passkey
+        </button>
+        <a class="btn outline" href="#sso">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="7" width="18" height="13" rx="2" />
+            <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18" />
+          </svg>
+          Company single sign-on
+        </a>
+      </div>
+
+      <p class="ab-signin__divider"><span>or with your email</span></p>
+
+      <form class="stack needs-validation ab-signin__form" action="#sign-in" method="post" novalidate data-enhance="validation" data-validation-message="Check the highlighted fields.">
+        <label class="field">
+          <span class="field-label">Email</span>
+          <input class="input" type="email" name="email" autocomplete="username webauthn" required aria-describedby="ab-signin-email-error" />
+          <span class="field-error" id="ab-signin-email-error">Enter the email you signed up with.</span>
+        </label>
+
+        <div class="field">
+          <span class="ab-signin__label-row">
+            <label class="field-label" for="ab-signin-password">Password</label>
+            <a href="#reset-password">Forgot password?</a>
+          </span>
+          <div class="join ab-signin__password">
+            <input class="input" type="password" id="ab-signin-password" name="password" autocomplete="current-password" required aria-describedby="ab-signin-password-error" />
+            <button class="btn outline icon-only" type="button" commandfor="ab-signin-password" command="--password-toggle" aria-controls="ab-signin-password" aria-label="Show password" aria-pressed="false">
+              <svg class="ab-signin__icon-show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <svg class="ab-signin__icon-hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M10.6 5.1A10.6 10.6 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-2.4 3.3M6.6 6.6C3.7 8.4 2 12 2 12s3.5 7 10 7a9.7 9.7 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2M3 3l18 18" />
+              </svg>
+            </button>
+          </div>
+          <span class="field-error" id="ab-signin-password-error">Enter your password.</span>
+        </div>
+
+        <label class="choice">
+          <input class="check" type="checkbox" name="remember" />
+          <span>Keep me signed in on this device</span>
+        </label>
+
+        <button class="btn primary ab-signin__submit" type="submit">Sign in</button>
+      </form>
+
+      <p class="ab-signin__switch">New to Northstar? <a href="#sign-up">Create an account</a></p>
+    </div>
+
+    <p class="ab-signin__legal">By signing in you agree to the <a href="#terms">Terms</a> and <a href="#privacy">Privacy policy</a>.</p>
+  </div>
+
+  <aside class="ab-signin__aside" data-theme="dark" aria-label="About Northstar">
+    <figure class="ab-signin__quote">
+      <blockquote>
+        <p>“We moved every client project into Northstar in a week. Approvals that took days now take an afternoon.”</p>
+      </blockquote>
+      <figcaption>
+        <span class="avatar sm" aria-hidden="true">LH</span>
+        <span><strong>Lena Hartmann</strong><br />Operations lead, Fieldwork Studio</span>
+      </figcaption>
+    </figure>
+    <ul class="ab-signin__facts">
+      <li><strong>2FA</strong> and passkeys on every plan</li>
+      <li><strong>EU</strong> data residency</li>
+      <li><strong>99.95%</strong> uptime last 12 months</li>
+    </ul>
+  </aside>
+
+  <div class="status-bar" data-status role="status" aria-live="polite" aria-atomic="true"></div>
+</section>

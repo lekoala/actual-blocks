@@ -1,6 +1,6 @@
 # Actual Blocks — roadmap
 
-> Status: **first release ready.** Nineteen blocks on `actual-css` 0.16.0. `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
+> Status: **first release ready.** Twenty-four blocks on `actual-css` 0.16.1. `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
 
 ## Delivered
 
@@ -10,6 +10,11 @@
 - **Application flows:** Plan Change, Code Verification, Order Tracking.
 - **Blocks on Actual CSS's published runtime** (`requiresJs` + `scripts`): Article with Contents (`scrollspy`), Project Overview (`tab`), App Topbar (`flyout`).
 - **Contract checks:** reserved classes, scoped selectors, published enhancer modules, docs pages, and every `var()` against public tokens and hooks.
+- **Compare Plans:** grouped feature table whose plan row sticks to the page on wide screens and, with the feature column, inside the scrolling wrap on narrow ones.
+- **Checkout:** contact, delivery, shipping choice cards and card payment on `validation`, `mask`, `filter` and `status`, beside a sticky order summary. Opens the commerce batch.
+- **Bento Feature Grid:** six uneven tiles on `.column-layout`, recomposed by container queries, with per-tile queries and one `aura` tile.
+- **Sign-in:** passkey and single sign-on placeholders, then email and password on the `validation`, `password` and `status` enhancers.
+- **AI Assistant:** `chat`, `shimmer`, `skeleton` and a composer in a full-height column whose log alone scrolls; the first block chosen to stress Actual CSS in a real application layout.
 - **Actual CSS 0.16 upgrade:** docs links from `components.json`, `.field-group.flush`, the new avatar stack overlap.
 
 Block types were chosen from a survey of common template catalogs. Only the *types* were retained; every block is written from scratch with Actual CSS and fictional content, and no third-party markup, styles, copy or assets are reused.
@@ -22,15 +27,13 @@ Block types were chosen from a survey of common template catalogs. Only the *typ
 
 ## Next blocks
 
-Ordered by value for consumers. All built from scratch; a block is a consumer composition, not a component demo, and no dozens of variants.
+Chosen for consumer value **and** for how hard they push Actual CSS in a real composition, from a review of current block catalogs (types only). Few, significant blocks; no variants. The stress-test batch (AI Assistant, Sign-in, Bento, Checkout, Compare Plans) is done; next, in order:
 
-1. **Sign-in / sign-up page.** The most visible gap for an application catalog.
-2. **Contact form on the validation enhancer.** `actual-css/js/validation`, `.field-error`, `aria-invalid`: the one runtime family not covered yet.
-3. **Stats band.** Key figures for a marketing page.
-4. **Team directory.** `avatar`, `card`, roles and contact links.
-5. **Blog index.** The list page next to Article with Contents.
+1. **Stats band**, **team directory**, **blog index**, **contact form**: lower stress on Actual CSS, useful to consumers.
+2. **Rest of the commerce batch:** product detail, cart, reviews, building on Checkout.
 
-Later, as one dedicated batch rather than piecemeal: commerce (product card, product detail, cart, checkout, reviews). Out of scope: carousel (needs custom JS), image gallery (blocks ship no external assets), a standalone banner or data table (covered by Site Header and Data Listing).
+
+Out of scope: animated heroes, orbiting logos and marquees (custom JS or vendor assets), carousel, image gallery, command palette (needs filtering JS Actual CSS does not publish), a standalone banner or data table (covered by Site Header and Data Listing).
 
 ## Quality backlog
 
@@ -41,6 +44,4 @@ Later, as one dedicated batch rather than piecemeal: commerce (product card, pro
 
 ## Feeding friction back upstream
 
-Keep a running list while building (wrong guesses, missing hooks, surprising defaults) and send it after each batch, sorted as framework fix, documentation, or consumer misuse to fix here. Open from the 0.16 upgrade:
-
-- `.field-group.flush > legend` is `--font-size-xs` while `.field-label` uses `--control-font-size`, so a flush group beside a plain field reads unevenly. Plan Change matches them locally.
+Friction found while building blocks is tracked locally in `tmp/upstream-notes.md` (not committed), sorted as framework, documentation or consumer misuse, with its status. Add to it as each block is built; fixes may be made directly in the Actual CSS repository, following its own contribution rules, while this project keeps pinning the published release.

@@ -1,0 +1,178 @@
+/* Actual Blocks — Compare Plans
+   Scoped to .ab-compare. Requires Actual CSS 0.16.x. */
+
+.ab-compare {
+  --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
+  /* Distance from the viewport top where the plan row sticks on wide screens.
+     Set it to the height of a sticky site header above the table. */
+  --ab-compare-sticky-top: 0px;
+  --center-size: 68rem;
+  --center-pad: var(--space-40);
+  padding-block: clamp(3rem, 6vw, 5rem);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.ab-compare__inner {
+  /* The sticky strategy depends on the room the table really has. */
+  container-type: inline-size;
+  display: grid;
+  gap: var(--space-50);
+}
+
+.ab-compare__header h2 {
+  margin: 0;
+  font-family: var(--ab-font-display);
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.ab-compare__header p {
+  margin-block: var(--space-20) 0;
+  color: var(--text-muted);
+}
+
+/* Table --------------------------------------------------------------------- */
+
+.ab-compare__table {
+  --table-min: 34rem;
+  table-layout: fixed;
+}
+
+.ab-compare__table col:first-child {
+  inline-size: 10rem;
+}
+
+.ab-compare__featured {
+  background: color-mix(in oklab, var(--primary) 6%, transparent);
+}
+
+.ab-compare__table td {
+  text-align: center;
+}
+
+.ab-compare__table tbody th[scope="row"] {
+  color: var(--text);
+  font-weight: var(--font-weight-normal);
+}
+
+.ab-compare__group th {
+  padding-block-start: var(--space-50);
+  color: var(--text);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.02em;
+}
+
+/* Group rows are labels, not data: no hover band. */
+.ab-compare__table tbody .ab-compare__group:hover {
+  background-color: transparent;
+}
+
+.ab-compare__yes {
+  color: var(--success);
+  vertical-align: middle;
+}
+
+.ab-compare__no {
+  color: var(--text-subtle);
+}
+
+/* Plan header cells */
+.ab-compare__table thead th {
+  vertical-align: top;
+  text-align: center;
+}
+
+.ab-compare__table thead th > * {
+  display: block;
+}
+
+.ab-compare__plan {
+  color: var(--text);
+  font-size: var(--font-size-lg);
+}
+
+.ab-compare__plan .badge {
+  margin-inline-start: var(--space-10);
+  vertical-align: middle;
+}
+
+.ab-compare__price {
+  margin-block: var(--space-10) var(--space-30);
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+}
+
+.ab-compare__price strong {
+  color: var(--text);
+  font-size: var(--font-size-lg);
+}
+
+.ab-compare__table thead .btn {
+  display: inline-flex;
+}
+
+/* Sticky cells ----------------------------------------------------------------
+   A sticky cell paints over the rows scrolling beneath it, so it needs an
+   opaque fill: the header band's, and the wrap's for the row headers. */
+
+.ab-compare__table thead :is(th, td) {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+  background: var(--table-header-bg, var(--surface-subtle));
+  box-shadow: inset 0 calc(-1 * var(--border-width)) 0 var(--border);
+}
+
+/* Narrow: .table-wrap scrolls sideways, which makes it a scroll container in
+   both axes, so sticky cells can only stick inside it. Give the wrap a height
+   and let the plan row and the feature column both stick within it. */
+.ab-compare__wrap {
+  max-block-size: min(75dvh, 40rem);
+  overflow: auto;
+  overscroll-behavior-inline: contain;
+}
+
+.ab-compare__table tbody th[scope="row"] {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 1;
+  background: var(--surface-raised);
+}
+
+/* A cell spanning the row cannot stick; its label can, inside the wrap. */
+.ab-compare__group th > span {
+  position: sticky;
+  inset-inline-start: var(--table-cell-pad);
+}
+
+.ab-compare__table thead .ab-compare__corner {
+  inset-inline-start: 0;
+  z-index: 3;
+}
+
+/* Wide: the table fits, so the wrap stops being a scroll container and the
+   plan row sticks to the page instead. clip keeps the rounded frame. */
+@container (width >= 46rem) {
+  .ab-compare__wrap {
+    max-block-size: none;
+    overflow: clip;
+  }
+
+  .ab-compare__table thead :is(th, td) {
+    inset-block-start: var(--ab-compare-sticky-top);
+  }
+
+  .ab-compare__table col:first-child {
+    inline-size: 34%;
+  }
+
+  .ab-compare__table tbody th[scope="row"],
+  .ab-compare__group th > span {
+    position: static;
+  }
+}
