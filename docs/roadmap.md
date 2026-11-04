@@ -1,6 +1,6 @@
 # Actual Blocks — roadmap
 
-> Status: **first release ready.** Twenty-four blocks on `actual-css` 0.16.1. `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
+> Status: **first release ready.** Twenty-four blocks on `actual-css` 0.16.1. Next: remixes, then complete interfaces, then integration recipes (see Direction). `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
 
 ## Delivered
 
@@ -26,12 +26,50 @@ Block types were chosen from a survey of common template catalogs. Only the *typ
 - [ ] Check the first CI run and the deployed gallery under its repository subpath.
 - [ ] Tag `v0.1.0` once the deployed gallery checks out.
 
-## Next blocks
+## Direction
 
-Chosen for consumer value **and** for how hard they push Actual CSS in a real composition, from a review of current block catalogs (types only). Few, significant blocks; no variants. The stress-test batch (AI Assistant, Sign-in, Bento, Checkout, Compare Plans) is done; next, in order:
+The first catalog shows that Actual CSS builds real interfaces. The next step shows how far those interfaces can go: a strong visual identity, dense complete screens and specialised libraries, all on the same primitives. Actual CSS provides the foundations; blocks show how to use them; remixes and complete interfaces show how far they reach.
 
-1. **Stats band**, **team directory**, **blog index**, **contact form**: lower stress on Actual CSS, useful to consumers.
-2. **Rest of the commerce batch:** product detail, cart, reviews, building on Checkout.
+Three steps, in order. Each is released on its own; the version is chosen at release time (minor when it adds blocks or a new kind of copyable file).
+
+### 1. Remixes
+
+One canonical block, plus an optional `remix.css` that gives it a different identity: palette, type, proportions, graphic effects, some layout. Not variants, not a theme editor.
+
+- Same `block.html`, same `block.css`; the remix is a third copyable file, loaded after `block.css` and scoped to the same root. No hidden gallery CSS, no HTML changes.
+- The detail page gets an **Original / Remix** switch on the preview and a copy button for the remix CSS.
+- Three blocks to prove it: Product Hero (editorial), Dashboard (assertive, dense) and Sign-in (strong graphic identity, for example neo-brutalist).
+
+To decide before building:
+
+- **Fonts.** Blocks use system stacks only. A real identity change usually needs a typeface: either allow a remix to declare a webfont as a dependency (and say so on the page), or prove the point with system stacks, weights and proportions.
+- **Contract.** What a remix may change (tokens and public hooks first, block classes, never Actual CSS classes from outside the root), and how `check.js` enforces it.
+- **Tests.** Light/dark and 360px for each remix, Axe, and a visual baseline per remix.
+
+### 2. Complete interfaces
+
+Few, significant blocks that test Actual CSS in dense, real screens, in this order:
+
+1. **Dashboard Shell.** `app-shell` / `app-layout` with sidebar, topbar and content; only the content scrolls; drawer on mobile. Sidebar and Topbar are tested apart today; the assembly is what breaks in real apps.
+2. **Product Overview.** `scroll-snap` gallery, `color-swatch` and `custom-select` variants, `rating`, `join` quantity. Opens the rest of the commerce batch (cart, reviews) and leaves the SaaS look behind.
+3. **Dialog.** Destructive confirmation and a form in a modal (invite members): `modal`, the `dialog` enhancer, focus return, `Escape`, validation inside a dialog.
+4. **Kanban.** Horizontal `scroll-snap` columns, cards with `menu` / `context-menu`; moving a card is "Move to…" in a menu, not drag and drop.
+
+The home page should then feature a few standout blocks and remixes, not only add cards to the catalog.
+
+Later, lower stress on Actual CSS but useful to consumers: stats band, team directory, blog index, contact form.
+
+### 3. Integration recipes
+
+A separate family, not a change to every block: recipes that wire a specialised library to an Actual CSS interface, with explicit, pinned dependencies and an optional copyable JS file limited to that wiring. Ordinary blocks keep the current contract (HTML, CSS, native behavior, Actual CSS enhancers).
+
+- First recipe: **Calendar** with `@lekoala/calendar` (light DOM, plain CSS, 14 `--calendar-*` tokens bridged to Actual CSS tokens, events wired through `eventSource`). Then candidates such as a combobox, a date picker or a data grid.
+- Admission is technical, not by author: interoperability with Actual CSS tokens and light/dark, accessibility checked with Axe and the keyboard, copyable code, documented and pinned dependencies.
+- Needs a contract and build change first: dependency declaration in `metadata.json`, loading it only in that preview, a `recipe.js` copy tab, and checks in `check.js`. Record it in `decisions.md` and `block-contract.md` before any code.
+
+### Showcases (open)
+
+Several blocks assembled into one page with a real brand: a creative studio site, a complete SaaS application, a shop with a strong identity. They need what blocks avoid on purpose (images, different content, page-level composition), so they are a separate page type with its own asset policy. Decide after remixes and Dashboard Shell exist.
 
 
 Out of scope: animated heroes, orbiting logos and marquees (custom JS or vendor assets), carousel, image gallery, command palette (needs filtering JS Actual CSS does not publish), a standalone banner or data table (covered by Site Header and Data Listing).
