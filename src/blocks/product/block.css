@@ -311,8 +311,10 @@
   color: var(--text-muted);
 }
 
-/* The list sits in a panel <div>: .accordion.flush zeroes the inline padding
-   of the panel, which would push a direct list's markers out of the column. */
+/* The list sits in a panel <div>: in Actual CSS 0.17.0, .accordion.flush
+   zeroes the inline padding of the panel, which would push a direct list's
+   markers out of the column. Fixed upstream after 0.17.0; drop the <div> on
+   the next upgrade. */
 .ab-product__details ul {
   margin: 0;
   padding-inline-start: 1.25rem;
