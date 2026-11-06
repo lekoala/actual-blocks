@@ -109,9 +109,10 @@
   min-inline-size: 0;
 }
 
+/* Filled search: the control's own hooks, no new variant. */
 .ab-shell__search .input {
-  border-color: transparent;
-  background: var(--surface-subtle);
+  --control-default-bg: var(--surface-subtle);
+  --control-border: transparent;
 }
 
 .ab-shell__tools {
@@ -187,16 +188,11 @@
   margin-inline-start: var(--space-10);
 }
 
+/* Trailing action: Actual CSS's alert recipe (.cluster.justify-content-space-between);
+   the block only sets the rhythm. */
 .ab-shell__tip-body {
-  display: flex;
-  flex-wrap: wrap;
   align-items: baseline;
-  justify-content: space-between;
   gap: var(--space-10) var(--space-30);
-}
-
-.ab-shell__tip-body p {
-  margin: 0;
 }
 
 .ab-shell__tip-body strong {

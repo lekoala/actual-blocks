@@ -43,7 +43,7 @@ Still open: whether the card thumbnails or the home page should show remixes (pa
 Few, significant blocks that test Actual CSS in dense, real screens, in this order:
 
 1. **Dashboard Shell.** `app-shell` / `app-layout` with sidebar, topbar and content; only the content scrolls; drawer on mobile. Sidebar and Topbar are tested apart today; the assembly is what breaks in real apps.
-   Built (unreleased) as a billing overview (`shell`): `.sidebar-shell` (0.17) rather than `.app-layout`, collapsible `<details>` sections, link tabs, a dismissible recommendation, a date range flyout with presets and native date inputs, ruled SVG metrics. The two-month range calendar of the reference composition is left to the integration-recipe step.
+   Built (unreleased) as a billing overview (`shell`): `.sidebar-shell` (0.17) rather than `.app-layout`, collapsible `<details>` sections, link tabs, a dismissible recommendation, a date range flyout with presets and native date inputs, ruled SVG metrics. A range calendar is left to the integration-recipe step, with `@lekoala/date-picker` (`<date-picker range>`, `linkDateRange()`).
 2. **Product Overview.** `scroll-snap` gallery, `color-swatch` and `custom-select` variants, `rating`, `join` quantity. Opens the rest of the commerce batch (cart, reviews) and leaves the SaaS look behind.
 3. **Dialog.** Destructive confirmation and a form in a modal (invite members): `modal`, the `dialog` enhancer, focus return, `Escape`, validation inside a dialog.
 4. **Kanban.** Horizontal `scroll-snap` columns, cards with `menu` / `context-menu`; moving a card is "Move to…" in a menu, not drag and drop.
@@ -66,7 +66,7 @@ Surveyed and not retained: sign-up, magic-link and reset-password variants (Sign
 
 A separate family, not a change to every block: recipes that wire a specialised library to an Actual CSS interface, with explicit, pinned dependencies and an optional copyable JS file limited to that wiring. Ordinary blocks keep the current contract (HTML, CSS, native behavior, Actual CSS enhancers).
 
-- First recipe: **Calendar** with `@lekoala/calendar` (light DOM, plain CSS, 14 `--calendar-*` tokens bridged to Actual CSS tokens, events wired through `eventSource`). Then candidates such as a combobox, a date picker or a data grid.
+- First recipe: **Calendar** with `@lekoala/calendar` (light DOM, plain CSS, 14 `--calendar-*` tokens bridged to Actual CSS tokens, events wired through `eventSource`). Then candidates such as a combobox, a date picker (first use: the Dashboard Shell date range) or a data grid.
 - Admission is technical, not by author: interoperability with Actual CSS tokens and light/dark, accessibility checked with Axe and the keyboard, copyable code, documented and pinned dependencies.
 - Needs a contract and build change first: dependency declaration in `metadata.json`, loading it only in that preview, a `recipe.js` copy tab, and checks in `check.js`. Record it in `decisions.md` and `block-contract.md` before any code.
 
