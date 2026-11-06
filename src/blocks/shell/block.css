@@ -1,14 +1,9 @@
 /* Actual Blocks — Dashboard Shell
-   Scoped to .ab-shell. Requires Actual CSS 0.16.x and its flyout and dismiss enhancers.
-   The shell owns the viewport: the sidebar and the content area scroll on their own,
-   the topbar stays put. */
+   Scoped to .ab-shell. Requires Actual CSS 0.17.x and its flyout and dismiss enhancers.
+   .sidebar-shell owns the layout: from 64rem the sidebar and the content column
+   scroll on their own and the topbar sticks to the top of the content column. */
 
 .ab-shell {
-  --ab-shell-sidebar-size: 15.5rem;
-  display: grid;
-  grid-template-columns: var(--ab-shell-sidebar-size) minmax(0, 1fr);
-  block-size: var(--viewport-block);
-  overflow: hidden;
   background: var(--surface);
   color: var(--text);
 }
@@ -19,8 +14,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-30);
-  min-block-size: 0;
-  overflow-y: auto;
   padding: var(--space-30);
   border-inline-end: var(--border-width) solid var(--border);
   background: var(--surface);
@@ -65,37 +58,19 @@
 }
 
 .ab-shell__nav {
+  /* Sub-links start under the parent label, past its 18px icon and gap. */
+  --nav-list-indent: calc(18px + var(--space-20));
   display: grid;
   align-content: start;
   gap: var(--space-10);
 }
 
 .ab-shell__nav .nav-link {
-  gap: var(--space-20);
   font-size: var(--font-size-sm);
 }
 
 .ab-shell__nav .nav-link svg {
   flex: none;
-}
-
-/* Current link: a stronger tint of the link's own ink carries the state next
-   to the accent, so the inline-start trait (which sits against the label at
-   this padding) is kept only where forced colors drop the fill and the accent.
-   Where color-mix is missing the declaration is ignored and Actual CSS's
-   own fill applies. */
-.ab-shell .nav-list .nav-link:is([aria-current="page"], [aria-current="location"]) {
-  background: color-mix(in oklch, currentColor 16%, transparent);
-}
-
-.ab-shell .nav-list .nav-link:is([aria-current="page"], [aria-current="location"])::before {
-  display: none;
-}
-
-@media (forced-colors: active) {
-  .ab-shell .nav-list .nav-link:is([aria-current="page"], [aria-current="location"])::before {
-    display: block;
-  }
 }
 
 .ab-shell__group-title {
@@ -106,56 +81,17 @@
   font-weight: var(--font-weight-medium);
 }
 
-/* Collapsible product sections: the summary borrows .nav-link for its row,
-   hover and focus; the block adds the chevron and the sub-list indent. */
-.ab-shell__section > summary {
-  inline-size: 100%;
-  list-style: none;
-}
-
-.ab-shell__section > summary::-webkit-details-marker {
-  display: none;
-}
-
-.ab-shell__section > summary::after {
-  content: "";
-  flex: none;
-  inline-size: 0.875rem;
-  block-size: 0.875rem;
-  margin-inline-start: auto;
-  background-color: currentColor;
-  mask: var(--icon-chevron) center / contain no-repeat;
-  transition: rotate var(--duration);
-}
-
-.ab-shell__section[open] > summary::after {
-  rotate: 180deg;
-}
-
-.ab-shell__subnav {
-  margin-block-start: var(--space-10);
-  padding-inline-start: calc(var(--space-20) + 18px + var(--space-20));
-}
-
 .ab-shell__subnav .nav-link {
   min-block-size: 2rem;
 }
 
 .ab-shell__developers {
   flex: none;
-  gap: var(--space-20);
   margin-block-start: auto;
   font-size: var(--font-size-sm);
 }
 
-/* Main column: topbar, then the only scrolling region of the page. */
-
-.ab-shell__main {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  min-inline-size: 0;
-  min-block-size: 0;
-}
+/* Main column: the topbar sticks while the content scrolls. */
 
 .ab-shell__topbar {
   gap: var(--space-30);
@@ -209,11 +145,6 @@
   border-radius: var(--radius-full);
   background: var(--primary);
   box-shadow: 0 0 0 2px var(--surface);
-}
-
-.ab-shell__scroll {
-  min-block-size: 0;
-  overflow-y: auto;
 }
 
 .ab-shell__page {
@@ -295,58 +226,13 @@
   --flyout-inline-size: 34rem;
   --flyout-max-inline-size: 34rem;
   --flyout-pad: var(--space-40);
+}
+
+.ab-shell__range-body {
   display: grid;
   grid-template-columns: 11rem minmax(0, 1fr);
+  align-items: start;
   gap: var(--space-40);
-}
-
-.ab-shell__range fieldset {
-  min-inline-size: 0;
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-.ab-shell__presets {
-  display: grid;
-  align-content: start;
-  gap: 2px;
-}
-
-/* Radio rows: the radio is visually hidden but stays focusable and keeps
-   native arrow-key selection; the row shows the checked and focused states. */
-.ab-shell__preset {
-  position: relative;
-  display: flex;
-  align-items: center;
-  min-block-size: var(--control-size-sm);
-  padding-inline: var(--space-20);
-  border-radius: var(--radius);
-  font-size: var(--font-size-sm);
-  cursor: pointer;
-}
-
-.ab-shell__preset input {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-  opacity: 0;
-  cursor: inherit;
-}
-
-.ab-shell__preset:hover {
-  background: var(--surface-subtle);
-}
-
-.ab-shell__preset:has(input:checked) {
-  background: var(--surface-subtle);
-  color: var(--state-selected-text);
-  font-weight: var(--font-weight-medium);
-}
-
-.ab-shell__preset:has(input:focus-visible) {
-  outline: var(--focus-outline);
-  outline-offset: var(--focus-outline-offset);
 }
 
 .ab-shell__custom {
@@ -354,6 +240,10 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-content: start;
   gap: var(--space-30);
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 .ab-shell__custom legend {
@@ -366,21 +256,6 @@
 .ab-shell__custom .field-help {
   grid-column: 1 / -1;
   margin: 0;
-}
-
-/* Sticky inside the panel, which scrolls when the viewport is short. */
-.ab-shell__range-actions {
-  position: sticky;
-  inset-block-end: calc(var(--flyout-pad) * -1);
-  display: flex;
-  grid-column: 1 / -1;
-  margin-block-end: calc(var(--flyout-pad) * -1);
-  padding-block-end: var(--flyout-pad);
-  background: inherit;
-  justify-content: flex-end;
-  gap: var(--space-20);
-  padding-block-start: var(--space-30);
-  border-block-start: var(--border-width) solid var(--border);
 }
 
 /* Metrics: a ruled 2 × 2 grid, not cards */
@@ -588,14 +463,6 @@
 }
 
 @media (width < 64rem) {
-  .ab-shell {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .ab-shell__sidebar {
-    display: none;
-  }
-
   .ab-shell__menu-button {
     display: inline-flex;
   }
@@ -620,7 +487,7 @@
     margin-inline-end: 0;
   }
 
-  .ab-shell__range {
+  .ab-shell__range-body {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -632,11 +499,5 @@
 @media (width < 30rem) {
   .ab-shell__custom {
     grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ab-shell__section > summary::after {
-    transition: none;
   }
 }

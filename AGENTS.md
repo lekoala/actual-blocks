@@ -8,7 +8,7 @@ Build a small, polished, standalone gallery of HTML/CSS blocks for consumers of 
 
 - Read `docs/brief.md`, `docs/architecture.md`, `docs/decisions.md`, `docs/blocks.md`, `docs/block-contract.md`, and `docs/acceptance.md` before changing structure.
 - Consult the installed Actual CSS package (`node_modules/actual-css/`) and its documented components/layouts before choosing class names. Do not guess undocumented classes or npm exports.
-- The project pins the published `actual-css` **0.16.1** release. Verify the installed version before assuming an API.
+- The project pins the published `actual-css` **0.17.0** release. Verify the installed version before assuming an API.
 - `docs/roadmap.md` lists the release steps and the next blocks, in priority order.
 - Use Actual CSS as a dependency, not a git submodule or copied source tree.
 

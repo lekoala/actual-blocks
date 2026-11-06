@@ -11,7 +11,7 @@
         "@fontsource-variable/instrument-sans": "5.3.0",
         "@fontsource-variable/space-grotesk": "5.3.0",
         "@fontsource/archivo-black": "5.3.0",
-        "actual-css": "0.16.1",
+        "actual-css": "0.17.0",
       },
       "devDependencies": {
         "@axe-core/playwright": "4.14.0",
@@ -39,7 +39,7 @@
 
     "@playwright/test": ["@playwright/test@1.64.1", "", { "dependencies": { "playwright": "1.64.1" }, "bin": { "playwright": "cli.js" } }, "sha512-IaYGml/nSOiZWROfPtuIL7neuu9qDOZ3TNvNljUIrhDMxiGTgPjzj/g9p9RxpS2tSepPDRY+UwAaEeiKtUvIAg=="],
 
-    "actual-css": ["actual-css@0.16.1", "", { "dependencies": { "@lekoala/floating": "^0.3.1" }, "bin": { "actual-css": "src/cli/actual-css.js" } }, "sha512-Yh5ynm1vDnxYIrtfRpqwDvRfCVPFSsVR5VAdx8OAs9imrdtS4ZM5Sml86rQI8fHKt+R6Er2Honf3QP4Mso3lOA=="],
+    "actual-css": ["actual-css@0.17.0", "", { "dependencies": { "@lekoala/floating": "^0.3.1" }, "bin": { "actual-css": "src/cli/actual-css.js" } }, "sha512-lOZu6HvTRLeSVjjimM5gp2yaCyZ1Ag27IYvSC7BRWhaxjM6N/mByjMDGuERJ74tVm/emBm2JiDRFSCAxF5+feQ=="],
 
     "axe-core": ["axe-core@4.14.0", "", {}, "sha512-9WTZxEjsZ7b13TH8JPmbV2z8CHbl80/2hm3XPEG4JgNdQLK81IBRXmSxHfMAOkSqQeRxT/0dwNDz2GOm3zzpcQ=="],
 

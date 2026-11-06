@@ -151,7 +151,7 @@ These are the real limits of the current implementation, not hidden TODOs.
 7. **The chart is inline SVG.** It is static and accessible via a text summary, but it is not a charting component and does not respond to the date-range control.
 8. **No global search.** Category filters are implemented; search across blocks is not.
 9. **No package to install.** Consumers copy files. There is no `actual-blocks` npm package, CLI, registry or versioned block API.
-10. **Actual CSS is pre-1.0.** The project pins `0.16.1`. A future Actual CSS minor release may rename classes or hooks; the contract checks and visual tests would need to run against the new version before upgrading.
+10. **Actual CSS is pre-1.0.** The project pins `0.17.0`. A future Actual CSS minor release may rename classes or hooks; the contract checks and visual tests would need to run against the new version before upgrading.
 11. **Fonts are system fonts.** The editorial serif is a system stack, not a bundled webfont. This avoids licensing and network dependencies, but rendering differs across operating systems.
 12. **No dark gallery chrome.** The previews switch theme; the gallery itself stays in the light Ink & Terra scheme. The dark "How it works" band is a deliberate theme island, not a gallery-wide dark mode.
 13. **No visual diff in CI.** The GitHub Actions workflow runs build, check, smoke and accessibility specs. The visual spec runs locally only, because its baselines are Windows snapshots; a Linux set would let CI run it too.

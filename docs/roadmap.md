@@ -1,6 +1,6 @@
 # Actual Blocks — roadmap
 
-> Status: **first release ready.** Twenty-five blocks on `actual-css` 0.16.1. Next: remixes, then complete interfaces, then integration recipes (see Direction). `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
+> Status: **first release ready.** Twenty-five blocks on `actual-css` 0.17.0. Next: remixes, then complete interfaces, then integration recipes (see Direction). `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
 
 ## Delivered
 
@@ -16,6 +16,7 @@
 - **Sign-in:** passkey and single sign-on placeholders, then email and password on the `validation`, `password` and `status` enhancers.
 - **AI Assistant:** `chat`, `shimmer`, `skeleton` and a composer in a full-height column whose log alone scrolls; the first block chosen to stress Actual CSS in a real application layout.
 - **Actual CSS 0.16 upgrade:** docs links from `components.json`, `.field-group.flush`, the new avatar stack overlap.
+- **Actual CSS 0.17 upgrade:** Dashboard Shell on `.sidebar-shell`, `.nav-list` collapsible groups and current link, `.segmented.vertical`, `.flyout.scrollable`; its local recipes are gone.
 
 Block types were chosen from a survey of common template catalogs. Only the *types* were retained; every block is written from scratch with Actual CSS and fictional content, and no third-party markup, styles, copy or assets are reused.
 
@@ -49,7 +50,7 @@ Still open: whether the card thumbnails or the home page should show remixes (pa
 Few, significant blocks that test Actual CSS in dense, real screens, in this order:
 
 1. **Dashboard Shell.** `app-shell` / `app-layout` with sidebar, topbar and content; only the content scrolls; drawer on mobile. Sidebar and Topbar are tested apart today; the assembly is what breaks in real apps.
-   Built (unreleased) as a billing overview (`shell`): a recipe shell rather than `.app-layout`, collapsible `<details>` sections, link tabs, a dismissible recommendation, a date range flyout with presets and native date inputs, ruled SVG metrics. The two-month range calendar of the reference composition is left to the integration-recipe step.
+   Built (unreleased) as a billing overview (`shell`): `.sidebar-shell` (0.17) rather than `.app-layout`, collapsible `<details>` sections, link tabs, a dismissible recommendation, a date range flyout with presets and native date inputs, ruled SVG metrics. The two-month range calendar of the reference composition is left to the integration-recipe step.
 2. **Product Overview.** `scroll-snap` gallery, `color-swatch` and `custom-select` variants, `rating`, `join` quantity. Opens the rest of the commerce batch (cart, reviews) and leaves the SaaS look behind.
 3. **Dialog.** Destructive confirmation and a form in a modal (invite members): `modal`, the `dialog` enhancer, focus return, `Escape`, validation inside a dialog.
 4. **Kanban.** Horizontal `scroll-snap` columns, cards with `menu` / `context-menu`; moving a card is "Move to…" in a menu, not drag and drop.

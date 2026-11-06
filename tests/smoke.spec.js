@@ -203,7 +203,7 @@ test("dashboard shell scrolls only its content and wires its panels", async ({ p
   await page.goto("/previews/shell.html?theme=light");
 
   // Only the content region scrolls: the document, the sidebar and the topbar stay put.
-  const scroll = page.locator(".ab-shell__scroll");
+  const scroll = page.locator(".ab-shell__main");
   await scroll.evaluate((element) => element.scrollTo(0, 400));
   await expect.poll(() => scroll.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
   expect(await page.evaluate(() => document.scrollingElement.scrollTop)).toBe(0);
@@ -225,6 +225,7 @@ test("dashboard shell scrolls only its content and wires its panels", async ({ p
   // The recommendation is removed by the dismiss command.
   await page.getByRole("button", { name: "Dismiss recommendation" }).click();
   await expect(page.locator("#ab-shell-tip")).toBeHidden();
+  expect(await page.evaluate(() => document.activeElement.closest("#ab-shell-tip"))).toBeNull();
 
   // Below 64rem the sidebar gives way to a native drawer.
   await page.setViewportSize({ width: 390, height: 844 });

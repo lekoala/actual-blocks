@@ -260,3 +260,19 @@ $ bun run test
 ```
 
 New coverage: the block in the detail/copy-fidelity smoke tests, the 360px overflow pass and Axe light/dark; a shell test (only the content region scrolls while the document, sidebar and topbar stay put; preset radio pick keeps the date panel open and Apply closes it and returns focus; `--dismiss` hides the recommendation; the drawer replaces the sidebar below 64rem and shows the current page); Axe on the open date panel in dark. Reviewed by screenshot at 1440×900 light and dark, 900px and 375px, with the date panel and drawer open. No visual baseline yet, like the other post-initial blocks. Known gap, logged upstream: after a dismiss, focus stays on the hidden close button.
+
+## Actual CSS 0.17.0 upgrade verification
+
+Same 25 blocks, pinned to `actual-css` 0.17.0, which ships the Dashboard Shell frictions found while building it. The shell drops its local recipes: the grid, viewport height and scrollers move to `.sidebar-shell` (drawer kept outside it); the collapsible-section chevron, sub-list indent, `.nav-link` gap and current-link override go to `.nav-list` (only `--nav-list-indent` remains, for the 18px icons); the preset radios become `.segmented.vertical.sm`; the date panel becomes a `form.flyout.scrollable` named by its title, without `role="dialog"` or the sticky-footer arithmetic. Below 64rem the document now scrolls instead of the shell. Two visual baselines changed upstream and were reviewed and updated: Account Settings (the current-link trait now shows only in forced colors) and the Sign-in remix (the password reveal button stays square in its `.join`).
+
+```text
+$ bun run build && bun run check
+Built 25 blocks with Actual CSS 0.17.0 into dist/
+- 25 block sources passed metadata, class, scoping and fragment checks
+- 54 generated HTML files resolve their local references
+
+$ bun run test
+89 passed, 2 failed (the two baselines above), then 9/9 visual after the update
+```
+
+New coverage: the shell test asserts focus leaves the dismissed recommendation (`--dismiss` now moves it to the next tab stop). Reviewed by screenshot at 1440×900 light and dark, 1440×520 with the date panel open (body scrolls, Apply stays visible), and 375px with the date panel and drawer open.

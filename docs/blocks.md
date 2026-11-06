@@ -2,7 +2,7 @@
 
 Each block is a semantic HTML fragment plus a scoped stylesheet. The canonical files live in `src/blocks/<id>/`. The gallery detail page is generated from them.
 
-All blocks require **Actual CSS 0.16.1**. The quick start is `@import "actual-css/full";`, or the component modules listed below. Six blocks also need Actual CSS's published JavaScript runtime (see the JavaScript column). No block requires the gallery CSS, gallery JavaScript or an `actual-blocks` package.
+All blocks require **Actual CSS 0.17.0**. The quick start is `@import "actual-css/full";`, or the component modules listed below. Six blocks also need Actual CSS's published JavaScript runtime (see the JavaScript column). No block requires the gallery CSS, gallery JavaScript or an `actual-blocks` package.
 
 | Block | Category | JavaScript | Custom CSS |
 | --- | --- | --- | --- |
@@ -109,9 +109,9 @@ All blocks require **Actual CSS 0.16.1**. The quick start is `@import "actual-cs
 
 - **Files:** `src/blocks/shell/block.html`, `block.css`
 - **JavaScript:** Actual CSS `flyout` and `dismiss` enhancers (`actual-css/js/flyout`, `actual-css/js/dismiss` or the full runtime).
-- **Actual CSS components:** flyout, menu, tab, alert, close, drawer, badge, button, list
-- **Primitives:** topbar, nav-list, input-icon, flyout-trigger, container-query
-- **Notes:** A complete billing overview screen. The shell fills the viewport and only the content area scrolls; it is the persistent-sidebar recipe from the navigation-list pattern, because `.app-layout` needs a flat `.app-nav` that becomes a bottom bar. Collapsible sidebar sections are native `<details>` with `summary.nav-link`. Below 64rem a native drawer mirrors the sidebar. The date range flyout holds preset radios and native date inputs; Apply only closes it, and Actual CSS ships no range calendar. The recommendation closes with `command="--dismiss"`. Charts are static SVG with text summaries; all figures are sample data.
+- **Actual CSS components:** flyout, menu, tab, alert, close, drawer, segmented, badge, button, list
+- **Primitives:** sidebar-shell, topbar, nav-list, input-icon, flyout-trigger, container-query
+- **Notes:** A complete billing overview screen. The layout is `.sidebar-shell`: from 64rem the sidebar and the content column scroll on their own and the topbar sticks; below, the document scrolls and a native drawer mirrors the sidebar. Collapsible sidebar sections are native `<details>` with `summary.nav-link`, styled by `.nav-list`. The date range is a `form.flyout.scrollable` with `.segmented.vertical` presets and native date inputs; Apply only closes it, and Actual CSS ships no range calendar. The recommendation closes with `command="--dismiss"`. Charts are static SVG with text summaries; all figures are sample data.
 
 ## Project Overview
 
@@ -218,7 +218,7 @@ All blocks require **Actual CSS 0.16.1**. The quick start is `@import "actual-cs
 
 ## Copy checklist
 
-1. Load Actual CSS 0.16.1 (full bundle or the modules you need).
+1. Load Actual CSS 0.17.0 (full bundle or the modules you need).
 2. Copy `block.html` into a semantic page region.
 3. Copy `block.css` into a stylesheet loaded after Actual CSS.
 4. Replace placeholder links, sample data and illustrative controls with your application's behavior.
