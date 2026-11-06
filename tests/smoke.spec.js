@@ -17,6 +17,7 @@ const BLOCKS = [
   { id: "cta", title: "Call to Action", root: ".ab-cta" },
   { id: "article", title: "Article with Contents", root: ".ab-article" },
   { id: "dashboard", title: "Dashboard Overview", root: ".ab-dashboard" },
+  { id: "shell", title: "Dashboard Shell", root: ".ab-shell" },
   { id: "project", title: "Project Overview", root: ".ab-project" },
   { id: "assistant", title: "AI Assistant", root: ".ab-assistant" },
   { id: "signin", title: "Sign-in", root: ".ab-signin" },
@@ -55,8 +56,8 @@ test("catalog renders every block and filters by category", async ({ page }) => 
   await expect(page.locator("#g-visible-count")).toHaveText("9");
 
   await page.getByRole("button", { name: /Application/ }).click();
-  await expect(page.locator(".g-card:visible")).toHaveCount(11);
-  await expect(page.locator("#g-visible-count")).toHaveText("11");
+  await expect(page.locator(".g-card:visible")).toHaveCount(12);
+  await expect(page.locator("#g-visible-count")).toHaveText("12");
 
   await page.getByRole("button", { name: /Navigation/ }).click();
   await expect(page.locator(".g-card:visible")).toHaveCount(4);
@@ -195,6 +196,45 @@ test("sidebar switches from a rail to a working native drawer", async ({ page })
 
   await page.locator("#ab-sidebar-drawer").getByRole("button", { name: "Close navigation" }).click();
   await expect.poll(() => page.locator("#ab-sidebar-drawer").evaluate((element) => element.open)).toBe(false);
+});
+
+test("dashboard shell scrolls only its content and wires its panels", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto("/previews/shell.html?theme=light");
+
+  // Only the content region scrolls: the document, the sidebar and the topbar stay put.
+  const scroll = page.locator(".ab-shell__scroll");
+  await scroll.evaluate((element) => element.scrollTo(0, 400));
+  await expect.poll(() => scroll.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
+  expect(await page.evaluate(() => document.scrollingElement.scrollTop)).toBe(0);
+  expect((await page.locator(".ab-shell__topbar").boundingBox()).y).toBe(0);
+  await scroll.evaluate((element) => element.scrollTo(0, 0));
+
+  // Date range panel: presets are native radios, Apply closes the panel.
+  const trigger = page.locator("#ab-shell-range-trigger");
+  const panel = page.locator("#ab-shell-range");
+  await trigger.click();
+  await expect(panel).toBeVisible();
+  await panel.getByText("Last 4 weeks").click();
+  await expect(panel.getByRole("radio", { name: "Last 4 weeks" })).toBeChecked();
+  await expect(panel).toBeVisible();
+  await panel.getByRole("button", { name: "Apply" }).click();
+  await expect(panel).toBeHidden();
+  await expect(trigger).toBeFocused();
+
+  // The recommendation is removed by the dismiss command.
+  await page.getByRole("button", { name: "Dismiss recommendation" }).click();
+  await expect(page.locator("#ab-shell-tip")).toBeHidden();
+
+  // Below 64rem the sidebar gives way to a native drawer.
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(page.locator(".ab-shell__sidebar")).toBeHidden();
+  await page.locator('[commandfor="ab-shell-drawer"]').click();
+  await expect.poll(() => page.locator("#ab-shell-drawer").evaluate((element) => element.open)).toBe(true);
+  await page.waitForTimeout(350);
+  await expect(page.locator("#ab-shell-drawer").getByRole("link", { name: "Overview", exact: true })).toHaveAttribute("aria-current", "page");
+  await page.locator("#ab-shell-drawer").getByRole("button", { name: "Close navigation" }).click();
+  await expect.poll(() => page.locator("#ab-shell-drawer").evaluate((element) => element.open)).toBe(false);
 });
 
 test("header switches from inline links to a working native drawer", async ({ page }) => {

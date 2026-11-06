@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-const BLOCKS = ["hero", "features", "bento", "testimonials", "pricing", "compare", "faq", "cta", "article", "dashboard", "project", "assistant", "signin", "settings", "plan", "checkout", "listing", "tracking", "verify", "empty-state", "header", "topbar", "sidebar", "footer"];
+const BLOCKS = ["hero", "features", "bento", "testimonials", "pricing", "compare", "faq", "cta", "article", "dashboard", "shell", "project", "assistant", "signin", "settings", "plan", "checkout", "listing", "tracking", "verify", "empty-state", "header", "topbar", "sidebar", "footer"];
 
 const analyze = async (page, label) => {
   const results = await new AxeBuilder({ page })
@@ -62,4 +62,11 @@ test("open topbar notifications panel passes WCAG A/AA checks", async ({ page })
   await page.locator('[aria-controls="ab-topbar-notifications"]').click();
   await expect(page.locator("#ab-topbar-notifications")).toBeVisible();
   await analyze(page, "topbar notifications");
+});
+
+test("open dashboard shell date range panel passes WCAG A/AA checks", async ({ page }) => {
+  await page.goto("/previews/shell.html?theme=dark");
+  await page.locator("#ab-shell-range-trigger").click();
+  await expect(page.locator("#ab-shell-range")).toBeVisible();
+  await analyze(page, "shell date range");
 });

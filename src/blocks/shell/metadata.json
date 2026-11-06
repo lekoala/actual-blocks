@@ -1,0 +1,20 @@
+{
+  "id": "shell",
+  "title": "Dashboard Shell",
+  "category": "application",
+  "description": "A complete billing overview screen: a sidebar with collapsible sections, a topbar, page actions, section tabs, a dismissible recommendation, a date range panel, ruled metric charts and report downloads. Only the content scrolls.",
+  "summary": "A full application screen where sidebar, topbar and scrolling content meet.",
+  "components": ["flyout", "menu", "tab", "alert", "close", "drawer", "badge", "button", "list"],
+  "primitives": ["topbar", "nav-list", "input-icon", "flyout-trigger", "container-query"],
+  "requiresJs": true,
+  "scripts": ["flyout", "dismiss"],
+  "previewHeight": "56rem",
+  "docs": ["layout/topbar.html", "patterns/navigation-list.html", "patterns/hierarchical-nav.html", "enhancements/flyout.html", "enhancements/tabs.html", "components/alert.html", "components/drawer.html", "forms/date-picker.html", "forms/switch.html", "components/list.html"],
+  "notes": [
+    "The shell fills the viewport (--viewport-block) and hides its own overflow: the sidebar and the content area scroll independently and the topbar never moves. Put it at the top of <body>; it is not meant to sit inside a scrolling page.",
+    "Actual CSS's .app-layout has the same desktop grid but requires a flat .app-nav that becomes a bottom bar on phones, so this shell is the persistent-sidebar recipe from the navigation-list pattern, scoped to the block. Below 64rem the sidebar is replaced by a native drawer that mirrors it (command=\"show-modal\").",
+    "The date range panel is a flyout with preset radios and native date inputs; Apply and Cancel only close it. Applying the range, updating the trigger label and reloading the charts are your application's job. Actual CSS ships no range calendar; a two-month calendar needs an external picker.",
+    "The recommendation closes with the dismiss enhancer's command=\"--dismiss\"; remembering that it was dismissed is up to your application. Without JavaScript the menus and the date panel stay closed and the recommendation cannot be dismissed.",
+    "Charts are static inline SVG with a text summary each; all figures are sample data. The section tabs are links to other views, marked with aria-current=\"page\", not in-place tab panels. Test mode, search and the download links are placeholders."
+  ]
+}

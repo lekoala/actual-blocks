@@ -1,0 +1,494 @@
+<div class="ab-shell">
+  <aside class="ab-shell__sidebar" aria-label="Northstar Studio">
+    <div class="flyout-trigger stretch">
+      <button class="btn ghost ab-shell__account" id="ab-shell-account-trigger" type="button" data-enhance="flyout" aria-expanded="false" aria-controls="ab-shell-accounts">
+        <span class="ab-shell__mark" aria-hidden="true">NS</span>
+        <span class="ab-shell__account-name">Northstar Studio</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 9 4-4 4 4M8 15l4 4 4-4" /></svg>
+      </button>
+      <menu class="flyout menu ab-shell__menu" id="ab-shell-accounts" aria-labelledby="ab-shell-account-trigger" hidden>
+        <li class="menu-label">Accounts</li>
+        <li><a class="menu-item" href="#account-northstar" aria-current="page"><span class="menu-item-text">Northstar Studio</span></a></li>
+        <li><a class="menu-item" href="#account-paper-kite"><span class="menu-item-text">Paper Kite</span></a></li>
+        <hr class="menu-separator" />
+        <li><a class="menu-item" href="#account-new"><span class="menu-item-text">Create an account</span></a></li>
+      </menu>
+    </div>
+
+    <nav class="ab-shell__nav" aria-label="Main">
+      <ul class="nav-list">
+        <li>
+          <a class="nav-link" href="#home">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5" /><path d="M5 9.5V21h14V9.5" /></svg>
+            Home
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" href="#balances">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h11M4 18h7" /></svg>
+            Balances
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" href="#transactions">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h15l-3-3M20 16H5l3 3" /></svg>
+            Transactions
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" href="#customers">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></svg>
+            Customers
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" href="#catalogue">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9Z" /><path d="m4 7.5 8 4.5 8-4.5M12 12v9" /></svg>
+            Product catalogue
+          </a>
+        </li>
+      </ul>
+
+      <h2 class="ab-shell__group-title" id="ab-shell-group-shortcuts">Shortcuts</h2>
+      <ul class="nav-list" aria-labelledby="ab-shell-group-shortcuts">
+        <li>
+          <a class="nav-link" href="#billing-overview">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+            Billing overview
+          </a>
+        </li>
+      </ul>
+
+      <h2 class="ab-shell__group-title" id="ab-shell-group-products">Products</h2>
+      <ul class="nav-list" aria-labelledby="ab-shell-group-products">
+        <li>
+          <details class="ab-shell__section">
+            <summary class="nav-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 10h18" /></svg>
+              Payments
+            </summary>
+            <ul class="nav-list ab-shell__subnav">
+              <li><a class="nav-link" href="#payments">All payments</a></li>
+              <li><a class="nav-link" href="#disputes">Disputes</a></li>
+              <li><a class="nav-link" href="#payment-links">Payment links</a></li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details class="ab-shell__section" open>
+            <summary class="nav-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2Z" /><path d="M9 8h6M9 12h6" /></svg>
+              Billing
+            </summary>
+            <ul class="nav-list ab-shell__subnav">
+              <li><a class="nav-link" href="#billing-overview" aria-current="page">Overview</a></li>
+              <li><a class="nav-link" href="#subscriptions">Subscriptions</a></li>
+              <li><a class="nav-link" href="#invoices">Invoices</a></li>
+              <li><a class="nav-link" href="#meters">Meters</a></li>
+              <li><a class="nav-link" href="#revenue-recovery">Revenue recovery</a></li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details class="ab-shell__section">
+            <summary class="nav-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16h16M8 16v-5M12 16V8M16 16v-3" /></svg>
+              Reporting
+            </summary>
+            <ul class="nav-list ab-shell__subnav">
+              <li><a class="nav-link" href="#reports">Reports</a></li>
+              <li><a class="nav-link" href="#revenue-recognition">Revenue recognition</a></li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details class="ab-shell__section">
+            <summary class="nav-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01" /></svg>
+              More
+            </summary>
+            <ul class="nav-list ab-shell__subnav">
+              <li><a class="nav-link" href="#tax">Tax</a></li>
+              <li><a class="nav-link" href="#connect">Connected accounts</a></li>
+            </ul>
+          </details>
+        </li>
+      </ul>
+    </nav>
+
+    <a class="nav-link ab-shell__developers" href="#developers">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="m7 9 3 3-3 3M13 15h4" /></svg>
+      Developers
+    </a>
+  </aside>
+
+  <div class="ab-shell__main">
+    <header class="topbar ab-shell__topbar">
+      <button class="btn ghost icon-only ab-shell__menu-button" type="button" command="show-modal" commandfor="ab-shell-drawer" aria-haspopup="dialog" aria-controls="ab-shell-drawer" aria-label="Open navigation">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+      </button>
+
+      <form class="ab-shell__search" role="search" action="#search">
+        <label class="input-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></svg>
+          <input class="input" type="search" name="q" placeholder="Search" aria-label="Search payments, customers and invoices" />
+        </label>
+      </form>
+
+      <div class="ab-shell__tools">
+        <label class="ab-shell__mode">
+          <span class="ab-shell__mode-label">Test mode</span>
+          <input class="switch" type="checkbox" role="switch" />
+        </label>
+        <a class="btn ghost sm icon-only ab-shell__tool" href="#apps" aria-label="Apps">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1" /><rect x="14" y="4" width="6" height="6" rx="1" /><rect x="4" y="14" width="6" height="6" rx="1" /><path d="M17 14v6M14 17h6" /></svg>
+        </a>
+        <a class="btn ghost sm icon-only ab-shell__tool" href="#help" aria-label="Help">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17.5h.01" /></svg>
+        </a>
+        <a class="btn ghost sm icon-only ab-shell__bell" href="#notifications" aria-label="Notifications, 3 unread">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8" /><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" /></svg>
+          <span class="ab-shell__unread" aria-hidden="true"></span>
+        </a>
+        <a class="btn ghost sm icon-only ab-shell__tool" href="#settings" aria-label="Settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.34-1.88l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1.1 1.5 1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.14.38.36.72.65 1 .28.27.63.43 1 .45H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5.55Z" /></svg>
+        </a>
+        <a class="btn primary sm circle icon-only" href="#quick-create" aria-label="Quick create">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+        </a>
+      </div>
+    </header>
+
+    <main class="ab-shell__scroll">
+      <div class="ab-shell__page">
+        <header class="ab-shell__page-head">
+          <h1>Billing overview</h1>
+          <div class="ab-shell__page-actions">
+            <div class="flyout-trigger">
+              <button class="btn primary sm" id="ab-shell-create-trigger" type="button" data-enhance="flyout" aria-expanded="false" aria-controls="ab-shell-create">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+                Create
+              </button>
+              <menu class="flyout menu ab-shell__menu" id="ab-shell-create" aria-labelledby="ab-shell-create-trigger" data-flyout-placement="bottom-end" hidden>
+                <li><a class="menu-item" href="#new-subscription"><span class="menu-item-text">Subscription</span></a></li>
+                <li><a class="menu-item" href="#new-invoice"><span class="menu-item-text">Invoice</span></a></li>
+                <li><a class="menu-item" href="#new-customer"><span class="menu-item-text">Customer</span></a></li>
+                <li><a class="menu-item" href="#new-product"><span class="menu-item-text">Product</span></a></li>
+              </menu>
+            </div>
+            <a class="btn outline sm" href="#feedback">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5A8 8 0 1 1 21 12Z" /></svg>
+              Give feedback
+            </a>
+            <div class="flyout-trigger">
+              <button class="btn outline sm icon-only" id="ab-shell-more-trigger" type="button" data-enhance="flyout" aria-expanded="false" aria-controls="ab-shell-more" aria-label="More actions">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01" /></svg>
+              </button>
+              <menu class="flyout menu ab-shell__menu" id="ab-shell-more" aria-labelledby="ab-shell-more-trigger" data-flyout-placement="bottom-end" hidden>
+                <li><a class="menu-item" href="#export-overview"><span class="menu-item-text">Export overview</span></a></li>
+                <li><a class="menu-item" href="#billing-settings"><span class="menu-item-text">Billing settings</span></a></li>
+              </menu>
+            </div>
+          </div>
+        </header>
+
+        <nav class="ab-shell__tabs" aria-label="Billing overview sections">
+          <ul class="tabs">
+            <li><a class="tab primary" href="#revenue" aria-current="page">Revenue</a></li>
+            <li><a class="tab primary" href="#subscribers">Subscribers</a></li>
+            <li><a class="tab primary" href="#trials">Trials</a></li>
+            <li><a class="tab primary" href="#churn">Churn</a></li>
+            <li><a class="tab primary" href="#collections">Collections</a></li>
+            <li><a class="tab primary" href="#benchmarking">Benchmarking <span class="badge outline sm">Preview</span></a></li>
+          </ul>
+        </nav>
+
+        <div class="alert surface ab-shell__tip" id="ab-shell-tip">
+          <svg class="alert-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4" /><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8v.3h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3Z" /></svg>
+          <div class="ab-shell__tip-body">
+            <p><strong>Recommendation</strong> Import past invoices and customers in bulk with the Ledger Import app.</p>
+            <a href="#install-import-app">Install app</a>
+          </div>
+          <button class="close" type="button" commandfor="ab-shell-tip" command="--dismiss" aria-label="Dismiss recommendation"></button>
+        </div>
+
+        <div class="ab-shell__toolbar">
+          <div class="ab-shell__filters">
+            <div class="flyout-trigger">
+              <button class="btn outline sm" id="ab-shell-range-trigger" type="button" data-enhance="flyout" aria-expanded="false" aria-controls="ab-shell-range">
+                <span class="sr-only">Date range:</span> Last 7 days
+              </button>
+              <div class="flyout ab-shell__range" id="ab-shell-range" role="dialog" aria-label="Date range" data-flyout-auto-close="outside" hidden>
+                <fieldset class="ab-shell__presets">
+                  <legend class="sr-only">Preset ranges</legend>
+                  <label class="ab-shell__preset"><input type="radio" name="ab-shell-range" value="today" />Today</label>
+                  <label class="ab-shell__preset"><input type="radio" name="ab-shell-range" value="7d" checked />Last 7 days</label>
+                  <label class="ab-shell__preset"><input type="radio" name="ab-shell-range" value="4w" />Last 4 weeks</label>
+                  <label class="ab-shell__preset"><input type="radio" name="ab-shell-range" value="1m" />Last month</label>
+                  <label class="ab-shell__preset"><input type="radio" name="ab-shell-range" value="3m" />Last 3 months</label>
+                  <label class="ab-shell__preset"><input type="radio" name="ab-shell-range" value="mtd" />Month to date</label>
+                  <label class="ab-shell__preset"><input type="radio" name="ab-shell-range" value="qtd" />Quarter to date</label>
+                  <label class="ab-shell__preset"><input type="radio" name="ab-shell-range" value="ytd" />Year to date</label>
+                  <label class="ab-shell__preset"><input type="radio" name="ab-shell-range" value="all" />All time</label>
+                </fieldset>
+                <fieldset class="ab-shell__custom">
+                  <legend>Custom range</legend>
+                  <label class="field">
+                    <span class="field-label">Start</span>
+                    <input class="input sm" type="date" name="start" value="2026-10-31" max="2026-11-06" />
+                  </label>
+                  <label class="field">
+                    <span class="field-label">End</span>
+                    <input class="input sm" type="date" name="end" value="2026-11-06" max="2026-11-06" />
+                  </label>
+                  <p class="field-help">Data is available up to today, 6 Nov.</p>
+                </fieldset>
+                <footer class="ab-shell__range-actions">
+                  <button class="btn outline sm" type="button" data-flyout-close>Cancel</button>
+                  <button class="btn primary sm" type="button" data-flyout-close>Apply</button>
+                </footer>
+              </div>
+            </div>
+            <select class="select sm fit" name="interval" aria-label="Interval">
+              <option value="hour">Hourly</option>
+              <option value="day" selected>Daily</option>
+              <option value="week">Weekly</option>
+              <option value="month">Monthly</option>
+            </select>
+          </div>
+          <a class="btn outline sm" href="#configure-charts">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0" /><circle cx="16" cy="6" r="2" /><circle cx="10" cy="12" r="2" /><circle cx="18" cy="18" r="2" /></svg>
+            Configure
+          </a>
+        </div>
+
+        <section class="ab-shell__metrics" aria-labelledby="ab-shell-metrics-title">
+          <h2 class="sr-only" id="ab-shell-metrics-title">Revenue, last 7 days</h2>
+
+          <article class="ab-shell__metric">
+            <header class="ab-shell__metric-head">
+              <h3><a href="#mrr">MRR</a></h3>
+              <p class="ab-shell__metric-value">$48,210.40</p>
+              <p class="ab-shell__metric-delta"><span class="badge success soft sm">+6.2%</span> <span class="muted">vs $45,396.12 the previous 7 days</span></p>
+            </header>
+            <figure class="ab-shell__chart">
+              <svg viewBox="0 0 280 120" preserveAspectRatio="none" role="img" aria-label="MRR grows every day from 31 October to 6 November; new subscriptions add between 6 and 14 percent on top of existing revenue">
+                <path class="ab-shell__grid" d="M0 12h280M0 62h280M0 112h280" />
+                <g class="ab-shell__bars-base">
+                  <rect x="6" y="42" width="28" height="70" rx="2" />
+                  <rect x="46" y="40" width="28" height="72" rx="2" />
+                  <rect x="86" y="39" width="28" height="73" rx="2" />
+                  <rect x="126" y="37" width="28" height="75" rx="2" />
+                  <rect x="166" y="36" width="28" height="76" rx="2" />
+                  <rect x="206" y="34" width="28" height="78" rx="2" />
+                  <rect x="246" y="32" width="28" height="80" rx="2" />
+                </g>
+                <g class="ab-shell__bars-top">
+                  <rect x="6" y="33" width="28" height="8" rx="2" />
+                  <rect x="46" y="29" width="28" height="10" rx="2" />
+                  <rect x="86" y="32" width="28" height="6" rx="2" />
+                  <rect x="126" y="24" width="28" height="12" rx="2" />
+                  <rect x="166" y="26" width="28" height="9" rx="2" />
+                  <rect x="206" y="19" width="28" height="14" rx="2" />
+                  <rect x="246" y="20" width="28" height="11" rx="2" />
+                </g>
+              </svg>
+              <figcaption class="ab-shell__axis" aria-hidden="true"><span>31 Oct</span><span>6 Nov</span></figcaption>
+            </figure>
+            <footer class="ab-shell__metric-foot">
+              <span class="ab-shell__legend"><span class="ab-shell__key ab-shell__key--base" aria-hidden="true"></span>Existing <span class="ab-shell__key ab-shell__key--top" aria-hidden="true"></span>New</span>
+              <span class="muted">Updated 6 Nov, 00:00</span>
+            </footer>
+          </article>
+
+          <article class="ab-shell__metric">
+            <header class="ab-shell__metric-head">
+              <h3><a href="#active-subscribers">Active subscribers</a></h3>
+              <p class="ab-shell__metric-value">1,284</p>
+              <p class="ab-shell__metric-delta"><span class="badge success soft sm">+3.0%</span> <span class="muted">38 more than the previous 7 days</span></p>
+            </header>
+            <figure class="ab-shell__chart">
+              <svg viewBox="0 0 280 120" preserveAspectRatio="none" role="img" aria-label="Active subscribers rise from 1,246 to 1,284 between 31 October and 6 November, with 4 to 9 new subscribers a day">
+                <path class="ab-shell__grid" d="M0 12h280M0 62h280M0 112h280" />
+                <g class="ab-shell__bars-base">
+                  <rect x="6" y="52" width="28" height="60" rx="2" />
+                  <rect x="46" y="51" width="28" height="61" rx="2" />
+                  <rect x="86" y="49" width="28" height="63" rx="2" />
+                  <rect x="126" y="50" width="28" height="62" rx="2" />
+                  <rect x="166" y="48" width="28" height="64" rx="2" />
+                  <rect x="206" y="46" width="28" height="66" rx="2" />
+                  <rect x="246" y="45" width="28" height="67" rx="2" />
+                </g>
+                <g class="ab-shell__bars-top">
+                  <rect x="6" y="46" width="28" height="5" rx="2" />
+                  <rect x="46" y="43" width="28" height="7" rx="2" />
+                  <rect x="86" y="44" width="28" height="4" rx="2" />
+                  <rect x="126" y="41" width="28" height="8" rx="2" />
+                  <rect x="166" y="41" width="28" height="6" rx="2" />
+                  <rect x="206" y="36" width="28" height="9" rx="2" />
+                  <rect x="246" y="37" width="28" height="7" rx="2" />
+                </g>
+              </svg>
+              <figcaption class="ab-shell__axis" aria-hidden="true"><span>31 Oct</span><span>6 Nov</span></figcaption>
+            </figure>
+            <footer class="ab-shell__metric-foot">
+              <span class="ab-shell__legend"><span class="ab-shell__key ab-shell__key--base" aria-hidden="true"></span>Returning <span class="ab-shell__key ab-shell__key--top" aria-hidden="true"></span>New</span>
+              <span class="muted">Updated 6 Nov, 00:00</span>
+            </footer>
+          </article>
+
+          <article class="ab-shell__metric">
+            <header class="ab-shell__metric-head">
+              <h3><a href="#churn-rate">Subscriber churn rate</a></h3>
+              <p class="ab-shell__metric-value">2.1%</p>
+              <p class="ab-shell__metric-delta"><span class="badge success soft sm">−0.3 pts</span> <span class="muted">vs 2.4% the previous 7 days</span></p>
+            </header>
+            <figure class="ab-shell__chart">
+              <svg viewBox="0 0 280 120" preserveAspectRatio="none" role="img" aria-label="Daily churn rate varies between 1.6 and 2.6 percent over the period and stays below the previous period on most days">
+                <path class="ab-shell__grid" d="M0 12h280M0 62h280M0 112h280" />
+                <path class="ab-shell__line ab-shell__line--previous" d="M0 62L47 66L93 60L140 64L187 58L233 62L280 60" />
+                <path class="ab-shell__line" d="M0 70L47 58L93 74L140 44L187 80L233 66L280 72" />
+              </svg>
+              <figcaption class="ab-shell__axis" aria-hidden="true"><span>31 Oct</span><span>6 Nov</span></figcaption>
+            </figure>
+            <footer class="ab-shell__metric-foot">
+              <span class="ab-shell__legend"><span class="ab-shell__key ab-shell__key--line" aria-hidden="true"></span>This period <span class="ab-shell__key ab-shell__key--previous" aria-hidden="true"></span>Previous</span>
+              <span class="muted">Updated 6 Nov, 00:00</span>
+            </footer>
+          </article>
+
+          <article class="ab-shell__metric">
+            <header class="ab-shell__metric-head">
+              <h3><a href="#net-revenue">Net subscription revenue</a></h3>
+              <p class="ab-shell__metric-value">$11,920.75</p>
+              <p class="ab-shell__metric-delta"><span class="badge success soft sm">+4.8%</span> <span class="muted">vs $11,374.80 the previous 7 days</span></p>
+            </header>
+            <figure class="ab-shell__chart">
+              <svg viewBox="0 0 280 120" preserveAspectRatio="none" role="img" aria-label="Net subscription revenue climbs through the week and ends above the previous period on every day after 2 November">
+                <path class="ab-shell__grid" d="M0 12h280M0 62h280M0 112h280" />
+                <path class="ab-shell__line ab-shell__line--previous" d="M0 82L47 80L93 76L140 78L187 70L233 72L280 68" />
+                <path class="ab-shell__line" d="M0 86L47 76L93 78L140 62L187 50L233 54L280 40" />
+              </svg>
+              <figcaption class="ab-shell__axis" aria-hidden="true"><span>31 Oct</span><span>6 Nov</span></figcaption>
+            </figure>
+            <footer class="ab-shell__metric-foot">
+              <span class="ab-shell__legend"><span class="ab-shell__key ab-shell__key--line" aria-hidden="true"></span>This period <span class="ab-shell__key ab-shell__key--previous" aria-hidden="true"></span>Previous</span>
+              <span class="muted">Updated 6 Nov, 00:00</span>
+            </footer>
+          </article>
+        </section>
+
+        <section class="ab-shell__reports" aria-labelledby="ab-shell-reports-title">
+          <h2 id="ab-shell-reports-title">Report downloads</h2>
+          <ul class="list">
+            <li class="list-item">
+              <span class="list-item-content">
+                <span class="list-item-title" id="ab-shell-report-mrr">MRR per subscriber per month</span>
+                <span class="list-item-text">MRR for each subscriber at the end of every month.</span>
+              </span>
+              <a class="btn outline sm" href="#download-mrr" aria-describedby="ab-shell-report-mrr">
+                Download
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>
+              </a>
+            </li>
+            <li class="list-item">
+              <span class="list-item-content">
+                <span class="list-item-title" id="ab-shell-report-metrics">Subscription metrics per month</span>
+                <span class="list-item-text">MRR, subscriber counts, churn and new subscribers for every month.</span>
+              </span>
+              <a class="btn outline sm" href="#download-metrics" aria-describedby="ab-shell-report-metrics">
+                Download
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>
+              </a>
+            </li>
+            <li class="list-item">
+              <span class="list-item-content">
+                <span class="list-item-title" id="ab-shell-report-churn">Churned subscriptions</span>
+                <span class="list-item-text">Every cancelled subscription with its plan, tenure and cancellation reason.</span>
+              </span>
+              <a class="btn outline sm" href="#download-churn" aria-describedby="ab-shell-report-churn">
+                Download
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>
+              </a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <dialog class="drawer ab-shell__drawer" id="ab-shell-drawer" aria-label="Navigation" closedby="any">
+    <header>
+      <span class="ab-shell__drawer-brand">
+        <span class="ab-shell__mark" aria-hidden="true">NS</span>
+        <strong>Northstar Studio</strong>
+      </span>
+      <form method="dialog">
+        <button class="close" type="submit" aria-label="Close navigation"></button>
+      </form>
+    </header>
+
+    <nav class="ab-shell__nav" aria-label="Main (mobile)">
+      <ul class="nav-list">
+        <li><a class="nav-link" href="#home">Home</a></li>
+        <li><a class="nav-link" href="#balances">Balances</a></li>
+        <li><a class="nav-link" href="#transactions">Transactions</a></li>
+        <li><a class="nav-link" href="#customers">Customers</a></li>
+        <li><a class="nav-link" href="#catalogue">Product catalogue</a></li>
+      </ul>
+
+      <h2 class="ab-shell__group-title" id="ab-shell-drawer-shortcuts">Shortcuts</h2>
+      <ul class="nav-list" aria-labelledby="ab-shell-drawer-shortcuts">
+        <li><a class="nav-link" href="#billing-overview">Billing overview</a></li>
+      </ul>
+
+      <h2 class="ab-shell__group-title" id="ab-shell-drawer-products">Products</h2>
+      <ul class="nav-list" aria-labelledby="ab-shell-drawer-products">
+        <li>
+          <details class="ab-shell__section">
+            <summary class="nav-link">Payments</summary>
+            <ul class="nav-list ab-shell__subnav">
+              <li><a class="nav-link" href="#payments">All payments</a></li>
+              <li><a class="nav-link" href="#disputes">Disputes</a></li>
+              <li><a class="nav-link" href="#payment-links">Payment links</a></li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details class="ab-shell__section" open>
+            <summary class="nav-link">Billing</summary>
+            <ul class="nav-list ab-shell__subnav">
+              <li><a class="nav-link" href="#billing-overview" aria-current="page">Overview</a></li>
+              <li><a class="nav-link" href="#subscriptions">Subscriptions</a></li>
+              <li><a class="nav-link" href="#invoices">Invoices</a></li>
+              <li><a class="nav-link" href="#meters">Meters</a></li>
+              <li><a class="nav-link" href="#revenue-recovery">Revenue recovery</a></li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details class="ab-shell__section">
+            <summary class="nav-link">Reporting</summary>
+            <ul class="nav-list ab-shell__subnav">
+              <li><a class="nav-link" href="#reports">Reports</a></li>
+              <li><a class="nav-link" href="#revenue-recognition">Revenue recognition</a></li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details class="ab-shell__section">
+            <summary class="nav-link">More</summary>
+            <ul class="nav-list ab-shell__subnav">
+              <li><a class="nav-link" href="#tax">Tax</a></li>
+              <li><a class="nav-link" href="#connect">Connected accounts</a></li>
+            </ul>
+          </details>
+        </li>
+      </ul>
+
+      <ul class="nav-list ab-shell__drawer-foot">
+        <li><a class="nav-link" href="#developers">Developers</a></li>
+      </ul>
+    </nav>
+  </dialog>
+</div>

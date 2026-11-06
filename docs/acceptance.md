@@ -244,3 +244,19 @@ $ playwright test
 ```
 
 New coverage: the Original / Remix switch keeps the theme and updates the preview URL, the remix CSS tab and copy match `remix.css`, blocks without a remix show no control, remix previews pass the 360px overflow check and Axe in light and dark, a copied remix renders from its stated files only with every declared face loaded, and one desktop light baseline per remix. The check and contrast gates were each tested against a deliberately broken remix (unscoped selector, internal hook in the theme rule, unknown `var()`, `url()`, a 2.26:1 focus line) and failed as expected. One run of four showed a single `net::ERR_ABORTED` on a gallery navigation under full parallel load; it did not reproduce.
+
+## Dashboard Shell verification
+
+One block added (`shell`, unreleased): a complete billing overview screen on the `flyout` and `dismiss` enhancers. Same environment, Actual CSS 0.16.1.
+
+```text
+$ bun run build && bun run check
+Built 25 blocks with Actual CSS 0.16.1 into dist/
+- 25 block sources passed metadata, class, scoping and fragment checks
+- 54 generated HTML files resolve their local references
+
+$ bun run test
+91 passed
+```
+
+New coverage: the block in the detail/copy-fidelity smoke tests, the 360px overflow pass and Axe light/dark; a shell test (only the content region scrolls while the document, sidebar and topbar stay put; preset radio pick keeps the date panel open and Apply closes it and returns focus; `--dismiss` hides the recommendation; the drawer replaces the sidebar below 64rem and shows the current page); Axe on the open date panel in dark. Reviewed by screenshot at 1440×900 light and dark, 900px and 375px, with the date panel and drawer open. No visual baseline yet, like the other post-initial blocks. Known gap, logged upstream: after a dismiss, focus stays on the hidden close button.

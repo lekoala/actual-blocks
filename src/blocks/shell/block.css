@@ -1,0 +1,642 @@
+/* Actual Blocks — Dashboard Shell
+   Scoped to .ab-shell. Requires Actual CSS 0.16.x and its flyout and dismiss enhancers.
+   The shell owns the viewport: the sidebar and the content area scroll on their own,
+   the topbar stays put. */
+
+.ab-shell {
+  --ab-shell-sidebar-size: 15.5rem;
+  display: grid;
+  grid-template-columns: var(--ab-shell-sidebar-size) minmax(0, 1fr);
+  block-size: var(--viewport-block);
+  overflow: hidden;
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* Sidebar */
+
+.ab-shell__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-30);
+  min-block-size: 0;
+  overflow-y: auto;
+  padding: var(--space-30);
+  border-inline-end: var(--border-width) solid var(--border);
+  background: var(--surface);
+}
+
+.ab-shell__account {
+  justify-content: flex-start;
+  gap: var(--space-20);
+  inline-size: 100%;
+  padding-inline: var(--space-10);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ab-shell__account svg {
+  margin-inline-start: auto;
+  color: var(--text-muted);
+}
+
+.ab-shell__account-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ab-shell__mark {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface-solid);
+  color: var(--surface-solid-fg);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.ab-shell__menu {
+  --flyout-inline-size: 14rem;
+}
+
+.ab-shell__nav {
+  display: grid;
+  align-content: start;
+  gap: var(--space-10);
+}
+
+.ab-shell__nav .nav-link {
+  gap: var(--space-20);
+  font-size: var(--font-size-sm);
+}
+
+.ab-shell__nav .nav-link svg {
+  flex: none;
+}
+
+/* Current link: a stronger tint of the link's own ink carries the state next
+   to the accent, so the inline-start trait (which sits against the label at
+   this padding) is kept only where forced colors drop the fill and the accent.
+   Where color-mix is missing the declaration is ignored and Actual CSS's
+   own fill applies. */
+.ab-shell .nav-list .nav-link:is([aria-current="page"], [aria-current="location"]) {
+  background: color-mix(in oklch, currentColor 16%, transparent);
+}
+
+.ab-shell .nav-list .nav-link:is([aria-current="page"], [aria-current="location"])::before {
+  display: none;
+}
+
+@media (forced-colors: active) {
+  .ab-shell .nav-list .nav-link:is([aria-current="page"], [aria-current="location"])::before {
+    display: block;
+  }
+}
+
+.ab-shell__group-title {
+  margin: var(--space-30) 0 0;
+  padding-inline: var(--space-20);
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Collapsible product sections: the summary borrows .nav-link for its row,
+   hover and focus; the block adds the chevron and the sub-list indent. */
+.ab-shell__section > summary {
+  inline-size: 100%;
+  list-style: none;
+}
+
+.ab-shell__section > summary::-webkit-details-marker {
+  display: none;
+}
+
+.ab-shell__section > summary::after {
+  content: "";
+  flex: none;
+  inline-size: 0.875rem;
+  block-size: 0.875rem;
+  margin-inline-start: auto;
+  background-color: currentColor;
+  mask: var(--icon-chevron) center / contain no-repeat;
+  transition: rotate var(--duration);
+}
+
+.ab-shell__section[open] > summary::after {
+  rotate: 180deg;
+}
+
+.ab-shell__subnav {
+  margin-block-start: var(--space-10);
+  padding-inline-start: calc(var(--space-20) + 18px + var(--space-20));
+}
+
+.ab-shell__subnav .nav-link {
+  min-block-size: 2rem;
+}
+
+.ab-shell__developers {
+  flex: none;
+  gap: var(--space-20);
+  margin-block-start: auto;
+  font-size: var(--font-size-sm);
+}
+
+/* Main column: topbar, then the only scrolling region of the page. */
+
+.ab-shell__main {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-inline-size: 0;
+  min-block-size: 0;
+}
+
+.ab-shell__topbar {
+  gap: var(--space-30);
+  padding-block: var(--space-20);
+  padding-inline: clamp(var(--space-30), 3vw, var(--space-50));
+  border-block-end: 0;
+}
+
+.ab-shell__menu-button {
+  display: none;
+}
+
+.ab-shell__search {
+  flex: 0 1 40rem;
+  min-inline-size: 0;
+}
+
+.ab-shell__search .input {
+  border-color: transparent;
+  background: var(--surface-subtle);
+}
+
+.ab-shell__tools {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-10);
+  margin-inline-start: auto;
+}
+
+.ab-shell__mode {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-20);
+  margin-inline-end: var(--space-20);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.ab-shell__bell {
+  position: relative;
+}
+
+.ab-shell__unread {
+  position: absolute;
+  inset-block-start: 0.35rem;
+  inset-inline-end: 0.35rem;
+  inline-size: 0.45rem;
+  block-size: 0.45rem;
+  border-radius: var(--radius-full);
+  background: var(--primary);
+  box-shadow: 0 0 0 2px var(--surface);
+}
+
+.ab-shell__scroll {
+  min-block-size: 0;
+  overflow-y: auto;
+}
+
+.ab-shell__page {
+  container: ab-shell-page / inline-size;
+  display: grid;
+  gap: var(--space-40);
+  max-inline-size: 84rem;
+  padding: var(--space-40) clamp(var(--space-30), 3vw, var(--space-50)) var(--space-60);
+}
+
+/* Page header, section tabs, recommendation */
+
+.ab-shell__page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-30);
+}
+
+.ab-shell__page-head h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.ab-shell__page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-20);
+}
+
+.ab-shell__tabs {
+  margin-block-start: calc(var(--space-30) * -1);
+}
+
+.ab-shell__tabs .badge {
+  margin-inline-start: var(--space-10);
+}
+
+.ab-shell__tip-body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-10) var(--space-30);
+}
+
+.ab-shell__tip-body p {
+  margin: 0;
+}
+
+.ab-shell__tip-body strong {
+  margin-inline-end: var(--space-20);
+}
+
+.ab-shell__tip-body a {
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+/* Toolbar and date range panel */
+
+.ab-shell__toolbar,
+.ab-shell__filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-20);
+}
+
+.ab-shell__toolbar {
+  justify-content: space-between;
+}
+
+.ab-shell__range {
+  --flyout-inline-size: 34rem;
+  --flyout-max-inline-size: 34rem;
+  --flyout-pad: var(--space-40);
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: var(--space-40);
+}
+
+.ab-shell__range fieldset {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ab-shell__presets {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+}
+
+/* Radio rows: the radio is visually hidden but stays focusable and keeps
+   native arrow-key selection; the row shows the checked and focused states. */
+.ab-shell__preset {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-block-size: var(--control-size-sm);
+  padding-inline: var(--space-20);
+  border-radius: var(--radius);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.ab-shell__preset input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.ab-shell__preset:hover {
+  background: var(--surface-subtle);
+}
+
+.ab-shell__preset:has(input:checked) {
+  background: var(--surface-subtle);
+  color: var(--state-selected-text);
+  font-weight: var(--font-weight-medium);
+}
+
+.ab-shell__preset:has(input:focus-visible) {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
+}
+
+.ab-shell__custom {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: var(--space-30);
+}
+
+.ab-shell__custom legend {
+  margin-block-end: var(--space-30);
+  padding: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ab-shell__custom .field-help {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+/* Sticky inside the panel, which scrolls when the viewport is short. */
+.ab-shell__range-actions {
+  position: sticky;
+  inset-block-end: calc(var(--flyout-pad) * -1);
+  display: flex;
+  grid-column: 1 / -1;
+  margin-block-end: calc(var(--flyout-pad) * -1);
+  padding-block-end: var(--flyout-pad);
+  background: inherit;
+  justify-content: flex-end;
+  gap: var(--space-20);
+  padding-block-start: var(--space-30);
+  border-block-start: var(--border-width) solid var(--border);
+}
+
+/* Metrics: a ruled 2 × 2 grid, not cards */
+
+.ab-shell__metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-block-start: var(--border-width) solid var(--border);
+}
+
+.ab-shell__metric {
+  display: grid;
+  gap: var(--space-30);
+  min-inline-size: 0;
+  padding: var(--space-40) var(--space-40) var(--space-40) 0;
+  border-block-end: var(--border-width) solid var(--border);
+}
+
+.ab-shell__metric:nth-of-type(even) {
+  padding-inline: var(--space-40) 0;
+  border-inline-start: var(--border-width) solid var(--border);
+}
+
+.ab-shell__metric-head {
+  display: grid;
+  gap: var(--space-10);
+}
+
+.ab-shell__metric-head h3 {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.ab-shell__metric-head h3 a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.ab-shell__metric-head h3 a:hover {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.ab-shell__metric-value {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-shell__metric-delta {
+  margin: 0;
+  font-size: var(--font-size-xs);
+}
+
+.ab-shell__chart {
+  margin: 0;
+}
+
+/* The SVGs stretch (preserveAspectRatio="none") to a fixed band height;
+   non-scaling strokes keep the lines and rules crisp. */
+.ab-shell__chart svg {
+  display: block;
+  inline-size: 100%;
+  block-size: 8.5rem;
+  overflow: visible;
+}
+
+.ab-shell__grid {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.ab-shell__bars-base {
+  fill: color-mix(in oklch, var(--primary) 22%, var(--surface));
+}
+
+.ab-shell__bars-top {
+  fill: var(--primary);
+}
+
+.ab-shell__line {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.ab-shell__line--previous {
+  stroke: var(--text-subtle);
+  stroke-dasharray: 4 4;
+  stroke-width: 1.5;
+}
+
+.ab-shell__axis {
+  display: flex;
+  justify-content: space-between;
+  margin-block-start: var(--space-20);
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.ab-shell__metric-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-10) var(--space-30);
+  font-size: var(--font-size-xs);
+}
+
+.ab-shell__legend {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-10);
+  color: var(--text-muted);
+}
+
+.ab-shell__key {
+  display: inline-block;
+  inline-size: 0.625rem;
+  block-size: 0.625rem;
+  border-radius: 2px;
+}
+
+.ab-shell__legend > .ab-shell__key:not(:first-child) {
+  margin-inline-start: var(--space-20);
+}
+
+.ab-shell__key--base {
+  background: color-mix(in oklch, var(--primary) 22%, var(--surface));
+}
+
+.ab-shell__key--top,
+.ab-shell__key--line {
+  background: var(--primary);
+}
+
+.ab-shell__key--line,
+.ab-shell__key--previous {
+  block-size: 2px;
+  inline-size: 0.875rem;
+}
+
+.ab-shell__key--previous {
+  background: repeating-linear-gradient(to right, var(--text-subtle) 0 3px, transparent 3px 5px);
+}
+
+/* Report downloads */
+
+.ab-shell__reports {
+  display: grid;
+  gap: var(--space-20);
+}
+
+.ab-shell__reports h2 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.ab-shell__reports .list-item-title {
+  font-weight: var(--font-weight-semibold);
+}
+
+.ab-shell__reports .btn {
+  flex: none;
+}
+
+/* Mobile navigation drawer */
+
+.ab-shell__drawer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-20);
+}
+
+.ab-shell__drawer .ab-shell__nav {
+  padding-block-end: var(--space-40);
+}
+
+.ab-shell__drawer-foot {
+  margin-block-start: var(--space-30);
+  padding-block-start: var(--space-30);
+  border-block-start: var(--border-width) solid var(--border);
+}
+
+@container ab-shell-page (width < 44rem) {
+  .ab-shell__metrics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ab-shell__metric,
+  .ab-shell__metric:nth-of-type(even) {
+    padding-inline: 0;
+    border-inline-start: 0;
+  }
+}
+
+@media (width < 64rem) {
+  .ab-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ab-shell__sidebar {
+    display: none;
+  }
+
+  .ab-shell__menu-button {
+    display: inline-flex;
+  }
+}
+
+@media (width < 48rem) {
+  .ab-shell__tool {
+    display: none;
+  }
+
+  /* Visually hidden, still the switch's accessible name. */
+  .ab-shell__mode-label {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ab-shell__mode {
+    margin-inline-end: 0;
+  }
+
+  .ab-shell__range {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ab-shell__presets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width < 30rem) {
+  .ab-shell__custom {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ab-shell__section > summary::after {
+    transition: none;
+  }
+}

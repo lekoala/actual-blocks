@@ -2,7 +2,7 @@
 
 Each block is a semantic HTML fragment plus a scoped stylesheet. The canonical files live in `src/blocks/<id>/`. The gallery detail page is generated from them.
 
-All blocks require **Actual CSS 0.16.1**. The quick start is `@import "actual-css/full";`, or the component modules listed below. Five blocks also need Actual CSS's published JavaScript runtime (see the JavaScript column). No block requires the gallery CSS, gallery JavaScript or an `actual-blocks` package.
+All blocks require **Actual CSS 0.16.1**. The quick start is `@import "actual-css/full";`, or the component modules listed below. Six blocks also need Actual CSS's published JavaScript runtime (see the JavaScript column). No block requires the gallery CSS, gallery JavaScript or an `actual-blocks` package.
 
 | Block | Category | JavaScript | Custom CSS |
 | --- | --- | --- | --- |
@@ -16,6 +16,7 @@ All blocks require **Actual CSS 0.16.1**. The quick start is `@import "actual-cs
 | Call to Action (`cta`) | Marketing | None | `block.css` |
 | Article with Contents (`article`) | Marketing | Actual CSS `scrollspy` | `block.css` |
 | Dashboard Overview (`dashboard`) | Application | None | `block.css` |
+| Dashboard Shell (`shell`) | Application | Actual CSS `flyout`, `dismiss` | `block.css` |
 | Project Overview (`project`) | Application | Actual CSS `tab` | `block.css` |
 | AI Assistant (`assistant`) | Application | None | `block.css` |
 | Sign-in (`signin`) | Application | Actual CSS `validation`, `password`, `status` | `block.css` |
@@ -103,6 +104,14 @@ All blocks require **Actual CSS 0.16.1**. The quick start is `@import "actual-cs
 - **Primitives:** center, grid-4, container-query, sidebar-layout, stack, cluster
 - **Notes:** All figures and activity are sample data. The period control is navigation, not a filter. The chart is a static inline SVG with a text summary. Project progress uses native `<progress>`.
 - **Remix — Control Room:** `remix.css` with Geist and Geist Mono. Graphite and graph paper, an amber signal accent, tighter cards under ink rules, monospaced figures. The tighter rhythm comes from the block's own card and list hooks, not from `.compact`, which would need an HTML change.
+
+## Dashboard Shell
+
+- **Files:** `src/blocks/shell/block.html`, `block.css`
+- **JavaScript:** Actual CSS `flyout` and `dismiss` enhancers (`actual-css/js/flyout`, `actual-css/js/dismiss` or the full runtime).
+- **Actual CSS components:** flyout, menu, tab, alert, close, drawer, badge, button, list
+- **Primitives:** topbar, nav-list, input-icon, flyout-trigger, container-query
+- **Notes:** A complete billing overview screen. The shell fills the viewport and only the content area scrolls; it is the persistent-sidebar recipe from the navigation-list pattern, because `.app-layout` needs a flat `.app-nav` that becomes a bottom bar. Collapsible sidebar sections are native `<details>` with `summary.nav-link`. Below 64rem a native drawer mirrors the sidebar. The date range flyout holds preset radios and native date inputs; Apply only closes it, and Actual CSS ships no range calendar. The recommendation closes with `command="--dismiss"`. Charts are static SVG with text summaries; all figures are sample data.
 
 ## Project Overview
 

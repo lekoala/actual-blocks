@@ -4,6 +4,8 @@ Blocks are evergreen and carry no compatibility guarantee: to pick up a change, 
 
 ## Unreleased
 
+- **Dashboard Shell** (new, application): a complete billing overview screen. Sidebar with collapsible sections, topbar, page actions, section tabs, a dismissible recommendation, a date range flyout, ruled metric charts and report downloads; only the content scrolls, and a native drawer replaces the sidebar on small screens. Needs the `flyout` and `dismiss` enhancers.
+
 Remixes: the same HTML with a different identity, as an optional `remix.css` and open-licensed fonts. No block HTML or `block.css` changed; nothing to copy again unless you want a remix.
 
 - **Product Hero — Monograph:** editorial, Fraunces and Instrument Sans.

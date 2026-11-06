@@ -96,7 +96,7 @@ The gallery's own `gallery.js` handles filtering, tabs, copy, theme/viewport sta
 
 ### Blocks that need the Actual CSS runtime
 
-Five blocks need behavior the platform does not provide: Article with Contents (`scrollspy`), Project Overview (`tab`), Sign-in (`validation`, `password`, `status`), Checkout (`validation`, `mask`, `filter`, `status`) and App Topbar (`flyout`). They rely on Actual CSS's own published enhancers rather than custom code, so the dependency story stays "Actual CSS, nothing else":
+Six blocks need behavior the platform does not provide: Article with Contents (`scrollspy`), Project Overview (`tab`), Sign-in (`validation`, `password`, `status`), Checkout (`validation`, `mask`, `filter`, `status`), App Topbar (`flyout`) and Dashboard Shell (`flyout`, `dismiss`). They rely on Actual CSS's own published enhancers rather than custom code, so the dependency story stays "Actual CSS, nothing else":
 
 - `metadata.json` sets `requiresJs: true` and lists `scripts`, the `actual-css/js/<name>` modules the block needs. `scripts/check.js` verifies that each module is a published export, that every `data-enhance` hook in the HTML is covered, and that blocks without `requiresJs` carry no hook.
 - Only those previews load the runtime, as `dist/assets/actual-css.js`: a copy of the published `dist/actual.full.js` bundle. Every other preview stays script-free, so the no-JS blocks are still tested without JavaScript.
@@ -143,10 +143,10 @@ Why contrast is a gate: each remix theme replaces the whole palette, so `scripts
 These are the real limits of the current implementation, not hidden TODOs.
 
 1. **No backend or application state.** Search, filters, saves, uploads, pagination and row selection are illustrative. There is no server, auth, persistence or routing.
-2. **Runtime-dependent blocks degrade.** Without JavaScript, the article contents stay plain anchor links, the project page shows only its Overview panel and the topbar menus stay closed. Each block's notes say so. Tooltips and validation enhancers are not used yet.
+2. **Runtime-dependent blocks degrade.** Without JavaScript, the article contents stay plain anchor links, the project page shows only its Overview panel, the topbar and shell menus stay closed and the shell's recommendation cannot be dismissed. Each block's notes say so. Tooltips and validation enhancers are not used yet.
 3. **Native command support varies.** `command` / `commandfor` is modern. Older browsers may show the menu button but not open the drawer. The block is documented as such; adding a JavaScript fallback would change the block's dependency story.
 4. **Two themes only.** Light and dark are exposed. Actual CSS reference presets are demo assets, not public package entrypoints, so no Neo Brutalist or Admin Neutral preview is offered.
-5. **Thumbnails are live iframes.** They are accurate but cost more than static screenshots. Twenty-four lazy iframes is acceptable for this catalog; a much larger catalog would need generated thumbnails.
+5. **Thumbnails are live iframes.** They are accurate but cost more than static screenshots. Twenty-five lazy iframes is acceptable for this catalog; a much larger catalog would need generated thumbnails.
 6. **Visual baselines are platform-specific.** The Playwright snapshots were generated on Windows/Chromium. Another OS may need its own baseline.
 7. **The chart is inline SVG.** It is static and accessible via a text summary, but it is not a charting component and does not respond to the date-range control.
 8. **No global search.** Category filters are implemented; search across blocks is not.
