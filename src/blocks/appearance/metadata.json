@@ -1,0 +1,19 @@
+{
+  "id": "appearance",
+  "title": "Appearance Settings",
+  "category": "application",
+  "description": "An appearance settings page: theme cards with thumbnails, accent colour swatches that recolour them, density and text size, accessibility switches, and an action bar that shows unsaved changes only while the form differs from what was saved.",
+  "summary": "Theme, accent and density preferences with an unsaved-changes bar.",
+  "components": ["segmented", "list", "button"],
+  "primitives": ["center", "sidebar-layout", "cluster", "field", "field-group", "choice-card", "color-swatch", "select", "switch", "form-actions"],
+  "requiresJs": true,
+  "scripts": ["dirty"],
+  "previewHeight": "60rem",
+  "docs": ["forms/unsaved-changes.html", "components/segmented.html", "forms/color-swatches.html", "forms/choice-cards.html", "forms/sticky-actions.html", "forms/switch.html"],
+  "notes": [
+    "The form uses Actual CSS's dirty enhancer (data-enhance=\"dirty\"): it carries data-dirty while its values differ from the ones the page loaded with, and the block shows the unsaved hint and Discard from that attribute alone. Discard is a native reset. Without JavaScript the form never becomes dirty, so only Save shows, and it still submits.",
+    "Saving is your application's job: the form submits theme, accent, density, text-size and the two switches to #appearance. A full page load starts the form clean again; if you save in place, call FormDirty.markClean() as the Unsaved Changes docs show. Warning before leaving the page is a separate recipe on that page.",
+    "Applying the preferences is also yours: the theme as data-theme on <html>, the accent as --primary in a :root rule, density as class=\"compact\" on <html>. The accent swatch recolours the theme thumbnails through :has(), as a preview only. For a live density preview, toggle class=\"compact\" on a preview container from the density radios in your own script: .compact works on any subtree, and blocks carry no script.",
+    "The settings menu is a vertical segmented control of links (nav.segmented.vertical); the sections it links to are other pages."
+  ]
+}

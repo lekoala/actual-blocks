@@ -1,0 +1,109 @@
+<section class="ab-appearance" aria-labelledby="ab-appearance-title">
+  <div class="center ab-appearance__inner">
+    <header class="ab-appearance__header">
+      <p class="overline">Settings</p>
+      <h1 id="ab-appearance-title">Appearance</h1>
+      <p class="ab-appearance__lead">Choose how Sable looks for you. These settings apply to this account on every device.</p>
+    </header>
+
+    <div class="sidebar-layout reverse ab-appearance__layout">
+      <nav class="segmented vertical ab-appearance__nav" aria-label="Settings">
+        <a class="segment" href="#profile">Profile</a>
+        <a class="segment" href="#workspace">Workspace</a>
+        <a class="segment" href="#appearance" aria-current="page">Appearance</a>
+        <a class="segment" href="#notifications">Notifications</a>
+        <a class="segment" href="#security">Security</a>
+      </nav>
+
+      <form class="ab-appearance__form" action="#appearance" data-enhance="dirty">
+        <fieldset class="field-group flush ab-appearance__group">
+          <legend>Theme</legend>
+          <p class="field-help">System follows the light or dark setting of your device.</p>
+          <div class="ab-appearance__themes">
+            <label class="choice-card">
+              <input type="radio" name="theme" value="light" />
+              <span class="ab-appearance__thumb ab-appearance__thumb--light" aria-hidden="true"><span></span><span></span><span></span></span>
+              <strong>Light</strong>
+            </label>
+            <label class="choice-card">
+              <input type="radio" name="theme" value="dark" />
+              <span class="ab-appearance__thumb ab-appearance__thumb--dark" aria-hidden="true"><span></span><span></span><span></span></span>
+              <strong>Dark</strong>
+            </label>
+            <label class="choice-card">
+              <input type="radio" name="theme" value="system" checked />
+              <span class="ab-appearance__thumb ab-appearance__thumb--system" aria-hidden="true"><span></span><span></span><span></span></span>
+              <strong>System</strong>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field-group flush ab-appearance__group">
+          <legend>Accent colour <span class="ab-appearance__picked" aria-hidden="true"><span data-accent="violet">Violet</span><span data-accent="blue">Blue</span><span data-accent="teal">Teal</span><span data-accent="green">Green</span><span data-accent="amber">Amber</span><span data-accent="rose">Rose</span></span></legend>
+          <p class="field-help">Used for buttons, links and the current item in menus.</p>
+          <div class="cluster loose ab-appearance__swatches">
+            <label class="color-swatch ab-appearance__swatch--violet"><input type="radio" name="accent" value="violet" aria-label="Violet" checked /></label>
+            <label class="color-swatch ab-appearance__swatch--blue"><input type="radio" name="accent" value="blue" aria-label="Blue" /></label>
+            <label class="color-swatch ab-appearance__swatch--teal"><input type="radio" name="accent" value="teal" aria-label="Teal" /></label>
+            <label class="color-swatch ab-appearance__swatch--green"><input type="radio" name="accent" value="green" aria-label="Green" /></label>
+            <label class="color-swatch ab-appearance__swatch--amber"><input type="radio" name="accent" value="amber" aria-label="Amber" /></label>
+            <label class="color-swatch ab-appearance__swatch--rose"><input type="radio" name="accent" value="rose" aria-label="Rose" /></label>
+          </div>
+        </fieldset>
+
+        <div class="ab-appearance__pair">
+          <fieldset class="field-group flush ab-appearance__group">
+            <legend>Density</legend>
+            <div class="segmented ab-appearance__density">
+              <label class="segment"><input type="radio" name="density" value="comfortable" checked />Comfortable</label>
+              <label class="segment"><input type="radio" name="density" value="compact" />Compact</label>
+            </div>
+            <p class="field-help">Compact fits more rows in lists and tables.</p>
+          </fieldset>
+
+          <label class="field ab-appearance__group">
+            <span class="field-label">Text size</span>
+            <select class="select" name="text-size">
+              <option value="small">Small</option>
+              <option value="default" selected>Default</option>
+              <option value="large">Large</option>
+            </select>
+          </label>
+        </div>
+
+        <fieldset class="field-group flush ab-appearance__group">
+          <legend>Accessibility</legend>
+          <ul class="list ab-appearance__options">
+            <li class="list-item">
+              <label class="list-item-content" for="ab-appearance-motion">
+                <span class="list-item-title">Reduce motion</span>
+                <span class="list-item-text">Turn off animated transitions, whatever your device setting.</span>
+              </label>
+              <span class="list-item-trailing">
+                <input class="switch" type="checkbox" role="switch" id="ab-appearance-motion" name="reduce-motion" />
+              </span>
+            </li>
+            <li class="list-item">
+              <label class="list-item-content" for="ab-appearance-links">
+                <span class="list-item-title">Underline links</span>
+                <span class="list-item-text">Show an underline on every link, not only on hover.</span>
+              </label>
+              <span class="list-item-trailing">
+                <input class="switch" type="checkbox" role="switch" id="ab-appearance-links" name="underline-links" checked />
+              </span>
+            </li>
+          </ul>
+        </fieldset>
+
+        <div class="cluster form-actions sticky ab-appearance__actions">
+          <span class="ab-appearance__unsaved">
+            <span class="ab-appearance__unsaved-dot" aria-hidden="true"></span>
+            Unsaved changes
+          </span>
+          <button class="btn outline" type="reset">Discard</button>
+          <button class="btn primary" type="submit">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

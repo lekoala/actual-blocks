@@ -2,7 +2,7 @@
 
 Each block is a semantic HTML fragment plus a scoped stylesheet. The canonical files live in `src/blocks/<id>/`. The gallery detail page is generated from them.
 
-All blocks require **Actual CSS 0.17.0**. The quick start is `@import "actual-css/full";`, or the component modules listed below. Six blocks also need Actual CSS's published JavaScript runtime (see the JavaScript column). No block requires the gallery CSS, gallery JavaScript or an `actual-blocks` package.
+All blocks require **Actual CSS 0.17.0**. The quick start is `@import "actual-css/full";`, or the component modules listed below. Seven blocks also need Actual CSS's published JavaScript runtime (see the JavaScript column). No block requires the gallery CSS, gallery JavaScript or an `actual-blocks` package.
 
 | Block | Category | JavaScript | Custom CSS |
 | --- | --- | --- | --- |
@@ -21,6 +21,7 @@ All blocks require **Actual CSS 0.17.0**. The quick start is `@import "actual-cs
 | AI Assistant (`assistant`) | Application | None | `block.css` |
 | Sign-in (`signin`) | Application | Actual CSS `validation`, `password`, `status` | `block.css` |
 | Account Settings (`settings`) | Application | None | `block.css` |
+| Appearance Settings (`appearance`) | Application | Actual CSS `dirty` | `block.css` |
 | Plan Change (`plan`) | Application | None | `block.css` |
 | Product Overview (`product`) | Application | None | `block.css` |
 | Checkout (`checkout`) | Application | Actual CSS `validation`, `mask`, `filter`, `status` | `block.css` |
@@ -144,6 +145,14 @@ All blocks require **Actual CSS 0.17.0**. The quick start is `@import "actual-cs
 - **Actual CSS components:** card, button, avatar, badge, list
 - **Primitives:** center, sidebar-layout, stack, cluster, grid-2, field, form-actions
 - **Notes:** Saving, uploading and deleting are illustrative. The section rail is in-page navigation. Switch rows use native checked state; keep `aria-checked` in sync if application code adopts `role="switch"` state management.
+
+## Appearance Settings
+
+- **Files:** `src/blocks/appearance/block.html`, `block.css`
+- **JavaScript:** Actual CSS `dirty` enhancer (`actual-css/js/dirty` or the full runtime).
+- **Actual CSS components:** segmented, list, button
+- **Primitives:** center, sidebar-layout, cluster, field, field-group, choice-card, color-swatch, select, switch, form-actions
+- **Notes:** The Sable app's appearance page, next to Account Settings. Theme choice cards carry thumbnails that the accent swatch recolours through `:has()`; density is a `.segmented` radio group, the settings menu a `nav.segmented.vertical` of links. The form has `data-enhance="dirty"`: the sticky action bar shows "Unsaved changes" and Discard (a native reset) only while the form differs from its loaded values, and changing a value back makes it clean again. Without JavaScript only Save shows. Saving and applying the preferences (`data-theme`, `--primary`, `.compact` on `<html>`) are the application's job; a live density preview is a one-line script toggling `.compact` on a preview container, left out because blocks carry no script.
 
 ## Plan Change
 

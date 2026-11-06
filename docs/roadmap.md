@@ -1,6 +1,6 @@
 # Actual Blocks — roadmap
 
-> Status: **0.2.0 released**, deployed to GitHub Pages from `master`. Twenty-six blocks on `actual-css` 0.17.0; remixes and Dashboard Shell are released in 0.2.0, Product Overview is built and unreleased. Next: the rest of the complete interfaces, then integration recipes (see Direction). `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
+> Status: **0.2.0 released**, deployed to GitHub Pages from `master`. Twenty-seven blocks on `actual-css` 0.17.0; remixes and Dashboard Shell are released in 0.2.0, Product Overview and Appearance Settings are built and unreleased. Next: the rest of the complete interfaces, then integration recipes (see Direction). `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
 
 ## Delivered
 
@@ -56,7 +56,7 @@ The home page should then feature a few standout blocks and remixes, not only ad
 Later, lower stress on Actual CSS but useful to consumers: stats band, team directory, blog index, contact form, and:
 
 - **Release Notes.** A changelog page on `.timeline`, after Actual CSS's `demo/templates/changelog.html` (0.17).
-- **Appearance Settings.** Theme, accent and density choices with `.color-swatch`, `.segmented` and choice cards.
+- **Appearance Settings.** Theme, accent and density choices with `.color-swatch`, `.segmented` and choice cards. Built (unreleased) as `appearance`, with the 0.17 `dirty` enhancer driving an unsaved-changes bar.
 - **Service Status.** Overall status, per-component uptime bars and an incident history, CSS only.
 - **Agent Run.** Steps of an agent run with collapsible tool calls, logs and a running state (`shimmer`); distinct from AI Assistant.
 - **Weekly Availability.** Per-day switches and native `type="time"` ranges; a dense form with no calendar library.

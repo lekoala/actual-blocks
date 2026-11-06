@@ -1,0 +1,253 @@
+/* Actual Blocks — Appearance Settings
+   Scoped to .ab-appearance. Requires Actual CSS 0.17.x and its dirty enhancer.
+   The form carries data-dirty while its values differ from the page's; the
+   action bar shows the unsaved state from that attribute alone. */
+
+.ab-appearance {
+  --center-size: 72rem;
+  --center-pad: var(--space-40);
+  --ab-appearance-accent: #6d4ce6;
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  color: var(--text);
+}
+
+/* The checked swatch recolours the theme thumbnails, so the theme and accent
+   are judged together. Product palette values, not theme tokens. */
+.ab-appearance:has(input[name="accent"][value="blue"]:checked) {
+  --ab-appearance-accent: #2563eb;
+}
+
+.ab-appearance:has(input[name="accent"][value="teal"]:checked) {
+  --ab-appearance-accent: #0d9488;
+}
+
+.ab-appearance:has(input[name="accent"][value="green"]:checked) {
+  --ab-appearance-accent: #16a34a;
+}
+
+.ab-appearance:has(input[name="accent"][value="amber"]:checked) {
+  --ab-appearance-accent: #d97706;
+}
+
+.ab-appearance:has(input[name="accent"][value="rose"]:checked) {
+  --ab-appearance-accent: #e11d48;
+}
+
+.ab-appearance__header {
+  max-inline-size: 44rem;
+  margin-block-end: clamp(2rem, 4vw, 3rem);
+}
+
+.ab-appearance__header .overline {
+  margin-block-end: var(--space-20);
+}
+
+.ab-appearance__header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.85rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.ab-appearance__lead {
+  margin-block: var(--space-20) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+}
+
+.ab-appearance__layout {
+  --sidebar-layout-size: 13rem;
+  --sidebar-content-min: 30rem;
+  --gap: var(--space-50);
+  align-items: start;
+}
+
+.ab-appearance__nav {
+  position: sticky;
+  inset-block-start: var(--space-40);
+}
+
+/* Settings form */
+
+.ab-appearance__form {
+  container: ab-appearance / inline-size;
+  display: grid;
+  gap: var(--space-50);
+  min-inline-size: 0;
+}
+
+.ab-appearance__group {
+  min-inline-size: 0;
+}
+
+.ab-appearance__group > .field-help {
+  margin: 0;
+}
+
+.ab-appearance__themes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-30);
+  margin-block-start: var(--space-20);
+}
+
+/* Theme thumbnails: a sidebar, a heading line and an accent button. */
+.ab-appearance__thumb {
+  --ab-thumb-bg: #ffffff;
+  --ab-thumb-side: #f0eff4;
+  --ab-thumb-line: #dcdae3;
+  display: grid;
+  grid-template-columns: 32% 1fr;
+  grid-template-rows: auto auto 1fr;
+  gap: 0.4rem 0.6rem;
+  aspect-ratio: 16 / 10;
+  padding: 0.6rem;
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius);
+  background: var(--ab-thumb-bg);
+}
+
+.ab-appearance__thumb--dark {
+  --ab-thumb-bg: #1b1a21;
+  --ab-thumb-side: #26252e;
+  --ab-thumb-line: #3b3a46;
+}
+
+/* Half light, half dark: the sidebar sits on the light half, the heading
+   line takes a mid grey that reads on both. */
+.ab-appearance__thumb--system {
+  --ab-thumb-line: #8f8d9a;
+  background: linear-gradient(115deg, #ffffff 0 50%, #1b1a21 50% 100%);
+}
+
+.ab-appearance__thumb > span {
+  border-radius: 0.2rem;
+}
+
+.ab-appearance__thumb > span:nth-child(1) {
+  grid-row: 1 / -1;
+  background: var(--ab-thumb-side);
+}
+
+.ab-appearance__thumb > span:nth-child(2) {
+  block-size: 0.45rem;
+  inline-size: 70%;
+  background: var(--ab-thumb-line);
+}
+
+.ab-appearance__thumb > span:nth-child(3) {
+  block-size: 0.7rem;
+  inline-size: 40%;
+  border-radius: 0.25rem;
+  background: var(--ab-appearance-accent);
+}
+
+/* The accent name beside the legend follows the checked swatch; hidden from
+   assistive technology, each radio already carries the name. */
+.ab-appearance__picked {
+  margin-inline-start: var(--space-10);
+  color: var(--text-muted);
+  font-weight: var(--font-weight-normal);
+}
+
+.ab-appearance__picked > span {
+  display: none;
+}
+
+.ab-appearance__form:has([value="violet"]:checked) [data-accent="violet"],
+.ab-appearance__form:has([value="blue"]:checked) [data-accent="blue"],
+.ab-appearance__form:has([value="teal"]:checked) [data-accent="teal"],
+.ab-appearance__form:has([value="green"]:checked) [data-accent="green"],
+.ab-appearance__form:has([value="amber"]:checked) [data-accent="amber"],
+.ab-appearance__form:has([value="rose"]:checked) [data-accent="rose"] {
+  display: inline;
+}
+
+.ab-appearance__swatches {
+  margin-block-start: var(--space-20);
+}
+
+.ab-appearance__swatch--violet {
+  --color-swatch-value: #6d4ce6;
+}
+
+.ab-appearance__swatch--blue {
+  --color-swatch-value: #2563eb;
+}
+
+.ab-appearance__swatch--teal {
+  --color-swatch-value: #0d9488;
+}
+
+.ab-appearance__swatch--green {
+  --color-swatch-value: #16a34a;
+}
+
+.ab-appearance__swatch--amber {
+  --color-swatch-value: #d97706;
+}
+
+.ab-appearance__swatch--rose {
+  --color-swatch-value: #e11d48;
+}
+
+.ab-appearance__pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-50);
+  align-items: start;
+}
+
+.ab-appearance__density {
+  margin-block-start: var(--space-10);
+}
+
+.ab-appearance__options {
+  margin-block-start: var(--space-20);
+}
+
+/* Action bar: Discard and the unsaved hint only show while the form is dirty.
+   Without the enhancer the form never gets data-dirty, so Save stays the
+   one visible action and still submits. */
+.ab-appearance__actions {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.ab-appearance__unsaved {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-20);
+  margin-inline-end: auto;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.ab-appearance__unsaved-dot {
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--warning);
+}
+
+.ab-appearance__form:not([data-dirty]) :is(.ab-appearance__unsaved, button[type="reset"]) {
+  visibility: hidden;
+}
+
+@container ab-appearance (width < 34rem) {
+  .ab-appearance__themes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ab-appearance__pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (width < 48rem) {
+  .ab-appearance__nav {
+    position: static;
+  }
+}

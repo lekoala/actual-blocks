@@ -323,7 +323,8 @@ const order = JSON.parse(readFileSync(join(src, "blocks", "order.json"), "utf8")
 for (const id of blockDirs) {
   if (!order.includes(id)) fail(`${id}: block folder is missing from src/blocks/order.json`);
 }
-for (const id of order) {
+for (const [index, id] of order.entries()) {
+  if (order.indexOf(id) !== index) fail(`order.json lists "${id}" more than once`);
   if (!blockDirs.includes(id)) fail(`order.json lists "${id}" but src/blocks/${id}/ does not exist`);
 }
 

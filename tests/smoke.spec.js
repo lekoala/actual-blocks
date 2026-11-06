@@ -22,6 +22,7 @@ const BLOCKS = [
   { id: "assistant", title: "AI Assistant", root: ".ab-assistant" },
   { id: "signin", title: "Sign-in", root: ".ab-signin" },
   { id: "settings", title: "Account Settings", root: ".ab-settings" },
+  { id: "appearance", title: "Appearance Settings", root: ".ab-appearance" },
   { id: "plan", title: "Plan Change", root: ".ab-plan" },
   { id: "product", title: "Product Overview", root: ".ab-product" },
   { id: "checkout", title: "Checkout", root: ".ab-checkout" },
@@ -57,8 +58,8 @@ test("catalog renders every block and filters by category", async ({ page }) => 
   await expect(page.locator("#g-visible-count")).toHaveText("9");
 
   await page.getByRole("button", { name: /Application/ }).click();
-  await expect(page.locator(".g-card:visible")).toHaveCount(13);
-  await expect(page.locator("#g-visible-count")).toHaveText("13");
+  await expect(page.locator(".g-card:visible")).toHaveCount(14);
+  await expect(page.locator("#g-visible-count")).toHaveText("14");
 
   await page.getByRole("button", { name: /Navigation/ }).click();
   await expect(page.locator(".g-card:visible")).toHaveCount(4);
@@ -357,6 +358,41 @@ test("bento recomposes from 7 + 5 to 6 + 6 to one column", async ({ page }) => {
   for (const box of narrow) expect(box.x).toBe(narrow[0].x);
   for (let i = 1; i < narrow.length; i += 1) expect(narrow[i].y).toBeGreaterThan(narrow[i - 1].y);
   await expect(page.locator(".ab-bento__file-date").first()).toBeHidden();
+});
+
+test("appearance settings show unsaved changes only while the form differs", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/previews/appearance.html?theme=light");
+
+  const form = page.locator(".ab-appearance__form");
+  const hint = page.locator(".ab-appearance__unsaved");
+  const discard = page.getByRole("button", { name: "Discard" });
+  const clean = async () => {
+    await expect(form).not.toHaveAttribute("data-dirty");
+    await expect(hint).toBeHidden();
+    await expect(discard).toBeHidden();
+  };
+
+  await expect(page.getByRole("button", { name: "Save changes" })).toBeVisible();
+  await clean();
+
+  // A change makes the form dirty; changing it back makes it clean again.
+  await page.locator(".ab-appearance__swatch--teal").click();
+  await expect(form).toHaveAttribute("data-dirty", "");
+  await expect(hint).toBeVisible();
+  await expect(discard).toBeVisible();
+  expect(await page.locator(".ab-appearance__picked").evaluate((element) => element.innerText)).toBe("Teal");
+  await page.locator(".ab-appearance__swatch--violet").click();
+  await clean();
+
+  // Discard is a native reset back to the loaded values.
+  await page.getByRole("switch", { name: /Reduce motion/ }).check();
+  await page.locator("label.segment", { hasText: "Compact" }).click();
+  await expect(form).toHaveAttribute("data-dirty", "");
+  await discard.click();
+  await clean();
+  await expect(page.getByRole("switch", { name: /Reduce motion/ })).not.toBeChecked();
+  await expect(page.getByRole("radio", { name: "Comfortable" })).toBeChecked();
 });
 
 test("product overview recolours its views and submits its options", async ({ page }) => {

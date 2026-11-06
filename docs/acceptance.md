@@ -292,3 +292,19 @@ $ bun run test
 ```
 
 New coverage: the block in the detail/copy-fidelity smoke tests, the 360px overflow pass and Axe light/dark; a product test (the views are a grid at 1280px; picking Clay recolours the drawings and the name beside the Cover legend; the sold-out ruling and the unavailable paper are disabled; the form submits `cover=clay&ruling=dot&paper=100&quantity=3`; at 375px the views are a scrolling rail). The catalog filter count for Application moves to 13. Reviewed by screenshot at 1440 light, 1440 dark with Ink, 1280 scrolled and 375px. No visual baseline yet. Found while building it: `.accordion.flush` cancels the list indent of a direct `<ul>` panel (logged upstream); the block wraps its list in a panel `<div>`.
+
+## Appearance Settings verification
+
+One block added (`appearance`, unreleased): the first block on the 0.17 `dirty` enhancer. Same environment, Actual CSS 0.17.0. `scripts/check.js` now also fails when `order.json` lists a block twice (tested with a deliberate duplicate).
+
+```text
+$ bun run build && bun run check
+Built 27 blocks with Actual CSS 0.17.0 into dist/
+- 27 block sources passed metadata, class, scoping and fragment checks
+- 58 generated HTML files resolve their local references
+
+$ bun run test
+97 passed
+```
+
+New coverage: the block in the detail/copy-fidelity smoke tests, the 360px overflow pass and Axe light/dark; an appearance test (clean on load with Save only; picking Teal sets `data-dirty`, shows the hint and Discard and names the accent; picking Violet again makes the form clean; Reduce motion and Compact make it dirty and Discard resets both and cleans it). The catalog filter count for Application moves to 14. Reviewed by screenshot at 1440 light (clean), 1440 dark (dirty, Teal) and 375px.

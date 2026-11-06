@@ -4,6 +4,7 @@ Blocks are evergreen and carry no compatibility guarantee: to pick up a change, 
 
 ## Unreleased
 
+- **Appearance Settings** (new, application): theme cards with thumbnails, accent swatches, density and text size, accessibility switches, and a sticky action bar that shows unsaved changes only while the form differs from what was loaded. Needs the `dirty` enhancer.
 - **Product Overview** (new, application): a notebook product page for the Checkout shop. Views that recolour with the chosen cover, a swipeable rail on phones, rating summary, ruling chips, paper select, quantity and Add to bag, details accordion. No JavaScript.
 
 ## 0.2.0
