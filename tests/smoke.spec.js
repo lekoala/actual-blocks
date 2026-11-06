@@ -23,6 +23,7 @@ const BLOCKS = [
   { id: "signin", title: "Sign-in", root: ".ab-signin" },
   { id: "settings", title: "Account Settings", root: ".ab-settings" },
   { id: "plan", title: "Plan Change", root: ".ab-plan" },
+  { id: "product", title: "Product Overview", root: ".ab-product" },
   { id: "checkout", title: "Checkout", root: ".ab-checkout" },
   { id: "listing", title: "Data Listing", root: ".ab-listing" },
   { id: "tracking", title: "Order Tracking", root: ".ab-tracking" },
@@ -56,8 +57,8 @@ test("catalog renders every block and filters by category", async ({ page }) => 
   await expect(page.locator("#g-visible-count")).toHaveText("9");
 
   await page.getByRole("button", { name: /Application/ }).click();
-  await expect(page.locator(".g-card:visible")).toHaveCount(12);
-  await expect(page.locator("#g-visible-count")).toHaveText("12");
+  await expect(page.locator(".g-card:visible")).toHaveCount(13);
+  await expect(page.locator("#g-visible-count")).toHaveText("13");
 
   await page.getByRole("button", { name: /Navigation/ }).click();
   await expect(page.locator(".g-card:visible")).toHaveCount(4);
@@ -356,6 +357,41 @@ test("bento recomposes from 7 + 5 to 6 + 6 to one column", async ({ page }) => {
   for (const box of narrow) expect(box.x).toBe(narrow[0].x);
   for (let i = 1; i < narrow.length; i += 1) expect(narrow[i].y).toBeGreaterThan(narrow[i - 1].y);
   await expect(page.locator(".ab-bento__file-date").first()).toBeHidden();
+});
+
+test("product overview recolours its views and submits its options", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/previews/product.html?theme=light");
+
+  // Wide: the views form a grid, not a scroller.
+  const views = page.locator(".ab-product__views");
+  expect(await views.evaluate((element) => getComputedStyle(element).display)).toBe("grid");
+
+  // The checked swatch recolours every view and names itself beside the legend.
+  const cover = page.locator(".ab-product__cover").first();
+  const sage = await cover.evaluate((element) => getComputedStyle(element).fill);
+  const picked = () => page.locator(".ab-product__picked").evaluate((element) => element.innerText);
+  expect(await picked()).toBe("Sage");
+  await page.locator(".ab-product__swatch--clay").click();
+  await expect(page.getByRole("radio", { name: "Clay" })).toBeChecked();
+  await expect.poll(picked).toBe("Clay");
+  expect(await cover.evaluate((element) => getComputedStyle(element).fill)).not.toBe(sage);
+
+  // Unavailable options are disabled, not hidden.
+  await expect(page.getByRole("radio", { name: "Squared, sold out" })).toBeDisabled();
+  expect(await page.locator('select[name="paper"] option[value="120"]').evaluate((option) => option.disabled)).toBe(true);
+
+  // The form submits every option with the quantity.
+  await page.locator(".ab-product__view").first().click();
+  await page.getByLabel("Quantity").fill("3");
+  await page.getByRole("button", { name: "Add to bag" }).click();
+  await expect.poll(() => new URL(page.url()).searchParams.toString()).toBe("cover=clay&ruling=dot&paper=100&quantity=3");
+
+  // Narrow: one scrolling rail whose next view peeks in.
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/previews/product.html?theme=light");
+  const rail = await views.evaluate((element) => ({ scroll: element.scrollWidth, client: element.clientWidth }));
+  expect(rail.scroll).toBeGreaterThan(rail.client);
 });
 
 test("checkout applies its input policy and blocks an incomplete order", async ({ page }) => {

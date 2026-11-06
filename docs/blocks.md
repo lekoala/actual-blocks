@@ -22,6 +22,7 @@ All blocks require **Actual CSS 0.17.0**. The quick start is `@import "actual-cs
 | Sign-in (`signin`) | Application | Actual CSS `validation`, `password`, `status` | `block.css` |
 | Account Settings (`settings`) | Application | None | `block.css` |
 | Plan Change (`plan`) | Application | None | `block.css` |
+| Product Overview (`product`) | Application | None | `block.css` |
 | Checkout (`checkout`) | Application | Actual CSS `validation`, `mask`, `filter`, `status` | `block.css` |
 | Data Listing (`listing`) | Application | None | `block.css` |
 | Order Tracking (`tracking`) | Application | None | `block.css` |
@@ -150,6 +151,14 @@ All blocks require **Actual CSS 0.17.0**. The quick start is `@import "actual-cs
 - **Actual CSS components:** card, badge, button, data-list
 - **Primitives:** center, stack, grid-2, field, field-group, choice-card
 - **Notes:** Plan and cycle are real radio groups and seats a real number input, but the summary does not recalculate; totals, proration, tax and the saved card come from your billing provider. Both groups use `.field-group.flush` so the options read as one section; their legends match the seats label.
+
+## Product Overview
+
+- **Files:** `src/blocks/product/block.html`, `block.css`
+- **JavaScript:** none.
+- **Actual CSS components:** breadcrumb, rating, badge, join, button, accordion
+- **Primitives:** center, container-query, scroll-snap, cluster, field, field-group, color-swatch, choice-card, select
+- **Notes:** A notebook product page for the Fieldnotes Paper Co. shop of Checkout. The views are inline SVG drawings standing in for photos; the checked colour swatch recolours them and names itself beside the legend through `:has()`. Below 52rem the views are a `.scroll-snap` rail with a peek and CSS scroll markers (Chromium); from 52rem a 2 × 2 grid with a sticky gallery column. Ruling is a radio chip group, paper a `.select` (customizable picker where supported), quantity a number input joined to Add to bag. Unavailable options are disabled. The rating is a read-only display. Nothing is added to a bag and the price does not follow the options.
 
 ## Checkout
 

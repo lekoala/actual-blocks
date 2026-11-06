@@ -1,6 +1,6 @@
 # Actual Blocks — roadmap
 
-> Status: **0.1.0 released**, deployed to GitHub Pages from `master`. Twenty-five blocks on `actual-css` 0.17.0; remixes and Dashboard Shell are built and unreleased. Next: the rest of the complete interfaces, then integration recipes (see Direction). `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
+> Status: **0.2.0 released**, deployed to GitHub Pages from `master`. Twenty-six blocks on `actual-css` 0.17.0; remixes and Dashboard Shell are released in 0.2.0, Product Overview is built and unreleased. Next: the rest of the complete interfaces, then integration recipes (see Direction). `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
 
 ## Delivered
 
@@ -45,6 +45,7 @@ Few, significant blocks that test Actual CSS in dense, real screens, in this ord
 1. **Dashboard Shell.** `app-shell` / `app-layout` with sidebar, topbar and content; only the content scrolls; drawer on mobile. Sidebar and Topbar are tested apart today; the assembly is what breaks in real apps.
    Built (unreleased) as a billing overview (`shell`): `.sidebar-shell` (0.17) rather than `.app-layout`, collapsible `<details>` sections, link tabs, a dismissible recommendation, a date range flyout with presets and native date inputs, ruled SVG metrics. A range calendar is left to the integration-recipe step, with `@lekoala/date-picker` (`<date-picker range>`, `linkDateRange()`).
 2. **Product Overview.** `scroll-snap` gallery, `color-swatch` and `custom-select` variants, `rating`, `join` quantity. Opens the rest of the commerce batch (cart, reviews) and leaves the SaaS look behind.
+   Built (unreleased) as a notebook page (`product`) for the Checkout shop: SVG views recoloured by the swatch through `:has()`, grid on wide and rail with scroll markers on narrow, ruling chips, paper select, number quantity joined to Add to bag, details accordion. No JavaScript.
 3. **Dialog.** Destructive confirmation and a form in a modal (invite members): `modal`, the `dialog` enhancer, focus return, `Escape`, validation inside a dialog.
 4. **Kanban.** Horizontal `scroll-snap` columns, cards with `menu` / `context-menu`; moving a card is "Move to…" in a menu, not drag and drop.
 5. **Support Inbox.** Three panes (conversation list, message thread, customer details), each scrolling on its own inside the shell; panes collapse to one view at a time on narrow screens. Tests dense layout and per-region scrolling beyond the Dashboard Shell.

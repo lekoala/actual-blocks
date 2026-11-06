@@ -1,0 +1,19 @@
+{
+  "id": "product",
+  "title": "Product Overview",
+  "category": "application",
+  "description": "A product page for a notebook: a gallery that becomes a swipeable rail on phones, a rating summary, colour swatches that recolour the gallery, ruling chips, a paper select, quantity and Add to bag, and the product details in an accordion.",
+  "summary": "Gallery, options and Add to bag for a single product.",
+  "components": ["breadcrumb", "rating", "badge", "join", "button", "accordion"],
+  "primitives": ["center", "container-query", "scroll-snap", "cluster", "field", "field-group", "color-swatch", "choice-card", "select"],
+  "requiresJs": false,
+  "previewHeight": "56rem",
+  "docs": ["components/breadcrumb.html", "components/rating.html", "forms/color-swatches.html", "forms/choice-cards.html", "forms/joined-controls.html", "layout/scroll-snap.html", "components/accordion.html"],
+  "notes": [
+    "No JavaScript. The checked colour swatch recolours the gallery and the name beside the Cover legend through :has(); browsers without :has() keep the default colour in the drawings, and the radios still work.",
+    "The views are inline SVG drawings standing in for your product photos. Replace each <svg> with an <img> that has its own alt text; the colour rules then go, and switching photos per colour is your application's job.",
+    "Below 52rem the views are a .scroll-snap rail whose next view peeks in; Chromium adds one pagination dot per view (CSS scroll markers), other browsers keep the scrollbar. From 52rem they form a 2 × 2 grid beside a sticky information column.",
+    "Nothing is added to a bag: the form submits cover, ruling, paper and quantity to #bag. The price does not follow the paper choice, and stock (the sold-out ruling, the unavailable paper) comes from your catalogue.",
+    "The rating is a read-only display (.rating[role=img]) with a link to the reviews, which this block does not include."
+  ]
+}

@@ -1,0 +1,342 @@
+/* Actual Blocks — Product Overview
+   Scoped to .ab-product. Requires Actual CSS 0.17.x; no JavaScript.
+   The cover colour is the product's own palette, not a theme token: it stays
+   the same in light and dark. The checked swatch recolours every view through
+   :has(), so the gallery follows the pick without script. */
+
+.ab-product {
+  --ab-product-cover: #7f9372;
+  --ab-product-paper: #fbf8f1;
+  padding-block: clamp(var(--space-40), 4vw, var(--space-60));
+  color: var(--text);
+}
+
+.ab-product:has(input[name="cover"][value="ink"]:checked) {
+  --ab-product-cover: #2f3a4f;
+}
+
+.ab-product:has(input[name="cover"][value="clay"]:checked) {
+  --ab-product-cover: #b5654a;
+}
+
+.ab-product:has(input[name="cover"][value="sand"]:checked) {
+  --ab-product-cover: #d3c19b;
+}
+
+.ab-product__inner {
+  --center-size: 76rem;
+  display: grid;
+  gap: var(--space-40);
+}
+
+.ab-product__layout {
+  display: grid;
+  gap: var(--space-50);
+}
+
+/* Gallery: a rail on narrow screens (the next view peeks in), a 2 × 2 grid
+   from 52rem. Actual CSS's "grid on wide, rail on narrow" recipe. */
+
+.ab-product__views {
+  --scroll-snap-item-size: min(85%, 26rem);
+  scroll-marker-group: after;
+}
+
+.ab-product__views::scroll-marker-group {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-20);
+  padding-block-start: var(--space-30);
+}
+
+.ab-product__view::scroll-marker {
+  content: "" / attr(data-marker-label);
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--text-subtle);
+}
+
+.ab-product__view::scroll-marker:target-current {
+  inline-size: 1.5rem;
+  background: var(--primary);
+}
+
+.ab-product__view::scroll-marker:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus);
+  outline-offset: var(--focus-outline-offset);
+}
+
+@supports (scroll-marker-group: after) {
+  .ab-product__views {
+    scrollbar-width: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .ab-product__view::scroll-marker {
+    background: CanvasText;
+  }
+
+  .ab-product__view::scroll-marker:target-current {
+    background: Highlight;
+  }
+}
+
+.ab-product__view {
+  aspect-ratio: 1;
+  border-radius: var(--radius-lg);
+  background: var(--surface-subtle);
+}
+
+.ab-product__view svg {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+/* Product drawing */
+
+.ab-product__cover {
+  fill: var(--ab-product-cover);
+}
+
+.ab-product__cover-shade {
+  fill: color-mix(in oklch, var(--ab-product-cover) 78%, black);
+}
+
+.ab-product__band {
+  fill: color-mix(in oklch, var(--ab-product-cover) 45%, black);
+}
+
+.ab-product__label {
+  fill: color-mix(in oklch, var(--ab-product-paper) 30%, var(--ab-product-cover));
+}
+
+.ab-product__label-line {
+  fill: none;
+  stroke: color-mix(in oklch, var(--ab-product-cover) 60%, black);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.ab-product__page,
+.ab-product__card {
+  fill: var(--ab-product-paper);
+}
+
+.ab-product__card {
+  stroke: #d9d2c3;
+  stroke-width: 1;
+}
+
+.ab-product__dot {
+  fill: #c9c3b6;
+}
+
+.ab-product__gutter {
+  stroke: #ddd5c4;
+  stroke-width: 2;
+}
+
+.ab-product__ribbon {
+  fill: #c39a3c;
+}
+
+.ab-product__pocket {
+  fill: color-mix(in oklch, var(--ab-product-cover) 82%, white);
+}
+
+.ab-product__pocket-edge,
+.ab-product__edge {
+  fill: none;
+  stroke: color-mix(in oklch, var(--ab-product-cover) 70%, black);
+  stroke-width: 2;
+}
+
+.ab-product__edge {
+  stroke: rgb(0 0 0 / 0.18);
+}
+
+.ab-product__stack--sand {
+  fill: #d3c19b;
+}
+
+.ab-product__stack--clay {
+  fill: #b5654a;
+}
+
+.ab-product__shadow {
+  fill: rgb(0 0 0 / 0.12);
+}
+
+/* Information column */
+
+.ab-product__info {
+  display: grid;
+  align-content: start;
+  gap: var(--space-40);
+  min-inline-size: 0;
+}
+
+.ab-product__head {
+  display: grid;
+  gap: var(--space-20);
+}
+
+.ab-product__head > * {
+  margin: 0;
+}
+
+.ab-product__head h1 {
+  font-size: clamp(1.75rem, 3.2vw, 2.4rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.ab-product__rating {
+  margin-block-start: var(--space-30);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-20);
+  font-size: var(--font-size-sm);
+}
+
+.ab-product__rating a,
+.ab-product__dot-sep {
+  color: var(--text-muted);
+}
+
+.ab-product__rating a:hover {
+  color: var(--text);
+}
+
+/* The value sits in a rule that targets the display, as the rating docs ask;
+   the aria-label carries the same number. */
+.ab-product__rating .rating {
+  --rating-value: 4.8;
+}
+
+.ab-product__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-30);
+  margin: 0;
+}
+
+.ab-product__amount {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-product__lead {
+  margin: 0;
+  color: var(--text-muted);
+  max-inline-size: 60ch;
+}
+
+.ab-product__form {
+  display: grid;
+  gap: var(--space-40);
+}
+
+/* The colour name next to the legend follows the checked swatch. It is
+   hidden from assistive technology: each radio already carries the name. */
+.ab-product__picked {
+  margin-inline-start: var(--space-10);
+  color: var(--text-muted);
+  font-weight: var(--font-weight-normal);
+}
+
+.ab-product__picked > span {
+  display: none;
+}
+
+.ab-product__form:has([value="sage"]:checked) [data-cover="sage"],
+.ab-product__form:has([value="ink"]:checked) [data-cover="ink"],
+.ab-product__form:has([value="clay"]:checked) [data-cover="clay"],
+.ab-product__form:has([value="sand"]:checked) [data-cover="sand"] {
+  display: inline;
+}
+
+.ab-product__swatch--sage {
+  --color-swatch-value: #7f9372;
+}
+
+.ab-product__swatch--ink {
+  --color-swatch-value: #2f3a4f;
+}
+
+.ab-product__swatch--clay {
+  --color-swatch-value: #b5654a;
+}
+
+.ab-product__swatch--sand {
+  --color-swatch-value: #d3c19b;
+}
+
+.ab-product__swatches {
+  --color-swatch-size: 1.75rem;
+  margin-block-start: var(--space-20);
+}
+
+.ab-product__buy .btn {
+  flex: 1 1 auto;
+}
+
+.ab-product__quantity {
+  flex: none;
+  inline-size: 5.5rem;
+}
+
+.ab-product__perks {
+  display: grid;
+  gap: var(--space-20);
+  padding-block: var(--space-30);
+  border-block: var(--border-width) solid var(--border);
+  font-size: var(--font-size-sm);
+}
+
+.ab-product__perks li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);
+}
+
+.ab-product__perks svg {
+  flex: none;
+  color: var(--text-muted);
+}
+
+/* The list sits in a panel <div>: .accordion.flush zeroes the inline padding
+   of the panel, which would push a direct list's markers out of the column. */
+.ab-product__details ul {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+}
+
+@container actual-container (min-width: 52rem) {
+  .ab-product__layout {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: start;
+  }
+
+  .ab-product__views {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-30);
+    overflow: visible;
+    margin-block: 0;
+    padding: 0;
+  }
+
+  /* The gallery is the shorter column: it stays in view while the
+     options and details scroll past. */
+  .ab-product__gallery {
+    position: sticky;
+    inset-block-start: var(--space-40);
+  }
+}

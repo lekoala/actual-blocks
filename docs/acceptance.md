@@ -276,3 +276,19 @@ $ bun run test
 ```
 
 New coverage: the shell test asserts focus leaves the dismissed recommendation (`--dismiss` now moves it to the next tab stop). Reviewed by screenshot at 1440×900 light and dark, 1440×520 with the date panel open (body scrolls, Apply stays visible), and 375px with the date panel and drawer open.
+
+## Product Overview verification
+
+One block added (`product`, unreleased): a notebook product page, no JavaScript. Same environment, Actual CSS 0.17.0.
+
+```text
+$ bun run build && bun run check
+Built 26 blocks with Actual CSS 0.17.0 into dist/
+- 26 block sources passed metadata, class, scoping and fragment checks
+- 56 generated HTML files resolve their local references
+
+$ bun run test
+94 passed
+```
+
+New coverage: the block in the detail/copy-fidelity smoke tests, the 360px overflow pass and Axe light/dark; a product test (the views are a grid at 1280px; picking Clay recolours the drawings and the name beside the Cover legend; the sold-out ruling and the unavailable paper are disabled; the form submits `cover=clay&ruling=dot&paper=100&quantity=3`; at 375px the views are a scrolling rail). The catalog filter count for Application moves to 13. Reviewed by screenshot at 1440 light, 1440 dark with Ink, 1280 scrolled and 375px. No visual baseline yet. Found while building it: `.accordion.flush` cancels the list indent of a direct `<ul>` panel (logged upstream); the block wraps its list in a panel `<div>`.
