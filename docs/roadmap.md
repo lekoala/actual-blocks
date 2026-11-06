@@ -1,6 +1,6 @@
 # Actual Blocks — roadmap
 
-> Status: **first release ready.** Twenty-five blocks on `actual-css` 0.17.0. Next: remixes, then complete interfaces, then integration recipes (see Direction). `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
+> Status: **0.1.0 released**, deployed to GitHub Pages from `master`. Twenty-five blocks on `actual-css` 0.17.0; remixes and Dashboard Shell are built and unreleased. Next: the rest of the complete interfaces, then integration recipes (see Direction). `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
 
 ## Delivered
 
@@ -19,13 +19,6 @@
 - **Actual CSS 0.17 upgrade:** Dashboard Shell on `.sidebar-shell`, `.nav-list` collapsible groups and current link, `.segmented.vertical`, `.flyout.scrollable`; its local recipes are gone.
 
 Block types were chosen from a survey of common template catalogs. Only the *types* were retained; every block is written from scratch with Actual CSS and fictional content, and no third-party markup, styles, copy or assets are reused.
-
-## Release
-
-- [x] CI and Pages workflow (`.github/workflows/pages.yml`): build, check, smoke and accessibility specs, then deploy `dist/` from `master`. The visual spec stays local until a Linux baseline exists.
-- [ ] Create the public repository, push `master`, enable Pages with the GitHub Actions source.
-- [ ] Check the first CI run and the deployed gallery under its repository subpath.
-- [ ] Tag `v0.1.0` once the deployed gallery checks out.
 
 ## Direction
 
@@ -54,10 +47,20 @@ Few, significant blocks that test Actual CSS in dense, real screens, in this ord
 2. **Product Overview.** `scroll-snap` gallery, `color-swatch` and `custom-select` variants, `rating`, `join` quantity. Opens the rest of the commerce batch (cart, reviews) and leaves the SaaS look behind.
 3. **Dialog.** Destructive confirmation and a form in a modal (invite members): `modal`, the `dialog` enhancer, focus return, `Escape`, validation inside a dialog.
 4. **Kanban.** Horizontal `scroll-snap` columns, cards with `menu` / `context-menu`; moving a card is "Move to…" in a menu, not drag and drop.
+5. **Support Inbox.** Three panes (conversation list, message thread, customer details), each scrolling on its own inside the shell; panes collapse to one view at a time on narrow screens. Tests dense layout and per-region scrolling beyond the Dashboard Shell.
+6. **Issue Detail.** Main column (description, activity and comment thread, composer) beside a properties column (status, assignee, labels, dates) edited through menus; badges and avatars throughout.
 
 The home page should then feature a few standout blocks and remixes, not only add cards to the catalog.
 
-Later, lower stress on Actual CSS but useful to consumers: stats band, team directory, blog index, contact form.
+Later, lower stress on Actual CSS but useful to consumers: stats band, team directory, blog index, contact form, and:
+
+- **Release Notes.** A changelog page on `.timeline`, after Actual CSS's `demo/templates/changelog.html` (0.17).
+- **Appearance Settings.** Theme, accent and density choices with `.color-swatch`, `.segmented` and choice cards.
+- **Service Status.** Overall status, per-component uptime bars and an incident history, CSS only.
+- **Agent Run.** Steps of an agent run with collapsible tool calls, logs and a running state (`shimmer`); distinct from AI Assistant.
+- **Weekly Availability.** Per-day switches and native `type="time"` ranges; a dense form with no calendar library.
+
+Surveyed and not retained: sign-up, magic-link and reset-password variants (Sign-in covers them), 404 (Empty State), answer search (AI Assistant), order detail (Order Tracking), file upload and file manager (need drag-and-drop JS).
 
 ### 3. Integration recipes
 
