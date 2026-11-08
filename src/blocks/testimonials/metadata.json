@@ -7,7 +7,7 @@
   "components": ["card", "avatar", "button"],
   "primitives": ["center", "grid", "stack", "cluster"],
   "requiresJs": false,
-  "previewHeight": "65rem",
+  "previewHeight": "68rem",
   "docs": ["components/card.html", "components/avatar.html", "layout/grid.html", "layout/center.html"],
   "notes": [
     "Every name, studio, quote and figure is fictional. Publish only testimonials you have permission to use, and keep the metrics verifiable.",

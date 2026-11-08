@@ -7,7 +7,7 @@
   "components": ["card", "button"],
   "primitives": ["stack", "field", "otp"],
   "requiresJs": false,
-  "previewHeight": "45rem",
+  "previewHeight": "48rem",
   "docs": ["forms/otp.html", "components/card.html", "forms/labels.html"],
   "notes": [
     "The code is a single input with autocomplete=\"one-time-code\", so paste, autofill and password managers work without JavaScript. The six cells are decorative spans; keep their count equal to maxlength and the pattern.",

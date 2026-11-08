@@ -7,7 +7,7 @@
   "components": ["button", "card", "badge", "avatar", "meter", "list"],
   "primitives": ["center", "cluster", "stack", "list", "grid"],
   "requiresJs": false,
-  "previewHeight": "50rem",
+  "previewHeight": "53rem",
   "remix": {
     "name": "Monograph",
     "description": "Editorial: warm paper, ink type and one vermilion accent, a high-contrast serif at poster size, a masthead rule and the product sheet laid on a colour plate.",

@@ -8,7 +8,7 @@
   "primitives": ["stack", "field", "join", "choice", "validation"],
   "requiresJs": true,
   "scripts": ["validation", "password", "status"],
-  "previewHeight": "51rem",
+  "previewHeight": "54rem",
   "remix": {
     "name": "Poster",
     "description": "Neo-brutalist: 2px ink frames, hard offset shadows, pastel fills under black ink and a heavy grotesque display face, in light and dark.",

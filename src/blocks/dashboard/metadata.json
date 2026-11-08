@@ -7,7 +7,7 @@
   "components": ["card", "badge", "avatar", "progress", "list", "segmented"],
   "primitives": ["center", "grid-4", "container-query", "sidebar-layout", "stack", "cluster"],
   "requiresJs": false,
-  "previewHeight": "72rem",
+  "previewHeight": "75rem",
   "remix": {
     "name": "Control Room",
     "description": "Dense and assertive: graphite and graph paper, an amber signal accent, tight cards under ink rules, monospaced figures and panel labels set like instrument captions.",

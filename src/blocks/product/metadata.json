@@ -7,7 +7,7 @@
   "components": ["breadcrumb", "rating", "badge", "join", "button", "accordion"],
   "primitives": ["center", "container-query", "scroll-snap", "cluster", "field", "field-group", "color-swatch", "choice-card", "select"],
   "requiresJs": false,
-  "previewHeight": "75rem",
+  "previewHeight": "78rem",
   "docs": ["components/breadcrumb.html", "components/rating.html", "forms/color-swatches.html", "forms/choice-cards.html", "forms/joined-controls.html", "layout/scroll-snap.html", "components/accordion.html"],
   "notes": [
     "No JavaScript. The checked colour swatch recolours the gallery and the name beside the Cover legend through :has(); browsers without :has() keep the default colour in the drawings, and the radios still work.",

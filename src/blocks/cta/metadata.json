@@ -7,7 +7,7 @@
   "components": ["button"],
   "primitives": ["center", "cluster"],
   "requiresJs": false,
-  "previewHeight": "34rem",
+  "previewHeight": "37rem",
   "docs": ["components/button.html", "foundations/theming.html", "layout/cluster.html"],
   "notes": [
     "The panel sets data-theme=\"dark\", Actual CSS's documented theme island, so it stays dark on light and dark pages alike.",

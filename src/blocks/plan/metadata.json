@@ -7,7 +7,7 @@
   "components": ["card", "badge", "button", "data-list"],
   "primitives": ["center", "stack", "grid-2", "field", "field-group", "choice-card"],
   "requiresJs": false,
-  "previewHeight": "59rem",
+  "previewHeight": "62rem",
   "docs": ["forms/choice-cards.html", "components/data-list.html", "components/card.html", "forms/labels.html", "layout/center.html"],
   "notes": [
     "Plan and cycle are real radio groups and the seat count is a real number input, but the summary does not recalculate: totals, proration, tax and the saved card must come from your billing provider.",

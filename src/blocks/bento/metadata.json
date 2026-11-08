@@ -7,7 +7,7 @@
   "components": ["card", "badge", "avatar", "progress", "meter", "button"],
   "primitives": ["center", "stack", "container-query", "column-layout", "aura", "shimmer"],
   "requiresJs": false,
-  "previewHeight": "75rem",
+  "previewHeight": "78rem",
   "docs": ["layout/column-layout.html", "components/aura.html", "components/card.html", "components/meter.html"],
   "notes": [
     ".column-layout places columns only and never collapses on its own. The block CSS states the three compositions (7 + 5 with a two-row portal tile, then 6 + 6, then one column) in @container rules against the .container-query wrapper, and the row span is plain CSS Grid on the block's own class. Keep placement on classes, not inline styles, or the container queries cannot override it.",
