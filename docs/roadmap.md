@@ -34,7 +34,7 @@ One canonical block, plus an optional `remix.css` that gives it a different iden
 - The detail page gets an **Original / Remix** switch on the preview and a copy button for the remix CSS.
 - Three blocks to prove it: Product Hero (editorial), Dashboard (assertive, dense) and Sign-in (strong graphic identity, for example neo-brutalist).
 
-Built (unreleased): Monograph (Hero), Control Room (Dashboard) and Poster (Sign-in). The contract is in [`block-contract.md`](block-contract.md), the reasoning in [`decisions.md`](decisions.md) §13: a page-level brand theme of public tokens, then scoped art direction; pinned open-licensed Fontsource fonts; `bun run contrast` as a gate; light/dark, 360px, Axe and a visual baseline per remix.
+Released in 0.2.0: Monograph (Hero), Control Room (Dashboard) and Poster (Sign-in). The contract is in [`block-contract.md`](block-contract.md), the reasoning in [`decisions.md`](decisions.md) §13: a page-level brand theme of public tokens, then scoped art direction; pinned open-licensed Fontsource fonts; `bun run contrast` as a gate; light/dark, 360px, Axe and a visual baseline per remix.
 
 Still open: whether the card thumbnails or the home page should show remixes (part of step 2's featured blocks).
 
@@ -43,7 +43,7 @@ Still open: whether the card thumbnails or the home page should show remixes (pa
 Few, significant blocks that test Actual CSS in dense, real screens, in this order:
 
 1. **Dashboard Shell.** `app-shell` / `app-layout` with sidebar, topbar and content; only the content scrolls; drawer on mobile. Sidebar and Topbar are tested apart today; the assembly is what breaks in real apps.
-   Built (unreleased) as a billing overview (`shell`): `.sidebar-shell` (0.17) rather than `.app-layout`, collapsible `<details>` sections, link tabs, a dismissible recommendation, a date range flyout with presets and native date inputs, ruled SVG metrics. A range calendar is left to the integration-recipe step, with `@lekoala/date-picker` (`<date-picker range>`, `linkDateRange()`).
+   Released in 0.2.0 as a billing overview (`shell`): `.sidebar-shell` (0.17) rather than `.app-layout`, collapsible `<details>` sections, link tabs, a dismissible recommendation, a date range flyout with presets and native date inputs, ruled SVG metrics. A range calendar is left to the integration-recipe step, with `@lekoala/date-picker` (`<date-picker range>`, `linkDateRange()`).
 2. **Product Overview.** `scroll-snap` gallery, `color-swatch` and `custom-select` variants, `rating`, `join` quantity. Opens the rest of the commerce batch (cart, reviews) and leaves the SaaS look behind.
    Built (unreleased) as a notebook page (`product`) for the Checkout shop: SVG views recoloured by the swatch through `:has()`, grid on wide and rail with scroll markers on narrow, ruling chips, paper select, number quantity joined to Add to bag, details accordion. No JavaScript.
 3. **Dialog.** Destructive confirmation and a form in a modal (invite members): `modal`, the `dialog` enhancer, focus return, `Escape`, validation inside a dialog.
