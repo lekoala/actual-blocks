@@ -7,7 +7,7 @@
   "components": ["card"],
   "primitives": ["center", "grid", "stack", "cluster"],
   "requiresJs": false,
-  "previewHeight": "55rem",
+  "previewHeight": "58rem",
   "docs": ["layout/grid.html", "components/card.html", "layout/center.html"],
   "notes": [
     "Feature copy and links are illustrative. Replace them with your product's real capabilities and destinations.",
