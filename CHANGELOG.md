@@ -9,7 +9,10 @@ Blocks are evergreen and carry no compatibility guarantee: to pick up a change, 
 - **Feature Grid** (changed): the six capabilities are grouped into three named product areas (Delivery, Time, Money). Each area's tone colours its heading rule and icons, so the tints now mean something; capability titles move from `h3` to `h4` under the area headings.
 - **Call to Action** and **Bento Feature Grid** (changed): the dark panel and the Atlas tile sit on a raised, primary-tinted surface with a tinted border, so they still stand apart when the page itself is dark. `block.css` only.
 - **Product Hero — Monograph** (changed): the remix drops the lead's drop cap, which split the product name. `remix.css` only.
+- **Sign-in — Poster** (changed): fields keep their full ink edge under Actual CSS 0.17.1, which otherwise mixes the control edge from ink and surface. `remix.css` only.
 - **Listing** (changed): the overdue alert's icon is centred on its one-line message (top-aligned again once it wraps on phones), and the select-all checkbox is the same size as the row checkboxes instead of shrinking with the small header text. `block.css` only.
+
+Pins Actual CSS 0.17.1: field, checkbox and radio edges now reach 3:1 in every block, and current navigation links are paler.
 
 Gallery: desktop previews are now tall enough to show each block in full, thumbnails render closer to the detail preview's width and centre short blocks, and the gallery's labels, buttons and code snippets no longer go below 12px.
 

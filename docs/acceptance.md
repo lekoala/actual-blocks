@@ -308,3 +308,18 @@ $ bun run test
 ```
 
 New coverage: the block in the detail/copy-fidelity smoke tests, the 360px overflow pass and Axe light/dark; an appearance test (clean on load with Save only; picking Teal sets `data-dirty`, shows the hint and Discard and names the accent; picking Violet again makes the form clean; Reduce motion and Compact make it dirty and Discard resets both and cleans it). The catalog filter count for Application moves to 14. Reviewed by screenshot at 1440 light (clean), 1440 dark (dirty, Teal) and 375px.
+
+## Actual CSS 0.17.1 upgrade verification
+
+Same 27 blocks, pinned to `actual-css` 0.17.1. Product Overview drops its accordion workaround: the Details list is again a direct `<ul>` panel, now that `.accordion.flush` keeps the list's marker gutter (measured at 375px: 32px gutter, bullets inside the column). The Sign-in remix sets `--border-control: var(--border)`, because the control edge is now a mix of ink and surface and its fields had turned grey beside black buttons. One visual baseline changed upstream and was reviewed and updated: Account Settings (field, select and switch edges darker, reaching 3:1).
+
+```text
+$ bun run build && bun run check && bun run contrast
+Built 27 blocks with Actual CSS 0.17.1 into dist/
+- 27 block sources passed metadata, class, scoping and fragment checks
+- 58 generated HTML files resolve their local references
+Contrast passed: 3 remix themes meet the Actual CSS thresholds in every scheme.
+
+$ npx playwright test
+97 passed, 2 failed (settings light, signin remix light); after the remix fix and the settings baseline update, tests/visual.spec.js: 9 passed
+```

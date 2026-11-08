@@ -36,6 +36,9 @@
   --text-subtle: light-dark(hsl(240 4% 40%), hsl(48 8% 64%));
 
   --border: light-dark(hsl(240 10% 7%), hsl(48 40% 90%));
+  /* Fields keep the full ink edge: since Actual CSS 0.17.1 the control edge
+     is a mix of ink and surface unless the theme sets it. */
+  --border-control: var(--border);
   /* 3:1 on --surface and on --surface-solid, which is cream in dark mode. */
   --focus: light-dark(hsl(222 100% 50%), hsl(220 100% 60%));
   /* Pastels cannot carry text on the page: selected ink stays the text. */

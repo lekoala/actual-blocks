@@ -1,6 +1,6 @@
 # Actual Blocks — roadmap
 
-> Status: **0.2.0 released**, deployed to GitHub Pages from `master`. Twenty-seven blocks on `actual-css` 0.17.0; remixes and Dashboard Shell are released in 0.2.0, Product Overview and Appearance Settings are built and unreleased. Next: the rest of the complete interfaces, then integration recipes (see Direction). `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
+> Status: **0.2.0 released**, deployed to GitHub Pages from `master`. Twenty-seven blocks on `actual-css` 0.17.1; remixes and Dashboard Shell are released in 0.2.0, Product Overview and Appearance Settings are built and unreleased. Next: the rest of the complete interfaces, then integration recipes (see Direction). `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
 
 ## Delivered
 

@@ -13,7 +13,7 @@ Each block has a detail page with a live, isolated preview, desktop/mobile and l
 A block is a semantic HTML fragment plus a scoped stylesheet. Load Actual CSS, add the block CSS, paste the HTML:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/actual-css@0.17.0/dist/actual.full.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/actual-css@0.17.1/dist/actual.full.min.css" />
 <link rel="stylesheet" href="hero.css" />
 
 <!-- paste the block HTML here -->
@@ -24,7 +24,7 @@ In a bundled app, `@import "actual-css/full";` (or only the modules the block li
 A few blocks also need Actual CSS's own JavaScript enhancers, once per page:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/actual-css@0.17.0/dist/actual.full.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/actual-css@0.17.1/dist/actual.full.js" defer></script>
 ```
 
 or, in a bundled app, only the enhancers the block lists (`import "actual-css/js/tab";`). Use one or the other, never both.

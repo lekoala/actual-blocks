@@ -2,7 +2,7 @@
 
 Each block is a semantic HTML fragment plus a scoped stylesheet. The canonical files live in `src/blocks/<id>/`. The gallery detail page is generated from them.
 
-All blocks require **Actual CSS 0.17.0**. The quick start is `@import "actual-css/full";`, or the component modules listed below. Seven blocks also need Actual CSS's published JavaScript runtime (see the JavaScript column). No block requires the gallery CSS, gallery JavaScript or an `actual-blocks` package.
+All blocks require **Actual CSS 0.17.1**. The quick start is `@import "actual-css/full";`, or the component modules listed below. Seven blocks also need Actual CSS's published JavaScript runtime (see the JavaScript column). No block requires the gallery CSS, gallery JavaScript or an `actual-blocks` package.
 
 | Block | Category | JavaScript | Custom CSS |
 | --- | --- | --- | --- |
@@ -236,7 +236,7 @@ All blocks require **Actual CSS 0.17.0**. The quick start is `@import "actual-cs
 
 ## Copy checklist
 
-1. Load Actual CSS 0.17.0 (full bundle or the modules you need).
+1. Load Actual CSS 0.17.1 (full bundle or the modules you need).
 2. Copy `block.html` into a semantic page region.
 3. Copy `block.css` into a stylesheet loaded after Actual CSS.
 4. Replace placeholder links, sample data and illustrative controls with your application's behavior.
