@@ -166,6 +166,20 @@ test("previews do not overflow a 360px viewport", async ({ page }) => {
   }
 });
 
+test("detail pages do not scroll sideways", async ({ page }) => {
+  for (const width of [1280, 360]) {
+    await page.setViewportSize({ width, height: 800 });
+    for (const block of BLOCKS) {
+      await page.goto(`/blocks/${block.id}.html`);
+      const sizes = await page.evaluate(() => ({
+        document: document.documentElement.scrollWidth,
+        viewport: document.documentElement.clientWidth
+      }));
+      expect(sizes.document, `${block.id} at ${width}px: document overflows`).toBeLessThanOrEqual(sizes.viewport + 1);
+    }
+  }
+});
+
 test("gallery does not overflow a 360px viewport", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 800 });
   await page.goto("/");
