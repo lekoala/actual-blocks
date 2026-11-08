@@ -257,11 +257,14 @@
 }
 
 /* Assistant: the one emphasised tile. The aura wrapper is the grid item and
-   carries the placement; the card inside is a data-theme="dark" island. */
+   carries the placement; the card inside is a data-theme="dark" island. Its
+   base is the raised dark surface tinted with the primary, so the tile stays
+   the emphasised one when the page itself is dark. */
 .ab-bento__assistant {
+  border-color: color-mix(in oklab, var(--primary) 32%, var(--border));
   background:
     radial-gradient(26rem 16rem at 100% 0%, color-mix(in oklab, var(--primary) 24%, transparent), transparent 70%),
-    var(--surface);
+    color-mix(in oklab, var(--primary) 10%, var(--surface-raised));
   color: var(--text);
 }
 

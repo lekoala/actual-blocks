@@ -11,18 +11,20 @@
 }
 
 /* The panel is a data-theme="dark" island: every token inside it resolves to
-   the dark scheme, whatever theme the page uses. */
+   the dark scheme, whatever theme the page uses. Its base is the raised dark
+   surface tinted with the primary, not the plain dark surface, so the panel
+   still stands apart when the page itself is dark. */
 .ab-cta__panel {
   display: grid;
   gap: clamp(2rem, 4vw, 3rem);
   padding: clamp(2rem, 5vw, 4rem);
   overflow: hidden;
-  border: var(--border-width) solid var(--border);
+  border: var(--border-width) solid color-mix(in oklab, var(--primary) 32%, var(--border));
   border-radius: calc(var(--radius-lg) * 1.5);
   background:
     radial-gradient(36rem 20rem at 0% 0%, color-mix(in oklab, var(--primary) 22%, transparent), transparent 70%),
     radial-gradient(28rem 18rem at 100% 100%, color-mix(in oklab, var(--secondary) 16%, transparent), transparent 70%),
-    var(--surface);
+    color-mix(in oklab, var(--primary) 10%, var(--surface-raised));
   color: var(--text);
 }
 

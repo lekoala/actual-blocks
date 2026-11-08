@@ -7,7 +7,7 @@
   "components": ["table", "badge", "button", "alert", "pagination"],
   "primitives": ["center", "cluster", "stack", "input-icon", "form-actions"],
   "requiresJs": false,
-  "previewHeight": "56rem",
+  "previewHeight": "57rem",
   "docs": ["components/table.html", "components/badge.html", "components/pagination.html", "components/alert.html", "patterns/icon-input.html"],
   "notes": [
     "Search, filters, row selection and pagination are illustrative. Wire them to your own query and routing layer.",

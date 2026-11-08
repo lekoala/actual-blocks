@@ -7,7 +7,7 @@
   "components": ["avatar", "badge", "button", "card", "drawer", "list", "progress", "navbar"],
   "primitives": ["topbar", "cluster", "stack", "grid", "nav-list"],
   "requiresJs": false,
-  "previewHeight": "56rem",
+  "previewHeight": "75rem",
   "docs": ["components/navbar.html", "components/drawer.html", "patterns/navigation-list.html", "layout/topbar.html", "components/list.html", "components/progress.html"],
   "notes": [
     "The desktop rail and the mobile drawer are separate elements, as the Actual CSS navigation pattern recommends.",

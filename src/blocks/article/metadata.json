@@ -8,7 +8,7 @@
   "primitives": ["center", "stack", "nav-list", "scrollspy"],
   "requiresJs": true,
   "scripts": ["scrollspy"],
-  "previewHeight": "48rem",
+  "previewHeight": "122rem",
   "docs": ["enhancements/scrollspy.html", "components/navbar.html", "components/avatar.html", "layout/center.html"],
   "notes": [
     "The scrollspy enhancer sets aria-current=\"location\" on the contents link of the section being read. Without JavaScript the contents stay plain anchor links and the article is unchanged.",

@@ -7,7 +7,7 @@
   "components": ["table", "button", "badge"],
   "primitives": ["center", "container-query"],
   "requiresJs": false,
-  "previewHeight": "48rem",
+  "previewHeight": "84rem",
   "docs": ["components/table.html", "components/button.html", "components/badge.html"],
   "notes": [
     "A .table-wrap that scrolls sideways is a scroll container in both axes, so a sticky header can only stick inside it, never to the page. The block switches strategy on its container width: from 46rem the wrap uses overflow: clip and the plan row sticks to the viewport (set --ab-compare-sticky-top to clear a sticky site header); below, the wrap gets a height and scrolls both ways, with the plan row and the feature column sticky inside it.",

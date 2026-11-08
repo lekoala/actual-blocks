@@ -161,12 +161,12 @@ const jsSection = (block) => {
   return `<p class="g-aside__label">JavaScript</p>
           <p>Needs the Actual CSS runtime (${block.scripts.map((name) => `<code>${escapeHtml(name)}</code>`).join(", ")}). Load the full bundle once per page:</p>
           <div class="g-import">
-            <code id="g-js-bundle">${escapeHtml(bundle)}</code>
+            <code id="g-js-bundle" tabindex="0">${escapeHtml(bundle)}</code>
             <button class="g-copy g-copy--small" type="button" data-copy-target="g-js-bundle">Copy</button>
           </div>
           <p class="g-aside__note">Or, with a bundler, import only the enhancers it uses:</p>
           <div class="g-import">
-            <code id="g-js-modules">${escapeHtml(modules)}</code>
+            <code id="g-js-modules" tabindex="0">${escapeHtml(modules)}</code>
             <button class="g-copy g-copy--small" type="button" data-copy-target="g-js-modules">Copy</button>
           </div>
           <p class="g-aside__note">Use one or the other: loading both registers every behavior twice.</p>`;
@@ -186,7 +186,7 @@ const remixSection = (block) => {
               .join("\n            ")}
           </ul>
           <div class="g-import">
-            <code id="g-remix-fonts">${escapeHtml(links)}</code>
+            <code id="g-remix-fonts" tabindex="0">${escapeHtml(links)}</code>
             <button class="g-copy g-copy--small" type="button" data-copy-target="g-remix-fonts">Copy</button>
           </div>`
     : "";
@@ -241,7 +241,7 @@ const card = (block) => {
   const category = categoryById[block.category];
   return `<article class="g-card" data-category="${block.category}">
   <a class="g-card__link" href="blocks/${block.id}.html">
-    <span class="g-card__thumb">
+    <span class="g-card__thumb" style="--g-preview-height: ${escapeHtml(block.previewHeight)}">
       <iframe class="g-card__frame" src="previews/${block.id}.html?embed=1" title="${escapeHtml(block.title)} preview" loading="lazy" tabindex="-1" aria-hidden="true" inert></iframe>
     </span>
     <span class="g-card__body">

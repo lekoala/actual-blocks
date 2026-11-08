@@ -43,6 +43,43 @@
 .ab-features__grid {
   --grid-min: 18rem;
   --gap: var(--space-30);
+  row-gap: var(--space-50);
+}
+
+/* Each column is one product area. Its tone colours the heading rule and the
+   icons, and the area name is always spelled out, so colour never carries
+   the grouping alone. */
+.ab-features__group {
+  --gap: var(--space-30);
+  --ab-tone: var(--primary);
+}
+
+.ab-features__group--time {
+  --ab-tone: var(--secondary);
+}
+
+.ab-features__group--money {
+  --ab-tone: var(--success);
+}
+
+.ab-features__domain {
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);
+  padding-block-end: var(--space-20);
+  border-block-end: var(--border-width) solid color-mix(in oklab, var(--ab-tone) 45%, var(--border));
+  color: var(--ab-tone);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0;
+}
+
+.ab-features__domain::before {
+  content: "";
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: 2px;
+  background: currentColor;
 }
 
 .ab-features__card {
@@ -53,11 +90,11 @@
 }
 
 .ab-features__card:hover {
-  border-color: color-mix(in oklab, var(--primary) 35%, var(--border));
+  border-color: color-mix(in oklab, var(--ab-tone) 35%, var(--border));
   translate: 0 -2px;
 }
 
-.ab-features__card h3 {
+.ab-features__card h4 {
   margin: 0;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
@@ -77,23 +114,8 @@
   inline-size: 2.75rem;
   block-size: 2.75rem;
   border-radius: var(--radius);
-  background: color-mix(in oklab, var(--primary) 10%, var(--surface));
-  color: var(--primary);
-}
-
-.ab-features__icon--secondary {
-  background: color-mix(in oklab, var(--secondary) 12%, var(--surface));
-  color: var(--secondary);
-}
-
-.ab-features__icon--success {
-  background: color-mix(in oklab, var(--success) 12%, var(--surface));
-  color: var(--success);
-}
-
-.ab-features__icon--warning {
-  background: color-mix(in oklab, var(--warning) 14%, var(--surface));
-  color: var(--warning);
+  background: color-mix(in oklab, var(--ab-tone) 11%, var(--surface));
+  color: var(--ab-tone);
 }
 
 .ab-features__footer {

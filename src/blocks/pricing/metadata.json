@@ -7,7 +7,7 @@
   "components": ["card", "button", "badge"],
   "primitives": ["center", "grid", "stack", "cluster"],
   "requiresJs": false,
-  "previewHeight": "48rem",
+  "previewHeight": "58rem",
   "docs": ["components/card.html", "components/button.html", "components/badge.html", "layout/grid.html"],
   "notes": [
     "Plan names, prices and features are illustrative. Replace them with your own commercial terms.",

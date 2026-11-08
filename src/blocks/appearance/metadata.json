@@ -8,7 +8,7 @@
   "primitives": ["center", "sidebar-layout", "cluster", "field", "field-group", "choice-card", "color-swatch", "select", "switch", "form-actions"],
   "requiresJs": true,
   "scripts": ["dirty"],
-  "previewHeight": "60rem",
+  "previewHeight": "65rem",
   "docs": ["forms/unsaved-changes.html", "components/segmented.html", "forms/color-swatches.html", "forms/choice-cards.html", "forms/sticky-actions.html", "forms/switch.html"],
   "notes": [
     "The form uses Actual CSS's dirty enhancer (data-enhance=\"dirty\"): it carries data-dirty while its values differ from the ones the page loaded with, and the block shows the unsaved hint and Discard from that attribute alone. Discard is a native reset. Without JavaScript the form never becomes dirty, so only Save shows, and it still submits.",

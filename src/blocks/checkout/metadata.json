@@ -8,7 +8,7 @@
   "primitives": ["center", "stack", "grid-2", "cluster", "field", "field-group", "choice", "choice-card", "join", "form-actions", "validation"],
   "requiresJs": true,
   "scripts": ["validation", "mask", "filter", "status"],
-  "previewHeight": "60rem",
+  "previewHeight": "107rem",
   "docs": ["forms/validation.html", "forms/input-policy.html", "forms/choice-cards.html", "forms/sticky-actions.html", "forms/joined-controls.html", "components/data-list.html"],
   "notes": [
     "Input policy follows Actual CSS: data-mask only for the fixed MM/YY expiry, data-filter for the security code (digits), postcode and discount code (upper case), tel-prefix for the courier phone. The card number is not masked because card lengths and groupings vary. Masks and filters shape input; the server still validates every value.",

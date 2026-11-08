@@ -7,10 +7,10 @@
   "components": ["button", "card", "badge", "avatar", "meter", "list"],
   "primitives": ["center", "cluster", "stack", "list", "grid"],
   "requiresJs": false,
-  "previewHeight": "48rem",
+  "previewHeight": "50rem",
   "remix": {
     "name": "Monograph",
-    "description": "Editorial: warm paper, ink type and one vermilion accent, a high-contrast serif at poster size, a masthead rule, a drop cap and the product sheet laid on a colour plate.",
+    "description": "Editorial: warm paper, ink type and one vermilion accent, a high-contrast serif at poster size, a masthead rule and the product sheet laid on a colour plate.",
     "fonts": [
       { "family": "Fraunces", "package": "@fontsource-variable/fraunces", "files": ["index.css", "wght-italic.css"] },
       { "family": "Instrument Sans", "package": "@fontsource-variable/instrument-sans" }

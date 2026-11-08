@@ -7,7 +7,7 @@
   "components": ["button", "badge", "steps"],
   "primitives": ["center", "cluster", "stack", "grid"],
   "requiresJs": false,
-  "previewHeight": "46rem",
+  "previewHeight": "49rem",
   "docs": ["components/steps.html", "components/button.html", "components/badge.html", "layout/center.html"],
   "notes": [
     "The actions are placeholder links. Point them at your create and import flows.",

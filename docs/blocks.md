@@ -40,7 +40,7 @@ All blocks require **Actual CSS 0.17.0**. The quick start is `@import "actual-cs
 - **Actual CSS components:** button, card, badge, avatar, meter, list
 - **Primitives:** center, cluster, stack, list, grid
 - **Notes:** CTAs are placeholder fragments. The studio overview is a static illustration, not live data. The sparkline is inline SVG with a text summary.
-- **Remix — Monograph:** `remix.css` with Fraunces (roman and italic) and Instrument Sans. Warm paper, ink type and one vermilion accent, a masthead rule, a drop cap, the product sheet on a colour plate. Its brand theme rule sets the page palette.
+- **Remix — Monograph:** `remix.css` with Fraunces (roman and italic) and Instrument Sans. Warm paper, ink type and one vermilion accent, a masthead rule, the product sheet on a colour plate. Its brand theme rule sets the page palette.
 
 ## Feature Grid
 

@@ -166,6 +166,26 @@ test("previews do not overflow a 360px viewport", async ({ page }) => {
   }
 });
 
+test("desktop preview frame shows the whole block", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+
+  for (const block of BLOCKS) {
+    const variants = REMIXES.includes(block) ? ["Original", "Remix"] : [null];
+    await page.goto(`/blocks/${block.id}.html`);
+    for (const variant of variants) {
+      if (variant) await page.getByRole("button", { name: variant, exact: true }).click();
+      const preview = page.frameLocator("#g-preview-frame");
+      await expect(preview.locator(block.root)).toBeVisible();
+      await page.evaluate(() => document.querySelector("#g-preview-frame").contentDocument.fonts.ready);
+
+      const frameHeight = (await page.locator("#g-preview-frame").boundingBox())?.height ?? 0;
+      const contentHeight = await preview.locator("html").evaluate((html) => html.scrollHeight);
+      const label = `${block.id}${variant === "Remix" ? " remix" : ""}`;
+      expect(contentHeight, `${label}: content is cut off; raise previewHeight`).toBeLessThanOrEqual(frameHeight + 1);
+    }
+  }
+});
+
 test("detail pages do not scroll sideways", async ({ page }) => {
   for (const width of [1280, 360]) {
     await page.setViewportSize({ width, height: 800 });

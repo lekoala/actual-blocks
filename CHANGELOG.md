@@ -6,6 +6,11 @@ Blocks are evergreen and carry no compatibility guarantee: to pick up a change, 
 
 - **Appearance Settings** (new, application): theme cards with thumbnails, accent swatches, density and text size, accessibility switches, and a sticky action bar that shows unsaved changes only while the form differs from what was loaded. Needs the `dirty` enhancer.
 - **Product Overview** (new, application): a notebook product page for the Checkout shop. Views that recolour with the chosen cover, a swipeable rail on phones, rating summary, ruling chips, paper select, quantity and Add to bag, details accordion. No JavaScript.
+- **Feature Grid** (changed): the six capabilities are grouped into three named product areas (Delivery, Time, Money). Each area's tone colours its heading rule and icons, so the tints now mean something; capability titles move from `h3` to `h4` under the area headings.
+- **Call to Action** and **Bento Feature Grid** (changed): the dark panel and the Atlas tile sit on a raised, primary-tinted surface with a tinted border, so they still stand apart when the page itself is dark. `block.css` only.
+- **Product Hero — Monograph** (changed): the remix drops the lead's drop cap, which split the product name. `remix.css` only.
+
+Gallery: desktop previews are now tall enough to show each block in full, thumbnails render closer to the detail preview's width and centre short blocks, and the gallery's labels, buttons and code snippets no longer go below 12px.
 
 ## 0.2.0
 

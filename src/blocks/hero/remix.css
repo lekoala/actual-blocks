@@ -1,6 +1,6 @@
 /* Actual Blocks — Hero, "Monograph" remix
    Editorial: warm paper, ink type and one vermilion accent, a high-contrast
-   serif at poster size, a masthead rule and a drop cap. Same HTML as the
+   serif at poster size and a masthead rule. Same HTML as the
    block. Load after Actual CSS and block.css, with Fraunces (roman and
    italic) and Instrument Sans. */
 
@@ -96,16 +96,6 @@
   color: var(--text);
   font-size: clamp(var(--font-size-md), 1.6vw, 1.25rem);
   line-height: 1.6;
-}
-
-.ab-hero__lead::first-letter {
-  float: inline-start;
-  margin: 0.06em 0.1em 0 0;
-  color: var(--primary);
-  font-family: var(--ab-font-display);
-  font-size: 3.6em;
-  font-weight: 400;
-  line-height: 0.82;
 }
 
 .ab-hero__actions .btn {
