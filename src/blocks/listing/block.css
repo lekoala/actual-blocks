@@ -64,7 +64,14 @@
 }
 
 .ab-listing__alert {
+  --items-align: center;
   margin-block-end: var(--space-30);
+}
+
+/* Centered on the single-line row; the alert's optical top nudge only suits
+   start alignment. */
+.ab-listing__alert > .alert-icon {
+  margin-block-start: 0;
 }
 
 .ab-listing__alert-content {
@@ -106,6 +113,12 @@
 .ab-listing__check-cell {
   inline-size: 1%;
   padding-inline-end: 0;
+}
+
+/* The check is em-sized: keep the select-all box at the row size instead of
+   shrinking with the small uppercase header text. */
+.ab-listing__table thead .check {
+  font-size: var(--font-size-md);
 }
 
 .ab-listing__invoice {
@@ -173,6 +186,14 @@
   .ab-listing__filter-note {
     flex-basis: 100%;
     margin-inline-start: 0;
+  }
+
+  .ab-listing__alert {
+    --items-align: start;
+  }
+
+  .ab-listing__alert > .alert-icon {
+    margin-block-start: 0.125em;
   }
 
   .ab-listing__alert-content {
