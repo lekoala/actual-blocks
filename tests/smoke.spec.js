@@ -181,7 +181,7 @@ test("desktop preview frame shows the whole block", async ({ page }) => {
       const frameHeight = (await page.locator("#g-preview-frame").boundingBox())?.height ?? 0;
       const contentHeight = await preview.locator("html").evaluate((html) => html.scrollHeight);
       const label = `${block.id}${variant === "Remix" ? " remix" : ""}`;
-      expect(contentHeight, `${label}: content is cut off; raise previewHeight`).toBeLessThanOrEqual(frameHeight + 1);
+      expect.soft(contentHeight, `${label}: content is cut off; raise previewHeight`).toBeLessThanOrEqual(frameHeight + 1);
     }
   }
 });
