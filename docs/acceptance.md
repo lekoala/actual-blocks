@@ -323,3 +323,11 @@ Contrast passed: 3 remix themes meet the Actual CSS thresholds in every scheme.
 $ npx playwright test
 97 passed, 2 failed (settings light, signin remix light); after the remix fix and the settings baseline update, tests/visual.spec.js: 9 passed
 ```
+
+## Actual CSS 0.18.0 upgrade verification
+
+Same 27 blocks, pinned to the published `actual-css` 0.18.0 package. Neutral `.btn.outline` borders now use `--border-control`; explicit intents keep their colour. No canonical block HTML, CSS or remix CSS changed. Five baselines were reviewed and updated: Dashboard Overview desktop/mobile and Control Room remix, Account Settings, and App Sidebar mobile. Differences are confined to neutral outline button borders.
+
+`bun run test` passed: build (27 blocks), source/reference checks (58 generated HTML files), contrast (all 3 remix themes in every scheme), and **99 Playwright tests** including smoke, accessibility and all 9 visual baselines. Windows, Bun 1.4.4, Playwright 1.64.1 / Chromium. The contrast check initially could not launch Chrome in the sandbox ("Chrome process closed the pipe"); the complete suite passed with the required process permissions.
+
+Output: 135 files, 1,943,491 bytes total; Actual CSS bundle 157,014 bytes and runtime 69,344 bytes. The lockfile changes only Actual CSS; no transitive dependency changed.

@@ -2,6 +2,14 @@
 
 Blocks are evergreen and carry no compatibility guarantee: to pick up a change, copy the block again. Each release lists the blocks it adds or changes and the Actual CSS version it pins. A minor version adds blocks; a patch only improves existing ones. Versions are Git tags (`vX.Y.Z`); nothing is published to npm.
 
+## Unreleased
+
+Pins Actual CSS 0.18.0: neutral outline buttons use the softer control edge; explicit intents keep their colour. All 27 blocks consume the updated published CSS and runtime, with no canonical source changes.
+
+- **Dashboard Overview** (original and Control Room remix), **Account Settings** and **App Sidebar**: reviewed and updated five visual baselines for the softer neutral outline borders.
+
+Gallery: block details keep a single heading per section, “Dependencies” and “Good to know”, removing the redundant subtitles.
+
 ## 0.3.0
 
 - **Appearance Settings** (new, application): theme cards with thumbnails, accent swatches, density and text size, accessibility switches, and a sticky action bar that shows unsaved changes only while the form differs from what was loaded. Needs the `dirty` enhancer.
