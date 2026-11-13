@@ -4,7 +4,7 @@ Blocks are evergreen and carry no compatibility guarantee: to pick up a change, 
 
 ## Unreleased
 
-Pins Actual CSS 0.18.0: neutral outline buttons use the softer control edge; explicit intents keep their colour. All 27 blocks consume the updated published CSS and runtime, with no canonical source changes.
+Pins Actual CSS 0.19.0: keep the project on the latest published release and verify the blocks against the current upstream API. All 27 blocks continue to consume the published CSS and runtime without canonical source changes.
 
 - **Dashboard Overview** (original and Control Room remix), **Account Settings** and **App Sidebar**: reviewed and updated five visual baselines for the softer neutral outline borders.
 
