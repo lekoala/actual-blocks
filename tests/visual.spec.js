@@ -37,6 +37,22 @@ test("visual: dashboard mobile", async ({ page }) => {
   await expect(page).toHaveScreenshot("dashboard-mobile.png", { fullPage: true, animations: "disabled", caret: "hide" });
 });
 
+test("visual: island workspace light", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto("/previews/island.html?theme=light");
+  await ready(page);
+  await expect(page.locator(".ab-island")).toBeVisible();
+  await expect(page).toHaveScreenshot("island-light.png", { fullPage: true, animations: "disabled", caret: "hide" });
+});
+
+test("visual: island workspace mobile dark", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/previews/island.html?theme=dark");
+  await ready(page);
+  await expect(page.locator(".ab-island")).toBeVisible();
+  await expect(page).toHaveScreenshot("island-mobile-dark.png", { fullPage: true, animations: "disabled", caret: "hide" });
+});
+
 test("visual: settings light", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/previews/settings.html?theme=light");

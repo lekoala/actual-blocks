@@ -14,7 +14,7 @@ Build a small, polished, standalone gallery of HTML/CSS blocks for consumers of 
 
 ## Current state
 
-- Twenty-seven blocks are implemented. Marketing: Hero, Feature Grid, Bento Feature Grid, Testimonials, Pricing, Compare Plans, FAQ, Call to Action, Article with Contents. Application: Dashboard, Dashboard Shell, Project Overview, AI Assistant, Sign-in, Settings, Appearance Settings, Plan Change, Product Overview, Checkout, Listing, Order Tracking, Code Verification, Empty State. Navigation: Site Header, App Topbar, App Sidebar, Site Footer.
+- Twenty-eight blocks are implemented. Marketing: Hero, Feature Grid, Bento Feature Grid, Testimonials, Pricing, Compare Plans, FAQ, Call to Action, Article with Contents. Application: Dashboard, Dashboard Shell, Island Workspace, Project Overview, AI Assistant, Sign-in, Settings, Appearance Settings, Plan Change, Product Overview, Checkout, Listing, Order Tracking, Code Verification, Empty State. Navigation: Site Header, App Topbar, App Sidebar, Site Footer.
 - Catalog order lives in `src/blocks/order.json`.
 - The static gallery, isolated iframe previews, desktop/mobile viewport control, light/dark preview themes, canonical source display, copy HTML/CSS, dependency notes and limitation notes are implemented.
 - Blocks never contain a `<script>`. Drawers use native `command` / `commandfor`; the FAQ uses `<details name>`.

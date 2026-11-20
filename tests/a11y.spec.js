@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-const BLOCKS = ["hero", "features", "bento", "testimonials", "pricing", "compare", "faq", "cta", "article", "dashboard", "shell", "project", "assistant", "signin", "settings", "appearance", "plan", "product", "checkout", "listing", "tracking", "verify", "empty-state", "header", "topbar", "sidebar", "footer"];
+const BLOCKS = ["hero", "features", "bento", "testimonials", "pricing", "compare", "faq", "cta", "article", "dashboard", "shell", "island", "project", "assistant", "signin", "settings", "appearance", "plan", "product", "checkout", "listing", "tracking", "verify", "empty-state", "header", "topbar", "sidebar", "footer"];
 
 const analyze = async (page, label) => {
   const results = await new AxeBuilder({ page })
@@ -69,4 +69,12 @@ test("open dashboard shell date range panel passes WCAG A/AA checks", async ({ p
   await page.locator("#ab-shell-range-trigger").click();
   await expect(page.locator("#ab-shell-range")).toBeVisible();
   await analyze(page, "shell date range");
+});
+
+test("open island workspace brief passes WCAG A/AA checks", async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto("/previews/island.html?theme=dark");
+  await page.getByRole("button", { name: "View brief" }).click();
+  await expect(page.getByRole("dialog", { name: "Atlas identity brief" })).toBeVisible();
+  await analyze(page, "island workspace brief");
 });

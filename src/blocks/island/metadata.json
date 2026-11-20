@@ -1,0 +1,17 @@
+{
+  "id": "island",
+  "title": "Island Workspace",
+  "category": "application",
+  "description": "A studio workspace with navigation on a shared canvas and raised islands for the next milestone, review activity, active projects and recent updates.",
+  "summary": "A quiet sidebar, raised panels and a milestone brief for a studio dashboard.",
+  "components": ["navbar", "card", "modal", "close", "button", "avatar", "progress"],
+  "primitives": ["nav-list", "stack", "cluster", "list-reset", "container-query"],
+  "requiresJs": false,
+  "previewHeight": "48rem",
+  "docs": ["patterns/navigation-list.html", "layout/grid.html"],
+  "notes": [
+    "The sidebar and workspace share a canvas. At narrower container widths the same section links move above the content, and the four panels eventually stack in reading order. The workspace scrolls with the page.",
+    "The milestone brief uses native dialog invoker commands (show-modal and request-close). The button needs browser support for command and commandfor. Escape also closes the open dialog.",
+    "The brief, review counts, project progress and activity are sample data. When updating the chart, keep each label and --ab-island-count in sync and set --ab-island-chart-max to the top of the scale."
+  ]
+}

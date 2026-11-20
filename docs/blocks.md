@@ -17,6 +17,7 @@ All blocks require **Actual CSS 0.19.0**. The quick start is `@import "actual-cs
 | Article with Contents (`article`) | Marketing | Actual CSS `scrollspy` | `block.css` |
 | Dashboard Overview (`dashboard`) | Application | None | `block.css` |
 | Dashboard Shell (`shell`) | Application | Actual CSS `flyout`, `dismiss` | `block.css` |
+| Island Workspace (`island`) | Application | None | `block.css` |
 | Project Overview (`project`) | Application | Actual CSS `tab` | `block.css` |
 | AI Assistant (`assistant`) | Application | None | `block.css` |
 | Sign-in (`signin`) | Application | Actual CSS `validation`, `password`, `status` | `block.css` |
@@ -114,6 +115,13 @@ All blocks require **Actual CSS 0.19.0**. The quick start is `@import "actual-cs
 - **Actual CSS components:** flyout, menu, tab, alert, close, drawer, segmented, badge, button, list
 - **Primitives:** sidebar-shell, topbar, nav-list, input-icon, flyout-trigger, container-query
 - **Notes:** A complete billing overview screen. The layout is `.sidebar-shell`: from 64rem the sidebar and the content column scroll on their own and the topbar sticks; below, the document scrolls and a native drawer mirrors the sidebar. Collapsible sidebar sections are native `<details>` with `summary.nav-link`, styled by `.nav-list`. The date range is a `form.flyout.scrollable` with `.segmented.vertical` presets and native date inputs; Apply only closes it, and Actual CSS ships no range calendar. The recommendation closes with `command="--dismiss"`. Charts are static SVG with text summaries; all figures are sample data.
+
+## Island Workspace
+
+- **Files** `src/blocks/island/block.html`, `block.css`
+- **Actual CSS components** navbar, card, modal, close, button, avatar, progress
+- **Primitives** nav-list, stack, cluster, list-reset, container-query
+- The navigation sidebar shares the workspace canvas. At narrower container widths the same links move above the content and the panels stack. The links jump to sections in the document. The sample milestone brief uses native dialog commands, and the bar chart includes the exact counts in HTML.
 
 ## Project Overview
 

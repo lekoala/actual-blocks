@@ -18,6 +18,7 @@ const BLOCKS = [
   { id: "article", title: "Article with Contents", root: ".ab-article" },
   { id: "dashboard", title: "Dashboard Overview", root: ".ab-dashboard" },
   { id: "shell", title: "Dashboard Shell", root: ".ab-shell" },
+  { id: "island", title: "Island Workspace", root: ".ab-island" },
   { id: "project", title: "Project Overview", root: ".ab-project" },
   { id: "assistant", title: "AI Assistant", root: ".ab-assistant" },
   { id: "signin", title: "Sign-in", root: ".ab-signin" },
@@ -58,8 +59,8 @@ test("catalog renders every block and filters by category", async ({ page }) => 
   await expect(page.locator("#g-visible-count")).toHaveText("9");
 
   await page.getByRole("button", { name: /Application/ }).click();
-  await expect(page.locator(".g-card:visible")).toHaveCount(14);
-  await expect(page.locator("#g-visible-count")).toHaveText("14");
+  await expect(page.locator(".g-card:visible")).toHaveCount(15);
+  await expect(page.locator("#g-visible-count")).toHaveText("15");
 
   await page.getByRole("button", { name: /Navigation/ }).click();
   await expect(page.locator(".g-card:visible")).toHaveCount(4);
@@ -232,6 +233,55 @@ test("sidebar switches from a rail to a working native drawer", async ({ page })
 
   await page.locator("#ab-sidebar-drawer").getByRole("button", { name: "Close navigation" }).click();
   await expect.poll(() => page.locator("#ab-sidebar-drawer").evaluate((element) => element.open)).toBe(false);
+});
+
+test.describe("island workspace without JavaScript", () => {
+  test.use({ javaScriptEnabled: false });
+
+  test("reflows the navigation and panels, and opens the brief by keyboard", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto("/previews/island.html?theme=light");
+
+    const rail = page.getByRole("banner");
+    const navigation = page.getByRole("navigation", { name: "Workspace sections" });
+    const milestone = page.getByRole("region", { name: "Atlas identity" });
+    const reviews = page.getByRole("region", { name: "Review activity" });
+    await expect(rail).toHaveCSS("position", "sticky");
+    await expect(rail).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+    expect((await milestone.boundingBox()).y).toBe((await reviews.boundingBox()).y);
+
+    await page.setViewportSize({ width: 820, height: 900 });
+    await expect(rail).toHaveCSS("position", "static");
+    expect((await rail.boundingBox()).y).toBeLessThan((await milestone.boundingBox()).y);
+    expect((await milestone.boundingBox()).y).toBe((await reviews.boundingBox()).y);
+
+    await page.setViewportSize({ width: 360, height: 800 });
+    await expect(navigation.getByRole("link")).toHaveCount(3);
+    expect((await milestone.boundingBox()).y).toBeLessThan((await reviews.boundingBox()).y);
+    await navigation.getByRole("link", { name: "Projects" }).press("Enter");
+    const projects = page.getByRole("region", { name: "Projects" });
+    await expect(page).toHaveURL(/#ab-island-projects$/);
+    await expect(projects).toBeFocused();
+    await expect(projects).toHaveCSS("outline-style", "solid");
+    await expect(projects.getByRole("progressbar", { name: "Atlas identity" })).toHaveAttribute("value", "80");
+
+    const trigger = page.getByRole("button", { name: "View brief" });
+    const dialog = page.getByRole("dialog", { name: "Atlas identity brief" });
+    const close = dialog.getByRole("button", { name: "Close brief" });
+    await trigger.press("Enter");
+    await expect(dialog).toBeVisible();
+    await expect(close).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+    await expect(trigger).toBeFocused();
+    await expect(trigger).toHaveCSS("outline-style", "solid");
+
+    await page.keyboard.press("Enter");
+    await expect(dialog).toBeVisible();
+    await close.press("Enter");
+    await expect(dialog).toBeHidden();
+    await expect(trigger).toBeFocused();
+  });
 });
 
 test("dashboard shell scrolls only its content and wires its panels", async ({ page }) => {

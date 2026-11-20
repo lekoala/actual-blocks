@@ -1,0 +1,149 @@
+<div class="ab-island container-query">
+  <div class="ab-island__layout">
+    <header class="ab-island__rail">
+      <div class="cluster ab-island__brand">
+        <span class="ab-island__mark" aria-hidden="true"></span>
+        <strong>Fieldwork</strong>
+      </div>
+
+      <nav aria-label="Workspace sections">
+        <ul class="nav-list ab-island__nav" role="list">
+          <li><a class="nav-link" href="#ab-island-overview">Overview</a></li>
+          <li><a class="nav-link" href="#ab-island-projects">Projects</a></li>
+          <li><a class="nav-link" href="#ab-island-activity">Activity</a></li>
+        </ul>
+      </nav>
+
+      <div class="cluster ab-island__profile">
+        <span class="avatar sm ab-island__initials" aria-hidden="true">LM</span>
+        <div>
+          <strong>Lea Morgan</strong>
+          <p>Studio lead</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="ab-island__main" aria-labelledby="ab-island-title">
+      <header class="stack ab-island__intro" id="ab-island-overview" tabindex="-1">
+        <time datetime="2026-05-18">Monday, May 18</time>
+        <h1 id="ab-island-title">Studio overview</h1>
+        <p>Track active projects and the week’s handoffs.</p>
+      </header>
+
+      <div class="ab-island__board">
+        <section class="card ab-island__panel ab-island__feature" aria-labelledby="ab-island-milestone">
+          <div class="stack ab-island__feature-copy">
+            <p class="ab-island__eyebrow">Next milestone</p>
+            <h2 id="ab-island-milestone">Atlas identity</h2>
+            <p>Presentation of the visual system to the client.</p>
+            <button class="btn ab-island__brief-button" type="button" command="show-modal" commandfor="ab-island-brief" aria-haspopup="dialog" aria-controls="ab-island-brief">
+              View brief <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+          <div class="ab-island__calendar">
+            <time datetime="2026-05-21" class="ab-island__date">
+              <span>Thu</span>
+              <strong>21</strong>
+              <span>May</span>
+            </time>
+          </div>
+        </section>
+
+        <section class="card ab-island__panel ab-island__reviews" aria-labelledby="ab-island-reviews">
+          <div class="cluster ab-island__panel-heading">
+            <h2 id="ab-island-reviews">Review activity</h2>
+            <span>May 11–15</span>
+          </div>
+          <p class="ab-island__total"><strong>8</strong> reviews</p>
+          <dl class="ab-island__chart" aria-label="Reviews per weekday">
+            <div><dt>Mon</dt><dd style="--ab-island-count: 1">1</dd></div>
+            <div><dt>Tue</dt><dd style="--ab-island-count: 2">2</dd></div>
+            <div><dt>Wed</dt><dd style="--ab-island-count: 1">1</dd></div>
+            <div><dt>Thu</dt><dd style="--ab-island-count: 3">3</dd></div>
+            <div><dt>Fri</dt><dd style="--ab-island-count: 1">1</dd></div>
+          </dl>
+        </section>
+
+        <section class="card ab-island__panel" id="ab-island-projects" aria-labelledby="ab-island-projects-heading" tabindex="-1">
+          <div class="cluster ab-island__panel-heading">
+            <h2 id="ab-island-projects-heading">Projects</h2>
+            <span>3 active</span>
+          </div>
+          <ul class="list-reset ab-island__rows" role="list">
+            <li class="ab-island__project">
+              <div>
+                <strong id="ab-island-atlas">Atlas identity</strong>
+                <p>Client review</p>
+              </div>
+              <div class="ab-island__completion">
+                <progress class="progress" value="80" max="100" aria-labelledby="ab-island-atlas"></progress>
+                <span aria-hidden="true">80%</span>
+              </div>
+            </li>
+            <li class="ab-island__project">
+              <div>
+                <strong id="ab-island-harbor">Harbor website</strong>
+                <p>Design</p>
+              </div>
+              <div class="ab-island__completion">
+                <progress class="progress" value="55" max="100" aria-labelledby="ab-island-harbor"></progress>
+                <span aria-hidden="true">55%</span>
+              </div>
+            </li>
+            <li class="ab-island__project">
+              <div>
+                <strong id="ab-island-form">Form library</strong>
+                <p>Discovery</p>
+              </div>
+              <div class="ab-island__completion">
+                <progress class="progress" value="25" max="100" aria-labelledby="ab-island-form"></progress>
+                <span aria-hidden="true">25%</span>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section class="card ab-island__panel" id="ab-island-activity" aria-labelledby="ab-island-activity-heading" tabindex="-1">
+          <div class="cluster ab-island__panel-heading">
+            <h2 id="ab-island-activity-heading">Recent activity</h2>
+          </div>
+          <ol class="list-reset ab-island__rows" role="list">
+            <li class="ab-island__event">
+              <span class="avatar sm ab-island__initials" aria-hidden="true">NC</span>
+              <div><strong>Nora Chen</strong><p>Shared Atlas presentation</p></div>
+              <time datetime="2026-05-18">Today</time>
+            </li>
+            <li class="ab-island__event">
+              <span class="avatar sm ab-island__initials" aria-hidden="true">SR</span>
+              <div><strong>Sam Rivera</strong><p>Updated Harbor wireframes</p></div>
+              <time datetime="2026-05-15">May 15</time>
+            </li>
+            <li class="ab-island__event">
+              <span class="avatar sm ab-island__initials" aria-hidden="true">LM</span>
+              <div><strong>Lea Morgan</strong><p>Added Form research notes</p></div>
+              <time datetime="2026-05-14">May 14</time>
+            </li>
+          </ol>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <dialog class="modal ab-island__brief" id="ab-island-brief" aria-labelledby="ab-island-brief-title" closedby="any">
+    <button class="close" type="button" command="request-close" commandfor="ab-island-brief" aria-label="Close brief" autofocus></button>
+    <div class="stack">
+      <header class="stack">
+        <p class="ab-island__eyebrow">Client presentation · May 21</p>
+        <h2 id="ab-island-brief-title">Atlas identity brief</h2>
+      </header>
+      <div class="stack">
+        <p>Walk the client through the new identity using examples from the website and launch materials.</p>
+        <ul>
+          <li>Confirm the wordmark and colour palette.</li>
+          <li>Review the first set of launch templates.</li>
+          <li>Agree on a delivery date for the brand guide.</li>
+        </ul>
+      </div>
+    </div>
+  </dialog>
+</div>
