@@ -306,31 +306,33 @@ test("island workspace menu and timeline reach project details", async ({ page }
   const eventDate = await eventRow.locator("time").boundingBox();
   const eventTitle = await eventRow.getByRole("button").boundingBox();
   expect(eventTitle.y).toBeLessThan(eventDate.y + eventDate.height);
-  const avatar = page.getByRole("button", { name: "LM, Lea Morgan — workspace menu" });
+  const avatar = page.getByRole("button", { name: /^Lea Morgan\s*, account menu$/ });
   await expect(avatar).toHaveCSS("padding-inline-end", "10.4px");
+  await expect(page.getByRole("navigation", { name: "Workspace sections" }).getByRole("link", { name: "Overview" })).toHaveAttribute("aria-current", "page");
 
   await page.setViewportSize({ width: 360, height: 800 });
   await page.goto("/previews/island.html?theme=dark");
 
   await expect(avatar).toHaveCSS("padding-inline-end", "0px");
-  const menu = page.getByRole("list", { name: "Workspace menu" });
-  const handoff = menu.getByRole("link", { name: "My next handoff" });
+  const menu = page.getByRole("list", { name: "Account menu" });
   await avatar.click();
   await expect(menu).toBeVisible();
   await expect(avatar).toHaveAttribute("aria-expanded", "true");
+  await expect(menu.getByRole("link")).toHaveText(["Profile", "Notifications", "Workspace settings", "Sign out"]);
   await page.keyboard.press("Escape");
   await expect(menu).toBeHidden();
   await expect(avatar).toBeFocused();
 
   await avatar.press("ArrowDown");
-  await expect(handoff).toBeFocused();
-  await page.keyboard.press("Enter");
-  const project = page.getByRole("button", { name: "Form library", exact: true });
+  await expect(menu.getByRole("link", { name: "Profile" })).toBeFocused();
+  await page.keyboard.press("Escape");
   await expect(menu).toBeHidden();
-  await expect(project).toBeFocused();
-  await page.keyboard.press("Enter");
+
+  const project = page.getByRole("button", { name: "Form library", exact: true });
+  await project.press("Enter");
   const details = page.getByRole("dialog", { name: "Form library" });
-  await expect(details.getByText("Research readout on June 4.", { exact: false })).toBeVisible();
+  await expect(details.getByText("research readout on June 4.", { exact: false })).toBeVisible();
+  await expect(details.getByRole("definition")).toHaveText(["Discovery", "Lea Morgan", "Jun 4", "25%"]);
   await page.keyboard.press("Escape");
   await expect(details).toBeHidden();
   await expect(project).toBeFocused();

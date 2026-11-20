@@ -83,8 +83,11 @@ test("open island workspace menu and project directory pass WCAG A/AA checks", a
   await page.setViewportSize({ width: 360, height: 800 });
   for (const theme of ["light", "dark"]) {
     await page.goto(`/previews/island.html?theme=${theme}`);
-    await page.getByRole("button", { name: /workspace menu/ }).click();
-    await expect(page.getByRole("list", { name: "Workspace menu" })).toBeVisible();
+    await page.getByRole("button", { name: /account menu/ }).click();
+    const menu = page.getByRole("list", { name: "Account menu" });
+    await expect(menu).toBeVisible();
+    // Analyse once the flyout's entrance has finished, not mid-fade.
+    await expect(menu).toHaveCSS("opacity", "1");
     await analyze(page, `island workspace menu ${theme}`);
     await page.keyboard.press("Escape");
 

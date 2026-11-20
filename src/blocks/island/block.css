@@ -49,8 +49,8 @@
   place-items: center;
   inline-size: 2.15rem;
   aspect-ratio: 1;
-  background: light-dark(#304137, #c4d4be);
-  color: light-dark(#f0f3e5, #26352c);
+  background: light-dark(#302442, #d9cfe7);
+  color: light-dark(#e3dcf1, #302442);
   border-radius: 0.72rem;
 }
 
@@ -83,11 +83,7 @@
   font-size: 0.875rem;
 }
 
-.ab-island:not(:has(:target)) .nav-link[href="#ab-island-overview"],
-.ab-island:has(#ab-island-overview:target) .nav-link[href="#ab-island-overview"],
-.ab-island:has(#ab-island-projects:target) .nav-link[href="#ab-island-projects"],
-.ab-island:has(#ab-island-form:target) .nav-link[href="#ab-island-projects"],
-.ab-island:has(#ab-island-activity:target) .nav-link[href="#ab-island-activity"] {
+.ab-island .ab-island__nav .nav-link[aria-current="page"] {
   background: var(--ab-island-selected);
   color: var(--ab-island-ink);
 }
@@ -106,6 +102,14 @@
   border: 0;
   font-size: 0.875rem;
   line-height: 1.25;
+}
+
+@media (pointer: coarse) {
+  .ab-island .ab-island__profile-button {
+    min-block-size: 2.75rem;
+    min-inline-size: 2.75rem;
+    justify-content: center;
+  }
 }
 
 .ab-island .ab-island__account {
@@ -145,8 +149,8 @@
 }
 
 .ab-island .ab-island__intro h1 {
-  font: 400 clamp(2.45rem, 5.4cqi, 4.4rem) / 1 var(--ab-island-serif);
-  letter-spacing: -0.06em;
+  font: 400 clamp(2.2rem, 4.2cqi, 3.25rem) / 1 var(--ab-island-serif);
+  letter-spacing: -0.04em;
 }
 
 .ab-island .ab-island__intro p {
@@ -193,20 +197,14 @@
   align-items: start;
 }
 
-.ab-island .ab-island__eyebrow {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
 .ab-island .ab-island__feature h2 {
-  font: 400 clamp(1.9rem, 4cqi, 3.35rem) / 1 var(--ab-island-serif);
-  letter-spacing: -0.06em;
+  font: 400 clamp(2rem, 4.4cqi, 3.6rem) / 1 var(--ab-island-serif);
+  letter-spacing: -0.04em;
 }
 
-.ab-island .ab-island__feature-copy p:not(.ab-island__eyebrow) {
-  max-inline-size: 27ch;
+.ab-island .ab-island__feature-copy p {
+  max-inline-size: 30ch;
+  text-wrap: pretty;
   font-size: 0.875rem;
 }
 
@@ -254,7 +252,7 @@
 }
 
 .ab-island .ab-island__date span {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -262,7 +260,7 @@
 
 .ab-island .ab-island__date strong {
   font: 400 clamp(1.85rem, 5cqi, 4.1rem) / 0.98 var(--ab-island-serif);
-  letter-spacing: -0.07em;
+  letter-spacing: -0.04em;
 }
 
 .ab-island .ab-island__panel-heading {
@@ -279,7 +277,7 @@
 .ab-island .ab-island__panel-heading span,
 .ab-island .ab-island__rows p,
 .ab-island .ab-island__timeline :is(p, time),
-.ab-island .ab-island__directory header p {
+.ab-island .ab-island__dialog header p {
   color: var(--ab-island-muted);
   font-size: 0.8rem;
 }
@@ -291,7 +289,11 @@
 
 .ab-island .ab-island__total strong {
   color: var(--ab-island-ink);
-  font: 400 2.85rem / 1 var(--ab-island-serif);
+  font: 400 2.1rem / 1 var(--ab-island-serif);
+}
+
+.ab-island .ab-island__trend {
+  margin: auto 0 0;
 }
 
 .ab-island .ab-island__chart {
@@ -299,7 +301,6 @@
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.45rem;
-  margin-block-start: auto;
   text-align: center;
   font-size: 0.75rem;
   font-variant-numeric: tabular-nums;
@@ -367,6 +368,17 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.83fr);
 }
 
+.ab-island .ab-island__rows time {
+  white-space: nowrap;
+}
+
+@media (pointer: coarse) {
+  .ab-island .ab-island__open-link {
+    padding-block: 0.6rem;
+    margin-block: -0.6rem;
+  }
+}
+
 .ab-island .ab-island__completion {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 3.5ch;
@@ -388,6 +400,9 @@
   --timeline-slot-size: 1.9rem;
   --timeline-inline-gap: 0.6rem;
   --timeline-gap: 0.95rem;
+  /* The title is set smaller than the event's own line box, so its visual
+     centre sits below the slot's; the nudge brings the avatars down to it. */
+  --timeline-marker-nudge: 0.25rem;
 }
 
 .ab-island .ab-island__timeline > li {
@@ -410,26 +425,64 @@
   grid-column: 1 / -1;
 }
 
-.ab-island .ab-island__timeline > li:nth-child(1) .ab-island__initials {
+.ab-island .ab-island__initials-sage {
   --avatar-bg: light-dark(#e3eadd, #435741);
   color: light-dark(#374c35, #e5f1de);
 }
 
-.ab-island .ab-island__timeline > li:nth-child(2) .ab-island__initials {
+.ab-island .ab-island__initials-lilac {
   --avatar-bg: var(--ab-island-selected);
   color: light-dark(#4d3b67, #efe5ff);
 }
 
 .ab-island .ab-island__dialog {
   --modal-size: 31rem;
+  border: 1px solid var(--ab-island-line);
   --modal-pad: clamp(1.2rem, 4vw, 2rem);
   background: var(--ab-island-paper);
   color: var(--ab-island-ink);
   border-radius: 1.5rem;
 }
 
+/* A round close echoes the dialog's large radius, inset far enough to clear
+   the corner's curve. */
+.ab-island .ab-island__dialog > .close {
+  inset-block-start: 0.75rem;
+  inset-inline-end: 0.75rem;
+  border-radius: var(--radius-full);
+}
+
 .ab-island .ab-island__dialog .stack .stack {
-  --gap: 0.5rem;
+  --gap: 0.35rem;
+}
+
+.ab-island .ab-island__dialog h2 {
+  padding-inline-end: 2.5rem;
+  font: 400 clamp(1.75rem, 5vw, 2.25rem) / 1.05 var(--ab-island-serif);
+  letter-spacing: -0.03em;
+}
+
+.ab-island .ab-island__dialog > .stack > p:last-child {
+  margin-block-start: 0.5rem;
+}
+
+.ab-island .ab-island__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem 1rem;
+  padding-block: 0.85rem;
+  border-block: 1px solid var(--ab-island-line);
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-island .ab-island__facts dt {
+  color: var(--ab-island-muted);
+  font-size: 0.8rem;
+}
+
+.ab-island .ab-island__facts dd {
+  margin: 0;
+  font-weight: 600;
 }
 
 .ab-island .ab-island__directory {
@@ -443,6 +496,11 @@
   --dg-accent: var(--ab-island-accent);
   --dg-control-border-color: var(--border-control);
   min-inline-size: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-island .ab-island__directory .ab-island__open-link {
+  font-size: inherit;
 }
 
 .ab-island .ab-island__directory data-grid:not(:defined) {
@@ -459,6 +517,12 @@
   padding: 0.4rem;
   border-block-end: 1px solid var(--ab-island-line);
   text-align: start;
+}
+
+@media (width >= 34rem) {
+  .ab-island .ab-island__facts {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 @container ab-island (inline-size >= 47rem) {
