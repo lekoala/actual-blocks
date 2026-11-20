@@ -53,6 +53,16 @@ test("visual: island workspace mobile dark", async ({ page }) => {
   await expect(page).toHaveScreenshot("island-mobile-dark.png", { fullPage: true, animations: "disabled", caret: "hide" });
 });
 
+test("visual: island workspace project directory mobile dark", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/previews/island.html?theme=dark");
+  await ready(page);
+  await page.getByRole("button", { name: "All projects" }).click();
+  const directory = page.getByRole("dialog", { name: "All projects" });
+  await expect(directory.getByRole("searchbox")).toBeVisible();
+  await expect(directory).toHaveScreenshot("island-directory-mobile-dark.png", { animations: "disabled", caret: "hide" });
+});
+
 test("visual: settings light", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/previews/settings.html?theme=light");

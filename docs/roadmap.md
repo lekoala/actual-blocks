@@ -65,11 +65,12 @@ Surveyed and not retained: sign-up, magic-link and reset-password variants (Sign
 
 ### 3. Integration recipes
 
-A separate family, not a change to every block: recipes that wire a specialised library to an Actual CSS interface, with explicit, pinned dependencies and an optional copyable JS file limited to that wiring. Ordinary blocks keep the current contract (HTML, CSS, native behavior, Actual CSS enhancers).
+A recipe integrates a specialised library with an Actual CSS interface. The detail page lists its exact dependency and copyable loading instructions.
 
-- First recipe: **Calendar** with `@lekoala/calendar` (light DOM, plain CSS, 14 `--calendar-*` tokens bridged to Actual CSS tokens, events wired through `eventSource`). Then candidates such as a combobox, a date picker (first use: the Dashboard Shell date range) or a data grid.
+- **Data Grid** is implemented in Island Workspace with a declarative table and the pinned `data-grid-component` package. It supports local search, sorting and stage filters through authored attributes.
+- **Calendar** with `@lekoala/calendar` remains planned. Candidates also include a combobox and a date picker for Dashboard Shell.
 - Admission is technical, not by author: interoperability with Actual CSS tokens and light/dark, accessibility checked with Axe and the keyboard, copyable code, documented and pinned dependencies.
-- Needs a contract and build change first: dependency declaration in `metadata.json`, loading it only in that preview, a `recipe.js` copy tab, and checks in `check.js`. Record it in `decisions.md` and `block-contract.md` before any code.
+- A recipe that needs application wiring would require a separate contract for copying that wiring. Data Grid's declarative setup uses the existing HTML and CSS copy tabs.
 
 ### Showcases (open)
 

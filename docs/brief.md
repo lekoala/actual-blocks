@@ -20,7 +20,7 @@ A block is a finished page section or application screen a consumer would actual
 ## How consumers use it
 
 - They copy a block's HTML, and its CSS when it has any, into their own project. There is no `actual-blocks` package, CLI or registry to install.
-- A block depends only on Actual CSS (full bundle or the listed modules), its own scoped CSS and, for a few blocks, Actual CSS's published JavaScript enhancers. Never on the gallery.
+- Blocks use Actual CSS, scoped block styles and declared dependencies such as Actual CSS enhancers or the published Data Grid package. Previews and copied code use the same dependencies.
 - Backend-dependent controls are illustrative and say so; the block never pretends to save, search or authenticate.
 
 ## Versions and updates
@@ -44,7 +44,7 @@ Blocks are evergreen. The project lives on GitHub only: the repository holds the
 - Semantic HTML that works when pasted into another page.
 - Only documented Actual CSS classes, hooks and enhancers.
 - Block CSS is allowed when scoped to the block root and copyable. One-off styling stays out of Actual CSS.
-- No custom JavaScript: native HTML first, then Actual CSS's published enhancers.
+- Behavior comes from native HTML and declared published modules.
 - Preview and copied source come from the **same canonical file**.
 
 The full rules are in [`block-contract.md`](block-contract.md).

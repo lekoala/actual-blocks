@@ -14,12 +14,17 @@
         </ul>
       </nav>
 
-      <div class="cluster ab-island__profile">
-        <span class="avatar sm ab-island__initials" aria-hidden="true">LM</span>
-        <div>
-          <strong>Lea Morgan</strong>
-          <p>Studio lead</p>
-        </div>
+      <div class="flyout-trigger ab-island__profile">
+        <button class="btn ghost ab-island__profile-button" type="button" data-enhance="flyout" aria-expanded="false" aria-controls="ab-island-account" aria-label="LM, Lea Morgan — workspace menu">
+          <span class="avatar sm ab-island__initials" aria-hidden="true">LM</span>
+          <span class="ab-island__profile-name">Lea Morgan</span>
+        </button>
+        <menu class="flyout menu ab-island__account" id="ab-island-account" aria-label="Workspace menu" data-flyout-placement="bottom-end" hidden>
+          <li class="menu-label">Lea Morgan · Studio lead</li>
+          <li><a class="menu-item" href="#ab-island-form">My next handoff</a></li>
+          <li><a class="menu-item" href="#ab-island-projects">Browse projects</a></li>
+          <li><a class="menu-item" href="#ab-island-activity">Recent activity</a></li>
+        </menu>
       </div>
     </header>
 
@@ -67,13 +72,13 @@
         <section class="card ab-island__panel" id="ab-island-projects" aria-labelledby="ab-island-projects-heading" tabindex="-1">
           <div class="cluster ab-island__panel-heading">
             <h2 id="ab-island-projects-heading">Projects</h2>
-            <span>3 active</span>
+            <button class="btn link ab-island__open-link" type="button" command="show-modal" commandfor="ab-island-directory" aria-haspopup="dialog">All projects <span aria-hidden="true">↗</span></button>
           </div>
           <ul class="list-reset ab-island__rows" role="list">
             <li class="ab-island__project">
               <div>
-                <strong id="ab-island-atlas">Atlas identity</strong>
-                <p>Client review</p>
+                <button class="btn link ab-island__open-link" id="ab-island-atlas" type="button" command="show-modal" commandfor="ab-island-project-atlas" aria-haspopup="dialog">Atlas identity</button>
+                <p>Review with the client · May 21</p>
               </div>
               <div class="ab-island__completion">
                 <progress class="progress" value="80" max="100" aria-labelledby="ab-island-atlas"></progress>
@@ -82,8 +87,8 @@
             </li>
             <li class="ab-island__project">
               <div>
-                <strong id="ab-island-harbor">Harbor website</strong>
-                <p>Design</p>
+                <button class="btn link ab-island__open-link" id="ab-island-harbor" type="button" command="show-modal" commandfor="ab-island-project-harbor" aria-haspopup="dialog">Harbor website</button>
+                <p>Prototype handoff · May 27</p>
               </div>
               <div class="ab-island__completion">
                 <progress class="progress" value="55" max="100" aria-labelledby="ab-island-harbor"></progress>
@@ -92,8 +97,8 @@
             </li>
             <li class="ab-island__project">
               <div>
-                <strong id="ab-island-form">Form library</strong>
-                <p>Discovery</p>
+                <button class="btn link ab-island__open-link" id="ab-island-form" type="button" command="show-modal" commandfor="ab-island-project-form" aria-haspopup="dialog">Form library</button>
+                <p>Research readout · Jun 4</p>
               </div>
               <div class="ab-island__completion">
                 <progress class="progress" value="25" max="100" aria-labelledby="ab-island-form"></progress>
@@ -107,21 +112,24 @@
           <div class="cluster ab-island__panel-heading">
             <h2 id="ab-island-activity-heading">Recent activity</h2>
           </div>
-          <ol class="list-reset ab-island__rows" role="list">
-            <li class="ab-island__event">
+          <ol class="timeline ab-island__timeline" role="list">
+            <li>
               <span class="avatar sm ab-island__initials" aria-hidden="true">NC</span>
-              <div><strong>Nora Chen</strong><p>Shared Atlas presentation</p></div>
-              <time datetime="2026-05-18">Today</time>
+              <time datetime="2026-05-18T10:30">Today</time>
+              <button class="btn link ab-island__open-link" type="button" command="show-modal" commandfor="ab-island-project-atlas" aria-haspopup="dialog">Atlas presentation shared</button>
+              <p>Nora Chen · Client review</p>
             </li>
-            <li class="ab-island__event">
+            <li>
               <span class="avatar sm ab-island__initials" aria-hidden="true">SR</span>
-              <div><strong>Sam Rivera</strong><p>Updated Harbor wireframes</p></div>
               <time datetime="2026-05-15">May 15</time>
+              <button class="btn link ab-island__open-link" type="button" command="show-modal" commandfor="ab-island-project-harbor" aria-haspopup="dialog">Harbor wireframes updated</button>
+              <p>Sam Rivera · Mobile checkout</p>
             </li>
-            <li class="ab-island__event">
+            <li>
               <span class="avatar sm ab-island__initials" aria-hidden="true">LM</span>
-              <div><strong>Lea Morgan</strong><p>Added Form research notes</p></div>
               <time datetime="2026-05-14">May 14</time>
+              <button class="btn link ab-island__open-link" type="button" command="show-modal" commandfor="ab-island-project-form" aria-haspopup="dialog">Form research notes added</button>
+              <p>Lea Morgan · Field validation</p>
             </li>
           </ol>
         </section>
@@ -129,7 +137,7 @@
     </main>
   </div>
 
-  <dialog class="modal ab-island__brief" id="ab-island-brief" aria-labelledby="ab-island-brief-title" closedby="any">
+  <dialog class="modal ab-island__dialog" id="ab-island-brief" aria-labelledby="ab-island-brief-title" closedby="any">
     <button class="close" type="button" command="request-close" commandfor="ab-island-brief" aria-label="Close brief" autofocus></button>
     <div class="stack">
       <header class="stack">
@@ -144,6 +152,113 @@
           <li>Agree on a delivery date for the brand guide.</li>
         </ul>
       </div>
+    </div>
+  </dialog>
+
+  <dialog class="modal ab-island__dialog ab-island__directory" id="ab-island-directory" aria-labelledby="ab-island-directory-title" closedby="any">
+    <button class="close" type="button" command="request-close" commandfor="ab-island-directory" aria-label="Close project directory" autofocus></button>
+    <div class="stack">
+      <header class="stack">
+        <h2 id="ab-island-directory-title">All projects</h2>
+        <p>3 active · 2 delivered</p>
+      </header>
+      <data-grid searchable sortable filterable wrap autohide-pager search-placeholder="Search projects…" no-data="No matching projects">
+        <table>
+          <caption class="sr-only">Fieldwork project directory</caption>
+          <thead>
+            <tr>
+              <th scope="col" data-field="project" data-filterable="false" data-min-width="112">Project</th>
+              <th scope="col" data-field="stage" data-filter="select" data-min-width="88">Stage</th>
+              <th scope="col" data-field="date" data-filterable="false" data-min-width="65">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-row-key="atlas">
+              <td data-value="Atlas identity"><button class="btn link ab-island__open-link" type="button" command="show-modal" commandfor="ab-island-project-atlas" aria-haspopup="dialog">Atlas identity</button></td>
+              <td>Client review</td>
+              <td data-value="2026-05-21"><time datetime="2026-05-21">May 21</time></td>
+            </tr>
+            <tr data-row-key="harbor">
+              <td data-value="Harbor website"><button class="btn link ab-island__open-link" type="button" command="show-modal" commandfor="ab-island-project-harbor" aria-haspopup="dialog">Harbor website</button></td>
+              <td>Design</td>
+              <td data-value="2026-05-27"><time datetime="2026-05-27">May 27</time></td>
+            </tr>
+            <tr data-row-key="form">
+              <td data-value="Form library"><button class="btn link ab-island__open-link" type="button" command="show-modal" commandfor="ab-island-project-form" aria-haspopup="dialog">Form library</button></td>
+              <td>Discovery</td>
+              <td data-value="2026-06-04"><time datetime="2026-06-04">Jun 4</time></td>
+            </tr>
+            <tr data-row-key="ridge">
+              <td data-value="Ridge launch kit"><button class="btn link ab-island__open-link" type="button" command="show-modal" commandfor="ab-island-project-ridge" aria-haspopup="dialog">Ridge launch kit</button></td>
+              <td>Delivered</td>
+              <td data-value="2026-05-12"><time datetime="2026-05-12">May 12</time></td>
+            </tr>
+            <tr data-row-key="common">
+              <td data-value="Common Ground report"><button class="btn link ab-island__open-link" type="button" command="show-modal" commandfor="ab-island-project-common" aria-haspopup="dialog">Common Ground report</button></td>
+              <td>Delivered</td>
+              <td data-value="2026-05-07"><time datetime="2026-05-07">May 7</time></td>
+            </tr>
+          </tbody>
+        </table>
+      </data-grid>
+    </div>
+  </dialog>
+
+  <dialog class="modal ab-island__dialog" id="ab-island-project-atlas" aria-labelledby="ab-island-project-atlas-title" closedby="any">
+    <button class="close" type="button" command="request-close" commandfor="ab-island-project-atlas" aria-label="Close project" autofocus></button>
+    <div class="stack">
+      <header class="stack">
+        <p class="ab-island__eyebrow">Client review · Nora Chen</p>
+        <h2 id="ab-island-project-atlas-title">Atlas identity</h2>
+      </header>
+      <p>The wordmark, colour system and launch templates are ready for client review. Nora shared the presentation with the studio on May 18.</p>
+      <p><strong>Next milestone</strong> · Client presentation on May 21.</p>
+    </div>
+  </dialog>
+
+  <dialog class="modal ab-island__dialog" id="ab-island-project-harbor" aria-labelledby="ab-island-project-harbor-title" closedby="any">
+    <button class="close" type="button" command="request-close" commandfor="ab-island-project-harbor" aria-label="Close project" autofocus></button>
+    <div class="stack">
+      <header class="stack">
+        <p class="ab-island__eyebrow">Design · Sam Rivera</p>
+        <h2 id="ab-island-project-harbor-title">Harbor website</h2>
+      </header>
+      <p>Sam revised mobile checkout after two usability sessions. The prototype covers guest checkout and switching between pickup and delivery.</p>
+      <p><strong>Next milestone</strong> · Prototype handoff on May 27.</p>
+    </div>
+  </dialog>
+
+  <dialog class="modal ab-island__dialog" id="ab-island-project-form" aria-labelledby="ab-island-project-form-title" closedby="any">
+    <button class="close" type="button" command="request-close" commandfor="ab-island-project-form" aria-label="Close project" autofocus></button>
+    <div class="stack">
+      <header class="stack">
+        <p class="ab-island__eyebrow">Discovery · Lea Morgan</p>
+        <h2 id="ab-island-project-form-title">Form library</h2>
+      </header>
+      <p>Lea is comparing field validation across six client sites. The research will inform a shared pattern for error messages and recovery.</p>
+      <p><strong>Next milestone</strong> · Research readout on June 4.</p>
+    </div>
+  </dialog>
+
+  <dialog class="modal ab-island__dialog" id="ab-island-project-ridge" aria-labelledby="ab-island-project-ridge-title" closedby="any">
+    <button class="close" type="button" command="request-close" commandfor="ab-island-project-ridge" aria-label="Close project" autofocus></button>
+    <div class="stack">
+      <header class="stack">
+        <p class="ab-island__eyebrow">Delivered May 12 · Nora Chen</p>
+        <h2 id="ab-island-project-ridge-title">Ridge launch kit</h2>
+      </header>
+      <p>The Ridge team received the launch templates, signage artwork and a print checklist. The client approved the final proofs.</p>
+    </div>
+  </dialog>
+
+  <dialog class="modal ab-island__dialog" id="ab-island-project-common" aria-labelledby="ab-island-project-common-title" closedby="any">
+    <button class="close" type="button" command="request-close" commandfor="ab-island-project-common" aria-label="Close project" autofocus></button>
+    <div class="stack">
+      <header class="stack">
+        <p class="ab-island__eyebrow">Delivered May 7 · Sam Rivera</p>
+        <h2 id="ab-island-project-common-title">Common Ground report</h2>
+      </header>
+      <p>Sam delivered the annual report as a tagged PDF and reusable chart templates for the communications team.</p>
     </div>
   </dialog>
 </div>

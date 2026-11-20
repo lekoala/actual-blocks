@@ -1,6 +1,7 @@
 import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
 import { join, dirname, resolve, extname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { dataGrid, dataGridTags } from "./data-grid.js";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const src = join(root, "src");
@@ -110,6 +111,10 @@ for (const id of blockDirs) {
   if (metadata.id !== id) fail(`${id}: metadata id "${metadata.id}" does not match folder`);
   if (!categories.has(metadata.category)) fail(`${id}: unknown category "${metadata.category}"`);
   if (typeof metadata.requiresJs !== "boolean") fail(`${id}: requiresJs must be boolean`);
+  if ("dataGrid" in metadata && metadata.dataGrid !== true) fail(`${id}: dataGrid must be true when declared`);
+  if ((metadata.dataGrid === true) !== /<data-grid\b/i.test(html)) {
+    fail(`${id}: dataGrid metadata must match the presence of <data-grid>`);
+  }
   if (!/^\d+(?:\.\d+)?rem$/.test(metadata.previewHeight ?? "")) fail(`${id}: previewHeight must be a rem value`);
 
   for (const component of metadata.components ?? []) {
@@ -332,6 +337,27 @@ if (pkg.dependencies?.["actual-css"] !== actualPkg.version) {
   fail(`package.json must pin actual-css to the installed version (${actualPkg.version})`);
 }
 
+const usesDataGrid = blocks.some((block) => block.metadata.dataGrid);
+const dataGridVersion = pkg.dependencies?.[dataGrid.name];
+if (usesDataGrid) {
+  const source = join(root, "node_modules", dataGrid.name);
+  const gridPkg = JSON.parse(readFileSync(join(source, "package.json"), "utf8"));
+  if (dataGridVersion !== gridPkg.version || gridPkg.license !== "MIT") {
+    fail(`package.json must pin the installed MIT-licensed ${dataGrid.name} release`);
+  }
+  for (const file of [...dataGrid.styles, dataGrid.script, dataGrid.license]) {
+    const installed = join(source, file);
+    const output = join(dist, dataGrid.path, file);
+    if (!existsSync(installed)) fail(`${dataGrid.name}: published file ${file} is missing`);
+    else if (existsSync(dist) && (!existsSync(output) || !readFileSync(installed).equals(readFileSync(output)))) {
+      fail(`${dataGrid.name}: dist copy of ${file} must match the installed package`);
+    }
+  }
+  if (existsSync(dist) && !existsSync(join(dist, dataGrid.path, dataGrid.bundledLicense.target))) {
+    fail(`${dataGrid.name}: bundled floating license is missing`);
+  }
+}
+
 if (errors.length === 0) {
   pass(`${blocks.length} block sources passed metadata, class, scoping and fragment checks`);
 }
@@ -375,6 +401,15 @@ if (existsSync(dist)) {
     const loadsRuntime = preview.includes("../assets/actual-css.js");
     if (block.metadata.requiresJs && !loadsRuntime) fail(`${block.id}: preview does not load the Actual CSS runtime`);
     if (!block.metadata.requiresJs && loadsRuntime) fail(`${block.id}: preview loads the runtime although the block needs no JavaScript`);
+    for (const tag of dataGridTags(`../${dataGrid.path}`)) {
+      if (preview.includes(tag) !== Boolean(block.metadata.dataGrid)) {
+        fail(`${block.id}: preview Data Grid assets do not match metadata`);
+      }
+    }
+    if (block.metadata.dataGrid) {
+      const tags = dataGridTags(`https://cdn.jsdelivr.net/npm/${dataGrid.name}@${dataGridVersion}`);
+      if (!detail.includes(escapeHtml(tags.join("\n")))) fail(`${block.id}: copyable Data Grid tags are missing`);
+    }
     if (/\{\{[A-Z_]+\}\}/.test(detail)) fail(`${block.id}: detail page contains an unresolved placeholder`);
 
     if (block.remixCss) {

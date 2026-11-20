@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync, mkdirSync, rmSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { dataGrid, dataGridTags } from "./data-grid.js";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const src = join(root, "src");
@@ -120,6 +121,10 @@ function resolveFont(font) {
 }
 
 const blocks = ORDER.map(readBlock);
+const usesDataGrid = blocks.some((block) => block.dataGrid);
+const dataGridPkg = usesDataGrid
+  ? JSON.parse(readFileSync(join(root, "node_modules", dataGrid.name, "package.json"), "utf8"))
+  : null;
 const categoryById = Object.fromEntries(CATEGORIES.map((category) => [category.id, category]));
 const counts = Object.fromEntries(CATEGORIES.map((category) => [category.id, blocks.filter((block) => block.category === category.id).length]));
 
@@ -170,6 +175,17 @@ const jsSection = (block) => {
             <button class="g-copy g-copy--small" type="button" data-copy-target="g-js-modules">Copy</button>
           </div>
           <p class="g-aside__note">Use one or the other: loading both registers every behavior twice.</p>`;
+};
+
+const dataGridSection = (block) => {
+  if (!block.dataGrid) return "";
+  const tags = dataGridTags(`https://cdn.jsdelivr.net/npm/${dataGrid.name}@${dataGridPkg.version}`);
+  return `<p class="g-aside__label">Data Grid</p>
+          <p>Load <a href="https://github.com/lekoala/data-grid" rel="noopener">${dataGrid.name} ${dataGridPkg.version}</a> for local search, sorting and filters. Load its styles after Actual CSS and before the block CSS.</p>
+          <div class="g-import">
+            <code id="g-data-grid" tabindex="0">${escapeHtml(tags.join("\n"))}</code>
+            <button class="g-copy g-copy--small" type="button" data-copy-target="g-data-grid">Copy</button>
+          </div>`;
 };
 
 // The remix is a third copyable file over the same HTML. Its fonts are the
@@ -298,7 +314,7 @@ const detailHtml = (block) => {
     DESCRIPTION: escapeHtml(block.description),
     SUMMARY: escapeHtml(block.summary),
     PREVIEW_HEIGHT: escapeHtml(block.previewHeight),
-    REQUIRES_JS: block.requiresJs ? "Actual CSS runtime" : "None",
+    REQUIRES_JS: [block.requiresJs && "Actual CSS runtime", block.dataGrid && "Data Grid"].filter(Boolean).join(" + ") || "None",
     SOURCE_FILES: block.remix ? "block.html + block.css + remix.css" : "block.html + block.css",
     VARIANT_CONTROL: variantControl(block),
     REMIX_SRC: block.remix ? ` data-preview-remix-src="../previews/${block.id}--remix.html"` : "",
@@ -306,6 +322,7 @@ const detailHtml = (block) => {
     REMIX_PANEL: remixPanel(block),
     REMIX_SECTION: remixSection(block),
     JS_SECTION: jsSection(block),
+    DATA_GRID_SECTION: dataGridSection(block),
     SOURCE_HTML: escapeHtml(block.html),
     SOURCE_CSS: escapeHtml(block.css),
     COMPONENT_LINKS: componentLinks(block),
@@ -337,7 +354,7 @@ const previewHtml = (block, remix = false) => `<!doctype html>
     })();
   </script>
   <link rel="stylesheet" href="../assets/actual-css.css" />
-${remix ? block.remix.fonts.flatMap((font) => font.local.map((href) => `  <link rel="stylesheet" href="${href}" />\n`)).join("") : ""}  <link rel="stylesheet" href="../assets/blocks/${block.id}.css" />${remix ? `\n  <link rel="stylesheet" href="../assets/blocks/${block.id}.remix.css" />` : ""}${block.requiresJs ? '\n  <script src="../assets/actual-css.js" defer></script>' : ""}
+${block.dataGrid ? dataGridTags(`../${dataGrid.path}`).map((tag) => `  ${tag}\n`).join("") : ""}${remix ? block.remix.fonts.flatMap((font) => font.local.map((href) => `  <link rel="stylesheet" href="${href}" />\n`)).join("") : ""}  <link rel="stylesheet" href="../assets/blocks/${block.id}.css" />${remix ? `\n  <link rel="stylesheet" href="../assets/blocks/${block.id}.remix.css" />` : ""}${block.requiresJs ? '\n  <script src="../assets/actual-css.js" defer></script>' : ""}
   <style>
     html,
     body {
@@ -404,6 +421,15 @@ for (const font of fontPackages.values()) {
       copyFileSync(join(source, file), join(target, file));
     }
   }
+}
+
+if (usesDataGrid) {
+  for (const file of [...dataGrid.styles, dataGrid.script, dataGrid.license]) {
+    const target = join(dist, dataGrid.path, file);
+    mkdirSync(dirname(target), { recursive: true });
+    copyFileSync(join(root, "node_modules", dataGrid.name, file), target);
+  }
+  copyFileSync(join(root, "node_modules", dataGrid.bundledLicense.source), join(dist, dataGrid.path, dataGrid.bundledLicense.target));
 }
 
 for (const block of blocks) {

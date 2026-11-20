@@ -244,10 +244,16 @@ test.describe("island workspace without JavaScript", () => {
 
     const rail = page.getByRole("banner");
     const navigation = page.getByRole("navigation", { name: "Workspace sections" });
+    const profile = rail.locator(".ab-island__profile");
+    const profileName = profile.getByText("Lea Morgan", { exact: true });
     const milestone = page.getByRole("region", { name: "Atlas identity" });
     const reviews = page.getByRole("region", { name: "Review activity" });
     await expect(rail).toHaveCSS("position", "sticky");
     await expect(rail).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+    await expect(profileName).toHaveCSS("clip-path", "none");
+    const profileBox = await profile.boundingBox();
+    const activityBox = await page.getByRole("region", { name: "Recent activity" }).boundingBox();
+    expect(profileBox.y + profileBox.height).toBeCloseTo(activityBox.y + activityBox.height);
     expect((await milestone.boundingBox()).y).toBe((await reviews.boundingBox()).y);
 
     await page.setViewportSize({ width: 820, height: 900 });
@@ -257,6 +263,8 @@ test.describe("island workspace without JavaScript", () => {
 
     await page.setViewportSize({ width: 360, height: 800 });
     await expect(navigation.getByRole("link")).toHaveCount(3);
+    await expect(profileName).toHaveCSS("clip-path", "inset(50%)");
+    expect(await profile.ariaSnapshot()).toContain("Lea Morgan");
     expect((await milestone.boundingBox()).y).toBeLessThan((await reviews.boundingBox()).y);
     await navigation.getByRole("link", { name: "Projects" }).press("Enter");
     const projects = page.getByRole("region", { name: "Projects" });
@@ -281,7 +289,97 @@ test.describe("island workspace without JavaScript", () => {
     await close.press("Enter");
     await expect(dialog).toBeHidden();
     await expect(trigger).toBeFocused();
+
+    await page.getByRole("button", { name: "All projects" }).click();
+    const directory = page.getByRole("dialog", { name: "All projects" });
+    await expect(directory.getByRole("table", { name: "Fieldwork project directory" })).toBeVisible();
+    await expect(directory.getByRole("searchbox")).toHaveCount(0);
+    await directory.getByRole("button", { name: "Ridge launch kit" }).click();
+    await expect(page.getByRole("dialog", { name: "Ridge launch kit" })).toBeVisible();
   });
+});
+
+test("island workspace menu and timeline reach project details", async ({ page }) => {
+  await page.setViewportSize({ width: 1100, height: 800 });
+  await page.goto("/previews/island.html?theme=light");
+  const eventRow = page.locator(".ab-island__timeline li").filter({ hasText: "Harbor wireframes updated" });
+  const eventDate = await eventRow.locator("time").boundingBox();
+  const eventTitle = await eventRow.getByRole("button").boundingBox();
+  expect(eventTitle.y).toBeLessThan(eventDate.y + eventDate.height);
+  const avatar = page.getByRole("button", { name: "LM, Lea Morgan — workspace menu" });
+  await expect(avatar).toHaveCSS("padding-inline-end", "10.4px");
+
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto("/previews/island.html?theme=dark");
+
+  await expect(avatar).toHaveCSS("padding-inline-end", "0px");
+  const menu = page.getByRole("list", { name: "Workspace menu" });
+  const handoff = menu.getByRole("link", { name: "My next handoff" });
+  await avatar.click();
+  await expect(menu).toBeVisible();
+  await expect(avatar).toHaveAttribute("aria-expanded", "true");
+  await page.keyboard.press("Escape");
+  await expect(menu).toBeHidden();
+  await expect(avatar).toBeFocused();
+
+  await avatar.press("ArrowDown");
+  await expect(handoff).toBeFocused();
+  await page.keyboard.press("Enter");
+  const project = page.getByRole("button", { name: "Form library", exact: true });
+  await expect(menu).toBeHidden();
+  await expect(project).toBeFocused();
+  await page.keyboard.press("Enter");
+  const details = page.getByRole("dialog", { name: "Form library" });
+  await expect(details.getByText("Research readout on June 4.", { exact: false })).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(details).toBeHidden();
+  await expect(project).toBeFocused();
+
+  const event = page.getByRole("button", { name: "Form research notes added" });
+  await event.click();
+  await expect(details).toBeVisible();
+  await details.getByRole("button", { name: "Close project" }).click();
+  await expect(event).toBeFocused();
+});
+
+test("island workspace project directory searches, filters and sorts its local data", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/previews/island.html?theme=light");
+  const allProjects = page.getByRole("button", { name: "All projects" });
+  await allProjects.click();
+  const directory = page.getByRole("dialog", { name: "All projects" });
+  const table = directory.getByRole("table", { name: "Fieldwork project directory" });
+  const projectButtons = table.locator('tbody button[command="show-modal"]');
+  await expect(projectButtons).toHaveCount(5);
+
+  const date = table.getByRole("columnheader", { name: "Date" });
+  await date.getByRole("button", { name: "Date" }).click();
+  await expect(date).toHaveAttribute("aria-sort", "ascending");
+  await expect(projectButtons.first()).toHaveText("Common Ground report");
+
+  const stage = table.getByRole("combobox", { name: "Stage" });
+  await stage.selectOption({ label: "Delivered" });
+  await expect(projectButtons).toHaveText(["Common Ground report", "Ridge launch kit"]);
+  await directory.getByRole("searchbox").fill("ridge");
+  await expect(projectButtons).toHaveText(["Ridge launch kit"]);
+
+  const ridge = projectButtons.first();
+  await ridge.press("Enter");
+  const details = page.getByRole("dialog", { name: "Ridge launch kit" });
+  await expect(details).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(details).toBeHidden();
+  await expect(ridge).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(directory).toBeHidden();
+  await expect(allProjects).toBeFocused();
+
+  await page.setViewportSize({ width: 360, height: 800 });
+  await allProjects.click();
+  await expect(stage).toBeVisible();
+  await expect(date).toBeInViewport();
+  await expect(projectButtons).toHaveText(["Ridge launch kit"]);
+  await expect(directory.getByText("May 12", { exact: true })).toBeVisible();
 });
 
 test("dashboard shell scrolls only its content and wires its panels", async ({ page }) => {

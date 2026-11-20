@@ -6,7 +6,7 @@ Blocks are evergreen and carry no compatibility guarantee: to pick up a change, 
 
 Pins Actual CSS 0.19.0: keep the project on the latest published release and verify the blocks against the current upstream API. The 27 existing blocks continue to consume the published CSS and runtime without canonical source changes.
 
-- **Island Workspace** (new, application) places studio navigation on a shared canvas and raises separate panels for the next milestone, review activity, projects and recent updates. The same navigation moves above the panels on narrow screens. The milestone brief opens in a native dialog.
+- **Island Workspace** (new, application) places studio navigation on a shared canvas and raises panels for the next milestone, reviews, active projects and an activity timeline. The avatar opens a workspace menu with shortcuts. Timeline dates stay beside their titles as they wrap. The project directory supports local search, sorting and stage filters with Data Grid 3.9.0.
 - **Dashboard Overview** (original and Control Room remix), **Account Settings** and **App Sidebar**: reviewed and updated five visual baselines for the softer neutral outline borders.
 
 Gallery: block details keep a single heading per section, “Dependencies” and “Good to know”, removing the redundant subtitles.

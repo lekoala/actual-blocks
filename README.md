@@ -31,6 +31,8 @@ or, in a bundled app, only the enhancers the block lists (`import "actual-css/js
 
 A block never needs the gallery CSS, the gallery JavaScript, an `actual-blocks` package or a build step.
 
+Island Workspace also uses the pinned Data Grid package for its project directory. The detail page provides the stylesheet, theme and script tags to copy.
+
 ### Remixes
 
 A few blocks also have a **remix**: the same HTML with a different identity (an editorial Product Hero, a dense Control Room dashboard, a neo-brutalist Sign-in). Switch to it on the detail page, then copy `remix.css` and load it, with the open-licensed fonts it lists, after the block CSS. Its first rule is a brand theme made of Actual CSS tokens, at page level; the rest is scoped to the block.

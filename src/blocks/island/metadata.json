@@ -2,16 +2,19 @@
   "id": "island",
   "title": "Island Workspace",
   "category": "application",
-  "description": "A studio workspace with navigation on a shared canvas and raised islands for the next milestone, review activity, active projects and recent updates.",
-  "summary": "A quiet sidebar, raised panels and a milestone brief for a studio dashboard.",
-  "components": ["navbar", "card", "modal", "close", "button", "avatar", "progress"],
-  "primitives": ["nav-list", "stack", "cluster", "list-reset", "container-query"],
-  "requiresJs": false,
-  "previewHeight": "48rem",
+  "description": "A studio workspace with a profile menu, a searchable project directory and a timeline that opens project details. The sidebar and raised panels share a responsive canvas.",
+  "summary": "Studio dashboard with a profile menu, project directory and activity timeline.",
+  "components": ["navbar", "card", "flyout", "menu", "modal", "close", "button", "avatar", "progress", "timeline"],
+  "primitives": ["nav-list", "stack", "cluster", "list-reset", "container-query", "flyout-trigger", "sr-only"],
+  "requiresJs": true,
+  "scripts": ["flyout"],
+  "dataGrid": true,
+  "previewHeight": "50rem",
   "docs": ["patterns/navigation-list.html", "layout/grid.html"],
   "notes": [
     "The sidebar and workspace share a canvas. At narrower container widths the same section links move above the content, and the four panels eventually stack in reading order. The workspace scrolls with the page.",
-    "The milestone brief uses native dialog invoker commands (show-modal and request-close). The button needs browser support for command and commandfor. Escape also closes the open dialog.",
-    "The brief, review counts, project progress and activity are sample data. When updating the chart, keep each label and --ab-island-count in sync and set --ab-island-chart-max to the top of the scale."
+    "The avatar opens an Actual CSS flyout. The brief, project details and directory use native dialog commands (show-modal and request-close), which need browser support for command and commandfor.",
+    "The project directory searches, sorts and filters the five sample records locally. Without JavaScript it displays the authored table, project details still open, and the avatar menu stays closed. Project data and profile details are read-only sample content.",
+    "When supplying your own project data, keep the overview, timeline and directory aligned with the detail dialogs. In the chart, keep each label and --ab-island-count in sync and set --ab-island-chart-max to the top of the scale."
   ]
 }

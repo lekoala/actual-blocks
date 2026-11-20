@@ -86,22 +86,40 @@
 .ab-island:not(:has(:target)) .nav-link[href="#ab-island-overview"],
 .ab-island:has(#ab-island-overview:target) .nav-link[href="#ab-island-overview"],
 .ab-island:has(#ab-island-projects:target) .nav-link[href="#ab-island-projects"],
+.ab-island:has(#ab-island-form:target) .nav-link[href="#ab-island-projects"],
 .ab-island:has(#ab-island-activity:target) .nav-link[href="#ab-island-activity"] {
   background: var(--ab-island-selected);
   color: var(--ab-island-ink);
 }
 
 .ab-island .ab-island__profile {
-  --gap: 0.55rem;
+  position: relative;
   grid-area: profile;
+  align-self: center;
+}
+
+.ab-island .ab-island__profile-button {
+  --btn-gap: 0.55rem;
+  --btn-radius: var(--radius-full);
+  min-block-size: 2.15rem;
+  padding: 0;
+  border: 0;
   font-size: 0.875rem;
   line-height: 1.25;
 }
 
-.ab-island .ab-island__profile p {
-  margin-block-start: 0.15rem;
-  color: var(--ab-island-muted);
-  font-size: 0.75rem;
+.ab-island .ab-island__account {
+  --flyout-inline-size: 12rem;
+  background: var(--ab-island-paper);
+  color: var(--ab-island-ink);
+}
+
+.ab-island .ab-island__profile-name {
+  font-weight: 600;
+}
+
+.ab-island .ab-island__profile .ab-island__initials {
+  --avatar-size: 2.15rem;
 }
 
 .ab-island .ab-island__initials {
@@ -260,7 +278,8 @@
 
 .ab-island .ab-island__panel-heading span,
 .ab-island .ab-island__rows p,
-.ab-island .ab-island__event time {
+.ab-island .ab-island__timeline :is(p, time),
+.ab-island .ab-island__directory header p {
   color: var(--ab-island-muted);
   font-size: 0.8rem;
 }
@@ -334,8 +353,14 @@
   line-height: 1.35;
 }
 
-.ab-island .ab-island__rows strong {
-  font-weight: 650;
+.ab-island .ab-island__open-link {
+  min-block-size: 1.5rem;
+  padding-block: 0;
+  color: var(--ab-island-accent);
+  font-size: 0.875rem;
+  scroll-margin-block: 1rem;
+  text-align: start;
+  white-space: normal;
 }
 
 .ab-island .ab-island__project {
@@ -359,21 +384,43 @@
   min-inline-size: 0;
 }
 
-.ab-island .ab-island__event {
-  grid-template-columns: auto minmax(0, 1fr) auto;
+.ab-island .ab-island__timeline {
+  --timeline-slot-size: 1.9rem;
+  --timeline-inline-gap: 0.6rem;
+  --timeline-gap: 0.95rem;
 }
 
-.ab-island .ab-island__event:nth-child(1) .ab-island__initials {
+.ab-island .ab-island__timeline > li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 0.55rem;
+  align-items: baseline;
+}
+
+.ab-island .ab-island__timeline time {
+  grid-area: 1 / 2;
+  white-space: nowrap;
+}
+
+.ab-island .ab-island__timeline .ab-island__open-link {
+  grid-area: 1 / 1;
+}
+
+.ab-island .ab-island__timeline p {
+  grid-column: 1 / -1;
+}
+
+.ab-island .ab-island__timeline > li:nth-child(1) .ab-island__initials {
   --avatar-bg: light-dark(#e3eadd, #435741);
   color: light-dark(#374c35, #e5f1de);
 }
 
-.ab-island .ab-island__event:nth-child(2) .ab-island__initials {
+.ab-island .ab-island__timeline > li:nth-child(2) .ab-island__initials {
   --avatar-bg: var(--ab-island-selected);
   color: light-dark(#4d3b67, #efe5ff);
 }
 
-.ab-island .ab-island__brief {
+.ab-island .ab-island__dialog {
   --modal-size: 31rem;
   --modal-pad: clamp(1.2rem, 4vw, 2rem);
   background: var(--ab-island-paper);
@@ -381,13 +428,60 @@
   border-radius: 1.5rem;
 }
 
-.ab-island .ab-island__brief .stack .stack {
+.ab-island .ab-island__dialog .stack .stack {
   --gap: 0.5rem;
+}
+
+.ab-island .ab-island__directory {
+  --modal-size: 48rem;
+}
+
+.ab-island .ab-island__directory data-grid {
+  --dg-bg: var(--ab-island-paper);
+  --dg-color: var(--ab-island-ink);
+  --dg-muted-color: var(--ab-island-muted);
+  --dg-accent: var(--ab-island-accent);
+  --dg-control-border-color: var(--border-control);
+  min-inline-size: 0;
+}
+
+.ab-island .ab-island__directory data-grid:not(:defined) {
+  display: block;
+}
+
+.ab-island .ab-island__directory data-grid:not(:defined) table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.ab-island .ab-island__directory data-grid:not(:defined) :is(th, td) {
+  padding: 0.4rem;
+  border-block-end: 1px solid var(--ab-island-line);
+  text-align: start;
 }
 
 @container ab-island (inline-size >= 47rem) {
   .ab-island .ab-island__board {
     grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  }
+}
+
+@container ab-island (inline-size < 63rem) {
+  .ab-island .ab-island__directory data-grid {
+    --dg-cell-padding-inline: 0.45rem;
+  }
+
+  .ab-island .ab-island__profile-name {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
   }
 }
 
@@ -397,14 +491,18 @@
   }
 
   .ab-island .ab-island__rail {
-    position: sticky;
-    inset-block-start: var(--ab-island-gutter);
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    align-self: start;
     gap: clamp(2rem, 4cqi, 3.5rem);
-    min-block-size: min(36rem, calc(var(--viewport-block) - 2 * var(--ab-island-gutter)));
+  }
+
+  @media (height >= 30rem) {
+    .ab-island .ab-island__rail {
+      position: sticky;
+      inset-block-start: var(--ab-island-gutter);
+      max-block-size: calc(var(--viewport-block) - 2 * var(--ab-island-gutter));
+    }
   }
 
   .ab-island .ab-island__nav {
@@ -419,7 +517,12 @@
   }
 
   .ab-island .ab-island__profile {
+    align-self: start;
     margin-block-start: auto;
+  }
+
+  .ab-island .ab-island__profile-button {
+    padding-inline-end: 0.65rem;
   }
 }
 

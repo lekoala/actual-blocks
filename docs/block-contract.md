@@ -27,11 +27,17 @@ A remix gives the same block a different identity. It is a third copyable file, 
 - **Checks:** `bun run check` enforces the selectors, the public tokens in the theme rule, every `var()`, the pins and licenses, and that each loaded face is used. `bun run contrast` runs Actual CSS's contrast checker on the theme rule in both schemes and must pass.
 - A remix cannot change the HTML, so anything that needs a class or attribute (a `.compact` density context, a `data-theme` island) is out of reach: tune the block's own hooks instead, and say so if it matters.
 
+## Declarative Data Grid
+
+Set `dataGrid: true` in metadata when the canonical fragment contains `<data-grid>`. The grid uses the exact `data-grid-component` release pinned in `package.json`. The gallery serves its published stylesheet, Actual CSS theme and ES module locally for those previews. The dependency panel provides copyable tags for the same release.
+
+Put the local data in a semantic table inside `<data-grid>`. The package enhances the table with sorting, search and filtering. The underlying table stays available when the runtime fails to load. Load the grid stylesheet and theme before `block.css`. Grid-specific theme overrides belong on the host, scoped to the block, using the package's documented hooks.
+
 ## Public behavior contract
 
 - Source visible in gallery is the same source used for preview (modulo documented transforms such as base asset path or theme selection).
 - HTML and CSS separately copyable; if no custom CSS, say so rather than provide empty misleading code.
-- Blocks contain no `<script>`. Behavior comes from the platform or from Actual CSS's published enhancers, declared with `requiresJs` and `scripts`; the detail page shows how to load them, with copy buttons, and the notes say how the block degrades without them.
+- Blocks contain no `<script>`. Behavior comes from native HTML and declared dependencies. `requiresJs` and `scripts` declare Actual CSS enhancers. The detail page provides copyable dependency instructions and notes on fallback behavior.
 - Links/buttons within isolated previews must not unexpectedly navigate the gallery.
 - Illustrative buttons that require an application backend must be clearly labeled in documentation and not imply production-ready persistence.
 

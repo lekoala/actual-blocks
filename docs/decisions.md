@@ -96,7 +96,7 @@ The gallery's own `gallery.js` handles filtering, tabs, copy, theme/viewport sta
 
 ### Blocks that need the Actual CSS runtime
 
-Seven blocks need behavior the platform does not provide: Article with Contents (`scrollspy`), Project Overview (`tab`), Sign-in (`validation`, `password`, `status`), Checkout (`validation`, `mask`, `filter`, `status`), App Topbar (`flyout`), Dashboard Shell (`flyout`, `dismiss`) and Appearance Settings (`dirty`). They rely on Actual CSS's own published enhancers rather than custom code, so the dependency story stays "Actual CSS, nothing else":
+Eight blocks use published Actual CSS enhancers. Article with Contents uses `scrollspy`, Project Overview uses `tab`, Sign-in uses `validation`, `password` and `status`, Checkout uses `validation`, `mask`, `filter` and `status`, Dashboard Shell uses `flyout` and `dismiss`, Appearance Settings uses `dirty`, and App Topbar and Island Workspace use `flyout`.
 
 - `metadata.json` sets `requiresJs: true` and lists `scripts`, the `actual-css/js/<name>` modules the block needs. `scripts/check.js` verifies that each module is a published export, that every `data-enhance` hook in the HTML is covered, and that blocks without `requiresJs` carry no hook.
 - Only those previews load the runtime, as `dist/assets/actual-css.js`: a copy of the published `dist/actual.full.js` bundle. Every other preview stays script-free, so the no-JS blocks are still tested without JavaScript.
@@ -104,6 +104,12 @@ Seven blocks need behavior the platform does not provide: Article with Contents 
 - Components documented outside `components/` (tabs, flyout, menu, scrollspy…) get their page from the `docs` URL in `components.json`, like every other component.
 
 A smoke test pastes the Project Overview fragment into a blank page with only Actual CSS, the block CSS and the published runtime, and switches tabs, to prove the copied source works outside the gallery.
+
+### Declarative Data Grid
+
+Island Workspace adds a local project directory using the published `data-grid-component` package. The authored table supplies the records, cell controls and static fallback. The published module owns search, sorting and filtering. Native dialog commands connect the project cards, timeline and directory to the same project details.
+
+`metadata.dataGrid` enables the standalone preview assets and the detail page's copyable dependency tags. The build copies the pinned module, styles, Actual CSS theme and MIT license from the installed package. The check verifies the declaration, pin and asset use. No block-specific script is needed.
 
 ## 10. Accessibility approach
 

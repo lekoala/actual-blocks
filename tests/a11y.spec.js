@@ -78,3 +78,19 @@ test("open island workspace brief passes WCAG A/AA checks", async ({ page }) => 
   await expect(page.getByRole("dialog", { name: "Atlas identity brief" })).toBeVisible();
   await analyze(page, "island workspace brief");
 });
+
+test("open island workspace menu and project directory pass WCAG A/AA checks", async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  for (const theme of ["light", "dark"]) {
+    await page.goto(`/previews/island.html?theme=${theme}`);
+    await page.getByRole("button", { name: /workspace menu/ }).click();
+    await expect(page.getByRole("list", { name: "Workspace menu" })).toBeVisible();
+    await analyze(page, `island workspace menu ${theme}`);
+    await page.keyboard.press("Escape");
+
+    await page.getByRole("button", { name: "All projects" }).click();
+    const directory = page.getByRole("dialog", { name: "All projects" });
+    await expect(directory.getByRole("combobox", { name: "Stage" })).toBeVisible();
+    await analyze(page, `island workspace directory ${theme}`);
+  }
+});
