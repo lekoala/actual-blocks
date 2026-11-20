@@ -4,9 +4,10 @@ Blocks are evergreen and carry no compatibility guarantee: to pick up a change, 
 
 ## Unreleased
 
-Pins Actual CSS 0.19.2: keep the project on the latest published release and verify the blocks against the current upstream API. The 27 existing blocks continue to consume the published CSS and runtime without canonical source changes.
+Pins Actual CSS 0.19.5 and Data Grid 3.10.2: keep the project on the latest published releases and verify the blocks against the current upstream API.
 
-- **Island Workspace** (new, application) places studio navigation on a shared canvas and raises panels for the next milestone, reviews, active projects and an activity timeline. Overview is marked as the current page, and the avatar opens an account menu. Each project dialog lists its stage, lead, due date and progress, with an Open project link. Timeline dates stay beside their titles as they wrap, and the avatars sit on the first line of each event. The project directory supports local search, sorting and stage filters with Data Grid 3.9.0.
+- **Island Workspace** (new, application) places studio navigation on a shared canvas and raises panels for the next milestone, reviews, active projects and an activity timeline. Overview is marked as the current page, and the avatar opens an account menu. Each project dialog lists its stage, lead, due date and progress, with an Open project link. Timeline dates stay beside their titles as they wrap, and the avatars sit on the first line of each event. The project directory supports local search, sorting and a stage filter labelled “All stages” with Data Grid 3.10.2.
+- **Dashboard Shell** and **App Topbar** (changed): menu dividers are `<li class="menu-separator" aria-hidden="true">` rows, as Actual CSS 0.19.4 documents, instead of an `<hr>` directly inside `<menu>`.
 - **Dashboard Overview** (original and Control Room remix), **Account Settings** and **App Sidebar**: reviewed and updated five visual baselines for the softer neutral outline borders.
 
 Gallery: block details keep a single heading per section, “Dependencies” and “Good to know”, removing the redundant subtitles.

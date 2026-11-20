@@ -2,7 +2,7 @@
 
 Each block is a semantic HTML fragment plus a scoped stylesheet. The canonical files live in `src/blocks/<id>/`. The gallery detail page is generated from them.
 
-All blocks require **Actual CSS 0.19.2**. The quick start is `@import "actual-css/full";`, or the component modules listed below. Eight blocks also need Actual CSS's published JavaScript runtime (see the JavaScript column). The Island Workspace project directory also uses Data Grid. No block requires the gallery CSS, gallery JavaScript or an `actual-blocks` package.
+All blocks require **Actual CSS 0.19.5**. The quick start is `@import "actual-css/full";`, or the component modules listed below. Eight blocks also need Actual CSS's published JavaScript runtime (see the JavaScript column). The Island Workspace project directory also uses Data Grid. No block requires the gallery CSS, gallery JavaScript or an `actual-blocks` package.
 
 | Block | Category | JavaScript | Custom CSS |
 | --- | --- | --- | --- |
@@ -17,7 +17,7 @@ All blocks require **Actual CSS 0.19.2**. The quick start is `@import "actual-cs
 | Article with Contents (`article`) | Marketing | Actual CSS `scrollspy` | `block.css` |
 | Dashboard Overview (`dashboard`) | Application | None | `block.css` |
 | Dashboard Shell (`shell`) | Application | Actual CSS `flyout`, `dismiss` | `block.css` |
-| Island Workspace (`island`) | Application | Actual CSS `flyout`, Data Grid 3.9.0 | `block.css` |
+| Island Workspace (`island`) | Application | Actual CSS `flyout`, Data Grid 3.10.2 | `block.css` |
 | Project Overview (`project`) | Application | Actual CSS `tab` | `block.css` |
 | AI Assistant (`assistant`) | Application | None | `block.css` |
 | Sign-in (`signin`) | Application | Actual CSS `validation`, `password`, `status` | `block.css` |
@@ -244,7 +244,7 @@ All blocks require **Actual CSS 0.19.2**. The quick start is `@import "actual-cs
 
 ## Copy checklist
 
-1. Load Actual CSS 0.19.2 (full bundle or the modules you need).
+1. Load Actual CSS 0.19.5 (full bundle or the modules you need).
 2. Copy `block.html` into a semantic page region.
 3. Copy `block.css` into a stylesheet loaded after Actual CSS.
 4. Replace placeholder links, sample data and illustrative controls with your application's behavior.
