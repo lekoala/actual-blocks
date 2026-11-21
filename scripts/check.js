@@ -181,11 +181,29 @@ for (const id of blockDirs) {
   }
 
   if (/@import\b/.test(css)) fail(`${id}: block.css must not import other stylesheets`);
-  if (/url\s*\(/i.test(css)) fail(`${id}: block.css must not reference external assets`);
   if (/\.g-[a-z]/.test(css)) fail(`${id}: gallery selectors leaked into block.css`);
 
   // Every var() must be declared by the block itself or be public in Actual CSS.
   const cssCode = css.replace(/\/\*[\s\S]*?\*\//g, "");
+  const images = Array.isArray(metadata.backgroundImages) ? metadata.backgroundImages : [];
+  if ("backgroundImages" in metadata && images.length === 0) fail(`${id}: backgroundImages must be a non-empty array`);
+  if (new Set(images).size !== images.length) fail(`${id}: backgroundImages contains duplicates`);
+  const localImages = readdirSync(dir, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".webp")).map((entry) => entry.name);
+  const backgroundImages = [];
+  for (const image of images) {
+    if (!localImages.includes(image) || !/^[a-z0-9-]+\.webp$/.test(image) || (image !== `${id}.webp` && !image.startsWith(`${id}-`))) {
+      fail(`${id}: background image must be a local WebP named after the block (${image})`);
+      continue;
+    }
+    if (!cssCode.includes(`url("${image}")`)) fail(`${id}: block.css must use url("${image}")`);
+    backgroundImages.push(image);
+  }
+  for (const image of localImages) {
+    if (!images.includes(image)) fail(`${id}: ${image} needs backgroundImages metadata`);
+  }
+  const cssWithoutImages = backgroundImages.reduce((code, image) => code.replaceAll(`url("${image}")`, ""), cssCode);
+  if (/url\s*\(/i.test(cssWithoutImages)) fail(`${id}: block.css may only reference its declared background images`);
   const ownProperties = new Set([...cssCode.matchAll(/(--[\w-]+)\s*:/g)].map((match) => match[1]));
   for (const name of new Set([...cssCode.matchAll(/var\(\s*(--[\w-]+)/g)].map((match) => match[1]))) {
     if (!ownProperties.has(name) && !publicProperties.has(name)) {
@@ -321,7 +339,7 @@ for (const id of blockDirs) {
     }
   }
 
-  blocks.push({ id, metadata, html, css, remixCss, rootClass });
+  blocks.push({ id, metadata, html, css, remixCss, rootClass, backgroundImages });
 }
 
 const order = JSON.parse(readFileSync(join(src, "blocks", "order.json"), "utf8"));
@@ -398,6 +416,14 @@ if (existsSync(dist)) {
     if (!detail.includes(escapeHtml(block.html))) fail(`${block.id}: detail page does not contain the canonical HTML source`);
     if (!detail.includes(escapeHtml(block.css))) fail(`${block.id}: detail page does not contain the canonical CSS source`);
     if (outputCss !== `${block.css}\n`) fail(`${block.id}: copied CSS differs from block.css`);
+    for (const image of block.backgroundImages) {
+      const imagePath = join(src, "blocks", block.id, image);
+      const outputImagePath = join(dist, "assets", "blocks", image);
+      if (!detail.includes(`href="../assets/blocks/${image}" download`)) fail(`${block.id}: the image download link is missing`);
+      if (existsSync(imagePath) && (!existsSync(outputImagePath) || !readFileSync(imagePath).equals(readFileSync(outputImagePath)))) {
+        fail(`${block.id}: the published image must match ${image}`);
+      }
+    }
     const loadsRuntime = preview.includes("../assets/actual-css.js");
     if (block.metadata.requiresJs && !loadsRuntime) fail(`${block.id}: preview does not load the Actual CSS runtime`);
     if (!block.metadata.requiresJs && loadsRuntime) fail(`${block.id}: preview loads the runtime although the block needs no JavaScript`);

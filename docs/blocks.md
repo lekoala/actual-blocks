@@ -7,6 +7,7 @@ All blocks require **Actual CSS 0.19.5**. The quick start is `@import "actual-cs
 | Block | Category | JavaScript | Custom CSS |
 | --- | --- | --- | --- |
 | Product Hero (`hero`) | Marketing | None | `block.css` |
+| Studio Hero (`studio-hero`) | Marketing | Actual CSS `in-view` | `block.css`, 7 WebP images |
 | Feature Grid (`features`) | Marketing | None | `block.css` |
 | Bento Feature Grid (`bento`) | Marketing | None | `block.css` |
 | Testimonials (`testimonials`) | Marketing | None | `block.css` |
@@ -42,6 +43,18 @@ All blocks require **Actual CSS 0.19.5**. The quick start is `@import "actual-cs
 - **Primitives:** center, cluster, stack, list, grid
 - **Notes:** CTAs are placeholder fragments. The studio overview is a static illustration, not live data. The sparkline is inline SVG with a text summary.
 - **Remix — Monograph:** `remix.css` with Fraunces (roman and italic) and Instrument Sans. Warm paper, ink type and one vermilion accent, a masthead rule, the product sheet on a colour plate. Its brand theme rule sets the page palette.
+
+## Studio Hero
+
+Full-viewport opening for Fieldwork, a fictional design studio. Copy `block.html` and `block.css`, then save the downloadable WebP images next to the stylesheet. On desktop, native popovers show project links with a large preview, illustrated service cards and a list of journal topics. On mobile, a hamburger opens an Actual CSS drawer with collapsible groups. Studio is a direct link in both layouts, and Contact uses a solid pill. Replace the sample destinations and keep the desktop and mobile links in sync.
+
+The composition follows the reference’s progression from a split-screen hero to a single scene:
+
+1. **Declutter and rewrite.** Remove the promotional badge and competing action. Give the main promise a short headline and use the supporting line to name what the studio makes.
+2. **Set the spacing and alignment.** Align the brand, title and call to action on one gutter. Leave an open band between the headline and intro, with room for the subject on desktop and a visible strip of the photograph on phones.
+3. **Set type and scale.** Pair a large serif heading with compact system sans-serif controls. Let the title wrap naturally across widths.
+4. **Art-direct the background.** Extend the photograph beneath the header and the copy. Keep the subject to the right on wide screens, refocus the crop on mobile and tune the scrim to each arrangement.
+5. **Add interaction last.** Keep the navigation quiet at rest. Work changes its preview and Services zooms each card image on hover and keyboard focus. The primary arrow exits at the end of the button and reappears at the start as the label slides. Actual CSS Reveal brings in the headline on load. `in-view` triggers a staggered entrance for the supporting copy and action when they enter the viewport. On a short screen, scroll down to see that second entrance. Without the runtime, the CSS entrance plays on load. Reduced motion keeps the content visible throughout.
 
 ## Feature Grid
 

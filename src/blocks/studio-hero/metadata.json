@@ -1,0 +1,23 @@
+{
+  "id": "studio-hero",
+  "title": "Studio Hero",
+  "category": "marketing",
+  "description": "An independent design studio’s opening screen with edge-to-edge photography, quiet navigation and an invitation to start a project.",
+  "summary": "Full-bleed photography, three navigation menus and a single primary action.",
+  "components": ["button", "drawer", "close"],
+  "primitives": ["cluster", "nav-list"],
+  "requiresJs": true,
+  "scripts": ["in-view"],
+  "backgroundImages": [
+    "studio-hero.webp", "studio-hero-identity.webp", "studio-hero-digital.webp",
+    "studio-hero-alder.webp", "studio-hero-serein.webp", "studio-hero-datum.webp", "studio-hero-ember.webp"
+  ],
+  "previewHeight": "43rem",
+  "docs": ["components/button.html", "components/drawer.html", "layout/cluster.html", "components/reveal.html", "enhancements/in-view.html"],
+  "notes": [
+    "Studio is a direct navigation link. Replace the example fragments with your project, service, journal, studio and contact pages.",
+    "Desktop menus are native HTML popovers. On mobile a hamburger opens an Actual CSS drawer with native dialog commands and collapsible link groups. Keep the desktop and mobile destinations in sync.",
+    "Work shows a different decorative project photo on hover and keyboard focus. Services cards zoom and the action arrow changes sides. Reduced motion disables the zoom, the arrow movement and the hero entrance.",
+    "Actual CSS in-view triggers the copy and action’s staggered reveal once. To see it on scroll, open the preview in a short window so the action starts below the fold. Without the runtime, the reveal plays on first render and navigation remains native."
+  ]
+}

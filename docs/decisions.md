@@ -96,7 +96,7 @@ The gallery's own `gallery.js` handles filtering, tabs, copy, theme/viewport sta
 
 ### Blocks that need the Actual CSS runtime
 
-Eight blocks use published Actual CSS enhancers. Article with Contents uses `scrollspy`, Project Overview uses `tab`, Sign-in uses `validation`, `password` and `status`, Checkout uses `validation`, `mask`, `filter` and `status`, Dashboard Shell uses `flyout` and `dismiss`, Appearance Settings uses `dirty`, and App Topbar and Island Workspace use `flyout`.
+Nine blocks use published Actual CSS enhancers. Article with Contents uses `scrollspy`, Project Overview uses `tab`, Sign-in uses `validation`, `password` and `status`, Checkout uses `validation`, `mask`, `filter` and `status`, Dashboard Shell uses `flyout` and `dismiss`, Appearance Settings uses `dirty`, App Topbar and Island Workspace use `flyout`, and Studio Hero uses `in-view`.
 
 - `metadata.json` sets `requiresJs: true` and lists `scripts`, the `actual-css/js/<name>` modules the block needs. `scripts/check.js` verifies that each module is a published export, that every `data-enhance` hook in the HTML is covered, and that blocks without `requiresJs` carry no hook.
 - Only those previews load the runtime, as `dist/assets/actual-css.js`: a copy of the published `dist/actual.full.js` bundle. Every other preview stays script-free, so the no-JS blocks are still tested without JavaScript.
@@ -152,7 +152,7 @@ These are the real limits of the current implementation, not hidden TODOs.
 2. **Runtime-dependent blocks degrade.** Without JavaScript, the article contents stay plain anchor links, the project page shows only its Overview panel, the topbar and shell menus stay closed and the shell's recommendation cannot be dismissed. Each block's notes say so. Tooltips and validation enhancers are not used yet.
 3. **Native command support varies.** `command` / `commandfor` is modern. Older browsers may show the menu button but not open the drawer. The block is documented as such; adding a JavaScript fallback would change the block's dependency story.
 4. **Two themes only.** Light and dark are exposed. Actual CSS reference presets are demo assets, not public package entrypoints, so no Neo Brutalist or Admin Neutral preview is offered.
-5. **Thumbnails are live iframes.** Each of the 28 thumbnails loads lazily. A much larger catalog would need generated thumbnails.
+5. **Thumbnails are live iframes.** They load lazily. A much larger catalog would need generated thumbnails.
 6. **Visual baselines are platform-specific.** The Playwright snapshots were generated on Windows/Chromium. Another OS may need its own baseline.
 7. **The chart is inline SVG.** It is static and accessible via a text summary, but it is not a charting component and does not respond to the date-range control.
 8. **No global search.** Category filters are implemented; search across blocks is not.

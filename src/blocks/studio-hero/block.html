@@ -1,0 +1,155 @@
+<div class="ab-studio-hero" id="ab-studio-home">
+  <header class="ab-studio-hero__header">
+    <a class="ab-studio-hero__brand" href="#ab-studio-home">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M7 17 17 7M7 12l5 5m0-10 5 5" />
+      </svg>
+      Fieldwork
+    </a>
+
+    <nav class="ab-studio-hero__desktop-nav" aria-label="Main">
+      <ul class="cluster ab-studio-hero__nav">
+        <li>
+          <button class="btn ghost ab-studio-hero__nav-link" type="button" popovertarget="ab-studio-work" aria-controls="ab-studio-work">
+            Work
+            <svg class="ab-studio-hero__caret" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <path d="m3 4.5 3 3 3-3" />
+            </svg>
+          </button>
+          <div class="ab-studio-hero__panel ab-studio-hero__work" id="ab-studio-work" popover>
+            <ul class="ab-studio-hero__projects" aria-label="Selected work">
+              <li class="ab-studio-hero__project ab-studio-hero__project--alder">
+                <a class="ab-studio-hero__panel-link" href="#alder"><strong>Alder</strong><span>Identity for a neighbourhood restaurant</span></a>
+              </li>
+              <li class="ab-studio-hero__project ab-studio-hero__project--serein">
+                <a class="ab-studio-hero__panel-link" href="#serein"><strong>Serein</strong><span>Packaging for a botanical skincare line</span></a>
+              </li>
+              <li class="ab-studio-hero__project ab-studio-hero__project--datum">
+                <a class="ab-studio-hero__panel-link" href="#datum"><strong>Datum</strong><span>Editorial design for an architecture archive</span></a>
+              </li>
+              <li class="ab-studio-hero__project ab-studio-hero__project--ember">
+                <a class="ab-studio-hero__panel-link" href="#ember"><strong>Ember</strong><span>Identity and packaging for a coffee roaster</span></a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <button class="btn ghost ab-studio-hero__nav-link" type="button" popovertarget="ab-studio-services" aria-controls="ab-studio-services">
+            Services
+            <svg class="ab-studio-hero__caret" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <path d="m3 4.5 3 3 3-3" />
+            </svg>
+          </button>
+          <div class="ab-studio-hero__panel ab-studio-hero__services" id="ab-studio-services" popover>
+            <ul aria-label="Services">
+              <li>
+                <a class="ab-studio-hero__service ab-studio-hero__service--identity" href="#identity">
+                  <strong>Visual identity</strong>
+                  <span>Marks, type and packaging</span>
+                </a>
+              </li>
+              <li>
+                <a class="ab-studio-hero__service ab-studio-hero__service--digital" href="#digital">
+                  <strong>Digital design</strong>
+                  <span>Websites and editorial experiences</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <button class="btn ghost ab-studio-hero__nav-link" type="button" popovertarget="ab-studio-journal" aria-controls="ab-studio-journal">
+            Journal
+            <svg class="ab-studio-hero__caret" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <path d="m3 4.5 3 3 3-3" />
+            </svg>
+          </button>
+          <div class="ab-studio-hero__panel ab-studio-hero__journal" id="ab-studio-journal" popover>
+            <ul aria-label="Journal topics">
+              <li><a class="ab-studio-hero__panel-link" href="#process">Process</a></li>
+              <li><a class="ab-studio-hero__panel-link" href="#typography">Typography</a></li>
+              <li><a class="ab-studio-hero__panel-link" href="#interviews">Interviews</a></li>
+              <li><a class="ab-studio-hero__panel-link" href="#reading-list">Reading list</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a class="btn ghost ab-studio-hero__nav-link" href="#studio">Studio</a></li>
+      </ul>
+    </nav>
+
+    <a class="btn ab-studio-hero__contact" href="#contact">Contact</a>
+    <button class="btn ghost icon-only ab-studio-hero__menu" type="button" command="show-modal" commandfor="ab-studio-drawer" aria-haspopup="dialog" aria-controls="ab-studio-drawer" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" />
+      </svg>
+    </button>
+  </header>
+
+  <dialog class="drawer ab-studio-hero__drawer" data-side="end" id="ab-studio-drawer" aria-label="Studio navigation" closedby="any">
+    <header>
+      <strong>Fieldwork</strong>
+      <form method="dialog">
+        <button class="close" type="submit" aria-label="Close menu" autofocus></button>
+      </form>
+    </header>
+
+    <nav aria-label="Main">
+      <ul class="nav-list">
+        <li>
+          <details name="ab-studio-drawer-section">
+            <summary class="nav-link">Work</summary>
+            <ul class="nav-list">
+              <li><a class="nav-link" href="#alder">Alder</a></li>
+              <li><a class="nav-link" href="#serein">Serein</a></li>
+              <li><a class="nav-link" href="#datum">Datum</a></li>
+              <li><a class="nav-link" href="#ember">Ember</a></li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details name="ab-studio-drawer-section">
+            <summary class="nav-link">Services</summary>
+            <ul class="nav-list">
+              <li><a class="nav-link" href="#identity">Visual identity</a></li>
+              <li><a class="nav-link" href="#digital">Digital design</a></li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details name="ab-studio-drawer-section">
+            <summary class="nav-link">Journal</summary>
+            <ul class="nav-list">
+              <li><a class="nav-link" href="#process">Process</a></li>
+              <li><a class="nav-link" href="#typography">Typography</a></li>
+              <li><a class="nav-link" href="#interviews">Interviews</a></li>
+              <li><a class="nav-link" href="#reading-list">Reading list</a></li>
+            </ul>
+          </details>
+        </li>
+        <li><a class="nav-link" href="#studio">Studio</a></li>
+      </ul>
+    </nav>
+
+    <footer>
+      <a class="btn ab-studio-hero__drawer-contact" href="#contact">Contact</a>
+    </footer>
+  </dialog>
+
+  <main class="ab-studio-hero__main" aria-labelledby="ab-studio-title">
+    <h1 class="reveal" id="ab-studio-title">From first impression to lasting identity.</h1>
+
+    <div class="reveal-group ab-studio-hero__intro" data-enhance="in-view">
+      <p>We design identities, packaging and websites for people who make things with care.</p>
+      <a class="btn ab-studio-hero__action" href="#contact">
+        <svg class="ab-studio-hero__arrow ab-studio-hero__arrow--start" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2.5 8h10.5M9 4l4 4-4 4" />
+        </svg>
+        <span class="ab-studio-hero__action-label">Start a project</span>
+        <svg class="ab-studio-hero__arrow ab-studio-hero__arrow--end" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2.5 8h10.5M9 4l4 4-4 4" />
+        </svg>
+      </a>
+    </div>
+  </main>
+</div>

@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-const BLOCKS = ["hero", "features", "bento", "testimonials", "pricing", "compare", "faq", "cta", "article", "dashboard", "shell", "island", "project", "assistant", "signin", "settings", "appearance", "plan", "product", "checkout", "listing", "tracking", "verify", "empty-state", "header", "topbar", "sidebar", "footer"];
+const BLOCKS = ["hero", "studio-hero", "features", "bento", "testimonials", "pricing", "compare", "faq", "cta", "article", "dashboard", "shell", "island", "project", "assistant", "signin", "settings", "appearance", "plan", "product", "checkout", "listing", "tracking", "verify", "empty-state", "header", "topbar", "sidebar", "footer"];
 
 const analyze = async (page, label) => {
   const results = await new AxeBuilder({ page })
@@ -46,6 +46,26 @@ for (const id of ["hero", "dashboard", "signin"]) {
 test("detail page passes WCAG A/AA checks", async ({ page }) => {
   await page.goto("/blocks/dashboard.html");
   await analyze(page, "dashboard detail");
+});
+
+test("open studio menus pass WCAG A/AA checks", async ({ page }) => {
+  for (const theme of ["light", "dark"]) {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto(`/previews/studio-hero.html?theme=${theme}`);
+    for (const [menu, list] of [["Work", "Selected work"], ["Services", "Services"], ["Journal", "Journal topics"]]) {
+      await page.getByRole("button", { name: menu }).click();
+      await expect(page.getByRole("list", { name: list, exact: true })).toBeVisible();
+      await analyze(page, `studio ${menu} ${theme}`);
+      await page.keyboard.press("Escape");
+    }
+
+    await page.setViewportSize({ width: 360, height: 800 });
+    await page.getByRole("button", { name: "Open menu" }).click();
+    const drawer = page.getByRole("dialog", { name: "Studio navigation" });
+    await drawer.locator("summary").getByText("Work", { exact: true }).click();
+    await expect(drawer).toHaveCSS("opacity", "1");
+    await analyze(page, `studio drawer ${theme}`);
+  }
 });
 
 test("open mobile drawer passes WCAG A/AA checks", async ({ page }) => {

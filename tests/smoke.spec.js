@@ -8,6 +8,7 @@ const origin = `http://127.0.0.1:${PORT}`;
 
 const BLOCKS = [
   { id: "hero", title: "Product Hero", root: ".ab-hero" },
+  { id: "studio-hero", title: "Studio Hero", root: ".ab-studio-hero" },
   { id: "features", title: "Feature Grid", root: ".ab-features" },
   { id: "bento", title: "Bento Feature Grid", root: ".ab-bento" },
   { id: "testimonials", title: "Testimonials", root: ".ab-testimonials" },
@@ -55,8 +56,8 @@ test("catalog renders every block and filters by category", async ({ page }) => 
   const initialCardWidth = (await page.locator(".g-card").first().boundingBox())?.width ?? 0;
 
   await page.getByRole("button", { name: /Marketing/ }).click();
-  await expect(page.locator(".g-card:visible")).toHaveCount(9);
-  await expect(page.locator("#g-visible-count")).toHaveText("9");
+  await expect(page.locator(".g-card:visible")).toHaveCount(10);
+  await expect(page.locator("#g-visible-count")).toHaveText("10");
 
   await page.getByRole("button", { name: /Application/ }).click();
   await expect(page.locator(".g-card:visible")).toHaveCount(15);
@@ -146,6 +147,186 @@ test("blocks without a remix show no remix control", async ({ page }) => {
   await page.goto(`/blocks/${plain.id}.html`);
   await expect(page.getByRole("button", { name: "Remix", exact: true })).toHaveCount(0);
   await expect(page.getByRole("tab", { name: "Remix CSS" })).toHaveCount(0);
+});
+
+test("studio hero loads its exportable photograph and opens the services menu", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  const subpath = `http://127.0.0.1:${SUBPATH_PORT}/actual-blocks`;
+  await page.goto(`${subpath}/blocks/studio-hero.html`);
+  const imageUrls = await Promise.all(["studio-hero.webp", "studio-hero-identity.webp", "studio-hero-digital.webp"].map(async (name) => {
+    const download = page.getByRole("link", { name, exact: true });
+    await expect(download).toHaveAttribute("download", "");
+    return download.evaluate((link) => link.href);
+  }));
+  const images = Promise.all(imageUrls.map((url) => page.waitForResponse((response) => response.url() === url && response.frame() === page.mainFrame())));
+  await page.goto(`${subpath}/previews/studio-hero.html?theme=light`);
+
+  const trigger = page.getByRole("button", { name: "Services" });
+  const firstLink = page.getByRole("link", { name: /Visual identity/ });
+  const action = page.getByRole("link", { name: "Start a project" });
+  const startArrow = action.locator(".ab-studio-hero__arrow--start");
+  const endArrow = action.locator(".ab-studio-hero__arrow--end");
+  const label = action.locator(".ab-studio-hero__action-label");
+  const cardScale = () => firstLink.evaluate((card) => getComputedStyle(card, "::before").scale);
+  await trigger.focus();
+  await trigger.press("Enter");
+  for (const image of await images) {
+    expect(image.ok()).toBe(true);
+    expect(image.headers()["content-type"]).toBe("image/webp");
+  }
+  await page.keyboard.press("Tab");
+  await expect(firstLink).toBeFocused();
+  await expect.poll(cardScale).toBe("1.09");
+  await page.keyboard.press("Escape");
+  await expect(firstLink).toBeHidden();
+  await expect(trigger).toBeFocused();
+
+  const buttonWidth = (await action.boundingBox()).width;
+  await expect(startArrow).toHaveCSS("opacity", "0");
+  await expect(endArrow).toHaveCSS("opacity", "1");
+  await page.getByRole("link", { name: "Contact", exact: true }).press("Tab");
+  await expect(action).toBeFocused();
+  await expect(startArrow).toHaveCSS("opacity", "1");
+  await trigger.focus();
+  await action.hover();
+  await expect(label).toHaveCSS("translate", "28px");
+  await expect(endArrow).toHaveCSS("opacity", "0");
+  expect((await action.boundingBox()).width).toBe(buttonWidth);
+
+  await trigger.click();
+  await firstLink.hover();
+  await expect.poll(cardScale).toBe("1.09");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect.poll(cardScale).toBe("none");
+  await page.keyboard.press("Escape");
+  await action.hover();
+  await expect(label).toHaveCSS("translate", "none");
+  await expect(endArrow).toHaveCSS("opacity", "1");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveCSS("animation-name", "none");
+
+  await page.setViewportSize({ width: 768, height: 800 });
+  await trigger.click();
+  const menu = page.locator("#ab-studio-services");
+  await expect(menu).toBeVisible();
+  const bounds = await menu.boundingBox();
+  expect(bounds.x).toBeGreaterThanOrEqual(0);
+  expect(bounds.x + bounds.width).toBeLessThanOrEqual(768);
+  await page.getByText("We design identities", { exact: false }).click();
+  await expect(menu).toBeHidden();
+});
+
+test("studio hero reveals the supporting copy only once when it enters view", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 360 });
+  await page.goto("/previews/studio-hero.html?theme=light");
+  const intro = page.locator('[data-enhance="in-view"]');
+  const heading = page.getByRole("heading", { level: 1 });
+  const copy = intro.locator("p");
+  const action = intro.getByRole("link", { name: "Start a project" });
+
+  await expect(heading).toHaveCSS("animation-delay", "0.1s");
+  await expect(heading).toHaveCSS("opacity", "1");
+  await expect(intro).toHaveClass(/\bis-pending\b/);
+  await expect(copy).toHaveCSS("opacity", "0");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(heading).toHaveCSS("animation-delay", "0s");
+  await expect(copy).toHaveCSS("opacity", "1");
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+
+  await copy.scrollIntoViewIfNeeded();
+  await expect(intro).not.toHaveClass(/\bis-pending\b/);
+  await expect(copy).toHaveCSS("animation-name", "actual-reveal");
+  await expect(copy).toHaveCSS("animation-delay", "0.26s");
+  await expect(action).toHaveCSS("animation-delay", "0.34s");
+  await expect(action).toHaveCSS("opacity", "1");
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await expect(copy).not.toBeInViewport();
+  await expect(intro).not.toHaveClass(/\bis-pending\b/);
+
+  await page.reload();
+  await expect(intro).toHaveClass(/\bis-pending\b/);
+  await action.evaluate((link) => link.focus({ preventScroll: true }));
+  await expect(action).toBeFocused();
+  await expect(intro).not.toHaveClass(/\bis-pending\b/);
+  await expect(action).toHaveCSS("opacity", "1");
+
+  await page.route("**/assets/actual-css.js", (route) => route.abort());
+  await page.reload();
+  await expect(intro).not.toHaveClass(/\bis-pending\b/);
+  await expect(action).toHaveCSS("animation-name", "actual-reveal");
+  await expect(action).toHaveCSS("opacity", "1");
+});
+
+test("studio hero switches between project previews and journal topics", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto("/previews/studio-hero.html?theme=dark");
+  const work = page.getByRole("button", { name: "Work" });
+  const journal = page.getByRole("button", { name: "Journal" });
+  const projects = page.getByRole("list", { name: "Selected work" });
+  const journalTopics = page.getByRole("list", { name: "Journal topics" });
+  const alder = projects.getByRole("link", { name: /Alder/ });
+  const serein = projects.getByRole("link", { name: /Serein/ });
+  const datum = projects.getByRole("link", { name: /Datum/ });
+  const preview = (link) => link.evaluate((element) => getComputedStyle(element.parentElement, "::after").opacity);
+
+  const projectPhoto = page.waitForResponse("**/studio-hero-serein.webp");
+  await work.press("Enter");
+  await expect(projects).toBeVisible();
+  expect((await projectPhoto).ok()).toBe(true);
+  await expect.poll(() => preview(alder)).toBe("1");
+  await expect.poll(() => preview(serein)).toBe("0");
+  await page.keyboard.press("Tab");
+  await page.keyboard.press("Tab");
+  await expect(serein).toBeFocused();
+  await expect.poll(() => preview(serein)).toBe("1");
+  await datum.hover();
+  await expect.poll(() => preview(datum)).toBe("1");
+  await page.keyboard.press("Escape");
+  await expect(work).toBeFocused();
+  await expect(projects).toBeHidden();
+
+  for (const width of [1280, 768, 673]) {
+    await page.setViewportSize({ width, height: 800 });
+    await work.click();
+    await expect(projects).toBeVisible();
+    const workBounds = await page.locator("#ab-studio-work").boundingBox();
+    expect(workBounds.x).toBeGreaterThanOrEqual(0);
+    expect(workBounds.x + workBounds.width).toBeLessThanOrEqual(width);
+    await journal.click();
+    await expect(projects).toBeHidden();
+    await expect(journalTopics.getByRole("link")).toHaveCount(4);
+    const journalBounds = await page.locator("#ab-studio-journal").boundingBox();
+    expect(journalBounds.x).toBeGreaterThanOrEqual(0);
+    expect(journalBounds.x + journalBounds.width).toBeLessThanOrEqual(width);
+    await page.keyboard.press("Escape");
+    await expect(journalTopics).toBeHidden();
+  }
+  await page.getByRole("link", { name: "Studio", exact: true }).click();
+  await expect(page).toHaveURL(/#studio$/);
+  await expect(page.locator(".ab-studio-hero :popover-open")).toHaveCount(0);
+});
+
+test("studio hero opens a native navigation drawer on mobile", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 540 });
+  await page.goto("/previews/studio-hero.html?theme=light");
+  const trigger = page.getByRole("button", { name: "Open menu" });
+  const drawer = page.getByRole("dialog", { name: "Studio navigation" });
+  await expect(page.getByRole("button", { name: "Work", exact: true })).toBeHidden();
+  await trigger.press("Enter");
+  await expect(drawer).toBeVisible();
+  await expect(drawer.getByRole("button", { name: "Close menu" })).toBeFocused();
+  await drawer.locator("summary").getByText("Work", { exact: true }).click();
+  await expect(drawer.getByRole("link", { name: "Alder" })).toBeVisible();
+  await drawer.locator("summary").getByText("Journal", { exact: true }).click();
+  await expect(drawer.getByRole("link", { name: "Alder" })).toBeHidden();
+  await expect(drawer.getByRole("link", { name: "Typography" })).toBeVisible();
+  await expect(drawer.getByRole("link", { name: "Studio" })).toHaveAttribute("href", "#studio");
+  await expect(drawer.getByRole("link", { name: "Contact" })).toBeInViewport();
+  await page.keyboard.press("Escape");
+  await expect(drawer).toBeHidden();
+  await expect(trigger).toBeFocused();
+  await trigger.click();
+  await drawer.getByRole("button", { name: "Close menu" }).click();
+  await expect(drawer).toBeHidden();
 });
 
 test("previews do not overflow a 360px viewport", async ({ page }) => {

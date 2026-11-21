@@ -331,3 +331,9 @@ Same 27 blocks, pinned to the published `actual-css` 0.18.0 package. Neutral `.b
 `bun run test` passed: build (27 blocks), source/reference checks (58 generated HTML files), contrast (all 3 remix themes in every scheme), and **99 Playwright tests** including smoke, accessibility and all 9 visual baselines. Windows, Bun 1.4.4, Playwright 1.64.1 / Chromium. The contrast check initially could not launch Chrome in the sandbox ("Chrome process closed the pipe"); the complete suite passed with the required process permissions.
 
 Output: 135 files, 1,943,491 bytes total; Actual CSS bundle 157,014 bytes and runtime 69,344 bytes. The lockfile changes only Actual CSS; no transitive dependency changed.
+
+## Studio Hero verification
+
+One marketing block added (`studio-hero`, unreleased), with seven local WebPs totalling 385,500 bytes and the published Actual CSS `in-view` enhancer. `bun run build` and `bun run check` passed for 29 blocks and 62 generated HTML files. All 122 Chromium Playwright tests passed.
+
+Reviewed the desktop light, mobile dark, three open desktop menus and mobile drawer screenshots. Browser coverage includes background images under a deployment subpath, switching the Work preview using pointer or keyboard, native desktop popover dismissal, the direct Studio link, and the mobile drawer at 320px with exclusive disclosure groups and focus return. The Services card zoom and action arrow work on hover and focus. The short-viewport test verifies the one-shot reveal, immediate appearance on keyboard focus, visible content under reduced motion, and the CSS fallback when the runtime fails to load. Axe passes in both themes with the desktop popovers and mobile drawer open. The build copies the original WebPs unchanged, and the detail page links to those files.

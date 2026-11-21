@@ -85,6 +85,7 @@ The `bun run check` script enforces the root scope and the class manifest. It is
 - The copied CSS must be the same `block.css`.
 - No hidden gallery wrappers, generated selectors, iframe assets or gallery CSS may be required.
 - No external images, fonts, scripts or stylesheets in a block. Inline SVG is welcome.
+- Decorative photographs can ship as local WebPs declared in `backgroundImages`. Follow the [block contract](docs/block-contract.md#optional-decorative-photographs) so they can be downloaded with the source.
 - Links and buttons that need a backend must be labeled as illustrative in metadata notes.
 
 ### Semantics and accessibility

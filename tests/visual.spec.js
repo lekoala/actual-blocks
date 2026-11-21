@@ -21,6 +21,39 @@ test("visual: hero dark", async ({ page }) => {
   await expect(page).toHaveScreenshot("hero-dark.png", { fullPage: true, animations: "disabled", caret: "hide" });
 });
 
+for (const [label, width, height, theme] of [["desktop", 1280, 800, "light"], ["mobile", 390, 844, "dark"]]) {
+  test(`visual: studio hero ${label}`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(`/previews/studio-hero.html?theme=${theme}`);
+    await ready(page);
+    await expect(page).toHaveScreenshot(`studio-hero-${label}.png`, { animations: "disabled", caret: "hide" });
+  });
+}
+
+for (const [menu, hover] of [["Work", /Serein/], ["Services", /Digital design/], ["Journal", /Typography/]]) {
+  test(`visual: studio hero ${menu.toLowerCase()}`, async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto("/previews/studio-hero.html?theme=dark");
+    await page.getByRole("button", { name: menu }).click();
+    await page.getByRole("link", { name: hover }).hover();
+    await ready(page);
+    const composition = menu === "Journal" ? page.locator("#ab-studio-journal") : page;
+    await expect(composition).toHaveScreenshot(`studio-hero-${menu.toLowerCase()}.png`, { animations: "disabled", caret: "hide" });
+  });
+}
+
+test("visual: studio hero mobile drawer", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/previews/studio-hero.html?theme=dark");
+  await page.getByRole("button", { name: "Open menu" }).click();
+  const drawer = page.getByRole("dialog", { name: "Studio navigation" });
+  await drawer.locator("summary").getByText("Work", { exact: true }).click();
+  await ready(page);
+  await expect(page).toHaveScreenshot("studio-hero-drawer.png", { animations: "disabled", caret: "hide" });
+});
+
 test("visual: dashboard light", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/previews/dashboard.html?theme=light");

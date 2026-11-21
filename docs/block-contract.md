@@ -15,6 +15,10 @@ A tutorial showing how `.grid` behaves belongs in Actual CSS documentation. A re
 
 Copy/paste must not require the gallery runtime, generated wrapper selectors or internal iframe assets.
 
+## Optional decorative photographs
+
+When decorative photographs are central to the composition, ship original or clearly reusable WebPs beside `block.css` and list their filenames in `backgroundImages` in metadata. Name the files `<id>.webp` or `<id>-<name>.webp` so they stay unique in the generated gallery. Reference each as `url("<filename>.webp")` in the scoped stylesheet and supply background colors that keep overlay text readable if the images fail to load. The build puts the WebPs beside the published stylesheet and links to each on the detail page. Consumers save them beside their copied stylesheet or replace them and recheck contrast on each crop.
+
 ## Optional remix
 
 A remix gives the same block a different identity. It is a third copyable file, `remix.css`, never a second HTML.

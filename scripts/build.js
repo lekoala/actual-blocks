@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, mkdirSync, rmSync, copyFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, rmSync, copyFileSync, existsSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { dataGrid, dataGridTags } from "./data-grid.js";
@@ -95,9 +95,15 @@ const readBlock = (id, index) => {
     throw new Error(`${id}: remix.css and metadata "remix" go together`);
   }
 
+  const backgroundImages = metadata.backgroundImages ?? [];
+  const files = readdirSync(dir, { withFileTypes: true }).filter((entry) => entry.isFile()).map((entry) => entry.name);
+  if (!Array.isArray(backgroundImages) || backgroundImages.some((name) => !/^[a-z0-9-]+\.webp$/.test(name) || !files.includes(name))) {
+    throw new Error(`${id}: backgroundImages must list local WebP files`);
+  }
+
   const remix = remixCss ? { ...metadata.remix, css: remixCss, fonts: (metadata.remix.fonts ?? []).map(resolveFont) } : null;
   const rootClass = /class="([^"]+)"/.exec(html)[1].split(/\s+/).find((token) => token.startsWith("ab-"));
-  return { ...metadata, html, css, remix, rootClass, index };
+  return { ...metadata, html, css, remix, backgroundImages, rootClass, index };
 };
 
 // A remix may name webfonts. Each is a pinned Fontsource package: the gallery
@@ -186,6 +192,14 @@ const dataGridSection = (block) => {
             <code id="g-data-grid" tabindex="0">${escapeHtml(tags.join("\n"))}</code>
             <button class="g-copy g-copy--small" type="button" data-copy-target="g-data-grid">Copy</button>
           </div>`;
+};
+
+const imageSection = (block) => {
+  if (block.backgroundImages.length === 0) return "";
+  const links = block.backgroundImages.map((name) => `<li><a href="../assets/blocks/${name}" download>${name}</a></li>`).join("");
+  return `<p class="g-aside__label">Background images</p>
+          <p>Save these WebP files beside your block stylesheet.</p>
+          <ul class="g-docs">${links}</ul>`;
 };
 
 // The remix is a third copyable file over the same HTML. Its fonts are the
@@ -315,7 +329,7 @@ const detailHtml = (block) => {
     SUMMARY: escapeHtml(block.summary),
     PREVIEW_HEIGHT: escapeHtml(block.previewHeight),
     REQUIRES_JS: [block.requiresJs && "Actual CSS runtime", block.dataGrid && "Data Grid"].filter(Boolean).join(" + ") || "None",
-    SOURCE_FILES: block.remix ? "block.html + block.css + remix.css" : "block.html + block.css",
+    SOURCE_FILES: ["block.html", "block.css", block.remix && "remix.css", block.backgroundImages.length > 0 && "WebP images"].filter(Boolean).join(" + "),
     VARIANT_CONTROL: variantControl(block),
     REMIX_SRC: block.remix ? ` data-preview-remix-src="../previews/${block.id}--remix.html"` : "",
     REMIX_TAB: remixTab(block),
@@ -323,6 +337,7 @@ const detailHtml = (block) => {
     REMIX_SECTION: remixSection(block),
     JS_SECTION: jsSection(block),
     DATA_GRID_SECTION: dataGridSection(block),
+    IMAGE_SECTION: imageSection(block),
     SOURCE_HTML: escapeHtml(block.html),
     SOURCE_CSS: escapeHtml(block.css),
     COMPONENT_LINKS: componentLinks(block),
@@ -434,6 +449,9 @@ if (usesDataGrid) {
 
 for (const block of blocks) {
   writeFileSync(join(dist, "assets", "blocks", `${block.id}.css`), `${block.css}\n`);
+  for (const filename of block.backgroundImages) {
+    copyFileSync(join(src, "blocks", block.id, filename), join(dist, "assets", "blocks", filename));
+  }
   writeFileSync(join(dist, "previews", `${block.id}.html`), previewHtml(block));
   if (block.remix) {
     writeFileSync(join(dist, "assets", "blocks", `${block.id}.remix.css`), `${block.remix.css}\n`);
