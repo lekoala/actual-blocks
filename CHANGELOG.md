@@ -2,6 +2,10 @@
 
 Blocks are evergreen and carry no compatibility guarantee: to pick up a change, copy the block again. Each release lists the blocks it adds or changes and the Actual CSS version it pins. A minor version adds blocks; a patch only improves existing ones. Versions are Git tags (`vX.Y.Z`); nothing is published to npm.
 
+## Unreleased
+
+- **Call to Action** aligns the checkmarks with the first line of each trial benefit, including when the text wraps.
+
 ## 0.5.0
 
 Pins Actual CSS 0.20.1 and Data Grid 3.10.2. The gallery and all previews inherit the new button, badge, field label, switch and soft intent styles.
