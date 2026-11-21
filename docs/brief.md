@@ -19,7 +19,9 @@ A block is a finished page section or application screen a consumer would actual
 
 ## How consumers use it
 
-- They copy a block's HTML, and its CSS when it has any, into their own project. There is no `actual-blocks` package, CLI or registry to install.
+Blocks are references, not templates to assemble. A consumer starts from the product's content, audience and purpose, then takes the blocks whose structure serves them. A polished page made of blocks is not necessarily a finished design.
+
+- They copy a block's HTML, and its CSS when it has any, into their own project, then remove, merge, reorder or reshape sections to fit their content. Inventing content to fill a block defeats it. There is no `actual-blocks` package, CLI or registry to install.
 - Blocks use Actual CSS, scoped block styles and declared dependencies such as Actual CSS enhancers or the published Data Grid package. Previews and copied code use the same dependencies.
 - Backend-dependent controls are illustrative and say so; the block never pretends to save, search or authenticate.
 
