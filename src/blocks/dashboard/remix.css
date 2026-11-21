@@ -44,6 +44,11 @@
      lean toward the page ink in the light scheme. */
   --state-selected-text: light-dark(color-mix(in oklab, var(--primary) 45%, var(--text)), var(--primary));
   --primary-soft-fg: light-dark(color-mix(in oklab, var(--primary) 40%, var(--text)), var(--primary));
+  /* The hover tint on the subtle surface sets the contrast floor. */
+  --secondary-soft-fg: light-dark(color-mix(in oklab, var(--secondary) 80%, var(--text)), var(--secondary));
+  --success-soft-fg: light-dark(color-mix(in oklab, var(--success) 80%, var(--text)), var(--success));
+  --warning-soft-fg: light-dark(color-mix(in oklab, var(--warning) 80%, var(--text)), var(--warning));
+  --danger-soft-fg: light-dark(color-mix(in oklab, var(--danger) 80%, var(--text)), var(--danger));
   --hover-overlay: light-dark(hsl(220 30% 10% / 0.05), hsl(210 40% 96% / 0.06));
   --shadow-color: light-dark(hsl(220 30% 10%), hsl(220 40% 2%));
 

@@ -345,6 +345,15 @@
   --reveal-distance: .5rem;
 }
 
+.ab-studio-hero .ab-studio-hero__main h1 {
+  --reveal-delay: 100ms;
+}
+
+.ab-studio-hero .ab-studio-hero__intro {
+  --reveal-delay: 260ms;
+  --reveal-stagger: 80ms;
+}
+
 .ab-studio-hero .ab-studio-hero__action {
   --ab-studio-action-slot: 1.75rem;
   --ab-studio-direction: 1;
@@ -399,22 +408,6 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .ab-studio-hero .ab-studio-hero__main h1 {
-    animation-delay: 100ms;
-  }
-
-  .ab-studio-hero .ab-studio-hero__intro > p {
-    animation-delay: 260ms;
-  }
-
-  .ab-studio-hero .ab-studio-hero__intro > .ab-studio-hero__action {
-    animation-delay: 340ms;
-  }
-
-  .ab-studio-hero .ab-studio-hero__intro > .ab-studio-hero__action:focus {
-    animation-delay: calc(-1 * var(--reveal-duration));
-  }
-
   .ab-studio-hero .ab-studio-hero__service::before {
     transition: scale 340ms cubic-bezier(.2, .7, .25, 1);
   }

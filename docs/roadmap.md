@@ -1,6 +1,6 @@
 # Actual Blocks — roadmap
 
-> Status: **0.2.0 released**, deployed to GitHub Pages from `master`. Twenty-seven blocks on `actual-css` 0.19.5; remixes and Dashboard Shell are released in 0.2.0, Product Overview and Appearance Settings are built and unreleased. Next: the rest of the complete interfaces, then integration recipes (see Direction). `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
+> **0.4.0 is tagged.** The 0.5.0 build contains 29 blocks on `actual-css` 0.20.1, including Studio Hero. The gallery is deployed to GitHub Pages from `master`. `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
 
 ## Delivered
 

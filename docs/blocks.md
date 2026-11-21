@@ -2,7 +2,7 @@
 
 Each block is a semantic HTML fragment plus a scoped stylesheet. The canonical files live in `src/blocks/<id>/`. The gallery detail page is generated from them.
 
-All blocks require **Actual CSS 0.19.5**. The quick start is `@import "actual-css/full";`, or the component modules listed below. Eight blocks also need Actual CSS's published JavaScript runtime (see the JavaScript column). The Island Workspace project directory also uses Data Grid. No block requires the gallery CSS, gallery JavaScript or an `actual-blocks` package.
+All blocks require **Actual CSS 0.20.1**. The quick start is `@import "actual-css/full";`, or the component modules listed below. Nine blocks also need Actual CSS's published JavaScript runtime (see the JavaScript column). The Island Workspace project directory also uses Data Grid. No block requires the gallery CSS, gallery JavaScript or an `actual-blocks` package.
 
 | Block | Category | JavaScript | Custom CSS |
 | --- | --- | --- | --- |
@@ -109,7 +109,7 @@ The composition follows the reference’s progression from a split-screen hero t
 
 - **Files:** `src/blocks/article/block.html`, `block.css`
 - **JavaScript:** Actual CSS `scrollspy` enhancer (`actual-css/js/scrollspy` or the full runtime).
-- **Actual CSS components:** navbar (`.nav-list` / `.nav-link`), avatar, button
+- **Actual CSS components:** navbar (`.nav-list.rail` / `.nav-link`), avatar, button
 - **Primitives:** center, stack, nav-list, scrollspy
 - **Notes:** The enhancer sets `aria-current="location"` on the section being read. Without JavaScript the contents are plain anchor links. Spying follows the viewport; use `data-scrollspy-root` for a scroll container.
 
@@ -257,7 +257,7 @@ The composition follows the reference’s progression from a split-screen hero t
 
 ## Copy checklist
 
-1. Load Actual CSS 0.19.5 (full bundle or the modules you need).
+1. Load Actual CSS 0.20.1 (full bundle or the modules you need).
 2. Copy `block.html` into a semantic page region.
 3. Copy `block.css` into a stylesheet loaded after Actual CSS.
 4. Replace placeholder links, sample data and illustrative controls with your application's behavior.

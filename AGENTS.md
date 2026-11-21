@@ -8,13 +8,13 @@ Build a small, polished, standalone gallery of HTML/CSS blocks for consumers of 
 
 - Read `docs/brief.md`, `docs/architecture.md`, `docs/decisions.md`, `docs/blocks.md`, `docs/block-contract.md`, and `docs/acceptance.md` before changing structure.
 - Consult the installed Actual CSS package (`node_modules/actual-css/`) and its documented components/layouts before choosing class names. Do not guess undocumented classes or npm exports.
-- The project pins the published `actual-css` **0.19.5** release. Verify the installed version before assuming an API.
+- The project pins the published `actual-css` **0.20.1** release. Verify the installed version before assuming an API.
 - `docs/roadmap.md` lists the release steps and the next blocks, in priority order.
 - Use Actual CSS as a dependency, not a git submodule or copied source tree.
 
 ## Current state
 
-- Twenty-eight blocks are implemented. Marketing: Hero, Feature Grid, Bento Feature Grid, Testimonials, Pricing, Compare Plans, FAQ, Call to Action, Article with Contents. Application: Dashboard, Dashboard Shell, Island Workspace, Project Overview, AI Assistant, Sign-in, Settings, Appearance Settings, Plan Change, Product Overview, Checkout, Listing, Order Tracking, Code Verification, Empty State. Navigation: Site Header, App Topbar, App Sidebar, Site Footer.
+- Twenty-nine blocks are implemented. Marketing: Hero, Studio Hero, Feature Grid, Bento Feature Grid, Testimonials, Pricing, Compare Plans, FAQ, Call to Action, Article with Contents. Application: Dashboard, Dashboard Shell, Island Workspace, Project Overview, AI Assistant, Sign-in, Settings, Appearance Settings, Plan Change, Product Overview, Checkout, Listing, Order Tracking, Code Verification, Empty State. Navigation: Site Header, App Topbar, App Sidebar, Site Footer.
 - Catalog order lives in `src/blocks/order.json`.
 - The static gallery, isolated iframe previews, desktop/mobile viewport control, light/dark preview themes, canonical source display, copy HTML/CSS, dependency notes and limitation notes are implemented.
 - Blocks never contain a `<script>`. Drawers use native `command` / `commandfor`; the FAQ uses `<details name>`.

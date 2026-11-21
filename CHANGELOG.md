@@ -2,11 +2,22 @@
 
 Blocks are evergreen and carry no compatibility guarantee: to pick up a change, copy the block again. Each release lists the blocks it adds or changes and the Actual CSS version it pins. A minor version adds blocks; a patch only improves existing ones. Versions are Git tags (`vX.Y.Z`); nothing is published to npm.
 
-## Unreleased
+## 0.5.0
 
-Pins Actual CSS 0.19.5 and Data Grid 3.10.2: keep the project on the latest published releases and verify the blocks against the current upstream API.
+Pins Actual CSS 0.20.1 and Data Grid 3.10.2. The gallery and all previews inherit the new button, badge, field label, switch and soft intent styles.
 
-- **Studio Hero** (new, marketing) introduces a design studio with full-bleed photography, three native desktop menus and a direct Studio link. The menus show projects with a changing image, illustrated service cards that zoom and a compact list of journal topics. On mobile, a hamburger opens a drawer with collapsible link groups. The primary action’s arrow switches sides on hover and keyboard focus. A short pause precedes the title reveal, and Actual CSS `in-view` triggers a later, staggered entrance for the intro copy and action. The original WebP images are downloadable with the HTML and CSS.
+- **Studio Hero** (new, marketing) introduces a design studio with full-bleed photography, three native desktop menus and a direct Studio link. The menus show projects with a changing image, illustrated service cards that zoom and a compact list of journal topics. On mobile, a hamburger opens a drawer with collapsible link groups. The primary action’s arrow switches sides on hover and keyboard focus. The title and intro use `--reveal-delay` and `--reveal-stagger` to time their entrances. The `in-view` enhancer reveals the intro on scroll and makes the action visible immediately on focus. The original WebP images are downloadable with the HTML and CSS.
+- **Article with Contents** uses `.nav-list.rail` to mark the current section and align the keyboard focus outline with the rail.
+- **Dashboard Shell** declares its sidebar icon width through `--nav-list-icon-size` to align the nested links with their parent label.
+- **Product Hero — Monograph** and **Dashboard Overview — Control Room** retune their light-theme soft intent text for contrast on hovered, tinted surfaces.
+- **Island Workspace**, **Project Overview** and **Order Tracking** inherit the Firefox timeline spacing fix. **Product Hero** and **Bento Feature Grid** inherit the flat, theme-colored Firefox meter fills.
+
+The gallery offers downloadable local background images for Studio Hero. Updated the 18 Chromium visual baselines for the new framework styles.
+
+## 0.4.0
+
+Pins Actual CSS 0.19.5 and Data Grid 3.10.2.
+
 - **Island Workspace** (new, application) places studio navigation on a shared canvas and raises panels for the next milestone, reviews, active projects and an activity timeline. Overview is marked as the current page, and the avatar opens an account menu. Each project dialog lists its stage, lead, due date and progress, with an Open project link. Timeline dates stay beside their titles as they wrap, and the avatars sit on the first line of each event. The project directory supports local search, sorting and a stage filter labelled “All stages” with Data Grid 3.10.2.
 - **Dashboard Shell** and **App Topbar** (changed): menu dividers are `<li class="menu-separator" aria-hidden="true">` rows, as Actual CSS 0.19.4 documents, instead of an `<hr>` directly inside `<menu>`.
 - **Dashboard Overview** (original and Control Room remix), **Account Settings** and **App Sidebar**: reviewed and updated five visual baselines for the softer neutral outline borders.

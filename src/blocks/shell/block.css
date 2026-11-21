@@ -1,5 +1,5 @@
 /* Actual Blocks — Dashboard Shell
-   Scoped to .ab-shell. Requires Actual CSS 0.17.x and its flyout and dismiss enhancers.
+   Scoped to .ab-shell. Requires Actual CSS 0.19.0 or later and its flyout and dismiss enhancers.
    .sidebar-shell owns the layout: from 64rem the sidebar and the content column
    scroll on their own and the topbar sticks to the top of the content column. */
 
@@ -59,7 +59,7 @@
 
 .ab-shell__nav {
   /* Sub-links start under the parent label, past its 18px icon and gap. */
-  --nav-list-indent: calc(18px + var(--space-20));
+  --nav-list-icon-size: 18px;
   display: grid;
   align-content: start;
   gap: var(--space-10);

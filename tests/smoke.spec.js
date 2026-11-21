@@ -249,6 +249,19 @@ test("studio hero reveals the supporting copy only once when it enters view", as
   await expect(intro).not.toHaveClass(/\bis-pending\b/);
   await expect(action).toHaveCSS("opacity", "1");
 
+  await page.reload();
+  await expect(intro).toHaveClass(/\bis-pending\b/);
+  await intro.evaluate((element) => element.style.setProperty("--reveal-delay", "30s"));
+  await copy.scrollIntoViewIfNeeded();
+  await expect(intro).not.toHaveClass(/\bis-pending\b/);
+  const opacity = await action.evaluate((link) => {
+    const before = getComputedStyle(link).opacity;
+    link.focus({ preventScroll: true });
+    return [before, getComputedStyle(link).opacity];
+  });
+  await expect(action).toBeFocused();
+  expect(opacity).toEqual(["0", "1"]);
+
   await page.route("**/assets/actual-css.js", (route) => route.abort());
   await page.reload();
   await expect(intro).not.toHaveClass(/\bis-pending\b/);

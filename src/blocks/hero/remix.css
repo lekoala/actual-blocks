@@ -42,6 +42,9 @@
      toward the page ink. */
   --state-selected-text: color-mix(in oklab, var(--primary) 78%, var(--text));
   --primary-soft-fg: color-mix(in oklab, var(--primary) 70%, var(--text));
+  /* Keep soft ink readable over the hovered tint on the darker paper. */
+  --warning-soft-fg: light-dark(color-mix(in oklab, var(--warning) 80%, var(--text)), var(--warning));
+  --danger-soft-fg: light-dark(color-mix(in oklab, var(--danger) 85%, var(--text)), var(--danger));
   --hover-overlay: light-dark(hsl(30 30% 10% / 0.05), hsl(40 40% 96% / 0.07));
   --shadow-color: light-dark(hsl(30 30% 12%), hsl(30 30% 2%));
 

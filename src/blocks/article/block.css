@@ -1,5 +1,5 @@
 /* Actual Blocks — Article with Contents
-   Scoped to .ab-article. Requires Actual CSS 0.16.x and its scrollspy enhancer. */
+   Scoped to .ab-article. Requires Actual CSS 0.20.0 or later and its scrollspy enhancer. */
 
 .ab-article {
   --ab-font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
@@ -64,7 +64,6 @@
 
 .ab-article__toc .overline {
   margin: 0 0 var(--space-20);
-  padding-inline: var(--space-20);
 }
 
 .ab-article__toc .nav-link {
