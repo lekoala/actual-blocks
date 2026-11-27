@@ -4,6 +4,9 @@ Blocks are evergreen and carry no compatibility guarantee: to pick up a change, 
 
 ## Unreleased
 
+Pins Actual CSS 0.21.1. The gallery and all previews inherit its quieter field edges, the tinted light surface under white cards, the shared field hover and the realigned select chevron.
+
+- **Account Settings** updates its light visual baseline for the new field fill and edge.
 - **Call to Action** aligns the checkmarks with the first line of each trial benefit, including when the text wraps.
 
 ## 0.5.0

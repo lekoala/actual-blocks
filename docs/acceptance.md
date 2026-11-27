@@ -343,3 +343,7 @@ Reviewed the desktop light, mobile dark, three open desktop menus and mobile dra
 `bun run test` passed on Windows with Bun 1.4.5 and Playwright 1.64.1. The build produced 29 blocks and 62 HTML documents. The three remix themes passed the contrast checker, and all 122 Chromium tests passed with 18 reviewed visual baselines. The Studio Hero smoke test checks immediate visibility when focus enters during the delay after scrolling released the group.
 
 Firefox 157 rendered all 29 original previews in both themes at 360, 820 and 1280px without horizontal overflow or page errors. Checked the timelines in Island Workspace, Project Overview and Order Tracking at 360 and 1280px, and verified that Product Hero renders each of the three native meter zones in its flat theme color. AI Assistant opens its log at the newest message at 360 and 1280px in Firefox, Chromium and Playwright WebKit.
+
+## Actual CSS 0.21.1 verification
+
+Upgraded from 0.20.1. No block uses the APIs the release changes incompatibly (gradient `--btn-bg`, default exports of `actual-css/js/*`, `.app-layout` / `.app-nav`). `bun run build` and `bun run check` passed for 29 blocks and 62 generated HTML files, and the three remix themes passed `bun run contrast`. All 122 Chromium Playwright tests passed after one deliberate baseline update: Account Settings light, whose fields now rest on the tinted `--surface` with the quiet `--border` edge inside white cards. The other 17 baselines stayed within tolerance.
