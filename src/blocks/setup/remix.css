@@ -54,8 +54,28 @@
 
 /* Block art direction ------------------------------------------------------ */
 
+/* One region rule restyles every component inside: the hooks below are read
+   with the framework default as a fallback, so the block root reaches every
+   card, button, join, badge, checkbox, switch and progress bar. */
 .ab-setup {
   --ab-paper-hand: "Kalam", "Comic Sans MS", cursive;
+  --ab-paper-shade: color-mix(in oklch, var(--shadow-color) 16%, transparent);
+
+  /* Hand-cut corners. */
+  --card-radius: 6px 20px 8px 24px / 22px 6px 26px 7px;
+  --btn-radius: 4px 14px 5px 12px / 12px 5px 14px 4px;
+  --join-radius: 10px 4px;
+  --badge-radius: 2px;
+  --check-radius: 2px;
+  /* The segments subtract the padding from it: one length only. */
+  --segmented-radius: 3px;
+  --bar-radius: 2px;
+
+  /* Pencil edges. */
+  --switch-border: var(--text);
+  --progress-border: 1.5px solid var(--border);
+  --bar-height: 0.75rem;
+
   /* Coloured pencil instead of a dome: fine light hatching over every solid
      fill (button, checked box and switch, progress value, solid badge).
      No raised knobs, no recessed wells. */
@@ -64,21 +84,17 @@
   --shadow-inset: 0 0 #0000;
   /* Fields are drawn on the sheet itself, not cut into the desk. */
   --control-default-bg: var(--surface-raised);
-  --ab-paper-shade: color-mix(in oklch, var(--shadow-color) 16%, transparent);
+
   background-color: var(--surface);
   background-image: radial-gradient(color-mix(in oklab, var(--text) 16%, transparent) 1px, transparent 1.5px);
   background-size: 18px 18px;
 }
 
-/* Each sheet is cut by hand: unequal elliptical corners, a pencil edge and a
-   short, hard shadow on the desk. */
+/* Each sheet is cut by hand, no two alike, with a short hard shadow on the
+   desk. */
 .ab-setup__card {
   border: 1.5px solid var(--border);
   box-shadow: 2px 3px 0 var(--ab-paper-shade);
-}
-
-.ab-setup__create {
-  --card-radius: 6px 20px 8px 24px / 22px 6px 26px 7px;
 }
 
 .ab-setup__progress {
@@ -108,23 +124,19 @@
   font-size: 3rem;
 }
 
-/* Fields: a drawn box, the same pencil edge, the sheet showing through. */
+/* Text fields have no radius hook: their drawn box is set on the field. */
 .ab-setup .field > .input {
   border-radius: 3px 12px 4px 10px / 10px 4px 12px 3px;
+}
+
+/* The same 1.5px pencil line on every edge. Border widths have no hook;
+   --choice-border is a state color, kept local by the framework. */
+.ab-setup :is(.field > .input, .join > *, .btn, .check) {
   border-width: 1.5px;
 }
 
-.ab-setup .join {
-  --join-radius: 10px 4px;
-}
-
-.ab-setup .join > * {
-  border-width: 1.5px;
-}
-
-.ab-setup__actions .btn {
-  --btn-radius: 4px 14px 5px 12px / 12px 5px 14px 4px;
-  border-width: 1.5px;
+.ab-setup .check {
+  --choice-border: var(--border);
 }
 
 .ab-setup .btn.primary {
@@ -132,38 +144,14 @@
   --btn-shadow: 2px 3px 0 var(--ab-paper-shade);
 }
 
-/* Controls take the same pencil line and cut corners, and keep their
-   shapes: the switch stays a pill, the marks stay the framework's. */
-.ab-setup .check {
-  /* No checkbox radius hook: the box reads --radius-sm. */
-  --radius-sm: 2px;
-  --choice-border: var(--border);
-  border-width: 1.5px;
-}
-
-.ab-setup .switch {
-  /* .switch redeclares --switch-border from its track color, so an
-     inherited value would not reach it. */
-  --switch-border: var(--text);
-}
-
 .ab-setup .segmented {
-  --segmented-radius: 3px;
   --segmented-bg: var(--surface-subtle);
   --segmented-selected-bg: var(--surface-raised);
   --segmented-selected-border: var(--border);
 }
 
-.ab-setup .progress {
-  --bar-radius: 2px;
-  --bar-height: 0.75rem;
-  /* No track edge hook: the pencil line is the element's own border. */
-  border: 1.5px solid var(--border);
-}
-
 /* Badges are strips of tape, laid on slightly askew. */
 .ab-setup .badge {
-  --badge-radius: 2px;
   rotate: -2deg;
 }
 

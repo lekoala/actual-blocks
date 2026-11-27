@@ -4,9 +4,9 @@ Blocks are evergreen and carry no compatibility guarantee: to pick up a change, 
 
 ## Unreleased
 
-Pins Actual CSS 0.21.1. The gallery and all previews inherit its quieter field edges, the tinted light surface under white cards, the shared field hover and the realigned select chevron.
+Pins Actual CSS 0.22.0. The gallery and all previews inherit 0.21’s quieter field edges, the tinted light surface under white cards, the shared field hover and the realigned select chevron.
 
-- **Workspace Setup** (new, application) is a first-run screen: a workspace form with a segmented choice, a prefixed URL and a sample-data option, beside a setup progress card and notification switches. Cards rise, fields and rails are recessed and every solid fill takes one domed finish, through Actual CSS 0.21's `--finish`, `--shadow-control` and `--shadow-inset` hooks set on the block. Its **Paper** remix (Kalam) lays the same HTML on warm dotted paper with hand-cut corners, handwritten headings, pencil-edged controls and a light coloured-pencil hatching as its finish.
+- **Workspace Setup** (new, application) is a first-run screen: a workspace form with a segmented choice, a prefixed URL and a sample-data option, beside a setup progress card and notification switches. Cards rise, fields and rails are recessed and every solid fill takes one domed finish, through Actual CSS 0.21's `--finish`, `--shadow-control` and `--shadow-inset` hooks set on the block. Its **Paper** remix (Kalam) lays the same HTML on warm dotted paper with hand-cut corners, handwritten headings, pencil-edged controls and a light coloured-pencil hatching as its finish. The remix sets its corners and pencil edges once on the block root, through Actual CSS 0.22’s inheritable radius hooks, `--check-radius`, `--switch-border` and `--progress-border`.
 - **Account Settings** updates its light visual baseline for the new field fill and edge.
 - **Call to Action** aligns the checkmarks with the first line of each trial benefit, including when the text wraps.
 

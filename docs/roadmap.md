@@ -1,6 +1,6 @@
 # Actual Blocks — roadmap
 
-> **0.4.0 is tagged.** 0.5.0 shipped 29 blocks on `actual-css` 0.20.1, including Studio Hero; `master` now pins `actual-css` 0.21.1 and adds Workspace Setup (30 blocks). The gallery is deployed to GitHub Pages from `master`. `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
+> **0.4.0 is tagged.** 0.5.0 shipped 29 blocks on `actual-css` 0.20.1, including Studio Hero; `master` now pins `actual-css` 0.22.0 and adds Workspace Setup (30 blocks). The gallery is deployed to GitHub Pages from `master`. `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
 
 ## Delivered
 
