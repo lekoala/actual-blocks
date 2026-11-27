@@ -1,6 +1,6 @@
 # Actual Blocks — roadmap
 
-> **0.4.0 is tagged.** 0.5.0 shipped 29 blocks on `actual-css` 0.20.1, including Studio Hero; `master` now pins `actual-css` 0.22.0 and adds Workspace Setup (30 blocks). The gallery is deployed to GitHub Pages from `master`. `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
+> **0.4.0 is tagged.** 0.5.0 shipped 29 blocks on `actual-css` 0.20.1, including Studio Hero; `master` now pins `actual-css` 0.22.0 and adds Workspace Setup and Developer Profile (31 blocks). The gallery is deployed to GitHub Pages from `master`. `docs/acceptance.md` holds the verification evidence and `docs/decisions.md` the implemented architecture and real limitations.
 
 ## Delivered
 
@@ -34,7 +34,7 @@ One canonical block, plus an optional `remix.css` that gives it a different iden
 - The detail page gets an **Original / Remix** switch on the preview and a copy button for the remix CSS.
 - Three blocks to prove it: Product Hero (editorial), Dashboard (assertive, dense) and Sign-in (strong graphic identity, for example neo-brutalist).
 
-Released in 0.2.0: Monograph (Hero), Control Room (Dashboard) and Poster (Sign-in). Paper (Workspace Setup, unreleased) shows a remix flattening the relief and swapping the finish its block turns on. The contract is in [`block-contract.md`](block-contract.md), the reasoning in [`decisions.md`](decisions.md) §13: a page-level brand theme of public tokens, then scoped art direction; pinned open-licensed Fontsource fonts; `bun run contrast` as a gate; light/dark, 360px, Axe and a visual baseline per remix.
+Released in 0.2.0: Monograph (Hero), Control Room (Dashboard) and Poster (Sign-in). Paper (Workspace Setup, unreleased) shows a remix flattening the relief and swapping the finish its block turns on. Terminal (Developer Profile, unreleased) restyles charts while the data keeps its own colors. The contract is in [`block-contract.md`](block-contract.md), the reasoning in [`decisions.md`](decisions.md) §13: a page-level brand theme of public tokens, then scoped art direction; pinned open-licensed Fontsource fonts; `bun run contrast` as a gate; light/dark, 360px, Axe and a visual baseline per remix.
 
 Still open: whether the card thumbnails or the home page should show remixes (part of step 2's featured blocks).
 

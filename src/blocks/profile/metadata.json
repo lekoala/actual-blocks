@@ -1,0 +1,44 @@
+{
+  "id": "profile",
+  "title": "Developer Profile",
+  "category": "application",
+  "description": "A contributor's last 90 days: a commit trend, commits by repository, pull request outcomes, a contribution heatmap and a language split. Five chart forms in static HTML, CSS and inline SVG, with no chart library and no script.",
+  "summary": "Sparkline, bars, donut, heatmap and stacked bar, without a chart library.",
+  "components": [
+    "card",
+    "badge",
+    "avatar",
+    "button"
+  ],
+  "primitives": [
+    "center",
+    "container-query",
+    "grid-2",
+    "stack",
+    "cluster"
+  ],
+  "requiresJs": false,
+  "previewHeight": "56rem",
+  "remix": {
+    "name": "Terminal",
+    "description": "Green-bar printout by day, phosphor screen by night: JetBrains Mono throughout, tractor-feed margins, square dashed panels, segmented LED bars, a ticked ring and a glow on the figures in the dark. The language colors keep their meaning; open pull requests turn amber through the card's one status hook.",
+    "fonts": [
+      {
+        "family": "JetBrains Mono",
+        "package": "@fontsource-variable/jetbrains-mono"
+      }
+    ]
+  },
+  "docs": [
+    "components/card.html",
+    "components/badge.html",
+    "components/avatar.html",
+    "layout/grid.html"
+  ],
+  "notes": [
+    "All names, figures and activity are sample data. Render the bar lengths (--ab-value), donut stops (--ab-stop-1, --ab-stop-2), heatmap levels (data-level 0–4) and sparkline path from your own queries.",
+    "Every mark reads --ab-series, the theme primary by default. Colors that carry meaning belong to your data: set --ab-series inline per series (the languages) or once per card (the pull request statuses), and render the bar and its legend from the same record.",
+    "Each figure stays readable as text: bars and legends print their values, the sparkline, donut and heatmap carry a text summary for assistive technology. The charts have no hover tooltips.",
+    "View repositories is a plain link to your own repository list."
+  ]
+}

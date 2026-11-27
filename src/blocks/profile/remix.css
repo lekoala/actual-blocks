@@ -1,0 +1,154 @@
+/* Actual Blocks — Developer Profile, "Terminal" remix
+   Green-bar printout by day, phosphor screen by night: one monospaced face,
+   square panels, segmented bars and a ticked ring. The language colors stay
+   the data's own; only the chrome and the theme-owned series change. Same
+   HTML as the block. Load after Actual CSS and block.css, with JetBrains
+   Mono. */
+
+/* Brand theme --------------------------------------------------------------
+   Page level, Actual CSS tokens only: a palette set here reaches every
+   derived token and theme island, which a block-scoped override cannot.
+   Move it to your application theme if the whole product adopts it. */
+
+:root,
+[data-theme="light"] {
+  --font-sans: "JetBrains Mono Variable", ui-monospace, monospace;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+
+  --primary: light-dark(hsl(152 72% 24%), hsl(130 80% 58%));
+  --primary-fg: light-dark(hsl(60 40% 98%), hsl(150 60% 5%));
+  --secondary: light-dark(hsl(196 70% 28%), hsl(186 80% 62%));
+  --secondary-fg: light-dark(hsl(60 40% 98%), hsl(150 60% 5%));
+  --success: light-dark(hsl(160 64% 24%), hsl(150 70% 60%));
+  --success-fg: light-dark(hsl(60 40% 98%), hsl(150 60% 5%));
+  --warning: light-dark(hsl(34 88% 30%), hsl(40 95% 60%));
+  --warning-fg: light-dark(hsl(60 40% 98%), hsl(40 60% 6%));
+  --danger: light-dark(hsl(2 66% 40%), hsl(4 88% 70%));
+  --danger-fg: light-dark(hsl(60 40% 98%), hsl(4 50% 8%));
+  --neutral: light-dark(hsl(150 10% 30%), hsl(130 18% 72%));
+  --neutral-fg: light-dark(hsl(60 40% 98%), hsl(150 60% 5%));
+
+  /* The desk under the paper, the paper, and its pale green bar. */
+  --surface: light-dark(hsl(80 16% 92%), hsl(150 35% 4%));
+  --surface-raised: light-dark(hsl(60 33% 98%), hsl(150 30% 7%));
+  --surface-subtle: light-dark(hsl(110 24% 89%), hsl(150 24% 13%));
+  --surface-solid: light-dark(hsl(150 30% 10%), hsl(125 60% 82%));
+
+  --text: light-dark(hsl(150 35% 10%), hsl(125 70% 84%));
+  --text-muted: light-dark(hsl(150 16% 29%), hsl(130 38% 68%));
+  --text-subtle: light-dark(hsl(150 10% 37%), hsl(132 26% 58%));
+
+  --border: light-dark(hsl(140 14% 44%), hsl(135 30% 40%));
+  --border-control: var(--border);
+  /* One mid-tone cyan, 3:1 on the paper, the screen and the inverse --surface-solid. */
+  --focus: hsl(196 90% 36%);
+  --hover-overlay: light-dark(rgb(20 60 40 / 0.07), rgb(140 255 170 / 0.08));
+  --shadow-color: light-dark(hsl(150 30% 16%), hsl(0 0% 0%));
+
+  --primary-soft-fg: light-dark(hsl(152 72% 20%), hsl(130 80% 70%));
+  --secondary-soft-fg: light-dark(hsl(196 70% 22%), hsl(186 80% 74%));
+  --success-soft-fg: light-dark(hsl(160 64% 19%), hsl(150 70% 72%));
+  --warning-soft-fg: light-dark(hsl(34 88% 22%), hsl(40 95% 72%));
+  --danger-soft-fg: light-dark(hsl(2 66% 32%), hsl(4 88% 80%));
+  --neutral-soft-fg: var(--text);
+}
+
+/* Block art direction ------------------------------------------------------ */
+
+.ab-profile {
+  /* Square everything from the root: the radius hooks inherit. */
+  --card-radius: 0;
+  --badge-radius: 0;
+  --btn-radius: 0;
+  --ab-term-hole: light-dark(hsl(80 10% 80%), transparent);
+  --ab-term-band: light-dark(hsl(110 26% 86% / 0.7), transparent);
+  --ab-term-scan: light-dark(transparent, rgb(120 255 150 / 0.035));
+  --ab-term-glow: light-dark(transparent, color-mix(in oklab, var(--primary) 55%, transparent));
+  font-variant-ligatures: none;
+  background-color: var(--surface);
+  /* Tractor-feed holes down both margins, green bars across the sheet by
+     day; faint scan lines by night. */
+  background-image:
+    radial-gradient(circle, var(--ab-term-hole) 0.3rem, transparent 0.34rem),
+    radial-gradient(circle, var(--ab-term-hole) 0.3rem, transparent 0.34rem),
+    repeating-linear-gradient(var(--ab-term-scan) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(var(--ab-term-band) 0 2.25rem, transparent 2.25rem 4.5rem);
+  background-position: left 0.25rem top 0, right 0.25rem top 0, 0 0, 0 0;
+  background-repeat: repeat-y, repeat-y, repeat, repeat;
+  background-size: 1.25rem 1.5rem, 1.25rem 1.5rem, auto, auto;
+}
+
+.ab-profile__avatar {
+  /* --avatar-radius is declared on .avatar, so the root cannot reach it. */
+  --avatar-radius: 0;
+  /* On the sheet, not on a green bar: the panels' paper and dashed rule. */
+  --avatar-bg: var(--surface-raised);
+  border: var(--border-width) dashed var(--border);
+}
+
+.ab-profile__who h1,
+.ab-profile__figure strong {
+  letter-spacing: -0.04em;
+  text-shadow: 0 0 0.75rem var(--ab-term-glow);
+}
+
+/* Panels are cut from the listing: a dashed rule instead of a shadow. */
+.ab-profile__card {
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.ab-profile__card h2 {
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.ab-profile__card h2::before {
+  content: "> " / "";
+  color: var(--primary);
+}
+
+/* Open pull requests wait in amber, the second phosphor; merged keeps the
+   primary green. The statuses are set once on the card, so one line does it. */
+.ab-profile__prs {
+  --ab-open: var(--warning);
+}
+
+/* Segmented bars and a ticked ring, like an LED readout. */
+.ab-profile__bar,
+.ab-profile__stack {
+  block-size: 0.625rem;
+  border-radius: 0;
+  mask: repeating-linear-gradient(90deg, #000 0 0.375rem, transparent 0.375rem 0.5rem);
+}
+
+.ab-profile__donut {
+  --ab-ring: 1.125rem;
+}
+
+.ab-profile__donut::before {
+  mask:
+    radial-gradient(farthest-side, transparent calc(100% - var(--ab-ring)), #000 calc(100% - var(--ab-ring) + 0.5px)),
+    repeating-conic-gradient(#000 0 4deg, transparent 4deg 6deg);
+  mask-composite: intersect;
+}
+
+.ab-profile__spark-line {
+  filter: drop-shadow(0 0 3px var(--ab-term-glow));
+}
+
+.ab-profile__heatmap [data-level],
+.ab-profile__key {
+  border-radius: 0;
+}
+
+.ab-profile__heatmap [data-level="4"] {
+  box-shadow: 0 0 0.375rem var(--ab-term-glow);
+}
+
+@media (prefers-contrast: more) {
+  .ab-profile {
+    background-image: none;
+  }
+}

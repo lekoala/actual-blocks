@@ -20,6 +20,7 @@ All blocks require **Actual CSS 0.22.0**. The quick start is `@import "actual-cs
 | Dashboard Shell (`shell`) | Application | Actual CSS `flyout`, `dismiss` | `block.css` |
 | Island Workspace (`island`) | Application | Actual CSS `flyout`, Data Grid 3.10.2 | `block.css` |
 | Project Overview (`project`) | Application | Actual CSS `tab` | `block.css` |
+| Developer Profile (`profile`) | Application | None | `block.css` |
 | AI Assistant (`assistant`) | Application | None | `block.css` |
 | Sign-in (`signin`) | Application | Actual CSS `validation`, `password`, `status` | `block.css` |
 | Workspace Setup (`setup`) | Application | None | `block.css` |
@@ -167,7 +168,15 @@ The composition follows the reference’s progression from a split-screen hero t
 - **Actual CSS components:** card, button, badge, segmented, progress, list
 - **Primitives:** stack, field, join, choice, switch
 - **Notes:** A first-run screen: workspace form (segmented choice, prefixed URL, sample-data option), setup progress and notification switches. The relief is Actual CSS's own hooks set on `.ab-setup`: `--finish` domes every solid fill (primary button, checked box and switch, progress value, solid badge), `--shadow-control` raises the selected segment and switch knobs, `--shadow-inset` recesses fields and rails, and fields keep the 3:1 `--border-control` edge. Move the hooks to your theme for the whole product, or delete them for a flat block. Creating and importing are illustrative; the form posts natively.
-- **Remix — Paper:** `remix.css` with Kalam 700. Warm paper on a dotted desk, unequal hand-cut corners through `--card-radius`, `--btn-radius` and `--join-radius`, handwritten headings, a fountain-pen blue, badges laid on like tape. It replaces the dome with a light coloured-pencil hatching (`--finish` as a `repeating-linear-gradient`) on every solid fill and flattens the relief hooks. The controls take the same pencil line and cut corners through `--segmented-radius`, `--segmented-selected-border`, `--bar-radius` and `--choice-border`; three gaps need direct rules (the checkbox radius reads `--radius-sm`, the progress track has no edge hook, `--switch-border` must be set on `.switch`). The dot texture is dropped under `prefers-contrast: more`.
+- **Remix — Paper:** `remix.css` with Kalam 700. Warm paper on a dotted desk, unequal hand-cut corners, handwritten headings, a fountain-pen blue, badges laid on like tape. It replaces the dome with a light coloured-pencil hatching (`--finish` as a `repeating-linear-gradient`) on every solid fill and flattens the relief hooks. Corners and pencil edges are set once on `.ab-setup` through inheritable hooks (`--card-radius`, `--btn-radius`, `--join-radius`, `--badge-radius`, `--segmented-radius`, `--check-radius`, `--switch-border`, `--progress-border`); the text-field corner, the 1.5px border width and the checkbox `--choice-border` (a state color) stay direct rules. The dot texture is dropped under `prefers-contrast: more`.
+
+## Developer Profile
+
+- **Files:** `src/blocks/profile/block.html`, `block.css`
+- **Actual CSS components:** card, badge, avatar, button
+- **Primitives:** center, container-query, grid-2, stack, cluster
+- **Notes:** A contributor's last 90 days in five chart forms, with no chart library and no script: an inline SVG sparkline, horizontal bars, a `conic-gradient` donut, a CSS grid heatmap and a stacked bar. Every mark reads `--ab-series`, the theme primary by default. Colors that carry meaning belong to the data: the languages set `--ab-series` inline per series, the pull request statuses once on their card (`--ab-merged`, `--ab-open`, `--ab-closed`). Bar lengths (`--ab-value`), donut stops (`--ab-stop-1`, `--ab-stop-2`) and heatmap levels (`data-level` 0–4) are rendered by the application. Bars and legends print their values; the sparkline, donut and heatmap carry a text summary. No tooltips.
+- **Remix — Terminal:** `remix.css` with JetBrains Mono. Green-bar printout by day (tractor-feed margins, pale bands), phosphor screen by night (scan lines, glowing figures). Square corners from the root through the radius hooks, dashed panels, segmented LED bars and a ticked donut ring through masks. The language colors are untouched; open pull requests turn amber through the card's one status hook. `--avatar-radius` is declared on `.avatar`, so the avatar needs its own rule. The background is dropped under `prefers-contrast: more`.
 
 ## Account Settings
 

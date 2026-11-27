@@ -1,0 +1,347 @@
+/* Actual Blocks — Developer Profile
+   Scoped to .ab-profile. Requires Actual CSS 0.22.0.
+
+   The charts are static HTML, CSS and inline SVG: no chart library, no
+   script. Every mark reads its color from --ab-series, the theme primary
+   unless a series sets its own. Colors that belong to the data (a language,
+   a product, a status) are set where the data is: inline from your records,
+   or once per card, as the pull request statuses below. Bar lengths and
+   donut stops are inline custom properties your application renders. */
+
+.ab-profile {
+  --ab-series: var(--primary);
+  --ab-track: var(--surface-subtle);
+  --ab-value: 0%;
+  --center-size: 72rem;
+  --center-pad: var(--space-40);
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* Header ------------------------------------------------------------------ */
+
+.ab-profile__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-30);
+  margin-block-end: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.ab-profile__avatar {
+  --avatar-size: 3.5rem;
+  --avatar-font-size: var(--font-size-lg);
+}
+
+.ab-profile__who {
+  flex: 1 1 16rem;
+}
+
+.ab-profile__who .overline {
+  margin-block-end: var(--space-10);
+}
+
+/* Segments wrap whole. Each separator sits in the gap before its segment;
+   one that starts a line falls outside the box and is clipped. */
+.ab-profile__meta {
+  --gap: 0 var(--space-30);
+  overflow: clip;
+}
+
+.ab-profile__meta > * + * {
+  position: relative;
+}
+
+.ab-profile__meta > * + *::before {
+  content: "·" / "";
+  position: absolute;
+  inset-inline-end: calc(100% + var(--space-30) / 2);
+  translate: 50%;
+}
+
+.ab-profile__who h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 3.6vw, 2.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.ab-profile__who p:last-child {
+  margin: var(--space-10) 0 0;
+  color: var(--text-muted);
+}
+
+/* Cards ------------------------------------------------------------------- */
+
+.ab-profile__grid {
+  --gap: var(--space-30);
+}
+
+.ab-profile__card {
+  --card-pad: var(--space-40);
+  --card-gap: var(--space-30);
+  min-inline-size: 0;
+}
+
+.ab-profile__card > header {
+  align-items: baseline;
+  font-size: var(--font-size-sm);
+}
+
+.ab-profile__card h2 {
+  margin: 0;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ab-profile__wide {
+  grid-column: 1 / -1;
+}
+
+.ab-profile__figure {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-10) var(--space-20);
+  margin: 0;
+  font-size: var(--font-size-sm);
+}
+
+.ab-profile__figure strong {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-profile__count {
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-profile__chart {
+  display: grid;
+  gap: var(--space-10);
+  margin: 0;
+}
+
+.ab-profile__axis {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-20);
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+}
+
+/* Sparkline: one series, stretched to the card. The stroke keeps its width
+   however the drawing is scaled. */
+
+.ab-profile__spark {
+  display: block;
+  inline-size: 100%;
+  block-size: 4.5rem;
+  overflow: visible;
+}
+
+.ab-profile__spark-area {
+  fill: color-mix(in oklab, var(--ab-series) 14%, transparent);
+}
+
+.ab-profile__spark-line {
+  fill: none;
+  stroke: var(--ab-series);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Horizontal bars: the label and figure are the data, the bar repeats them. */
+
+.ab-profile__bars {
+  display: grid;
+  gap: var(--space-30);
+  font-size: var(--font-size-sm);
+}
+
+.ab-profile__bars li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-10) var(--space-20);
+}
+
+.ab-profile__name {
+  font-family: var(--font-mono);
+}
+
+.ab-profile__bar {
+  flex: 1 0 100%;
+  block-size: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--ab-track);
+}
+
+.ab-profile__bar::before {
+  content: "";
+  display: block;
+  inline-size: var(--ab-value);
+  block-size: 100%;
+  border-radius: inherit;
+  background: var(--ab-series);
+}
+
+/* Donut: statuses are meaning, so their colors are set once on the card. */
+
+.ab-profile__prs {
+  --ab-merged: var(--primary);
+  --ab-open: var(--success);
+  --ab-closed: var(--text-subtle);
+}
+
+.ab-profile__split {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-30) var(--space-40);
+}
+
+.ab-profile__donut {
+  --ab-ring: 0.875rem;
+  --ab-stop-1: 0%;
+  --ab-stop-2: 0%;
+  position: relative;
+  display: grid;
+  flex: none;
+  place-content: center;
+  inline-size: 8.5rem;
+  aspect-ratio: 1;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.ab-profile__donut::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--ab-merged) 0 var(--ab-stop-1),
+    var(--ab-open) 0 var(--ab-stop-2),
+    var(--ab-closed) 0
+  );
+  mask: radial-gradient(farthest-side, transparent calc(100% - var(--ab-ring)), #000 calc(100% - var(--ab-ring) + 0.5px));
+}
+
+.ab-profile__donut strong {
+  font-size: var(--font-size-lg);
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-profile__donut span {
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.ab-profile__legend {
+  display: grid;
+  flex: 1 1 9rem;
+  max-inline-size: 16rem;
+  gap: var(--space-20);
+  font-size: var(--font-size-sm);
+}
+
+.ab-profile__legend li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);
+}
+
+.ab-profile__legend .ab-profile__count {
+  margin-inline-start: auto;
+}
+
+.ab-profile__legend--inline {
+  --gap: var(--space-20) var(--space-40);
+  display: flex;
+  flex: none;
+  max-inline-size: none;
+}
+
+.ab-profile__legend--inline .ab-profile__count {
+  margin-inline-start: 0;
+}
+
+.ab-profile__key {
+  flex: none;
+  inline-size: 0.625rem;
+  block-size: 0.625rem;
+  border-radius: 2px;
+  background: var(--ab-series);
+}
+
+/* Heatmap: one series in five steps toward the track. */
+
+.ab-profile__heatmap {
+  align-self: flex-start;
+  max-inline-size: 100%;
+}
+
+.ab-profile__heat {
+  display: grid;
+  grid-auto-columns: minmax(0, 1.125rem);
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, auto);
+  gap: 3px;
+}
+
+.ab-profile__heatmap [data-level] {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--ab-track);
+}
+
+.ab-profile__heatmap [data-level="1"] {
+  background: color-mix(in oklab, var(--ab-series) 30%, var(--ab-track));
+}
+
+.ab-profile__heatmap [data-level="2"] {
+  background: color-mix(in oklab, var(--ab-series) 55%, var(--ab-track));
+}
+
+.ab-profile__heatmap [data-level="3"] {
+  background: color-mix(in oklab, var(--ab-series) 80%, var(--ab-track));
+}
+
+.ab-profile__heatmap [data-level="4"] {
+  background: var(--ab-series);
+}
+
+.ab-profile__scale {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.ab-profile__scale [data-level] {
+  inline-size: 0.625rem;
+}
+
+/* Stacked bar: each segment takes its share and its own color. */
+
+.ab-profile__stack {
+  display: flex;
+  gap: 2px;
+  block-size: 0.75rem;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+}
+
+.ab-profile__stack > span {
+  flex: 0 1 var(--ab-value);
+  min-inline-size: 2px;
+  background: var(--ab-series);
+}

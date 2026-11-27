@@ -21,6 +21,7 @@ const BLOCKS = [
   { id: "shell", title: "Dashboard Shell", root: ".ab-shell" },
   { id: "island", title: "Island Workspace", root: ".ab-island" },
   { id: "project", title: "Project Overview", root: ".ab-project" },
+  { id: "profile", title: "Developer Profile", root: ".ab-profile" },
   { id: "assistant", title: "AI Assistant", root: ".ab-assistant" },
   { id: "signin", title: "Sign-in", root: ".ab-signin" },
   { id: "setup", title: "Workspace Setup", root: ".ab-setup" },
@@ -61,8 +62,8 @@ test("catalog renders every block and filters by category", async ({ page }) => 
   await expect(page.locator("#g-visible-count")).toHaveText("10");
 
   await page.getByRole("button", { name: /Application/ }).click();
-  await expect(page.locator(".g-card:visible")).toHaveCount(16);
-  await expect(page.locator("#g-visible-count")).toHaveText("16");
+  await expect(page.locator(".g-card:visible")).toHaveCount(17);
+  await expect(page.locator("#g-visible-count")).toHaveText("17");
 
   await page.getByRole("button", { name: /Navigation/ }).click();
   await expect(page.locator(".g-card:visible")).toHaveCount(4);
@@ -766,6 +767,50 @@ test("workspace setup domes every solid fill, and the Paper remix hatches them i
   expect(paper.field).not.toContain("inset");
   expect(await page.evaluate(() => getComputedStyle(document.querySelector(".ab-setup h1")).fontFamily)).toContain("Kalam");
   expect(await page.evaluate(() => document.fonts.check('700 1rem "Kalam"'))).toBe(true);
+});
+
+test("developer profile charts follow their data, and the Terminal remix keeps the data's colors", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  const read = () =>
+    page.evaluate(() => {
+      const root = document.querySelector(".ab-profile");
+      const color = (element, pseudo) => getComputedStyle(element, pseudo).backgroundColor;
+      const width = (element) => element.getBoundingClientRect().width;
+      const bars = [...root.querySelectorAll(".ab-profile__bar")].map((bar) => Math.round((parseFloat(getComputedStyle(bar, "::before").width) / width(bar)) * 100));
+      const segments = [...root.querySelectorAll(".ab-profile__stack > span")];
+      const languageKeys = [...root.querySelectorAll(".ab-profile__legend--inline .ab-profile__key")];
+      const statusKeys = [...root.querySelectorAll(".ab-profile__prs .ab-profile__key")];
+      return {
+        bars,
+        shares: segments.map((segment) => width(segment)),
+        segments: segments.map((segment) => color(segment)),
+        languages: languageKeys.map((key) => color(key)),
+        statuses: statusKeys.map((key) => color(key)),
+        primary: color(root.querySelector(".ab-profile__bar"), "::before"),
+        hot: color(root.querySelector('.ab-profile__heat [data-level="4"]')),
+        font: getComputedStyle(root.querySelector("h1")).fontFamily
+      };
+    });
+
+  await page.goto("/previews/profile.html?theme=light");
+  const original = await read();
+  // Bar lengths come from --ab-value; segments share the bar in proportion.
+  expect(original.bars).toEqual([46, 31, 15, 8]);
+  expect(original.shares[0] / original.shares[1]).toBeCloseTo(54 / 28, 1);
+  // Legend and marks read the same --ab-series.
+  expect(original.languages).toEqual(original.segments);
+  expect(original.hot).toBe(original.primary);
+  expect(new Set(original.statuses).size).toBe(3);
+
+  await page.goto("/previews/profile--remix.html?theme=light");
+  await page.evaluate(() => document.fonts.ready);
+  const terminal = await read();
+  // Data colors are the data's own; theme-owned series follow the theme.
+  expect(terminal.languages.slice(0, 3)).toEqual(original.languages.slice(0, 3));
+  expect(terminal.primary).not.toBe(original.primary);
+  expect(terminal.statuses[1]).not.toBe(original.statuses[1]);
+  expect(terminal.font).toContain("JetBrains Mono");
+  expect(await page.evaluate(() => document.fonts.check('1rem "JetBrains Mono Variable"'))).toBe(true);
 });
 
 test("appearance settings show unsaved changes only while the form differs", async ({ page }) => {
