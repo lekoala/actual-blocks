@@ -2,7 +2,7 @@
 
 Blocks are evergreen and carry no compatibility guarantee: to pick up a change, copy the block again. Each release lists the blocks it adds or changes and the Actual CSS version it pins. A minor version adds blocks; a patch only improves existing ones. Versions are Git tags (`vX.Y.Z`); nothing is published to npm.
 
-## Unreleased
+## 0.6.0
 
 Pins Actual CSS 0.22.0. The gallery and all previews inherit 0.21’s quieter field edges, the tinted light surface under white cards, the shared field hover and the realigned select chevron.
 
