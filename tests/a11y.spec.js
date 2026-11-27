@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-const BLOCKS = ["hero", "studio-hero", "features", "bento", "testimonials", "pricing", "compare", "faq", "cta", "article", "dashboard", "shell", "island", "project", "assistant", "signin", "settings", "appearance", "plan", "product", "checkout", "listing", "tracking", "verify", "empty-state", "header", "topbar", "sidebar", "footer"];
+const BLOCKS = ["hero", "studio-hero", "features", "bento", "testimonials", "pricing", "compare", "faq", "cta", "article", "dashboard", "shell", "island", "project", "assistant", "signin", "setup", "settings", "appearance", "plan", "product", "checkout", "listing", "tracking", "verify", "empty-state", "header", "topbar", "sidebar", "footer"];
 
 const analyze = async (page, label) => {
   const results = await new AxeBuilder({ page })
@@ -33,7 +33,7 @@ for (const id of BLOCKS) {
   });
 }
 
-for (const id of ["hero", "dashboard", "signin"]) {
+for (const id of ["hero", "dashboard", "signin", "setup"]) {
   test(`remix preview passes WCAG A/AA checks: ${id}`, async ({ page }) => {
     await page.goto(`/previews/${id}--remix.html?theme=light`);
     await analyze(page, `${id} remix light`);

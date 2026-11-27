@@ -1,0 +1,26 @@
+{
+  "id": "setup",
+  "title": "Workspace Setup",
+  "category": "application",
+  "description": "A first-run screen: a workspace creation form with a segmented choice, a prefixed URL field and a sample-data option, beside a setup progress card and notification switches. Cards rise, fields and rails are recessed and every solid fill takes one domed finish, all through Actual CSS's relief and finish hooks.",
+  "summary": "Workspace creation, setup progress and switches, in relief.",
+  "components": ["card", "button", "badge", "segmented", "progress", "list"],
+  "primitives": ["stack", "field", "join", "choice", "switch"],
+  "requiresJs": false,
+  "previewHeight": "42rem",
+  "remix": {
+    "name": "Paper",
+    "description": "Warm paper on a dotted desk, hand-drawn card and field edges, handwritten headings, a fountain-pen blue, and a light coloured-pencil hatching as the finish of every solid fill instead of the dome, in light and dark.",
+    "fonts": [
+      { "family": "Kalam", "package": "@fontsource/kalam", "files": ["700.css"] }
+    ]
+  },
+  "docs": ["foundations/tokens.html", "components/card.html", "components/segmented.html", "components/progress.html", "forms/switch.html", "forms/joined-controls.html"],
+  "notes": [
+    "Relief and finish are hooks set on .ab-setup: --finish (a background-image over every solid fill), --shadow-control and --shadow-inset. Move them to :root or your theme to give the whole product the same light; delete them for a flat block.",
+    "Fields keep the 3:1 --border-control edge, since the recess alone does not identify a field.",
+    "Creating the workspace and importing are illustrative. The form posts natively; checking that the URL is free and creating the workspace belong to your application.",
+    "The progress card is static: drive the progress value and the step count from your onboarding state.",
+    "The switches are native checkboxes with role=\"switch\"; their state is not saved. Persist it with your notification preferences."
+  ]
+}

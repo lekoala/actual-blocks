@@ -23,6 +23,7 @@ const BLOCKS = [
   { id: "project", title: "Project Overview", root: ".ab-project" },
   { id: "assistant", title: "AI Assistant", root: ".ab-assistant" },
   { id: "signin", title: "Sign-in", root: ".ab-signin" },
+  { id: "setup", title: "Workspace Setup", root: ".ab-setup" },
   { id: "settings", title: "Account Settings", root: ".ab-settings" },
   { id: "appearance", title: "Appearance Settings", root: ".ab-appearance" },
   { id: "plan", title: "Plan Change", root: ".ab-plan" },
@@ -60,8 +61,8 @@ test("catalog renders every block and filters by category", async ({ page }) => 
   await expect(page.locator("#g-visible-count")).toHaveText("10");
 
   await page.getByRole("button", { name: /Application/ }).click();
-  await expect(page.locator(".g-card:visible")).toHaveCount(15);
-  await expect(page.locator("#g-visible-count")).toHaveText("15");
+  await expect(page.locator(".g-card:visible")).toHaveCount(16);
+  await expect(page.locator("#g-visible-count")).toHaveText("16");
 
   await page.getByRole("button", { name: /Navigation/ }).click();
   await expect(page.locator(".g-card:visible")).toHaveCount(4);
@@ -736,6 +737,35 @@ test("bento recomposes from 7 + 5 to 6 + 6 to one column", async ({ page }) => {
   for (const box of narrow) expect(box.x).toBe(narrow[0].x);
   for (let i = 1; i < narrow.length; i += 1) expect(narrow[i].y).toBeGreaterThan(narrow[i - 1].y);
   await expect(page.locator(".ab-bento__file-date").first()).toBeHidden();
+});
+
+test("workspace setup domes every solid fill, and the Paper remix hatches them instead", async ({ page }) => {
+  // The solid fills that read --finish: button, checked box, checked switch, progress value, solid badge.
+  const finishes = () =>
+    page.evaluate(() => {
+      const root = document.querySelector(".ab-setup");
+      const image = (selector, pseudo) => getComputedStyle(root.querySelector(selector), pseudo).backgroundImage;
+      return {
+        button: image(".btn.primary"),
+        check: image(".check:checked"),
+        switch: image(".switch:checked"),
+        badge: image(".badge.solid"),
+        field: getComputedStyle(root.querySelector(".field > .input")).boxShadow
+      };
+    });
+
+  await page.goto("/previews/setup.html?theme=light");
+  const original = await finishes();
+  for (const part of ["button", "check", "switch", "badge"]) expect(original[part], part).toContain("linear-gradient");
+  expect(original.field).toContain("inset");
+
+  await page.goto("/previews/setup--remix.html?theme=dark");
+  await page.evaluate(() => document.fonts.ready);
+  const paper = await finishes();
+  for (const part of ["button", "check", "switch", "badge"]) expect(paper[part], part).toContain("repeating-linear-gradient");
+  expect(paper.field).not.toContain("inset");
+  expect(await page.evaluate(() => getComputedStyle(document.querySelector(".ab-setup h1")).fontFamily)).toContain("Kalam");
+  expect(await page.evaluate(() => document.fonts.check('700 1rem "Kalam"'))).toBe(true);
 });
 
 test("appearance settings show unsaved changes only while the form differs", async ({ page }) => {

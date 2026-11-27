@@ -1,0 +1,133 @@
+/* Actual Blocks — Workspace Setup
+   Scoped to .ab-setup. Requires Actual CSS 0.21.1.
+   Relief and finish are Actual CSS hooks set on the block root: --finish
+   domes every solid fill (button, checked box, switch, progress value, solid
+   badge), --shadow-control raises the moving parts, --shadow-inset recesses
+   fields and rails. Remove these hooks for a flat block. */
+
+.ab-setup {
+  --finish: linear-gradient(rgb(255 255 255 / 0.16), rgb(0 0 0 / 0.1));
+  --shadow-control:
+    0 1px 1px color-mix(in oklch, var(--shadow-color) 18%, transparent),
+    0 1px 3px color-mix(in oklch, var(--shadow-color) 12%, transparent);
+  --shadow-inset: inset 0 1px 2px color-mix(in oklch, var(--shadow-color) 14%, transparent);
+  /* A recess alone does not identify a field: keep the 3:1 edge. */
+  --control-default-border: var(--border-control);
+  --ab-setup-lip: light-dark(rgb(255 255 255 / 0.8), rgb(255 255 255 / 0.06));
+  padding: clamp(1.5rem, 5vw, 4rem) var(--space-40);
+  background:
+    radial-gradient(120% 70% at 50% 0%, color-mix(in oklab, var(--surface-subtle) 70%, transparent), transparent),
+    var(--surface);
+  color: var(--text);
+}
+
+.ab-setup__inner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: var(--space-40);
+  align-items: start;
+  max-inline-size: 58rem;
+  margin-inline: auto;
+}
+
+.ab-setup__side {
+  display: grid;
+  gap: var(--space-40);
+}
+
+/* Raised faces: a lit top lip, a contact shadow and a soft ambient one. */
+.ab-setup__card {
+  --card-pad: clamp(var(--space-40), 4vw, var(--space-50));
+  --card-gap: var(--space-40);
+  box-shadow:
+    inset 0 1px 0 var(--ab-setup-lip),
+    0 1px 2px color-mix(in oklch, var(--shadow-color) 10%, transparent),
+    0 6px 18px color-mix(in oklch, var(--shadow-color) 9%, transparent);
+}
+
+/* The card header is Actual CSS's split row: the title block takes the room,
+   the badge stays at the end until the row is too narrow. */
+.ab-setup__head > .stack {
+  flex: 1 1 14rem;
+}
+
+.ab-setup__head :is(h1, h2) {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.ab-setup__head h1 {
+  font-size: 1.5rem;
+}
+
+.ab-setup__head h2 {
+  font-size: var(--font-size-lg);
+}
+
+.ab-setup__head p {
+  margin: var(--space-10) 0 0;
+}
+
+.ab-setup__head .badge {
+  flex: none;
+}
+
+.ab-setup__actions {
+  --gap: var(--space-20);
+  margin-block-start: var(--space-10);
+}
+
+.ab-setup__actions .btn {
+  inline-size: 100%;
+}
+
+/* Solid actions rise like the other moving parts. */
+.ab-setup .btn.primary {
+  --btn-shadow: inset 0 1px 0 rgb(255 255 255 / 0.2), var(--shadow-control);
+}
+
+.ab-setup__figure {
+  color: var(--text-muted);
+}
+
+.ab-setup__figure strong {
+  margin-inline-end: var(--space-10);
+  color: var(--text);
+  font-size: 2.75rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-setup__meter {
+  display: grid;
+  gap: var(--space-10);
+}
+
+.ab-setup__meter-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.ab-setup__meter-row span:last-child {
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-setup__meter .progress {
+  inline-size: 100%;
+}
+
+.ab-setup__next {
+  font-size: var(--font-size-sm);
+}
+
+.ab-setup__more {
+  align-self: flex-start;
+  margin-inline-start: calc(-1 * var(--space-20));
+}

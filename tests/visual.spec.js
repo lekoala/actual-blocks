@@ -104,6 +104,14 @@ test("visual: settings light", async ({ page }) => {
   await expect(page).toHaveScreenshot("settings-light.png", { fullPage: true, animations: "disabled", caret: "hide" });
 });
 
+test("visual: setup light", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/previews/setup.html?theme=light");
+  await ready(page);
+  await expect(page.locator(".ab-setup")).toBeVisible();
+  await expect(page).toHaveScreenshot("setup-light.png", { fullPage: true, animations: "disabled", caret: "hide" });
+});
+
 test("visual: sidebar mobile", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/previews/sidebar.html?theme=light");
@@ -112,7 +120,7 @@ test("visual: sidebar mobile", async ({ page }) => {
   await expect(page).toHaveScreenshot("sidebar-mobile.png", { fullPage: true, animations: "disabled", caret: "hide" });
 });
 
-for (const [id, root] of [["hero", ".ab-hero"], ["dashboard", ".ab-dashboard"], ["signin", ".ab-signin"]]) {
+for (const [id, root] of [["hero", ".ab-hero"], ["dashboard", ".ab-dashboard"], ["signin", ".ab-signin"], ["setup", ".ab-setup"]]) {
   test(`visual: ${id} remix light`, async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto(`/previews/${id}--remix.html?theme=light`);

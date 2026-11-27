@@ -347,3 +347,10 @@ Firefox 157 rendered all 29 original previews in both themes at 360, 820 and 128
 ## Actual CSS 0.21.1 verification
 
 Upgraded from 0.20.1. No block uses the APIs the release changes incompatibly (gradient `--btn-bg`, default exports of `actual-css/js/*`, `.app-layout` / `.app-nav`). `bun run build` and `bun run check` passed for 29 blocks and 62 generated HTML files, and the three remix themes passed `bun run contrast`. All 122 Chromium Playwright tests passed after one deliberate baseline update: Account Settings light, whose fields now rest on the tinted `--surface` with the quiet `--border` edge inside white cards. The other 17 baselines stayed within tolerance.
+
+## Workspace Setup verification
+
+One application block added (`setup`, unreleased) with a Paper remix on `@fontsource/kalam` 5.3.0 (OFL-1.1, `700.css`). No JavaScript. `bun run build` and `bun run check` passed for 30 blocks and 65 generated HTML files; `bun run contrast` passed for 4 remix themes after the Paper theme declared its secondary and warning intents, their soft inks, and a single mid-tone focus blue that holds 3:1 on the paper and on the inverse `--surface-solid`.
+
+Reviewed the original and the remix in light and dark at 1280px and at 390px. A smoke test reads the computed styles: in the original, the primary button, checked box, checked switch and solid badge carry the `--finish` gradient and fields carry the inset recess; in the remix (dark) they carry the hatched `repeating-linear-gradient` finish instead and fields have no recess, and Kalam is loaded for the headings. Axe passes for the original and the remix. Two new visual baselines: `setup-light` and `setup-remix-light`.
+

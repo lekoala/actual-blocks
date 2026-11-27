@@ -22,6 +22,7 @@ All blocks require **Actual CSS 0.21.1**. The quick start is `@import "actual-cs
 | Project Overview (`project`) | Application | Actual CSS `tab` | `block.css` |
 | AI Assistant (`assistant`) | Application | None | `block.css` |
 | Sign-in (`signin`) | Application | Actual CSS `validation`, `password`, `status` | `block.css` |
+| Workspace Setup (`setup`) | Application | None | `block.css` |
 | Account Settings (`settings`) | Application | None | `block.css` |
 | Appearance Settings (`appearance`) | Application | Actual CSS `dirty` | `block.css` |
 | Plan Change (`plan`) | Application | None | `block.css` |
@@ -159,6 +160,14 @@ The composition follows the reference’s progression from a split-screen hero t
 - **Primitives:** stack, field, join, choice, validation
 - **Notes:** Errors appear after blur or submit; an invalid submit sets `aria-invalid`, focuses the first invalid field and shows `data-validation-message` in the status bar. The password toggle is a `command="--password-toggle"` invoker whose icon follows `aria-pressed`. Passkey and single sign-on are placeholders; map server errors with `FormValidator.setErrors`. Without JavaScript the form submits natively. The `data-theme="dark"` brand panel appears from 60rem.
 - **Remix — Poster:** `remix.css` with Space Grotesk and Archivo Black. Neo-brutalist: 2px ink frames, hard offset shadows that lift on hover (not under reduced motion), pastel fills under black ink.
+
+## Workspace Setup
+
+- **Files:** `src/blocks/setup/block.html`, `block.css`
+- **Actual CSS components:** card, button, badge, segmented, progress, list
+- **Primitives:** stack, field, join, choice, switch
+- **Notes:** A first-run screen: workspace form (segmented choice, prefixed URL, sample-data option), setup progress and notification switches. The relief is Actual CSS's own hooks set on `.ab-setup`: `--finish` domes every solid fill (primary button, checked box and switch, progress value, solid badge), `--shadow-control` raises the selected segment and switch knobs, `--shadow-inset` recesses fields and rails, and fields keep the 3:1 `--border-control` edge. Move the hooks to your theme for the whole product, or delete them for a flat block. Creating and importing are illustrative; the form posts natively.
+- **Remix — Paper:** `remix.css` with Kalam 700. Warm paper on a dotted desk, unequal hand-cut corners through `--card-radius`, `--btn-radius` and `--join-radius`, handwritten headings, a fountain-pen blue, badges laid on like tape. It replaces the dome with a light coloured-pencil hatching (`--finish` as a `repeating-linear-gradient`) on every solid fill and flattens the relief hooks. The controls take the same pencil line and cut corners through `--segmented-radius`, `--segmented-selected-border`, `--bar-radius` and `--choice-border`; three gaps need direct rules (the checkbox radius reads `--radius-sm`, the progress track has no edge hook, `--switch-border` must be set on `.switch`). The dot texture is dropped under `prefers-contrast: more`.
 
 ## Account Settings
 

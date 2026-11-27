@@ -1,0 +1,98 @@
+<section class="ab-setup" aria-labelledby="ab-setup-title">
+  <div class="ab-setup__inner">
+    <article class="card ab-setup__card ab-setup__create">
+      <header class="ab-setup__head">
+        <div class="stack gap-none">
+          <h1 id="ab-setup-title">Create your workspace</h1>
+          <p class="muted">Projects, files and invoices for your studio, in one place.</p>
+        </div>
+        <span class="badge success soft">Free</span>
+      </header>
+
+      <form class="stack ab-setup__form" action="#create-workspace" method="post">
+        <fieldset class="field-group flush">
+          <legend>Who is it for?</legend>
+          <div class="segmented ab-setup__kind">
+            <label class="segment"><input type="radio" name="kind" value="personal" checked />Just me</label>
+            <label class="segment"><input type="radio" name="kind" value="team" />My team</label>
+          </div>
+        </fieldset>
+
+        <label class="field">
+          <span class="field-label">Workspace name</span>
+          <input class="input" type="text" name="name" autocomplete="organization" placeholder="Fieldwork Studio" required />
+        </label>
+
+        <div class="field">
+          <label class="field-label" for="ab-setup-url">Workspace URL</label>
+          <div class="join">
+            <span class="join-addon">northstar.app/</span>
+            <input class="input" id="ab-setup-url" type="text" name="slug" placeholder="fieldwork" pattern="[a-z0-9-]+" required aria-describedby="ab-setup-url-help" />
+          </div>
+          <span class="field-help" id="ab-setup-url-help">Lowercase letters, numbers and hyphens.</span>
+        </div>
+
+        <label class="choice">
+          <input class="check" type="checkbox" name="samples" checked />
+          <span>Add three sample projects to explore</span>
+        </label>
+
+        <div class="stack ab-setup__actions">
+          <button class="btn primary" type="submit">Create workspace</button>
+          <a class="btn outline" href="#import">Import from another tool</a>
+        </div>
+      </form>
+    </article>
+
+    <div class="ab-setup__side">
+      <article class="card ab-setup__card ab-setup__progress" aria-labelledby="ab-setup-progress-title">
+        <header class="ab-setup__head">
+          <h2 id="ab-setup-progress-title">Getting started</h2>
+          <span class="badge primary solid">Pro trial</span>
+        </header>
+        <p class="ab-setup__figure"><strong>2</strong> of 5 steps done</p>
+        <div class="ab-setup__meter">
+          <span class="ab-setup__meter-row">
+            <span id="ab-setup-progress-label">Setup</span>
+            <span aria-hidden="true">40%</span>
+          </span>
+          <progress class="progress" max="5" value="2" aria-labelledby="ab-setup-progress-label">2 of 5</progress>
+        </div>
+        <p class="muted ab-setup__next">Next: invite your team. The trial ends in 14 days.</p>
+      </article>
+
+      <article class="card ab-setup__card ab-setup__alerts" aria-labelledby="ab-setup-alerts-title">
+        <header class="ab-setup__head">
+          <h2 id="ab-setup-alerts-title">Notifications</h2>
+        </header>
+        <ul class="list ab-setup__switches">
+          <li class="list-item">
+            <label class="list-item-content" for="ab-setup-updates">
+              <span class="list-item-title">Product updates</span>
+            </label>
+            <span class="list-item-trailing">
+              <input class="switch" type="checkbox" role="switch" id="ab-setup-updates" name="updates" checked />
+            </span>
+          </li>
+          <li class="list-item">
+            <label class="list-item-content" for="ab-setup-digest">
+              <span class="list-item-title">Weekly digest</span>
+            </label>
+            <span class="list-item-trailing">
+              <input class="switch" type="checkbox" role="switch" id="ab-setup-digest" name="digest" />
+            </span>
+          </li>
+          <li class="list-item">
+            <label class="list-item-content" for="ab-setup-security">
+              <span class="list-item-title">Security alerts</span>
+            </label>
+            <span class="list-item-trailing">
+              <input class="switch" type="checkbox" role="switch" id="ab-setup-security" name="security" checked />
+            </span>
+          </li>
+        </ul>
+        <a class="btn ghost sm ab-setup__more" href="#notifications">All notification settings</a>
+      </article>
+    </div>
+  </div>
+</section>

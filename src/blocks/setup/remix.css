@@ -1,0 +1,178 @@
+/* Actual Blocks — Workspace Setup, "Paper" remix
+   Warm paper on a dotted desk, hand-drawn edges, handwritten headings and
+   flat ink fills: the domed finish of the original is switched off through
+   the same hooks that turned it on. Same HTML as the block.
+   Load after Actual CSS and block.css, with Kalam 700. */
+
+/* Brand theme --------------------------------------------------------------
+   Page level, Actual CSS tokens only: a palette set here reaches every
+   derived token and theme island, which a block-scoped override cannot.
+   Move it to your application theme if the whole product adopts it. */
+
+:root,
+[data-theme="light"] {
+  --primary: light-dark(hsl(222 70% 42%), hsl(214 88% 72%));
+  --primary-fg: light-dark(hsl(40 60% 97%), hsl(222 45% 11%));
+  --secondary: light-dark(hsl(276 34% 38%), hsl(276 46% 78%));
+  --secondary-fg: light-dark(hsl(40 60% 97%), hsl(276 30% 11%));
+  --success: light-dark(hsl(140 42% 30%), hsl(140 42% 64%));
+  --warning: light-dark(hsl(30 82% 30%), hsl(38 86% 64%));
+  --warning-fg: light-dark(hsl(40 60% 97%), hsl(30 40% 10%));
+  --success-fg: light-dark(hsl(40 60% 97%), hsl(140 40% 9%));
+  --danger: light-dark(hsl(6 66% 42%), hsl(6 82% 72%));
+  --danger-fg: light-dark(hsl(40 60% 97%), hsl(6 40% 10%));
+  --neutral: light-dark(hsl(28 16% 30%), hsl(38 22% 78%));
+  --neutral-fg: light-dark(hsl(40 60% 97%), hsl(28 20% 10%));
+
+  /* The desk, the sheet on it, and a darker paper for rails and addons. */
+  --surface: light-dark(hsl(36 38% 88%), hsl(28 8% 10%));
+  --surface-raised: light-dark(hsl(40 62% 96%), hsl(30 9% 15%));
+  --surface-subtle: light-dark(hsl(36 34% 87%), hsl(30 8% 20%));
+  --surface-solid: light-dark(hsl(26 22% 14%), hsl(40 50% 92%));
+
+  --text: light-dark(hsl(26 24% 14%), hsl(40 36% 90%));
+  --text-muted: light-dark(hsl(26 13% 33%), hsl(38 15% 73%));
+  --text-subtle: light-dark(hsl(26 10% 40%), hsl(38 10% 64%));
+
+  /* A pencil line, 3:1 on the sheet and on the desk. */
+  --border: light-dark(hsl(28 14% 46%), hsl(36 12% 56%));
+  --border-control: var(--border);
+  /* One mid-tone blue, 3:1 on the paper and on the inverse --surface-solid. */
+  --focus: hsl(218 80% 56%);
+  --hover-overlay: light-dark(rgb(60 40 20 / 0.07), rgb(255 245 230 / 0.08));
+  --shadow-color: light-dark(hsl(28 32% 22%), hsl(0 0% 0%));
+
+  /* On :root the default palette's calibrated soft inks apply; the warm
+     paper needs its own. */
+  --primary-soft-fg: light-dark(hsl(222 70% 32%), hsl(214 88% 80%));
+  --secondary-soft-fg: light-dark(hsl(276 38% 28%), hsl(276 46% 84%));
+  --success-soft-fg: light-dark(hsl(140 46% 22%), hsl(140 46% 74%));
+  --warning-soft-fg: light-dark(hsl(30 82% 22%), hsl(38 86% 76%));
+  --danger-soft-fg: light-dark(hsl(6 66% 32%), hsl(6 82% 80%));
+  --neutral-soft-fg: var(--text);
+}
+
+/* Block art direction ------------------------------------------------------ */
+
+.ab-setup {
+  --ab-paper-hand: "Kalam", "Comic Sans MS", cursive;
+  /* Coloured pencil instead of a dome: fine light hatching over every solid
+     fill (button, checked box and switch, progress value, solid badge).
+     No raised knobs, no recessed wells. */
+  --finish: repeating-linear-gradient(-55deg, rgb(255 255 255 / 0.09) 0 1px, transparent 1px 4px);
+  --shadow-control: 0 0 #0000;
+  --shadow-inset: 0 0 #0000;
+  /* Fields are drawn on the sheet itself, not cut into the desk. */
+  --control-default-bg: var(--surface-raised);
+  --ab-paper-shade: color-mix(in oklch, var(--shadow-color) 16%, transparent);
+  background-color: var(--surface);
+  background-image: radial-gradient(color-mix(in oklab, var(--text) 16%, transparent) 1px, transparent 1.5px);
+  background-size: 18px 18px;
+}
+
+/* Each sheet is cut by hand: unequal elliptical corners, a pencil edge and a
+   short, hard shadow on the desk. */
+.ab-setup__card {
+  border: 1.5px solid var(--border);
+  box-shadow: 2px 3px 0 var(--ab-paper-shade);
+}
+
+.ab-setup__create {
+  --card-radius: 6px 20px 8px 24px / 22px 6px 26px 7px;
+}
+
+.ab-setup__progress {
+  --card-radius: 20px 6px 18px 8px / 7px 20px 6px 22px;
+}
+
+.ab-setup__alerts {
+  --card-radius: 8px 22px 6px 18px / 20px 6px 22px 7px;
+}
+
+.ab-setup__head :is(h1, h2),
+.ab-setup__figure strong {
+  font-family: var(--ab-paper-hand);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.ab-setup__head h1 {
+  font-size: 1.75rem;
+}
+
+.ab-setup__head h2 {
+  font-size: 1.375rem;
+}
+
+.ab-setup__figure strong {
+  font-size: 3rem;
+}
+
+/* Fields: a drawn box, the same pencil edge, the sheet showing through. */
+.ab-setup .field > .input {
+  border-radius: 3px 12px 4px 10px / 10px 4px 12px 3px;
+  border-width: 1.5px;
+}
+
+.ab-setup .join {
+  --join-radius: 10px 4px;
+}
+
+.ab-setup .join > * {
+  border-width: 1.5px;
+}
+
+.ab-setup__actions .btn {
+  --btn-radius: 4px 14px 5px 12px / 12px 5px 14px 4px;
+  border-width: 1.5px;
+}
+
+.ab-setup .btn.primary {
+  --btn-border-color: var(--text);
+  --btn-shadow: 2px 3px 0 var(--ab-paper-shade);
+}
+
+/* Controls take the same pencil line and cut corners, and keep their
+   shapes: the switch stays a pill, the marks stay the framework's. */
+.ab-setup .check {
+  /* No checkbox radius hook: the box reads --radius-sm. */
+  --radius-sm: 2px;
+  --choice-border: var(--border);
+  border-width: 1.5px;
+}
+
+.ab-setup .switch {
+  /* .switch redeclares --switch-border from its track color, so an
+     inherited value would not reach it. */
+  --switch-border: var(--text);
+}
+
+.ab-setup .segmented {
+  --segmented-radius: 3px;
+  --segmented-bg: var(--surface-subtle);
+  --segmented-selected-bg: var(--surface-raised);
+  --segmented-selected-border: var(--border);
+}
+
+.ab-setup .progress {
+  --bar-radius: 2px;
+  --bar-height: 0.75rem;
+  /* No track edge hook: the pencil line is the element's own border. */
+  border: 1.5px solid var(--border);
+}
+
+/* Badges are strips of tape, laid on slightly askew. */
+.ab-setup .badge {
+  --badge-radius: 2px;
+  rotate: -2deg;
+}
+
+.ab-setup__progress .badge {
+  rotate: 2.5deg;
+}
+
+@media (prefers-contrast: more) {
+  .ab-setup {
+    background-image: none;
+  }
+}
